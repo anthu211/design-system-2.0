@@ -1,0 +1,30 @@
+# Dependencies
+**/node_modules/
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Database
+database/*.db
+database/*.db-shm
+database/*.db-wal
+
+# Build output
+frontend/dist/
+frontend/.vite/
+
+# OS & editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# AI assistant
+.claude/
+
+# Logs
+*.log
+npm-debug.log*
