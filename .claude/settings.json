@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install --build-from-source)",
+      "Bash(npm info better-sqlite3 versions --json)",
+      "Bash(python3 -c \"import json,sys; v=json.load\\(sys.stdin\\); print\\(''\\\\n''.join\\(v[-5:]\\)\\)\")",
+      "Bash(node db/seed.js)",
+      "Bash(npm install recharts lucide-react)"
+    ]
+  }
+}
