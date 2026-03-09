@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System — Prevalent AI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="ds-topbar">
+  </div>
+  <div class="logo">
+  <img src="icons/pai-logo.svg" alt="Prevalent AI">
+  </div>
+  <div class="divider"></div>
+  <span class="ds-label">Design System</span>
+  <span class="version">v2.1.5</span>
+</header>
+
+<div class="ds-layout">
+
+  <!-- SIDEBAR NAV -->
+  <nav class="ds-sidebar">
+
+    <div class="nav-section">
+      <div class="nav-section-label">Foundations</div>
+      <div class="nav-item active" data-page="colors">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="5" cy="5" r="3"/><circle cx="11" cy="5" r="3"/><circle cx="8" cy="11" r="3"/>
+        </svg>
+        Colors
+      </div>
+      <div class="nav-item" data-page="spacing">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 8h12M2 4h12M2 12h12"/>
+        </svg>
+        Spacing &amp; Grid
+      </div>
+      <div class="nav-item" data-page="resolutions">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="3" width="14" height="9" rx="1"/><path d="M5 12v2M11 12v2M3 14h10"/>
+        </svg>
+        Resolutions
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Coming Soon</div>
+      <div class="nav-item" style="opacity:0.35; pointer-events:none;">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 13l4-4 3 3 5-6"/>
+        </svg>
+        Typography
+      </div>
+      <div class="nav-item" style="opacity:0.35; pointer-events:none;">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/>
+          <rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/>
+        </svg>
+        Icons
+      </div>
+      <div class="nav-item" style="opacity:0.35; pointer-events:none;">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="4" width="12" height="8" rx="2"/><path d="M6 4V3a2 2 0 014 0v1"/>
+        </svg>
+        Components
+      </div>
+      <div class="nav-item" style="opacity:0.35; pointer-events:none;">
+        <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 3h10v10H3z"/><path d="M7 3v10M3 7h10"/>
+        </svg>
+        Layout Patterns
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="ds-content">
+
+    <!-- ═══════════════════════ PAGE: COLORS ═══════════════════════ -->
+    <section class="page active" id="page-colors">
+
+      <div class="page-header">
+        <h1>Color Tokens</h1>
+        <p>Semantic color tokens for the Prevalent AI cybersecurity dashboard. All tokens are defined for both light and dark modes. Dark mode is the primary and recommended theme for this product.</p>
+      </div>
+
+      <!-- Theme toggle -->
+      <div class="theme-toggle">
+        <button class="theme-btn" data-theme="light">Light</button>
+        <button class="theme-btn active" data-theme="dark">Dark</button>
+      </div>
+
+      <!-- TEXT COLORS -->
+      <div class="color-group">
+        <div class="section-title">Text</div>
+        <div class="color-grid" id="color-grid-text"></div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- BACKGROUND COLORS -->
+      <div class="color-group">
+        <div class="section-title">Backgrounds</div>
+        <div class="color-grid" id="color-grid-bg"></div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- STROKE / BORDER -->
+      <div class="color-group">
+        <div class="section-title">Strokes &amp; Borders</div>
+        <div class="color-grid" id="color-grid-stroke"></div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- CTA / INTERACTIVE -->
+      <div class="color-group">
+        <div class="section-title">Interactive &amp; CTA</div>
+        <div class="color-grid" id="color-grid-cta"></div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- TAGS -->
+      <div class="color-group">
+        <div class="section-title">Tag Backgrounds</div>
+        <div class="color-grid" id="color-grid-tags"></div>
+
+        <div style="margin-top:20px;">
+          <div class="section-title" style="margin-bottom:10px;">Tag Preview</div>
+          <div class="tag-preview" id="tag-preview-dark">
+            <span class="tag" style="background:#192C15;color:#31A56D;"><span class="tag-dot" style="background:#31A56D;"></span>Active</span>
+            <span class="tag" style="background:#2C2613;color:#CDB900;"><span class="tag-dot" style="background:#CDB900;"></span>Warning</span>
+            <span class="tag" style="background:#260808;color:#E15252;"><span class="tag-dot" style="background:#E15252;"></span>Critical</span>
+            <span class="tag" style="background:#514B09;color:#D98B1D;"><span class="tag-dot" style="background:#D98B1D;"></span>Medium</span>
+          </div>
+          <div class="tag-preview" id="tag-preview-light" style="display:none;">
+            <span class="tag" style="background:#EFF7ED;color:#31A56D;"><span class="tag-dot" style="background:#31A56D;"></span>Active</span>
+            <span class="tag" style="background:#F2EDDB;color:#8B6900;"><span class="tag-dot" style="background:#CDB900;"></span>Warning</span>
+            <span class="tag" style="background:#F9EEEE;color:#D12329;"><span class="tag-dot" style="background:#D12329;"></span>Critical</span>
+            <span class="tag" style="background:#F7F6EB;color:#8B6400;"><span class="tag-dot" style="background:#D98B1D;"></span>Medium</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- MONO -->
+      <div class="color-group">
+        <div class="section-title">Monochrome</div>
+        <div class="color-grid" id="color-grid-mono"></div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════ PAGE: SPACING & GRID ═══════════════════════ -->
+    <section class="page" id="page-spacing">
+
+      <div class="page-header">
+        <h1>Spacing &amp; Grid</h1>
+        <p>Spacing scale, layout grid, and component padding guidelines for the desktop cybersecurity dashboard. All values are multiples of the base unit (4px).</p>
+      </div>
+
+      <div class="callout info">
+        <strong>Base unit: 4px.</strong> All spacing values are multiples of 4. This ensures consistent vertical rhythm and alignment across the dashboard layout.
+      </div>
+
+      <!-- SPACING SCALE -->
+      <div class="section-title">Spacing Scale</div>
+      <div class="spacing-scale">
+        <div class="spacing-row">
+          <div class="spacing-label">--space-1 · 4px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:4px;"></div>
+            <div class="spacing-desc">Micro gap — icon-to-label, tight list items</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-2 · 8px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:8px;"></div>
+            <div class="spacing-desc">XS — badge padding, inline elements</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-3 · 12px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:12px;"></div>
+            <div class="spacing-desc">SM — nav item padding, chip padding</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-4 · 16px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:16px;"></div>
+            <div class="spacing-desc">MD — card padding (compact), table cell</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-5 · 20px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:20px;"></div>
+            <div class="spacing-desc">— card header padding, section gap</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-6 · 24px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:24px;"></div>
+            <div class="spacing-desc">LG — card padding (standard), sidebar padding</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-8 · 32px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:32px;"></div>
+            <div class="spacing-desc">XL — section-to-section gap, modal padding</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-10 · 40px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:40px;"></div>
+            <div class="spacing-desc">2XL — major section dividers, hero padding</div>
+          </div>
+        </div>
+        <div class="spacing-row">
+          <div class="spacing-label">--space-12 · 48px</div>
+          <div class="spacing-bar-wrap">
+            <div class="spacing-bar" style="width:48px;"></div>
+            <div class="spacing-desc">3XL — page-level top margin, content inset</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- COMPONENT PADDING -->
+      <div class="section-title">Component Padding</div>
+      <div class="padding-demo">
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:4px;">
+            <div class="padding-inner">Button XS</div>
+          </div>
+          <div class="padding-box-label">4px 10px</div>
+        </div>
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:6px 14px;">
+            <div class="padding-inner">Button SM</div>
+          </div>
+          <div class="padding-box-label">6px 14px</div>
+        </div>
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:8px 16px;">
+            <div class="padding-inner">Button MD</div>
+          </div>
+          <div class="padding-box-label">8px 16px</div>
+        </div>
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:10px 20px;">
+            <div class="padding-inner">Button LG</div>
+          </div>
+          <div class="padding-box-label">10px 20px</div>
+        </div>
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:16px;">
+            <div class="padding-inner">Card Compact</div>
+          </div>
+          <div class="padding-box-label">16px</div>
+        </div>
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:20px 24px;">
+            <div class="padding-inner">Card Standard</div>
+          </div>
+          <div class="padding-box-label">20px 24px</div>
+        </div>
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:10px 14px;">
+            <div class="padding-inner">Table Cell</div>
+          </div>
+          <div class="padding-box-label">10px 14px</div>
+        </div>
+        <div class="padding-box-wrap">
+          <div class="padding-box" style="padding:3px 8px;">
+            <div class="padding-inner">Chip / Tag</div>
+          </div>
+          <div class="padding-box-label">3px 8px</div>
+        </div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- LAYOUT GRID -->
+      <div class="section-title">Layout Grid — 1440px Canvas</div>
+      <div class="grid-card">
+        <div class="grid-preview" id="grid-preview-12">
+          <!-- 12 cols -->
+        </div>
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Property</th><th>Value</th><th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Columns</td><td><code>12</code></td><td>Standard 12-column grid</td></tr>
+            <tr><td>Gutter</td><td><code>16px</code></td><td>Between each column</td></tr>
+            <tr><td>Margin</td><td><code>24px</code></td><td>Page-level left/right margin</td></tr>
+            <tr><td>Max content width</td><td><code>1392px</code></td><td>At 1440px viewport</td></tr>
+            <tr><td>Sidebar width</td><td><code>220px</code></td><td>Fixed navigation rail</td></tr>
+            <tr><td>Top bar height</td><td><code>52px</code></td><td>Sticky, always visible</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-title" style="margin-top:24px;">Common Layout Regions</div>
+      <div class="grid-card">
+        <table class="spec-table">
+          <thead>
+            <tr><th>Region</th><th>Width</th><th>Columns (of 12)</th><th>Use case</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Full width</td><td><code>100%</code></td><td>12</td><td>Data tables, header sections</td></tr>
+            <tr><td>Main + aside</td><td><code>75% / 25%</code></td><td>9 / 3</td><td>Chart + summary panel</td></tr>
+            <tr><td>Two equal</td><td><code>50% / 50%</code></td><td>6 / 6</td><td>Side-by-side charts</td></tr>
+            <tr><td>Three equal</td><td><code>33%</code></td><td>4 each</td><td>KPI stat cards</td></tr>
+            <tr><td>Four equal</td><td><code>25%</code></td><td>3 each</td><td>Mini metric tiles</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- BORDER RADIUS -->
+      <div class="section-title">Border Radius</div>
+      <table class="spec-table" style="max-width:600px;">
+        <thead><tr><th>Token</th><th>Value</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td><code>--radius-sm</code></td><td><code>4px</code></td><td>Chips, tags, badges, inputs</td></tr>
+          <tr><td><code>--radius-md</code></td><td><code>6px</code></td><td>Buttons, dropdowns, tooltips</td></tr>
+          <tr><td><code>--radius-lg</code></td><td><code>8px</code></td><td>Cards, panels</td></tr>
+          <tr><td><code>--radius-xl</code></td><td><code>10px</code></td><td>Modals, sheets, large cards</td></tr>
+          <tr><td><code>--radius-full</code></td><td><code>9999px</code></td><td>Pill buttons, avatars, status dots</td></tr>
+        </tbody>
+      </table>
+
+      <div class="page-divider"></div>
+
+      <!-- ELEVATION / SHADOW -->
+      <div class="section-title">Elevation &amp; Shadow</div>
+      <div class="callout warning">
+        <strong>Dark-mode shadows:</strong> Use dark shadows with low opacity. Avoid pure-black box shadows — prefer <code>rgba(0,0,0,0.4)</code> or inner border highlights instead.
+      </div>
+      <table class="spec-table" style="max-width:700px;">
+        <thead><tr><th>Level</th><th>CSS</th><th>Used for</th></tr></thead>
+        <tbody>
+          <tr><td>Level 0</td><td><code>none</code></td><td>Flat surface (sidebar, table rows)</td></tr>
+          <tr><td>Level 1</td><td><code>0 1px 3px rgba(0,0,0,0.3)</code></td><td>Cards, default panels</td></tr>
+          <tr><td>Level 2</td><td><code>0 4px 12px rgba(0,0,0,0.4)</code></td><td>Dropdowns, popovers</td></tr>
+          <tr><td>Level 3</td><td><code>0 8px 32px rgba(0,0,0,0.55)</code></td><td>Modals, drawers</td></tr>
+        </tbody>
+      </table>
+
+    </section>
+
+    <!-- ═══════════════════════ PAGE: RESOLUTIONS ═══════════════════════ -->
+    <section class="page" id="page-resolutions">
+
+      <div class="page-header">
+        <h1>Target Resolutions</h1>
+        <p>Prevalent AI is a desktop-only application. Mobile and tablet viewports are not supported. The UI is optimised for large displays used in security operations centres (SOC) and analyst workstations.</p>
+      </div>
+
+      <div class="callout info">
+        <strong>Desktop-only product.</strong> No responsive breakpoints for mobile or tablet. The application renders at a minimum of 1280px and is optimised for 1440px and 1920px wide displays common in SOC environments.
+      </div>
+
+      <!-- RESOLUTION CARDS -->
+      <div class="section-title">Supported Resolutions</div>
+      <div class="resolution-cards">
+
+        <div class="resolution-card">
+          <div class="res-badge minimum">Minimum</div>
+          <div class="res-screen">
+            <div class="screen-inner">
+              <div class="screen-sidebar"></div>
+              <div class="screen-main">
+                <div class="screen-topbar"></div>
+                <div class="screen-body">
+                  <div class="screen-card"></div><div class="screen-card"></div><div class="screen-card"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="res-title">HD</div>
+          <div class="res-dims">1280 × 720</div>
+          <div class="res-specs">
+            <div class="res-spec-row"><span class="res-spec-key">Aspect ratio</span><span class="res-spec-val">16:9</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">PPI range</span><span class="res-spec-val">100–110</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Sidebar</span><span class="res-spec-val">200px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Content area</span><span class="res-spec-val">~1056px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Grid columns</span><span class="res-spec-val">12 · 14px gutter</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Scale</span><span class="res-spec-val">100%</span></div>
+          </div>
+        </div>
+
+        <div class="resolution-card primary">
+          <div class="res-badge target">Primary Target</div>
+          <div class="res-screen">
+            <div class="screen-inner">
+              <div class="screen-sidebar"></div>
+              <div class="screen-main">
+                <div class="screen-topbar"></div>
+                <div class="screen-body">
+                  <div class="screen-card"></div><div class="screen-card"></div><div class="screen-card"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="res-title">Full HD (FHD)</div>
+          <div class="res-dims">1440 × 900 / 1440 × 1024</div>
+          <div class="res-specs">
+            <div class="res-spec-row"><span class="res-spec-key">Aspect ratio</span><span class="res-spec-val">16:10</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">PPI range</span><span class="res-spec-val">110–130</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Sidebar</span><span class="res-spec-val">220px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Content area</span><span class="res-spec-val">~1176px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Grid columns</span><span class="res-spec-val">12 · 16px gutter</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Scale</span><span class="res-spec-val">100%</span></div>
+          </div>
+        </div>
+
+        <div class="resolution-card primary">
+          <div class="res-badge target">Primary Target</div>
+          <div class="res-screen">
+            <div class="screen-inner">
+              <div class="screen-sidebar"></div>
+              <div class="screen-main">
+                <div class="screen-topbar"></div>
+                <div class="screen-body">
+                  <div class="screen-card"></div><div class="screen-card"></div><div class="screen-card"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="res-title">Full HD (1920)</div>
+          <div class="res-dims">1920 × 1080</div>
+          <div class="res-specs">
+            <div class="res-spec-row"><span class="res-spec-key">Aspect ratio</span><span class="res-spec-val">16:9</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">PPI range</span><span class="res-spec-val">90–110</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Sidebar</span><span class="res-spec-val">220px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Content area</span><span class="res-spec-val">~1652px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Grid columns</span><span class="res-spec-val">12 · 20px gutter</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Scale</span><span class="res-spec-val">100%</span></div>
+          </div>
+        </div>
+
+        <div class="resolution-card">
+          <div class="res-badge supported">Supported</div>
+          <div class="res-screen">
+            <div class="screen-inner">
+              <div class="screen-sidebar"></div>
+              <div class="screen-main">
+                <div class="screen-topbar"></div>
+                <div class="screen-body">
+                  <div class="screen-card"></div><div class="screen-card"></div><div class="screen-card"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="res-title">QHD / 2K</div>
+          <div class="res-dims">2560 × 1440</div>
+          <div class="res-specs">
+            <div class="res-spec-row"><span class="res-spec-key">Aspect ratio</span><span class="res-spec-val">16:9</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">PPI range</span><span class="res-spec-val">108–120</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Sidebar</span><span class="res-spec-val">260px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Content area</span><span class="res-spec-val">~2252px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Grid columns</span><span class="res-spec-val">12 · 24px gutter</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Scale</span><span class="res-spec-val">125% OS scaling</span></div>
+          </div>
+        </div>
+
+        <div class="resolution-card">
+          <div class="res-badge supported">Supported</div>
+          <div class="res-screen">
+            <div class="screen-inner">
+              <div class="screen-sidebar"></div>
+              <div class="screen-main">
+                <div class="screen-topbar"></div>
+                <div class="screen-body">
+                  <div class="screen-card"></div><div class="screen-card"></div><div class="screen-card"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="res-title">4K / Ultra HD</div>
+          <div class="res-dims">3840 × 2160</div>
+          <div class="res-specs">
+            <div class="res-spec-row"><span class="res-spec-key">Aspect ratio</span><span class="res-spec-val">16:9</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">PPI range</span><span class="res-spec-val">140–160</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Sidebar</span><span class="res-spec-val">220px (at 200% scale)</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Content area</span><span class="res-spec-val">Equivalent to 1920px</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Grid columns</span><span class="res-spec-val">12 · 20px gutter</span></div>
+            <div class="res-spec-row"><span class="res-spec-key">Scale</span><span class="res-spec-val">200% OS scaling</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- BREAKPOINT SPECTRUM -->
+      <div class="section-title">Supported Width Spectrum</div>
+      <div class="breakpoint-bar">
+        <div class="bp-track">
+          <div class="bp-fill"></div>
+          <div class="bp-markers">
+            <span class="bp-marker" style="left:0%">1280px</span>
+            <span class="bp-marker active" style="left:14%">1440px</span>
+            <span class="bp-marker active" style="left:47%">1920px</span>
+            <span class="bp-marker" style="left:73%">2560px</span>
+            <span class="bp-marker" style="left:100%">3840px</span>
+          </div>
+        </div>
+        <div class="bp-labels">
+          <span class="bp-label">HD Minimum</span>
+          <span class="bp-label" style="color:#8F8DDE;">Design Canvas</span>
+          <span class="bp-label" style="color:#8F8DDE;">FHD Primary</span>
+          <span class="bp-label">QHD</span>
+          <span class="bp-label">4K</span>
+        </div>
+      </div>
+
+      <div class="page-divider"></div>
+
+      <!-- BROWSER & OS -->
+      <div class="section-title">Browser &amp; OS Requirements</div>
+      <table class="spec-table" style="max-width:700px;">
+        <thead><tr><th>Category</th><th>Specification</th></tr></thead>
+        <tbody>
+          <tr><td>Browsers</td><td>Chrome 110+, Edge 110+, Firefox 115+, Safari 16+</td></tr>
+          <tr><td>Operating Systems</td><td>Windows 10/11, macOS 12+, Linux (Ubuntu 22.04+)</td></tr>
+          <tr><td>Min. viewport width</td><td><code>1280px</code> — below this, layout is not guaranteed</td></tr>
+          <tr><td>OS text scaling</td><td>100% recommended; 125% supported at 1920px+</td></tr>
+          <tr><td>Zoom level</td><td>Browser zoom at 100% is the design baseline</td></tr>
+          <tr><td>Retina / HiDPI</td><td>Supported — vector icons and SVG assets only</td></tr>
+          <tr><td>Mobile / Tablet</td><td>Not supported. No responsive breakpoints below 1280px.</td></tr>
+        </tbody>
+      </table>
+
+      <div class="page-divider"></div>
+
+      <!-- DESIGN CANVAS -->
+      <div class="section-title">Design Canvas Standard</div>
+      <div class="callout info">
+        <strong>All Figma frames should be designed at 1440 × 1024px</strong> as the canonical canvas. This represents the most common analyst workstation display at standard browser zoom. Components are designed at 1x and use <code>@2x</code> asset exports for retina clarity.
+      </div>
+      <table class="spec-table" style="max-width:600px;">
+        <thead><tr><th>Property</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Figma frame size</td><td><code>1440 × 1024</code></td></tr>
+          <tr><td>Grid columns</td><td><code>12</code></td></tr>
+          <tr><td>Gutter</td><td><code>16px</code></td></tr>
+          <tr><td>Margin (each side)</td><td><code>24px</code></td></tr>
+          <tr><td>Asset export scale</td><td><code>@1x, @2x</code></td></tr>
+          <tr><td>Icon export</td><td>SVG (preferred), PNG @2x</td></tr>
+        </tbody>
+      </table>
+
+    </section>
+
+  </main>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
