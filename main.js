@@ -1,3 +1,34 @@
+// ─── Global theme ───
+(function() {
+  var saved = localStorage.getItem('ds-theme') || 'dark';
+  if (saved === 'light') document.body.classList.add('theme-light');
+  document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.globalTheme === saved);
+  });
+})();
+
+document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var theme = btn.dataset.globalTheme;
+    document.body.classList.toggle('theme-light', theme === 'light');
+    localStorage.setItem('ds-theme', theme);
+    document.querySelectorAll('.theme-btn-global').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.globalTheme === theme);
+    });
+    // Sync Colors page local toggle
+    var localTheme = theme;
+    document.querySelectorAll('.theme-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.theme === localTheme);
+    });
+    currentTheme = localTheme;
+    renderAll();
+    // Re-render charts if on charts page
+    if (document.querySelector('#page-charts.active')) {
+      setTimeout(initCharts, 60);
+    }
+  });
+});
+
 // ─── Color data ───
 const COLORS = {
   text: [
@@ -36,7 +67,7 @@ const COLORS = {
   ],
 };
 
-let currentTheme = 'dark';
+let currentTheme = localStorage.getItem('ds-theme') || 'dark';
 
 function luminance(hex) {
   const r = parseInt(hex.slice(0,2),16)/255;
@@ -108,7 +139,10 @@ document.querySelectorAll('.nav-item[data-page]').forEach(item => {
   });
 });
 
-// Init
+// Init — sync local toggle state with persisted theme
+document.querySelectorAll('.theme-btn').forEach(function(b) {
+  b.classList.toggle('active', b.dataset.theme === currentTheme);
+});
 renderAll();
 buildGridPreview();
 

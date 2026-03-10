@@ -17,6 +17,14 @@
   <span class="divider"></span>
   <span class="ds-label">Design System</span>
   <span class="version">v2.1.5</span>
+  <div class="theme-toggle-global">
+    <button class="theme-btn-global active" data-global-theme="dark" title="Dark mode">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="theme-btn-global" data-global-theme="light" title="Light mode">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
 </header>
 
 <div class="ds-layout">
@@ -177,7 +185,7 @@
             <tr><td><code>heading-xl</code></td><td>24px</td><td>600</td><td>32px</td><td style="font-size:24px;font-weight:600;color:#F9F9F9;">Page Title</td></tr>
             <tr><td><code>heading-lg</code></td><td>18px</td><td>600</td><td>24px</td><td style="font-size:18px;font-weight:600;color:#F9F9F9;">Section Heading</td></tr>
             <tr><td><code>heading-md</code></td><td>15px</td><td>600</td><td>20px</td><td style="font-size:15px;font-weight:600;color:#F9F9F9;">Card Title</td></tr>
-            <tr><td><code>body-md</code></td><td>13px</td><td>400</td><td>20px</td><td style="font-size:13px;color:#D1D1D1;">Body text, paragraphs, descriptions</td></tr>
+            <tr><td><code>body-md</code></td><td>13px</td><td>400</td><td>20px</td><td>Body text, paragraphs, descriptions</td></tr>
             <tr><td><code>body-sm</code></td><td>12px</td><td>400</td><td>18px</td><td style="font-size:12px;color:#D1D1D1;">Captions, metadata, helper text</td></tr>
             <tr><td><code>label</code></td><td>11px</td><td>500</td><td>16px</td><td style="font-size:11px;font-weight:500;color:#696969;text-transform:uppercase;letter-spacing:.06em;">TABLE HEADER</td></tr>
             <tr><td><code>mono</code></td><td>11px</td><td>400</td><td>16px</td><td style="font-size:11px;color:#8F8DDE;font-family:'SF Mono','Fira Code',monospace;">--token · #6360D8</td></tr>
@@ -530,44 +538,44 @@
             <span class="comp-row-label">Small</span>
             <label class="ds-toggle-wrap">
               <span class="ds-toggle-track sz-sm"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Off</span>
+              <span class="ds-toggle-label">Off</span>
             </label>
             <label class="ds-toggle-wrap">
               <span class="ds-toggle-track sz-sm on"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">On</span>
+              <span class="ds-toggle-label">On</span>
             </label>
           </div>
           <div class="comp-row">
             <span class="comp-row-label">Medium</span>
             <label class="ds-toggle-wrap">
               <span class="ds-toggle-track sz-md"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Notifications</span>
+              <span class="ds-toggle-label">Notifications</span>
             </label>
             <label class="ds-toggle-wrap">
               <span class="ds-toggle-track sz-md on"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Dark Mode</span>
+              <span class="ds-toggle-label">Dark Mode</span>
             </label>
           </div>
           <div class="comp-row">
             <span class="comp-row-label">Large</span>
             <label class="ds-toggle-wrap">
               <span class="ds-toggle-track sz-lg"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Feature Flag</span>
+              <span class="ds-toggle-label">Feature Flag</span>
             </label>
             <label class="ds-toggle-wrap">
               <span class="ds-toggle-track sz-lg on"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Enabled</span>
+              <span class="ds-toggle-label">Enabled</span>
             </label>
           </div>
           <div class="comp-row">
             <span class="comp-row-label">Disabled</span>
             <label class="ds-toggle-wrap is-disabled">
               <span class="ds-toggle-track sz-md"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#696969;">Disabled Off</span>
+              <span class="ds-toggle-label">Disabled Off</span>
             </label>
             <label class="ds-toggle-wrap is-disabled">
               <span class="ds-toggle-track sz-md on"><span class="ds-toggle-thumb"></span></span>
-              <span class="ds-toggle-label" style="font-size:13px;color:#696969;">Disabled On</span>
+              <span class="ds-toggle-label">Disabled On</span>
             </label>
           </div>
         </div>
@@ -720,28 +728,28 @@
                   <label class="ds-radio-item">
                     <span class="ds-radio-dot sz-md checked"></span>
                     <span>
-                      <div class="ds-radio-text" style="color:#282828;">Critical</div>
+                      <div class="ds-radio-text">Critical</div>
                       <div class="ds-radio-desc">Immediate action required</div>
                     </span>
                   </label>
                   <label class="ds-radio-item">
                     <span class="ds-radio-dot sz-md"></span>
                     <span>
-                      <div class="ds-radio-text" style="color:#282828;">High</div>
+                      <div class="ds-radio-text">High</div>
                       <div class="ds-radio-desc">Address within 24 hours</div>
                     </span>
                   </label>
                   <label class="ds-radio-item">
                     <span class="ds-radio-dot sz-md"></span>
                     <span>
-                      <div class="ds-radio-text" style="color:#282828;">Medium</div>
+                      <div class="ds-radio-text">Medium</div>
                       <div class="ds-radio-desc">Address within a week</div>
                     </span>
                   </label>
                   <label class="ds-radio-item disabled">
                     <span class="ds-radio-dot sz-md"></span>
                     <span>
-                      <div class="ds-radio-text" style="color:#282828;">Low (disabled)</div>
+                      <div class="ds-radio-text">Low (disabled)</div>
                     </span>
                   </label>
                 </div>
@@ -753,19 +761,19 @@
                 <div class="ds-radio-options" style="flex-direction:row;flex-wrap:wrap;gap:16px;">
                   <label class="ds-radio-item">
                     <span class="ds-radio-dot sz-sm checked"></span>
-                    <span class="ds-radio-text" style="color:#282828;">All</span>
+                    <span class="ds-radio-text">All</span>
                   </label>
                   <label class="ds-radio-item">
                     <span class="ds-radio-dot sz-sm"></span>
-                    <span class="ds-radio-text" style="color:#282828;">Open</span>
+                    <span class="ds-radio-text">Open</span>
                   </label>
                   <label class="ds-radio-item">
                     <span class="ds-radio-dot sz-sm"></span>
-                    <span class="ds-radio-text" style="color:#282828;">Resolved</span>
+                    <span class="ds-radio-text">Resolved</span>
                   </label>
                   <label class="ds-radio-item">
                     <span class="ds-radio-dot sz-sm"></span>
-                    <span class="ds-radio-text" style="color:#282828;">Closed</span>
+                    <span class="ds-radio-text">Closed</span>
                   </label>
                 </div>
               </div>
@@ -786,28 +794,28 @@
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#282828;">Unchecked</span>
+                <span class="ds-checkbox-text">Unchecked</span>
               </label>
               <label class="ds-checkbox-item">
                 <span class="ds-checkbox-box sz-md checked">
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#282828;">Checked</span>
+                <span class="ds-checkbox-text">Checked</span>
               </label>
               <label class="ds-checkbox-item">
                 <span class="ds-checkbox-box sz-md indeterminate">
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#282828;">Indeterminate</span>
+                <span class="ds-checkbox-text">Indeterminate</span>
               </label>
               <label class="ds-checkbox-item disabled">
                 <span class="ds-checkbox-box sz-md">
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#9f9f9f;">Disabled</span>
+                <span class="ds-checkbox-text">Disabled</span>
               </label>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px;">
@@ -817,28 +825,28 @@
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#282828;">SQL Injection — CVE-2024-1234</span>
+                <span class="ds-checkbox-text">SQL Injection — CVE-2024-1234</span>
               </label>
               <label class="ds-checkbox-item">
                 <span class="ds-checkbox-box sz-md">
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#282828;">XSS Reflected — CVE-2024-5678</span>
+                <span class="ds-checkbox-text">XSS Reflected — CVE-2024-5678</span>
               </label>
               <label class="ds-checkbox-item">
                 <span class="ds-checkbox-box sz-md checked">
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#282828;">CSRF Token Missing</span>
+                <span class="ds-checkbox-text">CSRF Token Missing</span>
               </label>
               <label class="ds-checkbox-item">
                 <span class="ds-checkbox-box sz-md">
                   <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
                 </span>
-                <span class="ds-checkbox-text" style="color:#282828;">Broken Auth — CVE-2024-9012</span>
+                <span class="ds-checkbox-text">Broken Auth — CVE-2024-9012</span>
               </label>
             </div>
           </div>
@@ -1002,6 +1010,35 @@
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Medium</div>
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#31A56D;"></div>Low</div>
           </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Characteristics</div>
+              <ul>
+                <li>Best for comparing values across discrete time periods or categories</li>
+                <li>Supports grouped bars (multiple series per x-axis point)</li>
+                <li>Recommended max: 12 groups, 4 series per group</li>
+                <li>Y-axis starts at 0 unless data range justifies otherwise</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Behavior</div>
+              <ul>
+                <li>Hover over any bar to dim to 78% opacity (focus effect)</li>
+                <li>Each bar uses a role-based color token (Critical, High, Medium, Low)</li>
+                <li>Title attribute shows exact value on native tooltip</li>
+                <li>Responsive: bars shrink proportionally with container</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Usage Guidelines</div>
+              <ul>
+                <li>Use when comparing magnitude across time (monthly, quarterly)</li>
+                <li>Avoid for part-to-whole analysis — use donut instead</li>
+                <li>Keep color count ≤ 5 for readability</li>
+                <li>Always include a legend when using multiple series</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div class="page-divider"></div>
@@ -1045,6 +1082,25 @@
               <div class="css-hbar" style="width:24%;background:#696969;"></div>
               <span class="css-hbar-val">24</span>
             </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Characteristics</div>
+              <ul>
+                <li>Ideal for ranked lists and long category labels</li>
+                <li>Bars extend left-to-right; easy to compare lengths</li>
+                <li>Values shown inline at bar end for quick reading</li>
+                <li>Recommended max: 10 categories</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Behavior</div>
+              <ul>
+                <li>Hover reduces opacity to 78% (highlight effect)</li>
+                <li>Bar width is percentage of container — fully responsive</li>
+                <li>Label column is fixed at 72px; adapts to short names</li>
+                <li>Can support negative values with CSS extension</li>
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -1060,6 +1116,26 @@
                 <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d12329;"></div>Low — 15%</div>
               </div>
             </div>
+            <div class="chart-doc" style="margin-top:16px;">
+              <div class="chart-doc-block">
+                <div class="chart-doc-block-title">Characteristics</div>
+                <ul>
+                  <li>Shows part-to-whole relationship across max 7 segments</li>
+                  <li>Center space available for total value or KPI label</li>
+                  <li>1.5° gap between segments for visual separation</li>
+                  <li>SVG arc paths with rounded line caps for modern look</li>
+                </ul>
+              </div>
+              <div class="chart-doc-block">
+                <div class="chart-doc-block-title">Behavior</div>
+                <ul>
+                  <li>Built via SVG stroke arcs — no external dependencies</li>
+                  <li>Colors map to CHART_COLORS token array in order</li>
+                  <li>Rendered with <code style="font-size:11px;">buildDonutChart()</code> on page load and theme switch</li>
+                  <li>Scales to any container size via size parameter</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1072,6 +1148,35 @@
           <div id="line-chart-1" style="width:100%;"></div>
           <div class="chart-legend" style="margin-top:8px;">
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Total Findings</div>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Characteristics</div>
+              <ul>
+                <li>Best for showing trends over continuous time (daily, monthly)</li>
+                <li>Minimum 3 data points required; optimal 6–12</li>
+                <li>Gradient fill under line adds visual weight to area</li>
+                <li>Data points marked with filled circles for exact value reference</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Behavior</div>
+              <ul>
+                <li>SVG polyline rendered via <code style="font-size:11px;">buildLineChart()</code></li>
+                <li>Fully responsive — recalculates on container width change</li>
+                <li>X and Y axis labels auto-generated from data arrays</li>
+                <li>Re-renders when switching to/from charts page</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Usage Guidelines</div>
+              <ul>
+                <li>Use for time-series data only, not discrete categories</li>
+                <li>Multi-line variant: add second polyline with different stroke color</li>
+                <li>Avoid more than 3 lines — use small multiples instead</li>
+                <li>Always label the x-axis with time units</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
