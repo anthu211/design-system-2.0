@@ -73,6 +73,38 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         Icons
       </div>
+      <div class="nav-item" data-page="callout">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Callout
+      </div>
+      <div class="nav-item" data-page="badges">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Badge &amp; Status
+      </div>
+      <div class="nav-item" data-page="overlays">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Modal &amp; Toast
+      </div>
+      <div class="nav-item" data-page="tabs">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Tabs &amp; Accordion
+      </div>
+      <div class="nav-item" data-page="progress">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"/><path d="M12 2l0 20"/></svg>
+        Progress &amp; Slider
+      </div>
+      <div class="nav-item" data-page="table">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        Table
+      </div>
+      <div class="nav-item" data-page="breadnav">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        Breadcrumb &amp; Pagination
+      </div>
+      <div class="nav-item" data-page="avatars">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Avatar &amp; Skeleton
+      </div>
     </div>
   </nav>
 
@@ -939,72 +971,15 @@
     <div class="page" id="page-charts">
       <div class="page-header">
         <h1>Charts</h1>
-        <p>Data visualisation components using CSS flex bars and SVG for donut and line charts. Hover for interactive states.</p>
+        <p>Data visualisation components built with SVG for proper axes, labels, and interactive states. All charts are responsive and theme-aware.</p>
       </div>
 
       <div class="comp-section">
-        <div class="comp-section-title">Vertical Bar Chart</div>
+        <div class="comp-section-title">Grouped Vertical Bar Chart</div>
         <div class="chart-wrap">
-          <div class="chart-title">Findings by Severity — Q1 2025</div>
-          <div style="position:relative;">
-            <div class="css-bar-chart">
-              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
-                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Jan</div>
-                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
-                  <div class="css-bar" style="height:72%;width:18px;background:#D12329;" title="Critical: 14"></div>
-                  <div class="css-bar" style="height:85%;width:18px;background:#D98B1D;" title="High: 17"></div>
-                  <div class="css-bar" style="height:100%;width:18px;background:#6760d8;" title="Medium: 20"></div>
-                  <div class="css-bar" style="height:40%;width:18px;background:#31A56D;" title="Low: 8"></div>
-                </div>
-              </div>
-              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
-                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Feb</div>
-                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
-                  <div class="css-bar" style="height:55%;width:18px;background:#D12329;" title="Critical: 11"></div>
-                  <div class="css-bar" style="height:90%;width:18px;background:#D98B1D;" title="High: 18"></div>
-                  <div class="css-bar" style="height:80%;width:18px;background:#6760d8;" title="Medium: 16"></div>
-                  <div class="css-bar" style="height:50%;width:18px;background:#31A56D;" title="Low: 10"></div>
-                </div>
-              </div>
-              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
-                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Mar</div>
-                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
-                  <div class="css-bar" style="height:88%;width:18px;background:#D12329;" title="Critical: 18"></div>
-                  <div class="css-bar" style="height:75%;width:18px;background:#D98B1D;" title="High: 15"></div>
-                  <div class="css-bar" style="height:95%;width:18px;background:#6760d8;" title="Medium: 19"></div>
-                  <div class="css-bar" style="height:60%;width:18px;background:#31A56D;" title="Low: 12"></div>
-                </div>
-              </div>
-              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
-                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Apr</div>
-                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
-                  <div class="css-bar" style="height:45%;width:18px;background:#D12329;" title="Critical: 9"></div>
-                  <div class="css-bar" style="height:65%;width:18px;background:#D98B1D;" title="High: 13"></div>
-                  <div class="css-bar" style="height:70%;width:18px;background:#6760d8;" title="Medium: 14"></div>
-                  <div class="css-bar" style="height:80%;width:18px;background:#31A56D;" title="Low: 16"></div>
-                </div>
-              </div>
-              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
-                <div style="font-size:10px;color:#696969;margin-bottom:4px;">May</div>
-                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
-                  <div class="css-bar" style="height:60%;width:18px;background:#D12329;" title="Critical: 12"></div>
-                  <div class="css-bar" style="height:55%;width:18px;background:#D98B1D;" title="High: 11"></div>
-                  <div class="css-bar" style="height:65%;width:18px;background:#6760d8;" title="Medium: 13"></div>
-                  <div class="css-bar" style="height:90%;width:18px;background:#31A56D;" title="Low: 18"></div>
-                </div>
-              </div>
-              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
-                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Jun</div>
-                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
-                  <div class="css-bar" style="height:30%;width:18px;background:#D12329;" title="Critical: 6"></div>
-                  <div class="css-bar" style="height:48%;width:18px;background:#D98B1D;" title="High: 10"></div>
-                  <div class="css-bar" style="height:55%;width:18px;background:#6760d8;" title="Medium: 11"></div>
-                  <div class="css-bar" style="height:100%;width:18px;background:#31A56D;" title="Low: 20"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="chart-legend">
+          <div class="chart-title">Findings by Severity — Jan–Jun 2025</div>
+          <div id="vbar-chart-1" style="width:100%;"></div>
+          <div class="chart-legend" style="margin-top:12px;">
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D12329;"></div>Critical</div>
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D98B1D;"></div>High</div>
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Medium</div>
@@ -1016,17 +991,17 @@
               <ul>
                 <li>Best for comparing values across discrete time periods or categories</li>
                 <li>Supports grouped bars (multiple series per x-axis point)</li>
+                <li>Y-axis with gridlines shows scale and tick values clearly</li>
                 <li>Recommended max: 12 groups, 4 series per group</li>
-                <li>Y-axis starts at 0 unless data range justifies otherwise</li>
               </ul>
             </div>
             <div class="chart-doc-block">
               <div class="chart-doc-block-title">Behavior</div>
               <ul>
-                <li>Hover over any bar to dim to 78% opacity (focus effect)</li>
+                <li>Hover over any bar to dim to 70% opacity (focus effect)</li>
                 <li>Each bar uses a role-based color token (Critical, High, Medium, Low)</li>
-                <li>Title attribute shows exact value on native tooltip</li>
-                <li>Responsive: bars shrink proportionally with container</li>
+                <li>SVG tooltip shows exact value on hover</li>
+                <li>Responsive: recalculates on page switch</li>
               </ul>
             </div>
             <div class="chart-doc-block">
@@ -1082,6 +1057,7 @@
               <div class="css-hbar" style="width:24%;background:#696969;"></div>
               <span class="css-hbar-val">24</span>
             </div>
+          </div>
           <div class="chart-doc">
             <div class="chart-doc-block">
               <div class="chart-doc-block-title">Characteristics</div>
@@ -1106,35 +1082,39 @@
 
         <div class="chart-wrap">
           <div class="chart-title">Severity Distribution</div>
-          <div class="donut-wrap" style="justify-content:center;">
-            <div id="donut-chart-1" style="position:relative;flex-shrink:0;"></div>
-            <div>
-              <div style="display:flex;flex-direction:column;gap:8px;margin-left:8px;">
-                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Critical — 12%</div>
-                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#47adcb;"></div>High — 28%</div>
-                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#2fa76d;"></div>Medium — 45%</div>
-                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d12329;"></div>Low — 15%</div>
+          <div class="donut-wrap" style="justify-content:center;align-items:flex-start;">
+            <div style="position:relative;flex-shrink:0;">
+              <div id="donut-chart-1"></div>
+              <div id="donut-center-label" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
+                <div style="font-size:22px;font-weight:700;color:var(--shell-text);">100</div>
+                <div style="font-size:10px;color:var(--shell-text-muted);">Total</div>
               </div>
             </div>
-            <div class="chart-doc" style="margin-top:16px;">
-              <div class="chart-doc-block">
-                <div class="chart-doc-block-title">Characteristics</div>
-                <ul>
-                  <li>Shows part-to-whole relationship across max 7 segments</li>
-                  <li>Center space available for total value or KPI label</li>
-                  <li>1.5° gap between segments for visual separation</li>
-                  <li>SVG arc paths with rounded line caps for modern look</li>
-                </ul>
-              </div>
-              <div class="chart-doc-block">
-                <div class="chart-doc-block-title">Behavior</div>
-                <ul>
-                  <li>Built via SVG stroke arcs — no external dependencies</li>
-                  <li>Colors map to CHART_COLORS token array in order</li>
-                  <li>Rendered with <code style="font-size:11px;">buildDonutChart()</code> on page load and theme switch</li>
-                  <li>Scales to any container size via size parameter</li>
-                </ul>
-              </div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-left:8px;padding-top:8px;">
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Critical — 12</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#47adcb;"></div>High — 28</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#2fa76d;"></div>Medium — 45</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d12329;"></div>Low — 15</div>
+            </div>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Characteristics</div>
+              <ul>
+                <li>Shows part-to-whole relationship across max 7 segments</li>
+                <li>Center space shows total KPI or label</li>
+                <li>1.5° gap between segments for visual separation</li>
+                <li>SVG arc paths with rounded line caps for modern look</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Behavior</div>
+              <ul>
+                <li>Built via SVG stroke arcs — no external dependencies</li>
+                <li>Colors map to CHART_COLORS token array in order</li>
+                <li>Rendered with buildDonutChart() on page load</li>
+                <li>Scales to any container size via size parameter</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -1154,17 +1134,17 @@
               <div class="chart-doc-block-title">Characteristics</div>
               <ul>
                 <li>Best for showing trends over continuous time (daily, monthly)</li>
-                <li>Minimum 3 data points required; optimal 6–12</li>
-                <li>Gradient fill under line adds visual weight to area</li>
+                <li>Minimum 3 data points; optimal 6–12</li>
+                <li>Gradient fill under line adds visual weight to the area</li>
                 <li>Data points marked with filled circles for exact value reference</li>
               </ul>
             </div>
             <div class="chart-doc-block">
               <div class="chart-doc-block-title">Behavior</div>
               <ul>
-                <li>SVG polyline rendered via <code style="font-size:11px;">buildLineChart()</code></li>
-                <li>Fully responsive — recalculates on container width change</li>
-                <li>X and Y axis labels auto-generated from data arrays</li>
+                <li>SVG polyline rendered via buildLineChart()</li>
+                <li>X axis line + Y axis line drawn as SVG elements</li>
+                <li>Horizontal gridlines at each Y tick for readability</li>
                 <li>Re-renders when switching to/from charts page</li>
               </ul>
             </div>
@@ -1172,7 +1152,7 @@
               <div class="chart-doc-block-title">Usage Guidelines</div>
               <ul>
                 <li>Use for time-series data only, not discrete categories</li>
-                <li>Multi-line variant: add second polyline with different stroke color</li>
+                <li>Multi-line: add second polyline with different stroke color</li>
                 <li>Avoid more than 3 lines — use small multiples instead</li>
                 <li>Always label the x-axis with time units</li>
               </ul>
@@ -1205,6 +1185,679 @@
       </div>
 
       <div class="icon-grid" id="icon-grid"></div>
+    </div>
+
+    <!-- CALLOUT PAGE -->
+    <div class="page" id="page-callout">
+      <div class="page-header">
+        <h1>Callout</h1>
+        <p>Short messages that attract user attention. Three semantic variants — error, success, warning — designed for both light and dark contexts.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Semantic Variants</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="ds-callout ds-callout-error">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>You will need admin privileges to install and access this application.</span>
+          </div>
+          <div class="ds-callout ds-callout-success">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>All systems are operating normally. No issues detected.</span>
+          </div>
+          <div class="ds-callout ds-callout-warning">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Your session will expire in 5 minutes. Please save your work.</span>
+          </div>
+          <div class="ds-callout ds-callout-info">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>This feature is currently in beta. Functionality may change.</span>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Dark Context (from Figma)</div>
+        <div style="background:#1c2024;border-radius:10px;padding:24px;display:flex;flex-direction:column;gap:12px;">
+          <div class="ds-callout ds-callout-error-dark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>You will need admin privileges to install and access this application.</span>
+          </div>
+          <div class="ds-callout ds-callout-success-dark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>You will need admin privileges to install and access this application.</span>
+          </div>
+          <div class="ds-callout ds-callout-warning-dark">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>You will need admin privileges to install and access this application.</span>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">With Title</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="ds-callout ds-callout-error" style="align-items:flex-start;">
+            <svg width="16" height="16" style="margin-top:2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div><strong style="display:block;margin-bottom:4px;">Access Denied</strong>You will need admin privileges to install and access this application. Contact your system administrator for access.</div>
+          </div>
+          <div class="ds-callout ds-callout-success" style="align-items:flex-start;">
+            <svg width="16" height="16" style="margin-top:2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div><strong style="display:block;margin-bottom:4px;">Scan Complete</strong>All 247 endpoints have been scanned. 0 critical vulnerabilities detected. 3 informational findings require review.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BADGE & STATUS PAGE -->
+    <div class="page" id="page-badges">
+      <div class="page-header">
+        <h1>Badge &amp; Status</h1>
+        <p>Status indicators, count badges, and dismissible tags for labelling and categorising content.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Status Badges</div>
+        <div class="comp-card">
+          <div class="comp-row">
+            <span class="ds-badge success">Active</span>
+            <span class="ds-badge warning">Warning</span>
+            <span class="ds-badge danger">Critical</span>
+            <span class="ds-badge info">Info</span>
+            <span class="ds-badge neutral">Inactive</span>
+            <span class="ds-badge caution">Caution</span>
+          </div>
+          <div class="comp-row" style="margin-top:8px;">
+            <span class="ds-badge success dot">Active</span>
+            <span class="ds-badge warning dot">Scanning</span>
+            <span class="ds-badge danger dot">Critical</span>
+            <span class="ds-badge neutral dot">Offline</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Count Badges on Icons</div>
+        <div class="comp-card">
+          <div class="comp-row" style="gap:24px;">
+            <div style="position:relative;display:inline-flex;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--shell-text-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="ds-badge-count danger">3</span>
+            </div>
+            <div style="position:relative;display:inline-flex;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--shell-text-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span class="ds-badge-count info">12</span>
+            </div>
+            <div style="position:relative;display:inline-flex;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--shell-text-2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span class="ds-badge-count neutral">99+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Dismissible Tags</div>
+        <div class="comp-card">
+          <div class="comp-row flex-wrap" id="tag-demo-row">
+            <span class="ds-tag">Python <button class="ds-tag-close" onclick="this.closest('.ds-tag').remove()">×</button></span>
+            <span class="ds-tag">React <button class="ds-tag-close" onclick="this.closest('.ds-tag').remove()">×</button></span>
+            <span class="ds-tag">Security <button class="ds-tag-close" onclick="this.closest('.ds-tag').remove()">×</button></span>
+            <span class="ds-tag" style="background:rgba(209,35,41,0.12);color:#D12329;border-color:rgba(209,35,41,0.3);">Critical <button class="ds-tag-close" onclick="this.closest('.ds-tag').remove()" style="color:#D12329;">×</button></span>
+            <span class="ds-tag" style="background:rgba(49,165,109,0.12);color:#31A56D;border-color:rgba(49,165,109,0.3);">Resolved <button class="ds-tag-close" onclick="this.closest('.ds-tag').remove()" style="color:#31A56D;">×</button></span>
+            <span class="ds-tag" style="background:rgba(217,139,29,0.12);color:#D98B1D;border-color:rgba(217,139,29,0.3);">In Review <button class="ds-tag-close" onclick="this.closest('.ds-tag').remove()" style="color:#D98B1D;">×</button></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Inline Status Indicators</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--shell-raised);border-radius:8px;border:1px solid var(--shell-border);">
+              <span class="ds-status-dot success"></span>
+              <span style="flex:1;font-size:13px;color:var(--shell-text);">api-gateway.prevalentai.com</span>
+              <span class="ds-badge success">Healthy</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--shell-raised);border-radius:8px;border:1px solid var(--shell-border);">
+              <span class="ds-status-dot warning"></span>
+              <span style="flex:1;font-size:13px;color:var(--shell-text);">auth.prevalentai.com</span>
+              <span class="ds-badge warning">Degraded</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--shell-raised);border-radius:8px;border:1px solid var(--shell-border);">
+              <span class="ds-status-dot danger"></span>
+              <span style="flex:1;font-size:13px;color:var(--shell-text);">legacy-db.prevalentai.com</span>
+              <span class="ds-badge danger">Offline</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL & TOAST PAGE -->
+    <div class="page" id="page-overlays">
+      <div class="page-header">
+        <h1>Modal &amp; Toast</h1>
+        <p>Overlay patterns for focused interactions and contextual feedback. Fully interactive — click buttons to trigger states.</p>
+      </div>
+
+      <!-- Toast container -->
+      <div class="ds-toast-container" id="toast-container"></div>
+
+      <!-- Modal overlays -->
+      <div class="ds-modal-overlay" id="modal-basic">
+        <div class="ds-modal">
+          <div class="ds-modal-header">
+            <span class="ds-modal-title">Confirm Action</span>
+            <button class="ds-modal-close" onclick="closeModal('modal-basic')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="ds-modal-body">
+            <p style="color:var(--shell-text-2);line-height:1.6;">Are you sure you want to proceed? This will initiate a full network scan on the selected targets. The scan may take up to 30 minutes to complete.</p>
+            <div class="ds-callout ds-callout-warning" style="margin-top:16px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>This action will consume scan credits from your monthly quota.</span>
+            </div>
+          </div>
+          <div class="ds-modal-footer">
+            <button class="ds-btn t-outline sz-md" onclick="closeModal('modal-basic')">Cancel</button>
+            <button class="ds-btn t-primary sz-md" onclick="closeModal('modal-basic');showToast('success','Scan initiated successfully!')">Start Scan</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-modal-overlay" id="modal-danger">
+        <div class="ds-modal">
+          <div class="ds-modal-header">
+            <span class="ds-modal-title" style="color:#D12329;">Delete Target</span>
+            <button class="ds-modal-close" onclick="closeModal('modal-danger')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="ds-modal-body">
+            <p style="color:var(--shell-text-2);line-height:1.6;">You are about to permanently delete <strong style="color:var(--shell-text);">api.example.com</strong>. This action cannot be undone. All scan history and findings associated with this target will be removed.</p>
+          </div>
+          <div class="ds-modal-footer">
+            <button class="ds-btn t-outline sz-md" onclick="closeModal('modal-danger')">Cancel</button>
+            <button class="ds-btn t-danger sz-md" onclick="closeModal('modal-danger');showToast('error','Target deleted permanently.')">Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-modal-overlay" id="modal-form">
+        <div class="ds-modal" style="max-width:500px;">
+          <div class="ds-modal-header">
+            <span class="ds-modal-title">Add New Target</span>
+            <button class="ds-modal-close" onclick="closeModal('modal-form')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="ds-modal-body">
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div class="ds-input-wrap" style="width:100%;">
+                <label class="ds-input-label">Target URL / IP</label>
+                <div class="ds-input-field" style="height:36px;">
+                  <input type="text" placeholder="https://api.example.com">
+                </div>
+              </div>
+              <div class="ds-input-wrap" style="width:100%;">
+                <label class="ds-input-label">Description (optional)</label>
+                <textarea class="ds-textarea-field" rows="3" placeholder="Brief description of this target…"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="ds-modal-footer">
+            <button class="ds-btn t-outline sz-md" onclick="closeModal('modal-form')">Cancel</button>
+            <button class="ds-btn t-primary sz-md" onclick="closeModal('modal-form');showToast('success','Target added successfully!')">Add Target</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Modal Variants</div>
+        <div class="comp-card">
+          <div class="comp-row">
+            <button class="ds-btn t-primary sz-md" onclick="openModal('modal-basic')">Standard Modal</button>
+            <button class="ds-btn t-danger sz-md" onclick="openModal('modal-danger')">Danger / Destructive</button>
+            <button class="ds-btn t-outline sz-md" onclick="openModal('modal-form')">Form Modal</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Toast Notifications</div>
+        <div class="comp-card">
+          <div class="comp-row">
+            <button class="ds-btn t-success sz-md" onclick="showToast('success','Changes saved successfully!')">Success Toast</button>
+            <button class="ds-btn t-danger sz-md" onclick="showToast('error','Connection failed. Please try again.')">Error Toast</button>
+            <button class="ds-btn t-outline sz-md" onclick="showToast('warning','This action cannot be undone.')">Warning Toast</button>
+            <button class="ds-btn t-secondary sz-md" onclick="showToast('info','Your session will expire in 5 minutes.')">Info Toast</button>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--shell-border);">
+            <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">STATIC PREVIEW</div>
+            <div style="display:flex;flex-direction:column;gap:8px;max-width:360px;">
+              <div class="ds-toast-preview success"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Changes saved successfully!</span></div>
+              <div class="ds-toast-preview error"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span>Connection failed. Please retry.</span></div>
+              <div class="ds-toast-preview warning"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>This action cannot be undone.</span></div>
+              <div class="ds-toast-preview info"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Session expiring in 5 minutes.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Tooltip</div>
+        <div class="comp-card">
+          <div class="comp-row" style="gap:24px;">
+            <div class="ds-tooltip-wrap" data-tip="Top tooltip" data-pos="top">
+              <button class="ds-btn t-outline sz-md">Hover (Top)</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="Bottom tooltip" data-pos="bottom">
+              <button class="ds-btn t-outline sz-md">Hover (Bottom)</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="Right-side tooltip text" data-pos="right">
+              <button class="ds-btn t-outline sz-md">Hover (Right)</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="This is a longer tooltip description that wraps nicely." data-pos="top">
+              <button class="ds-btn t-secondary sz-md">Long Tooltip</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS & ACCORDION PAGE -->
+    <div class="page" id="page-tabs">
+      <div class="page-header">
+        <h1>Tabs &amp; Accordion</h1>
+        <p>Content organisation patterns. Tabs for sibling views, accordion for vertically stacked expandable sections.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Tabs — Default</div>
+        <div class="comp-card" style="padding:0;overflow:hidden;">
+          <div class="ds-tabs" id="tabs-1">
+            <div class="ds-tabs-list">
+              <button class="ds-tab active" data-tabs="tabs-1" data-panel="tp1-a">Overview</button>
+              <button class="ds-tab" data-tabs="tabs-1" data-panel="tp1-b">Findings</button>
+              <button class="ds-tab" data-tabs="tabs-1" data-panel="tp1-c">History</button>
+              <button class="ds-tab" data-tabs="tabs-1" data-panel="tp1-d">Settings</button>
+            </div>
+            <div class="ds-tab-panels">
+              <div class="ds-tab-panel active" id="tp1-a">
+                <h3 style="font-size:14px;font-weight:600;margin-bottom:10px;color:var(--shell-text);">Target Overview</h3>
+                <p style="color:var(--shell-text-muted);font-size:13px;line-height:1.6;">This target has been scanned 14 times in the past 90 days. Last scan completed 2 hours ago with no critical findings.</p>
+              </div>
+              <div class="ds-tab-panel" id="tp1-b">
+                <h3 style="font-size:14px;font-weight:600;margin-bottom:10px;color:var(--shell-text);">Latest Findings</h3>
+                <p style="color:var(--shell-text-muted);font-size:13px;line-height:1.6;">3 medium-severity findings detected in the last scan. 1 informational notice regarding outdated TLS configuration.</p>
+              </div>
+              <div class="ds-tab-panel" id="tp1-c">
+                <h3 style="font-size:14px;font-weight:600;margin-bottom:10px;color:var(--shell-text);">Scan History</h3>
+                <p style="color:var(--shell-text-muted);font-size:13px;line-height:1.6;">14 scans recorded. Average duration: 4.2 minutes. Trend: improving (8% fewer findings month-over-month).</p>
+              </div>
+              <div class="ds-tab-panel" id="tp1-d">
+                <h3 style="font-size:14px;font-weight:600;margin-bottom:10px;color:var(--shell-text);">Target Settings</h3>
+                <p style="color:var(--shell-text-muted);font-size:13px;line-height:1.6;">Configure scan frequency, notification thresholds, and authentication credentials for this target.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Tabs — Pill Style</div>
+        <div class="comp-card">
+          <div class="ds-tabs ds-tabs-pill" id="tabs-2">
+            <div class="ds-tabs-list">
+              <button class="ds-tab active" data-tabs="tabs-2" data-panel="tp2-a">All</button>
+              <button class="ds-tab" data-tabs="tabs-2" data-panel="tp2-b">Critical</button>
+              <button class="ds-tab" data-tabs="tabs-2" data-panel="tp2-c">High</button>
+              <button class="ds-tab" data-tabs="tabs-2" data-panel="tp2-d">Medium</button>
+            </div>
+            <div class="ds-tab-panels">
+              <div class="ds-tab-panel active" id="tp2-a"><p style="color:var(--shell-text-muted);font-size:13px;padding:16px 0;">Showing all 47 findings across severity levels.</p></div>
+              <div class="ds-tab-panel" id="tp2-b"><p style="color:var(--shell-text-muted);font-size:13px;padding:16px 0;">Showing 3 critical findings requiring immediate action.</p></div>
+              <div class="ds-tab-panel" id="tp2-c"><p style="color:var(--shell-text-muted);font-size:13px;padding:16px 0;">Showing 12 high-severity findings for review.</p></div>
+              <div class="ds-tab-panel" id="tp2-d"><p style="color:var(--shell-text-muted);font-size:13px;padding:16px 0;">Showing 32 medium-severity findings.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Accordion</div>
+        <div class="ds-accordion">
+          <div class="ds-accordion-item">
+            <button class="ds-accordion-trigger" onclick="toggleAccordion(this)">
+              <span>What is a design system?</span>
+              <svg class="ds-accordion-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="ds-accordion-content">
+              <p>A design system is a collection of reusable components, guided by clear standards, that can be assembled to build any number of applications. It bridges design and development teams with a shared language.</p>
+            </div>
+          </div>
+          <div class="ds-accordion-item">
+            <button class="ds-accordion-trigger" onclick="toggleAccordion(this)">
+              <span>How do I implement dark mode?</span>
+              <svg class="ds-accordion-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="ds-accordion-content">
+              <p>This design system uses CSS custom properties (variables) with a <code>body.theme-light</code> class toggle. Dark mode is the default. Toggle the sun/moon icon in the top bar to switch themes. Preference is persisted via localStorage.</p>
+            </div>
+          </div>
+          <div class="ds-accordion-item">
+            <button class="ds-accordion-trigger" onclick="toggleAccordion(this)">
+              <span>Which browsers are supported?</span>
+              <svg class="ds-accordion-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="ds-accordion-content">
+              <p>All modern browsers: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+. Internet Explorer is not supported. The design system uses CSS Grid, Flexbox, CSS Custom Properties, and SVG.</p>
+            </div>
+          </div>
+          <div class="ds-accordion-item">
+            <button class="ds-accordion-trigger" onclick="toggleAccordion(this)">
+              <span>Can I use these components in my React project?</span>
+              <svg class="ds-accordion-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="ds-accordion-content">
+              <p>Yes. The design tokens (CSS variables), colour palette, typography, and spacing scale are all framework-agnostic. The CSS classes can be mapped to React component props. A React wrapper library is planned for a future release.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS & SLIDER PAGE -->
+    <div class="page" id="page-progress">
+      <div class="page-header">
+        <h1>Progress &amp; Slider</h1>
+        <p>Visual indicators for task completion, loading states, and value selection inputs.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Progress Bar</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Scan Progress</span><span style="font-size:12px;color:var(--shell-text);">65%</span></div>
+              <div class="ds-progress"><div class="ds-progress-bar" style="width:65%;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Risk Score</span><span style="font-size:12px;color:#D98B1D;">42%</span></div>
+              <div class="ds-progress"><div class="ds-progress-bar" style="width:42%;background:#D98B1D;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Vulnerability Patched</span><span style="font-size:12px;color:#31A56D;">88%</span></div>
+              <div class="ds-progress"><div class="ds-progress-bar" style="width:88%;background:#31A56D;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Critical Exposure</span><span style="font-size:12px;color:#D12329;">18%</span></div>
+              <div class="ds-progress"><div class="ds-progress-bar" style="width:18%;background:#D12329;"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Progress Bar — Sizes</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <div><div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:6px;">Small (4px)</div><div class="ds-progress" style="height:4px;"><div class="ds-progress-bar" style="width:50%;"></div></div></div>
+            <div><div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:6px;">Medium (8px) — default</div><div class="ds-progress"><div class="ds-progress-bar" style="width:50%;"></div></div></div>
+            <div><div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:6px;">Large (12px)</div><div class="ds-progress" style="height:12px;"><div class="ds-progress-bar" style="width:50%;"></div></div></div>
+            <div><div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:6px;">Indeterminate (animated)</div><div class="ds-progress"><div class="ds-progress-bar indeterminate"></div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Range Slider</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:24px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-size:12px;color:var(--shell-text-muted);">Scan Depth</span><span class="ds-slider-value" id="slider-val-1" style="font-size:12px;font-weight:600;color:var(--shell-accent);">50</span></div>
+              <input type="range" class="ds-slider" id="slider-1" min="0" max="100" value="50" oninput="document.getElementById('slider-val-1').textContent=this.value">
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-size:12px;color:var(--shell-text-muted);">Risk Threshold</span><span class="ds-slider-value" id="slider-val-2" style="font-size:12px;font-weight:600;color:#D98B1D;">30</span></div>
+              <input type="range" class="ds-slider ds-slider-warning" id="slider-2" min="0" max="100" value="30" oninput="document.getElementById('slider-val-2').textContent=this.value">
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-size:12px;color:var(--shell-text-muted);">Disabled slider</span><span style="font-size:12px;color:var(--shell-text-muted);">75</span></div>
+              <input type="range" class="ds-slider" min="0" max="100" value="75" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Step Progress</div>
+        <div class="comp-card">
+          <div class="ds-steps" id="steps-demo">
+            <div class="ds-step completed"><div class="ds-step-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="ds-step-label">Discovery</div></div>
+            <div class="ds-step-line completed"></div>
+            <div class="ds-step completed"><div class="ds-step-dot"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="ds-step-label">Scanning</div></div>
+            <div class="ds-step-line completed"></div>
+            <div class="ds-step active"><div class="ds-step-dot"><span>3</span></div><div class="ds-step-label">Analysis</div></div>
+            <div class="ds-step-line"></div>
+            <div class="ds-step"><div class="ds-step-dot"><span>4</span></div><div class="ds-step-label">Report</div></div>
+          </div>
+          <div style="margin-top:16px;display:flex;gap:8px;">
+            <button class="ds-btn t-outline sz-sm" onclick="stepBack()">← Back</button>
+            <button class="ds-btn t-primary sz-sm" onclick="stepForward()">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLE PAGE -->
+    <div class="page" id="page-table">
+      <div class="page-header">
+        <h1>Table</h1>
+        <p>Sortable data tables for displaying structured information. Click column headers to sort. Supports status badges and action buttons.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Sortable Data Table</div>
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;overflow:hidden;">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--shell-border);display:flex;align-items:center;gap:12px;">
+            <div class="ds-input-field" style="flex:1;max-width:280px;height:32px;">
+              <div class="prefix" style="padding:0 8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+              <input type="text" id="table-search" placeholder="Search findings…" oninput="filterTable(this.value)" style="font-size:13px;">
+            </div>
+            <span id="table-count" style="font-size:12px;color:var(--shell-text-muted);margin-left:auto;"></span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="ds-table" id="findings-table">
+              <thead>
+                <tr>
+                  <th class="ds-th sortable" data-col="0" onclick="sortTable(0)">Target <span class="sort-icon">↕</span></th>
+                  <th class="ds-th sortable" data-col="1" onclick="sortTable(1)">Vulnerability <span class="sort-icon">↕</span></th>
+                  <th class="ds-th sortable" data-col="2" onclick="sortTable(2)">Severity <span class="sort-icon">↕</span></th>
+                  <th class="ds-th sortable" data-col="3" onclick="sortTable(3)">Status <span class="sort-icon">↕</span></th>
+                  <th class="ds-th sortable" data-col="4" onclick="sortTable(4)">Date <span class="sort-icon">↕</span></th>
+                  <th class="ds-th">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BREADCRUMB & PAGINATION PAGE -->
+    <div class="page" id="page-breadnav">
+      <div class="page-header">
+        <h1>Breadcrumb &amp; Pagination</h1>
+        <p>Navigation aid components. Breadcrumbs for location context, pagination for multi-page datasets.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Breadcrumb</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <nav class="ds-breadcrumb">
+              <a href="#">Home</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <span class="ds-breadcrumb-current">Dashboard</span>
+            </nav>
+            <nav class="ds-breadcrumb">
+              <a href="#">Home</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <a href="#">Targets</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <span class="ds-breadcrumb-current">api.example.com</span>
+            </nav>
+            <nav class="ds-breadcrumb">
+              <a href="#">Home</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <a href="#">Reports</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <a href="#">Q1 2025</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <span class="ds-breadcrumb-current">Executive Summary</span>
+            </nav>
+            <nav class="ds-breadcrumb ds-breadcrumb-icon">
+              <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <a href="#">Settings</a>
+              <span class="ds-breadcrumb-sep">/</span>
+              <span class="ds-breadcrumb-current">Notifications</span>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Pagination</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Default</div>
+              <nav class="ds-pagination" id="pager-1" data-total="10" data-current="3" data-onchange="changePage('pager-1', p)"></nav>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Small</div>
+              <nav class="ds-pagination ds-pagination-sm" id="pager-2" data-total="5" data-current="1"></nav>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">With info</div>
+              <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                <span style="font-size:12px;color:var(--shell-text-muted);">Showing 21–30 of 247 findings</span>
+                <nav class="ds-pagination" id="pager-3" data-total="25" data-current="3"></nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVATAR & SKELETON PAGE -->
+    <div class="page" id="page-avatars">
+      <div class="page-header">
+        <h1>Avatar &amp; Skeleton</h1>
+        <p>User representation components and loading placeholder patterns for deferred content.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Avatar — Initials</div>
+        <div class="comp-card">
+          <div class="comp-row" style="align-items:flex-end;gap:16px;">
+            <div style="text-align:center;"><div class="ds-avatar" style="width:48px;height:48px;font-size:16px;background:#6760d8;">JD</div><div style="font-size:10px;color:var(--shell-text-muted);margin-top:6px;">Large</div></div>
+            <div style="text-align:center;"><div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#47adcb;">AM</div><div style="font-size:10px;color:var(--shell-text-muted);margin-top:6px;">Medium</div></div>
+            <div style="text-align:center;"><div class="ds-avatar" style="width:28px;height:28px;font-size:11px;background:#31A56D;">KR</div><div style="font-size:10px;color:var(--shell-text-muted);margin-top:6px;">Small</div></div>
+            <div style="text-align:center;"><div class="ds-avatar" style="width:22px;height:22px;font-size:9px;background:#D98B1D;">TP</div><div style="font-size:10px;color:var(--shell-text-muted);margin-top:6px;">XSmall</div></div>
+          </div>
+          <div class="comp-row" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--shell-border);gap:16px;">
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#6760d8;">JD</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#D12329;">AB</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#D98B1D;">CD</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#31A56D;">EF</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#47adcb;">GH</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#696969;">IJ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Avatar Group (Stacked)</div>
+        <div class="comp-card">
+          <div class="ds-avatar-group">
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#6760d8;border:2px solid var(--card-bg);">JD</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#47adcb;border:2px solid var(--card-bg);">AM</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#31A56D;border:2px solid var(--card-bg);">KR</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:13px;background:#D98B1D;border:2px solid var(--card-bg);">TP</div>
+            <div class="ds-avatar" style="width:36px;height:36px;font-size:12px;background:var(--shell-elevated);color:var(--shell-text-muted);border:2px solid var(--card-bg);">+8</div>
+          </div>
+          <p style="margin-top:12px;font-size:12px;color:var(--shell-text-muted);">12 team members have access to this workspace.</p>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Skeleton Loaders</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Text Lines</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                <div class="ds-skeleton" style="height:14px;width:40%;"></div>
+                <div class="ds-skeleton" style="height:12px;width:85%;"></div>
+                <div class="ds-skeleton" style="height:12px;width:70%;"></div>
+                <div class="ds-skeleton" style="height:12px;width:60%;"></div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Card Skeleton</div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+                <div style="background:var(--shell-raised);border:1px solid var(--shell-border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+                  <div class="ds-skeleton" style="height:80px;border-radius:6px;"></div>
+                  <div class="ds-skeleton" style="height:14px;width:60%;"></div>
+                  <div class="ds-skeleton" style="height:12px;width:80%;"></div>
+                </div>
+                <div style="background:var(--shell-raised);border:1px solid var(--shell-border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+                  <div class="ds-skeleton" style="height:80px;border-radius:6px;"></div>
+                  <div class="ds-skeleton" style="height:14px;width:50%;"></div>
+                  <div class="ds-skeleton" style="height:12px;width:75%;"></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">List Skeleton</div>
+              <div style="display:flex;flex-direction:column;gap:0;">
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--shell-border);">
+                  <div class="ds-skeleton" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;"></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+                    <div class="ds-skeleton" style="height:12px;width:40%;"></div>
+                    <div class="ds-skeleton" style="height:11px;width:60%;"></div>
+                  </div>
+                  <div class="ds-skeleton" style="width:60px;height:22px;border-radius:4px;"></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--shell-border);">
+                  <div class="ds-skeleton" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;"></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+                    <div class="ds-skeleton" style="height:12px;width:55%;"></div>
+                    <div class="ds-skeleton" style="height:11px;width:45%;"></div>
+                  </div>
+                  <div class="ds-skeleton" style="width:60px;height:22px;border-radius:4px;"></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;">
+                  <div class="ds-skeleton" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;"></div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+                    <div class="ds-skeleton" style="height:12px;width:35%;"></div>
+                    <div class="ds-skeleton" style="height:11px;width:70%;"></div>
+                  </div>
+                  <div class="ds-skeleton" style="width:60px;height:22px;border-radius:4px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </main>

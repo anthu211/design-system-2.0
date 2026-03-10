@@ -365,55 +365,126 @@ function buildDonutChart(containerId, data, size) {
     var endAngle = startAngle + sweep - 1.5;
     var path = describeArc(cx, cy, outerR - strokeW / 2, startAngle, endAngle);
     startAngle += sweep;
-    return '<path d="' + path + '" fill="none" stroke="' + CHART_COLORS[i % CHART_COLORS.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round"/>';
+    return '<path d="' + path + '" fill="none" stroke="' + CHART_COLORS[i % CHART_COLORS.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round"><title>' + d.label + ': ' + d.value + '</title></path>';
   }).join('');
   var el = document.getElementById(containerId);
   if (!el) return;
-  el.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '">' + paths + '</svg>';
+  el.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" style="overflow:visible;">' + paths + '</svg>';
+}
+
+function buildVerticalBarChart(containerId, series, groups, colors) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W = el.offsetWidth || 700;
+  var H = 220;
+  var pad = { top: 16, right: 16, bottom: 36, left: 44 };
+  var innerW = W - pad.left - pad.right;
+  var innerH = H - pad.top - pad.bottom;
+
+  var allVals = [];
+  series.forEach(function(s) { s.values.forEach(function(v) { allVals.push(v); }); });
+  var maxVal = Math.max.apply(null, allVals);
+  var yMax = Math.ceil(maxVal / 5) * 5 || 10;
+
+  var numTicks = 5;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+  }
+
+  var groupW = innerW / groups.length;
+  var serCount = series.length;
+  var barW = Math.max(6, Math.min(18, (groupW * 0.72) / serCount - 3));
+  var barGap = 3;
+  var bars = '', xLabels = '';
+
+  groups.forEach(function(grp, gi) {
+    var groupCX = pad.left + gi * groupW + groupW / 2;
+    var totalBarsW = serCount * barW + (serCount - 1) * barGap;
+    var startX = groupCX - totalBarsW / 2;
+    series.forEach(function(s, si) {
+      var v = s.values[gi];
+      var bh = Math.max(2, (v / yMax) * innerH);
+      var bx = startX + si * (barW + barGap);
+      var by = pad.top + innerH - bh;
+      bars += '<rect x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh + '" fill="' + (colors[si] || CHART_COLORS[si]) + '" rx="2" class="chart-bar"><title>' + s.label + ' (' + grp + '): ' + v + '</title></rect>';
+    });
+    xLabels += '<text x="' + groupCX + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + grp + '</text>';
+  });
+
+  var axes = '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
+
+  el.innerHTML = '<svg class="chart-bar-svg" width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
+    gridLines + axes + bars + yLabels + xLabels + '</svg>';
 }
 
 function buildLineChart(containerId, data, labels) {
   var el = document.getElementById(containerId);
   if (!el) return;
-  var W = el.offsetWidth || 600, H = 150;
-  var pad = { top: 12, right: 16, bottom: 28, left: 40 };
+  var W = el.offsetWidth || 700;
+  var H = 170;
+  var pad = { top: 16, right: 20, bottom: 32, left: 44 };
   var innerW = W - pad.left - pad.right;
   var innerH = H - pad.top - pad.bottom;
   var max = Math.max.apply(null, data);
+  var yMax = Math.ceil(max / 10) * 10 || 10;
   var step = innerW / (data.length - 1);
 
+  var numTicks = 4;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+  }
+
   var pts = data.map(function(v, i) {
-    return (pad.left + i * step) + ',' + (pad.top + innerH - (v / max) * innerH);
+    return (pad.left + i * step).toFixed(1) + ',' + (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
   }).join(' ');
 
   var areaFirst = pad.left + ',' + (pad.top + innerH);
-  var areaLast = (pad.left + (data.length - 1) * step) + ',' + (pad.top + innerH);
+  var areaLast = (pad.left + (data.length - 1) * step).toFixed(1) + ',' + (pad.top + innerH);
   var areaPts = areaFirst + ' ' + pts + ' ' + areaLast;
 
   var xLabels = labels.map(function(l, i) {
-    var x = pad.left + i * step;
+    var x = (pad.left + i * step).toFixed(1);
     return '<text x="' + x + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + l + '</text>';
   }).join('');
 
+  var dotStroke = document.body.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
   var dots = data.map(function(v, i) {
-    var x = pad.left + i * step;
-    var y = pad.top + innerH - (v / max) * innerH;
-    return '<circle cx="' + x + '" cy="' + y + '" r="3.5" fill="#6760d8" stroke="#0E0E0E" stroke-width="1.5"/>';
+    var x = (pad.left + i * step).toFixed(1);
+    var y = (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
+    return '<circle cx="' + x + '" cy="' + y + '" r="3.5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5"><title>' + labels[i] + ': ' + v + '</title></circle>';
   }).join('');
 
-  var yLabels = [0, Math.round(max / 2), max].map(function(v) {
-    var y = pad.top + innerH - (v / max) * innerH;
-    return '<text x="' + (pad.left - 6) + '" y="' + (y + 4) + '" text-anchor="end" class="chart-axis-label">' + v + '</text>';
-  }).join('');
+  var axes = '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
 
-  el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
-    '<defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6760d8" stop-opacity="0.3"/><stop offset="100%" stop-color="#6760d8" stop-opacity="0"/></linearGradient></defs>' +
+  el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
+    '<defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6760d8" stop-opacity="0.25"/><stop offset="100%" stop-color="#6760d8" stop-opacity="0"/></linearGradient></defs>' +
+    gridLines + axes +
     '<polygon points="' + areaPts + '" fill="url(#lg1)"/>' +
     '<polyline points="' + pts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
     dots + xLabels + yLabels + '</svg>';
 }
 
 function initCharts() {
+  buildVerticalBarChart('vbar-chart-1',
+    [
+      { label: 'Critical', values: [14, 11, 18, 9, 12, 6] },
+      { label: 'High',     values: [17, 18, 15, 13, 11, 10] },
+      { label: 'Medium',   values: [20, 16, 19, 14, 13, 11] },
+      { label: 'Low',      values: [8,  10, 12, 16, 18, 20] }
+    ],
+    ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    ['#D12329', '#D98B1D', '#6760d8', '#31A56D']
+  );
   buildDonutChart('donut-chart-1', [
     { label: 'Critical', value: 12 },
     { label: 'High', value: 28 },
@@ -546,10 +617,227 @@ document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
     if (item.dataset.page === 'icons') {
       renderIcons();
     }
+    if (item.dataset.page === 'table') {
+      initTable();
+    }
+    if (item.dataset.page === 'breadnav') {
+      setTimeout(initPaginators, 0);
+    }
   });
 });
 
 // Init charts if starting on charts page
 if (document.querySelector('#page-charts.active')) {
   setTimeout(initCharts, 60);
+}
+
+// ─── Modal ───
+function openModal(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.add('open');
+}
+function closeModal(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.remove('open');
+}
+// Close modal on overlay click
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('ds-modal-overlay')) {
+    e.target.classList.remove('open');
+  }
+});
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.ds-modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+  }
+});
+
+// ─── Toast ───
+function showToast(type, message) {
+  var container = document.getElementById('toast-container');
+  if (!container) return;
+  var icons = {
+    success: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    error:   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    warning: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    info:    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+  };
+  var toast = document.createElement('div');
+  toast.className = 'ds-toast ' + type;
+  toast.innerHTML = (icons[type] || '') + '<span>' + message + '</span><button class="ds-toast-dismiss" onclick="this.closest(\'.ds-toast\').remove()">×</button>';
+  container.appendChild(toast);
+  setTimeout(function() {
+    toast.style.transition = 'opacity 300ms, transform 300ms';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(20px)';
+    setTimeout(function() { if (toast.parentNode) toast.remove(); }, 320);
+  }, 3500);
+}
+
+// ─── Tabs ───
+document.querySelectorAll('.ds-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    var tabsId = tab.dataset.tabs;
+    var panelId = tab.dataset.panel;
+    var tabsEl = document.getElementById(tabsId);
+    if (!tabsEl) return;
+    tabsEl.querySelectorAll('.ds-tab').forEach(function(t) { t.classList.remove('active'); });
+    tabsEl.querySelectorAll('.ds-tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    tab.classList.add('active');
+    var panel = document.getElementById(panelId);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+// ─── Accordion ───
+function toggleAccordion(trigger) {
+  var item = trigger.closest('.ds-accordion-item');
+  var content = item.querySelector('.ds-accordion-content');
+  var isOpen = trigger.classList.contains('open');
+  trigger.classList.toggle('open', !isOpen);
+  content.classList.toggle('open', !isOpen);
+}
+
+// ─── Step Progress ───
+var currentStep = 3; // 1-indexed, starts at Analysis (step 3)
+function updateSteps() {
+  var steps = document.querySelectorAll('#steps-demo .ds-step');
+  var lines = document.querySelectorAll('#steps-demo .ds-step-line');
+  steps.forEach(function(step, i) {
+    step.classList.remove('active', 'completed');
+    var dot = step.querySelector('.ds-step-dot');
+    if (i + 1 < currentStep) {
+      step.classList.add('completed');
+      dot.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    } else if (i + 1 === currentStep) {
+      step.classList.add('active');
+      dot.innerHTML = '<span>' + (i + 1) + '</span>';
+    } else {
+      dot.innerHTML = '<span>' + (i + 1) + '</span>';
+    }
+  });
+  lines.forEach(function(line, i) {
+    line.classList.toggle('completed', i + 1 < currentStep);
+  });
+}
+function stepForward() {
+  var steps = document.querySelectorAll('#steps-demo .ds-step');
+  if (currentStep < steps.length) { currentStep++; updateSteps(); }
+}
+function stepBack() {
+  if (currentStep > 1) { currentStep--; updateSteps(); }
+}
+
+// ─── Table ───
+var TABLE_DATA = [
+  { target: 'api.example.com',      vuln: 'SQL Injection',         severity: 'Critical', status: 'Open',     date: '2025-03-01' },
+  { target: 'auth.example.com',     vuln: 'Broken Authentication', severity: 'High',     status: 'In Review',date: '2025-02-28' },
+  { target: 'app.example.com',      vuln: 'XSS Reflected',         severity: 'Medium',   status: 'Open',     date: '2025-02-26' },
+  { target: 'api.example.com',      vuln: 'CSRF Token Missing',    severity: 'Medium',   status: 'Resolved', date: '2025-02-25' },
+  { target: 'cdn.example.com',      vuln: 'Outdated TLS 1.0',      severity: 'Low',      status: 'Resolved', date: '2025-02-22' },
+  { target: 'admin.example.com',    vuln: 'Path Traversal',        severity: 'Critical', status: 'Open',     date: '2025-02-20' },
+  { target: 'legacy.example.com',   vuln: 'RCE via Deserialization',severity: 'Critical',status: 'In Review',date: '2025-02-18' },
+  { target: 'portal.example.com',   vuln: 'IDOR on User IDs',       severity: 'High',    status: 'Open',     date: '2025-02-15' },
+  { target: 'api.example.com',      vuln: 'Sensitive Data Exposure',severity: 'High',    status: 'Resolved', date: '2025-02-10' },
+  { target: 'app.example.com',      vuln: 'Open Redirect',          severity: 'Low',     status: 'Open',     date: '2025-02-08' },
+];
+var tableSortCol = -1, tableSortAsc = true, tableFilter = '';
+
+function severityOrder(s) {
+  return { Critical: 0, High: 1, Medium: 2, Low: 3 }[s] || 4;
+}
+function statusBadge(s) {
+  var map = { Open: 'danger', 'In Review': 'warning', Resolved: 'success' };
+  return '<span class="ds-badge ' + (map[s] || 'neutral') + '">' + s + '</span>';
+}
+function renderTable(data) {
+  var tbody = document.getElementById('table-body');
+  var count = document.getElementById('table-count');
+  if (!tbody) return;
+  if (count) count.textContent = data.length + ' findings';
+  tbody.innerHTML = data.map(function(row) {
+    return '<tr>' +
+      '<td class="ds-td">' + row.target + '</td>' +
+      '<td class="ds-td">' + row.vuln + '</td>' +
+      '<td class="ds-td">' + statusBadge(row.severity) + '</td>' +
+      '<td class="ds-td">' + statusBadge(row.status) + '</td>' +
+      '<td class="ds-td">' + row.date + '</td>' +
+      '<td class="ds-td"><button class="ds-table-action" title="View" onclick="showToast(\'info\',\'Viewing: ' + row.vuln.replace(/'/g, '') + '\')">' +
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' +
+      '</button></td>' +
+      '</tr>';
+  }).join('');
+}
+function getFilteredSorted() {
+  var data = TABLE_DATA.filter(function(row) {
+    if (!tableFilter) return true;
+    var q = tableFilter.toLowerCase();
+    return row.target.toLowerCase().includes(q) || row.vuln.toLowerCase().includes(q) ||
+      row.severity.toLowerCase().includes(q) || row.status.toLowerCase().includes(q);
+  });
+  if (tableSortCol >= 0) {
+    var keys = ['target', 'vuln', 'severity', 'status', 'date'];
+    var key = keys[tableSortCol];
+    data.sort(function(a, b) {
+      var va = key === 'severity' ? severityOrder(a[key]) : a[key];
+      var vb = key === 'severity' ? severityOrder(b[key]) : b[key];
+      if (va < vb) return tableSortAsc ? -1 : 1;
+      if (va > vb) return tableSortAsc ? 1 : -1;
+      return 0;
+    });
+  }
+  return data;
+}
+function sortTable(col) {
+  if (tableSortCol === col) { tableSortAsc = !tableSortAsc; }
+  else { tableSortCol = col; tableSortAsc = true; }
+  document.querySelectorAll('.ds-th').forEach(function(th) {
+    th.classList.remove('sort-asc', 'sort-desc');
+    if (parseInt(th.dataset.col) === col) th.classList.add(tableSortAsc ? 'sort-asc' : 'sort-desc');
+  });
+  renderTable(getFilteredSorted());
+}
+function filterTable(q) {
+  tableFilter = q;
+  renderTable(getFilteredSorted());
+}
+function initTable() {
+  renderTable(getFilteredSorted());
+  var count = document.getElementById('table-count');
+  if (count) count.textContent = TABLE_DATA.length + ' findings';
+}
+// Init table if starting on that page
+if (document.querySelector('#page-table.active')) { initTable(); }
+
+// ─── Pagination ───
+function buildPaginator(id) {
+  var nav = document.getElementById(id);
+  if (!nav) return;
+  var total = parseInt(nav.dataset.total) || 1;
+  var current = parseInt(nav.dataset.current) || 1;
+  var html = '';
+  html += '<button class="ds-page-btn" onclick="changePage(\'' + id + '\',' + (current - 1) + ')" ' + (current <= 1 ? 'disabled' : '') + '>‹</button>';
+  for (var p = 1; p <= total; p++) {
+    if (total > 7 && p > 2 && p < total - 1 && Math.abs(p - current) > 1) {
+      if (p === 3 || p === total - 2) html += '<span class="ds-page-ellipsis">…</span>';
+      continue;
+    }
+    html += '<button class="ds-page-btn ' + (p === current ? 'active' : '') + '" onclick="changePage(\'' + id + '\',' + p + ')">' + p + '</button>';
+  }
+  html += '<button class="ds-page-btn" onclick="changePage(\'' + id + '\',' + (current + 1) + ')" ' + (current >= total ? 'disabled' : '') + '>›</button>';
+  nav.innerHTML = html;
+}
+function changePage(id, page) {
+  var nav = document.getElementById(id);
+  if (!nav) return;
+  var total = parseInt(nav.dataset.total) || 1;
+  page = Math.max(1, Math.min(total, page));
+  nav.dataset.current = page;
+  buildPaginator(id);
+}
+function initPaginators() {
+  buildPaginator('pager-1');
+  buildPaginator('pager-2');
+  buildPaginator('pager-3');
 }
