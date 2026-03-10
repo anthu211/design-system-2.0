@@ -46,6 +46,26 @@
         Resolutions
       </div>
     </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Components</div>
+      <div class="nav-item" data-page="buttons">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
+        Buttons &amp; Toggles
+      </div>
+      <div class="nav-item" data-page="forms">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Form Controls
+      </div>
+      <div class="nav-item" data-page="charts">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Charts
+      </div>
+      <div class="nav-item" data-page="icons">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Icons
+      </div>
+    </div>
   </nav>
 
   <!-- Main Content -->
@@ -390,6 +410,696 @@
       <div class="callout warning">
         <strong>Browser zoom:</strong> All specs assume 100% zoom. At 110%+ content may clip at 1280px. Test at 100% and 125% zoom.
       </div>
+    </div>
+
+
+    <!-- BUTTONS & TOGGLES PAGE -->
+    <div class="page" id="page-buttons">
+      <div class="page-header">
+        <h1>Buttons &amp; Toggles</h1>
+        <p>7 button variants × 3 sizes with interactive hover, active, loading and disabled states. Toggle switches and dual-mode segmented controls.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Button Variants — hover and click to interact</div>
+        <div class="comp-demo-grid">
+          <div class="grid-head"></div>
+          <div class="grid-head">Primary</div>
+          <div class="grid-head">Special</div>
+          <div class="grid-head">Secondary</div>
+          <div class="grid-head">Outline</div>
+          <div class="grid-head">Tertiary</div>
+          <div class="grid-head">Success</div>
+          <div class="grid-head">Danger</div>
+
+          <div class="grid-row-label">SM</div>
+          <div class="grid-cell"><button class="ds-btn t-primary sz-sm">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-special sz-sm"><span class="btn-text">Button</span></button></div>
+          <div class="grid-cell"><button class="ds-btn t-secondary sz-sm">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-outline sz-sm">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-tertiary sz-sm">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-success sz-sm">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-danger sz-sm">Button</button></div>
+
+          <div class="grid-row-label">MD</div>
+          <div class="grid-cell"><button class="ds-btn t-primary sz-md">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-special sz-md"><span class="btn-text">Button</span></button></div>
+          <div class="grid-cell"><button class="ds-btn t-secondary sz-md">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-outline sz-md">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-tertiary sz-md">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-success sz-md">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-danger sz-md">Button</button></div>
+
+          <div class="grid-row-label">LG</div>
+          <div class="grid-cell"><button class="ds-btn t-primary sz-lg">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-special sz-lg"><span class="btn-text">Button</span></button></div>
+          <div class="grid-cell"><button class="ds-btn t-secondary sz-lg">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-outline sz-lg">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-tertiary sz-lg">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-success sz-lg">Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-danger sz-lg">Button</button></div>
+
+          <div class="grid-row-label">LOADING</div>
+          <div class="grid-cell"><button class="ds-btn t-primary sz-md"><span class="ds-spinner"></span>Loading</button></div>
+          <div class="grid-cell"><button class="ds-btn t-special sz-md"><span class="ds-spinner"></span><span class="btn-text">Loading</span></button></div>
+          <div class="grid-cell"><button class="ds-btn t-secondary sz-md"><span class="ds-spinner"></span>Loading</button></div>
+          <div class="grid-cell"><button class="ds-btn t-outline sz-md"><span class="ds-spinner"></span>Loading</button></div>
+          <div class="grid-cell"><button class="ds-btn t-tertiary sz-md"><span class="ds-spinner"></span>Loading</button></div>
+          <div class="grid-cell"><button class="ds-btn t-success sz-md"><span class="ds-spinner"></span>Loading</button></div>
+          <div class="grid-cell"><button class="ds-btn t-danger sz-md"><span class="ds-spinner"></span>Loading</button></div>
+
+          <div class="grid-row-label">DISABLED</div>
+          <div class="grid-cell"><button class="ds-btn t-primary sz-md" disabled>Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-special sz-md" disabled><span class="btn-text">Button</span></button></div>
+          <div class="grid-cell"><button class="ds-btn t-secondary sz-md" disabled>Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-outline sz-md" disabled>Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-tertiary sz-md" disabled>Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-success sz-md" disabled>Button</button></div>
+          <div class="grid-cell"><button class="ds-btn t-danger sz-md" disabled>Button</button></div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Buttons with Icons</div>
+        <div class="comp-card">
+          <div class="comp-row">
+            <button class="ds-btn t-primary sz-md">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Item
+            </button>
+            <button class="ds-btn t-outline sz-md">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+            <button class="ds-btn t-danger sz-md">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+              Delete
+            </button>
+            <button class="ds-btn t-success sz-md">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Confirm
+            </button>
+            <button class="ds-btn t-special sz-md">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span class="btn-text">Run Analysis</span>
+            </button>
+          </div>
+          <div class="comp-row">
+            <button class="ds-btn t-primary sz-sm">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New
+            </button>
+            <button class="ds-btn t-outline sz-sm">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Search
+            </button>
+            <button class="ds-btn t-secondary sz-sm">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              Filter
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Toggle Switch — click to toggle</div>
+        <div class="comp-card">
+          <div class="comp-row">
+            <span class="comp-row-label">Small</span>
+            <label class="ds-toggle-wrap">
+              <span class="ds-toggle-track sz-sm"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Off</span>
+            </label>
+            <label class="ds-toggle-wrap">
+              <span class="ds-toggle-track sz-sm on"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">On</span>
+            </label>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Medium</span>
+            <label class="ds-toggle-wrap">
+              <span class="ds-toggle-track sz-md"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Notifications</span>
+            </label>
+            <label class="ds-toggle-wrap">
+              <span class="ds-toggle-track sz-md on"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Dark Mode</span>
+            </label>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Large</span>
+            <label class="ds-toggle-wrap">
+              <span class="ds-toggle-track sz-lg"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Feature Flag</span>
+            </label>
+            <label class="ds-toggle-wrap">
+              <span class="ds-toggle-track sz-lg on"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#D1D1D1;">Enabled</span>
+            </label>
+          </div>
+          <div class="comp-row">
+            <span class="comp-row-label">Disabled</span>
+            <label class="ds-toggle-wrap is-disabled">
+              <span class="ds-toggle-track sz-md"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#696969;">Disabled Off</span>
+            </label>
+            <label class="ds-toggle-wrap is-disabled">
+              <span class="ds-toggle-track sz-md on"><span class="ds-toggle-thumb"></span></span>
+              <span class="ds-toggle-label" style="font-size:13px;color:#696969;">Disabled On</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Dual Toggle (Segmented Control)</div>
+        <div class="comp-card">
+          <div class="comp-row" style="gap:20px;flex-wrap:wrap;">
+            <div class="ds-dual-toggle">
+              <div class="dt-indicator"></div>
+              <button class="dt-btn active">Monthly</button>
+              <button class="dt-btn">Annual</button>
+            </div>
+            <div class="ds-dual-toggle">
+              <div class="dt-indicator"></div>
+              <button class="dt-btn active">Table View</button>
+              <button class="dt-btn">Chart View</button>
+            </div>
+            <div class="ds-dual-toggle">
+              <div class="dt-indicator"></div>
+              <button class="dt-btn active">Dark</button>
+              <button class="dt-btn">Light</button>
+            </div>
+          </div>
+          <div class="comp-row" style="margin-top:8px;">
+            <div class="ds-dual-toggle" data-disabled="true">
+              <div class="dt-indicator"></div>
+              <button class="dt-btn active">Option A</button>
+              <button class="dt-btn">Option B</button>
+            </div>
+            <span style="font-size:11px;color:#696969;margin-left:8px;">disabled state</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM CONTROLS PAGE -->
+    <div class="page" id="page-forms">
+      <div class="page-header">
+        <h1>Form Controls</h1>
+        <p>Interactive dropdowns, radio groups, checkboxes, text inputs, and textareas. All controls support focus, error, and disabled states.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Dropdown — Single Select</div>
+        <div class="comp-card">
+          <div class="comp-row" style="align-items:flex-start;gap:24px;flex-wrap:wrap;">
+            <div class="ds-dropdown" id="dd-priority">
+              <span class="ds-dropdown-label">Priority</span>
+              <div class="ds-dropdown-trigger">
+                <span class="ds-dropdown-trigger-text placeholder">Select priority…</span>
+                <svg class="ds-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="ds-dropdown-panel">
+                <div class="ds-dropdown-search"><input type="text" placeholder="Search…"></div>
+                <div class="ds-dropdown-options">
+                  <div class="ds-dropdown-option" data-value="Critical">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#D12329;flex-shrink:0;display:inline-block;"></span> Critical
+                  </div>
+                  <div class="ds-dropdown-option" data-value="High">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#D98B1D;flex-shrink:0;display:inline-block;"></span> High
+                  </div>
+                  <div class="ds-dropdown-option" data-value="Medium">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#CDB900;flex-shrink:0;display:inline-block;"></span> Medium
+                  </div>
+                  <div class="ds-dropdown-option" data-value="Low">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#31A56D;flex-shrink:0;display:inline-block;"></span> Low
+                  </div>
+                  <div class="ds-dropdown-option" data-value="Info">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#6760d8;flex-shrink:0;display:inline-block;"></span> Info
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ds-dropdown" id="dd-status">
+              <span class="ds-dropdown-label">Status</span>
+              <div class="ds-dropdown-trigger">
+                <span class="ds-dropdown-trigger-text placeholder">Select status…</span>
+                <svg class="ds-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="ds-dropdown-panel">
+                <div class="ds-dropdown-options">
+                  <div class="ds-dropdown-option" data-value="Open">Open</div>
+                  <div class="ds-dropdown-option" data-value="In Progress">In Progress</div>
+                  <div class="ds-dropdown-option" data-value="Resolved">Resolved</div>
+                  <div class="ds-dropdown-option" data-value="Closed">Closed</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="ds-dropdown has-error" id="dd-error">
+              <span class="ds-dropdown-label">Assignment <span style="color:#d12329;">*</span></span>
+              <div class="ds-dropdown-trigger">
+                <span class="ds-dropdown-trigger-text placeholder">Select assignee…</span>
+                <svg class="ds-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="ds-dropdown-panel">
+                <div class="ds-dropdown-options">
+                  <div class="ds-dropdown-option" data-value="Alex">Alex Kim</div>
+                  <div class="ds-dropdown-option" data-value="Sam">Sam Chen</div>
+                  <div class="ds-dropdown-option" data-value="Jordan">Jordan Lee</div>
+                </div>
+              </div>
+              <span class="ds-dropdown-error">This field is required</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Dropdown — Multi Select</div>
+        <div class="comp-card">
+          <div class="comp-row" style="align-items:flex-start;">
+            <div class="ds-dropdown" id="dd-tags" data-multi="true" data-placeholder="Select tags…" style="min-width:320px;">
+              <span class="ds-dropdown-label">Tags</span>
+              <div class="ds-dropdown-trigger">
+                <div class="ds-chips-wrap"></div>
+                <span class="ds-dropdown-trigger-text placeholder">Select tags…</span>
+                <svg class="ds-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="ds-dropdown-panel">
+                <div class="ds-dropdown-search"><input type="text" placeholder="Filter tags…"></div>
+                <div class="ds-dropdown-options">
+                  <div class="ds-dropdown-option" data-value="SQL Injection">SQL Injection</div>
+                  <div class="ds-dropdown-option" data-value="XSS">XSS</div>
+                  <div class="ds-dropdown-option" data-value="Auth Bypass">Auth Bypass</div>
+                  <div class="ds-dropdown-option" data-value="CSRF">CSRF</div>
+                  <div class="ds-dropdown-option" data-value="IDOR">IDOR</div>
+                  <div class="ds-dropdown-option" data-value="RCE">RCE</div>
+                  <div class="ds-dropdown-option" data-value="LFI">LFI</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Radio Group</div>
+        <div class="comp-card">
+          <div class="comp-row" style="align-items:flex-start;gap:48px;flex-wrap:wrap;">
+            <div>
+              <div class="comp-card-header">Vertical</div>
+              <div class="ds-radio-group">
+                <div class="ds-radio-options">
+                  <label class="ds-radio-item">
+                    <span class="ds-radio-dot sz-md checked"></span>
+                    <span>
+                      <div class="ds-radio-text" style="color:#282828;">Critical</div>
+                      <div class="ds-radio-desc">Immediate action required</div>
+                    </span>
+                  </label>
+                  <label class="ds-radio-item">
+                    <span class="ds-radio-dot sz-md"></span>
+                    <span>
+                      <div class="ds-radio-text" style="color:#282828;">High</div>
+                      <div class="ds-radio-desc">Address within 24 hours</div>
+                    </span>
+                  </label>
+                  <label class="ds-radio-item">
+                    <span class="ds-radio-dot sz-md"></span>
+                    <span>
+                      <div class="ds-radio-text" style="color:#282828;">Medium</div>
+                      <div class="ds-radio-desc">Address within a week</div>
+                    </span>
+                  </label>
+                  <label class="ds-radio-item disabled">
+                    <span class="ds-radio-dot sz-md"></span>
+                    <span>
+                      <div class="ds-radio-text" style="color:#282828;">Low (disabled)</div>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="comp-card-header">Horizontal</div>
+              <div class="ds-radio-group horizontal">
+                <div class="ds-radio-options" style="flex-direction:row;flex-wrap:wrap;gap:16px;">
+                  <label class="ds-radio-item">
+                    <span class="ds-radio-dot sz-sm checked"></span>
+                    <span class="ds-radio-text" style="color:#282828;">All</span>
+                  </label>
+                  <label class="ds-radio-item">
+                    <span class="ds-radio-dot sz-sm"></span>
+                    <span class="ds-radio-text" style="color:#282828;">Open</span>
+                  </label>
+                  <label class="ds-radio-item">
+                    <span class="ds-radio-dot sz-sm"></span>
+                    <span class="ds-radio-text" style="color:#282828;">Resolved</span>
+                  </label>
+                  <label class="ds-radio-item">
+                    <span class="ds-radio-dot sz-sm"></span>
+                    <span class="ds-radio-text" style="color:#282828;">Closed</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Checkbox</div>
+        <div class="comp-card">
+          <div class="comp-row" style="align-items:flex-start;gap:32px;flex-wrap:wrap;">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="comp-card-header">States</div>
+              <label class="ds-checkbox-item">
+                <span class="ds-checkbox-box sz-md">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#282828;">Unchecked</span>
+              </label>
+              <label class="ds-checkbox-item">
+                <span class="ds-checkbox-box sz-md checked">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#282828;">Checked</span>
+              </label>
+              <label class="ds-checkbox-item">
+                <span class="ds-checkbox-box sz-md indeterminate">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#282828;">Indeterminate</span>
+              </label>
+              <label class="ds-checkbox-item disabled">
+                <span class="ds-checkbox-box sz-md">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#9f9f9f;">Disabled</span>
+              </label>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div class="comp-card-header">Select Findings</div>
+              <label class="ds-checkbox-item">
+                <span class="ds-checkbox-box sz-md checked">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#282828;">SQL Injection — CVE-2024-1234</span>
+              </label>
+              <label class="ds-checkbox-item">
+                <span class="ds-checkbox-box sz-md">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#282828;">XSS Reflected — CVE-2024-5678</span>
+              </label>
+              <label class="ds-checkbox-item">
+                <span class="ds-checkbox-box sz-md checked">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#282828;">CSRF Token Missing</span>
+              </label>
+              <label class="ds-checkbox-item">
+                <span class="ds-checkbox-box sz-md">
+                  <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none"><polyline points="2 6 5 9 10 3" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="dash" width="10" height="10" viewBox="0 0 12 12" fill="none"><line x1="2.5" y1="6" x2="9.5" y2="6" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <span class="ds-checkbox-text" style="color:#282828;">Broken Auth — CVE-2024-9012</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Text Input</div>
+        <div class="comp-card">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
+            <div class="ds-input-wrap" style="width:100%;">
+              <span class="ds-input-label">Default</span>
+              <div class="ds-input-field">
+                <input type="text" placeholder="Enter value…">
+              </div>
+              <span class="ds-input-hint">Helper text goes here</span>
+            </div>
+            <div class="ds-input-wrap" style="width:100%;">
+              <span class="ds-input-label">With prefix</span>
+              <div class="ds-input-field">
+                <span class="prefix">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                </span>
+                <input type="text" placeholder="Search findings…">
+              </div>
+            </div>
+            <div class="ds-input-wrap" style="width:100%;">
+              <span class="ds-input-label">Password</span>
+              <div class="ds-input-field">
+                <input type="password" placeholder="Enter password…" value="mypassword123">
+                <button class="ds-input-icon-btn ds-pw-toggle" type="button">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="ds-input-wrap" style="width:100%;">
+              <span class="ds-input-label">With suffix</span>
+              <div class="ds-input-field">
+                <input type="text" placeholder="0" value="1440">
+                <span class="suffix">px</span>
+              </div>
+            </div>
+            <div class="ds-input-wrap" style="width:100%;">
+              <span class="ds-input-label">Error state <span style="color:#d12329;">*</span></span>
+              <div class="ds-input-field has-error">
+                <input type="email" placeholder="email@domain.com" value="invalid-email">
+              </div>
+              <span class="ds-input-hint error">Enter a valid email address</span>
+            </div>
+            <div class="ds-input-wrap" style="width:100%;">
+              <span class="ds-input-label">Disabled</span>
+              <div class="ds-input-field disabled">
+                <input type="text" placeholder="Not editable" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Textarea</div>
+        <div class="comp-card">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;">
+            <div class="ds-textarea-wrap" style="width:100%;">
+              <span class="ds-input-label">Description</span>
+              <textarea class="ds-textarea-field" rows="4" placeholder="Describe the finding in detail…"></textarea>
+              <span class="ds-input-hint">Supports markdown formatting</span>
+            </div>
+            <div class="ds-textarea-wrap" style="width:100%;">
+              <span class="ds-input-label">Notes <span style="font-size:11px;color:#9f9f9f;">(max 200 chars)</span></span>
+              <textarea class="ds-textarea-field" rows="4" placeholder="Add notes…" data-max="200"></textarea>
+              <div class="ds-input-helper">
+                <span class="ds-input-hint">Internal notes only</span>
+                <span class="ds-input-count">0 / 200</span>
+              </div>
+            </div>
+            <div class="ds-textarea-wrap" style="width:100%;">
+              <span class="ds-input-label">Steps to Reproduce</span>
+              <textarea class="ds-textarea-field has-error" rows="4" placeholder="1. Navigate to…"></textarea>
+              <span class="ds-input-hint error">This field is required</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS PAGE -->
+    <div class="page" id="page-charts">
+      <div class="page-header">
+        <h1>Charts</h1>
+        <p>Data visualisation components using CSS flex bars and SVG for donut and line charts. Hover for interactive states.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Vertical Bar Chart</div>
+        <div class="chart-wrap">
+          <div class="chart-title">Findings by Severity — Q1 2025</div>
+          <div style="position:relative;">
+            <div class="css-bar-chart">
+              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
+                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Jan</div>
+                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
+                  <div class="css-bar" style="height:72%;width:18px;background:#D12329;" title="Critical: 14"></div>
+                  <div class="css-bar" style="height:85%;width:18px;background:#D98B1D;" title="High: 17"></div>
+                  <div class="css-bar" style="height:100%;width:18px;background:#6760d8;" title="Medium: 20"></div>
+                  <div class="css-bar" style="height:40%;width:18px;background:#31A56D;" title="Low: 8"></div>
+                </div>
+              </div>
+              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
+                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Feb</div>
+                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
+                  <div class="css-bar" style="height:55%;width:18px;background:#D12329;" title="Critical: 11"></div>
+                  <div class="css-bar" style="height:90%;width:18px;background:#D98B1D;" title="High: 18"></div>
+                  <div class="css-bar" style="height:80%;width:18px;background:#6760d8;" title="Medium: 16"></div>
+                  <div class="css-bar" style="height:50%;width:18px;background:#31A56D;" title="Low: 10"></div>
+                </div>
+              </div>
+              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
+                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Mar</div>
+                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
+                  <div class="css-bar" style="height:88%;width:18px;background:#D12329;" title="Critical: 18"></div>
+                  <div class="css-bar" style="height:75%;width:18px;background:#D98B1D;" title="High: 15"></div>
+                  <div class="css-bar" style="height:95%;width:18px;background:#6760d8;" title="Medium: 19"></div>
+                  <div class="css-bar" style="height:60%;width:18px;background:#31A56D;" title="Low: 12"></div>
+                </div>
+              </div>
+              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
+                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Apr</div>
+                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
+                  <div class="css-bar" style="height:45%;width:18px;background:#D12329;" title="Critical: 9"></div>
+                  <div class="css-bar" style="height:65%;width:18px;background:#D98B1D;" title="High: 13"></div>
+                  <div class="css-bar" style="height:70%;width:18px;background:#6760d8;" title="Medium: 14"></div>
+                  <div class="css-bar" style="height:80%;width:18px;background:#31A56D;" title="Low: 16"></div>
+                </div>
+              </div>
+              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
+                <div style="font-size:10px;color:#696969;margin-bottom:4px;">May</div>
+                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
+                  <div class="css-bar" style="height:60%;width:18px;background:#D12329;" title="Critical: 12"></div>
+                  <div class="css-bar" style="height:55%;width:18px;background:#D98B1D;" title="High: 11"></div>
+                  <div class="css-bar" style="height:65%;width:18px;background:#6760d8;" title="Medium: 13"></div>
+                  <div class="css-bar" style="height:90%;width:18px;background:#31A56D;" title="Low: 18"></div>
+                </div>
+              </div>
+              <div class="css-bar-group" style="flex-direction:column;align-items:center;gap:0;">
+                <div style="font-size:10px;color:#696969;margin-bottom:4px;">Jun</div>
+                <div style="display:flex;align-items:flex-end;gap:3px;height:140px;">
+                  <div class="css-bar" style="height:30%;width:18px;background:#D12329;" title="Critical: 6"></div>
+                  <div class="css-bar" style="height:48%;width:18px;background:#D98B1D;" title="High: 10"></div>
+                  <div class="css-bar" style="height:55%;width:18px;background:#6760d8;" title="Medium: 11"></div>
+                  <div class="css-bar" style="height:100%;width:18px;background:#31A56D;" title="Low: 20"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-legend">
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D12329;"></div>Critical</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D98B1D;"></div>High</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Medium</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#31A56D;"></div>Low</div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="chart-grid">
+        <div class="chart-wrap">
+          <div class="chart-title">Findings by Category</div>
+          <div class="css-hbar-chart">
+            <div class="css-hbar-row">
+              <span class="css-hbar-label">Injection</span>
+              <div class="css-hbar" style="width:78%;background:#6760d8;"></div>
+              <span class="css-hbar-val">78</span>
+            </div>
+            <div class="css-hbar-row">
+              <span class="css-hbar-label">Auth</span>
+              <div class="css-hbar" style="width:62%;background:#47adcb;"></div>
+              <span class="css-hbar-val">62</span>
+            </div>
+            <div class="css-hbar-row">
+              <span class="css-hbar-label">XSS</span>
+              <div class="css-hbar" style="width:55%;background:#31A56D;"></div>
+              <span class="css-hbar-val">55</span>
+            </div>
+            <div class="css-hbar-row">
+              <span class="css-hbar-label">CSRF</span>
+              <div class="css-hbar" style="width:41%;background:#D98B1D;"></div>
+              <span class="css-hbar-val">41</span>
+            </div>
+            <div class="css-hbar-row">
+              <span class="css-hbar-label">IDOR</span>
+              <div class="css-hbar" style="width:33%;background:#D12329;"></div>
+              <span class="css-hbar-val">33</span>
+            </div>
+            <div class="css-hbar-row">
+              <span class="css-hbar-label">RCE</span>
+              <div class="css-hbar" style="width:18%;background:#8F8DDE;"></div>
+              <span class="css-hbar-val">18</span>
+            </div>
+            <div class="css-hbar-row">
+              <span class="css-hbar-label">Other</span>
+              <div class="css-hbar" style="width:24%;background:#696969;"></div>
+              <span class="css-hbar-val">24</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <div class="chart-title">Severity Distribution</div>
+          <div class="donut-wrap" style="justify-content:center;">
+            <div id="donut-chart-1" style="position:relative;flex-shrink:0;"></div>
+            <div>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-left:8px;">
+                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Critical — 12%</div>
+                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#47adcb;"></div>High — 28%</div>
+                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#2fa76d;"></div>Medium — 45%</div>
+                <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d12329;"></div>Low — 15%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Line Chart</div>
+        <div class="chart-wrap">
+          <div class="chart-title">Monthly Findings Trend — 2025</div>
+          <div id="line-chart-1" style="width:100%;"></div>
+          <div class="chart-legend" style="margin-top:8px;">
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Total Findings</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ICONS PAGE -->
+    <div class="page" id="page-icons">
+      <div class="page-header">
+        <h1>Icons</h1>
+        <p>Stroke-based icon system using Feather icon paths. Click any icon to copy its name. All icons use 24px viewBox at 1.75px stroke width.</p>
+      </div>
+
+      <div class="icon-search-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="icon-search" placeholder="Search icons…">
+        <span class="icon-count" id="icon-count">0 icons</span>
+      </div>
+
+      <div class="icon-cats">
+        <button class="icon-cat-btn active" data-cat="all">All</button>
+        <button class="icon-cat-btn" data-cat="navigation">Navigation</button>
+        <button class="icon-cat-btn" data-cat="actions">Actions</button>
+        <button class="icon-cat-btn" data-cat="status">Status</button>
+        <button class="icon-cat-btn" data-cat="data">Data</button>
+        <button class="icon-cat-btn" data-cat="media">Media</button>
+      </div>
+
+      <div class="icon-grid" id="icon-grid"></div>
     </div>
 
   </main>
