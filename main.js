@@ -1,7 +1,14 @@
 // ─── Global theme ───
+function updateLogo(theme) {
+  var logo = document.getElementById('topbar-logo');
+  if (!logo) return;
+  logo.src = theme === 'light' ? 'icons/pai-logo-black.svg' : 'icons/pai-logo.svg';
+}
+
 (function() {
-  var saved = localStorage.getItem('ds-theme') || 'dark';
+  var saved = localStorage.getItem('ds-theme') || 'light';
   if (saved === 'light') document.body.classList.add('theme-light');
+  updateLogo(saved);
   document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.globalTheme === saved);
   });
@@ -12,6 +19,7 @@ document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
     var theme = btn.dataset.globalTheme;
     document.body.classList.toggle('theme-light', theme === 'light');
     localStorage.setItem('ds-theme', theme);
+    updateLogo(theme);
     document.querySelectorAll('.theme-btn-global').forEach(function(b) {
       b.classList.toggle('active', b.dataset.globalTheme === theme);
     });
@@ -67,7 +75,7 @@ const COLORS = {
   ],
 };
 
-let currentTheme = localStorage.getItem('ds-theme') || 'dark';
+let currentTheme = localStorage.getItem('ds-theme') || 'light';
 
 function luminance(hex) {
   const r = parseInt(hex.slice(0,2),16)/255;
@@ -362,7 +370,7 @@ function buildDonutChart(containerId, data, size) {
   var startAngle = 0;
   var paths = data.map(function(d, i) {
     var sweep = (d.value / total) * 360;
-    var endAngle = startAngle + sweep - 1.5;
+    var endAngle = startAngle + sweep - 0.4;
     var path = describeArc(cx, cy, outerR - strokeW / 2, startAngle, endAngle);
     startAngle += sweep;
     return '<path d="' + path + '" fill="none" stroke="' + CHART_COLORS[i % CHART_COLORS.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round"><title>' + d.label + ': ' + d.value + '</title></path>';
