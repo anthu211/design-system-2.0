@@ -1007,7 +1007,6 @@ function initHeroCanvas() {
   var W = 0, H = 0;
   var mx = -9999, my = -9999, heroActive = false;
   var raf = null;
-  var scanY = 0, scanState = 0, scanLastEnd = 0;
   var A = [99, 96, 216]; // accent rgb
   var REVEAL_R = 170;
 
@@ -1042,27 +1041,10 @@ function initHeroCanvas() {
   function np(n) { return { x: n.x * W, y: n.y * H, r: n.r * (W / 820) }; }
   function dsq(ax, ay, bx, by) { return (ax-bx)*(ax-bx)+(ay-by)*(ay-by); }
 
-  function draw(ts) {
+  function draw() {
     if (!raf) return;
     ctx.clearRect(0, 0, W, H);
     var npos = nodes.map(np);
-
-    // Scan-line state machine
-    if (scanState === 0) {
-      if (ts - scanLastEnd > 4200) { scanState = 1; scanY = -20; }
-    } else {
-      scanY += (H + 40) / (60 * 1.6);
-      if (scanY > H + 20) { scanState = 0; scanLastEnd = ts; }
-    }
-
-    // Draw scan glow band
-    if (scanState === 1) {
-      var sg = ctx.createLinearGradient(0, scanY - 28, 0, scanY + 6);
-      sg.addColorStop(0, 'rgba('+A[0]+','+A[1]+','+A[2]+',0)');
-      sg.addColorStop(0.6, 'rgba('+A[0]+','+A[1]+','+A[2]+',0.07)');
-      sg.addColorStop(1, 'rgba('+A[0]+','+A[1]+','+A[2]+',0.16)');
-      ctx.fillStyle = sg; ctx.fillRect(0, scanY - 28, W, 34);
-    }
 
     // Edges
     for (var i = 0; i < edges.length; i++) {
@@ -1071,8 +1053,7 @@ function initHeroCanvas() {
       var midX = (a.x+b.x)*0.5, midY = (a.y+b.y)*0.5;
       var rd = heroActive ? Math.sqrt(dsq(midX, midY, mx, my)) : 9999;
       var revA = Math.max(0, 1 - rd / REVEAL_R);
-      var scanB = scanState === 1 ? Math.max(0, (32-Math.abs(midY-scanY))/32)*0.1 : 0;
-      var alpha = 0.06 + revA * 0.52 + scanB;
+      var alpha = 0.06 + revA * 0.52;
       ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
       ctx.strokeStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+alpha+')';
       ctx.lineWidth = 0.7 + revA * 0.9; ctx.stroke();
@@ -1088,8 +1069,7 @@ function initHeroCanvas() {
       var py = pa.y + (pb.y - pa.y) * pk.t;
       var prd = heroActive ? Math.sqrt(dsq(px, py, mx, my)) : 9999;
       var pRevA = Math.max(0, 1 - prd / REVEAL_R);
-      var scanPB = scanState === 1 ? Math.max(0, (16-Math.abs(py-scanY))/16)*0.45 : 0;
-      var pAlpha = 0.06 + pRevA * 0.65 + scanPB;
+      var pAlpha = 0.06 + pRevA * 0.65;
       if (pAlpha > 0.05) {
         ctx.beginPath(); ctx.arc(px, py, 1.6, 0, Math.PI*2);
         ctx.fillStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+pAlpha+')'; ctx.fill();
@@ -1101,9 +1081,8 @@ function initHeroCanvas() {
       var n = npos[k], nd = nodes[k];
       var nd2 = heroActive ? Math.sqrt(dsq(n.x, n.y, mx, my)) : 9999;
       var nRevA = Math.max(0, 1 - nd2 / REVEAL_R);
-      var scanNB = scanState === 1 ? Math.max(0, (22-Math.abs(n.y-scanY))/22)*0.2 : 0;
       var nBaseA = nd.hub ? 0.13 : 0.08;
-      var nAlpha = nBaseA + nRevA * 0.72 + scanNB;
+      var nAlpha = nBaseA + nRevA * 0.72;
       // Glow halo
       if (nRevA > 0.08 || nd.hub) {
         var gr = n.r * (2.5 + nRevA * 2.8);
