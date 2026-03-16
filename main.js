@@ -7,7 +7,7 @@ function updateLogo(theme) {
 
 (function() {
   var saved = localStorage.getItem('ds-theme') || 'light';
-  if (saved === 'light') document.body.classList.add('theme-light');
+  if (saved === 'light') document.documentElement.classList.add('theme-light');
   updateLogo(saved);
   document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.globalTheme === saved);
@@ -17,7 +17,7 @@ function updateLogo(theme) {
 document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
   btn.addEventListener('click', function() {
     var theme = btn.dataset.globalTheme;
-    document.body.classList.toggle('theme-light', theme === 'light');
+    document.documentElement.classList.toggle('theme-light', theme === 'light');
     localStorage.setItem('ds-theme', theme);
     updateLogo(theme);
     document.querySelectorAll('.theme-btn-global').forEach(function(b) {
@@ -1145,3 +1145,730 @@ function initHeroCanvas() {
 }
 
 initHeroCanvas();
+
+// ═══════════════════════════════════════════════════════════════════
+// FEATURE 1 — Global Search / Command Palette
+// ═══════════════════════════════════════════════════════════════════
+var SEARCH_INDEX = [
+  { t:'Colors', p:'colors', cat:'Foundation', d:'Full palette, dark/light tokens, semantic status colors', k:'color palette token theme dark light' },
+  { t:'Resolutions', p:'resolutions', cat:'Foundation', d:'Desktop-only, 1024px minimum, breakpoint system', k:'resolution breakpoint screen desktop viewport' },
+  { t:'Spacing & Grid', p:'spacing', cat:'Foundation', d:'4px base unit, 12-column grid, margins and gutters', k:'spacing grid margin padding gap column layout' },
+  { t:'Typography', p:'typography', cat:'Foundation', d:'Inter type scale, heading levels, body and code styles', k:'typography font text heading body size weight inter' },
+  { t:'Avatar & Skeleton', p:'avatars', cat:'Component', d:'User avatars, stacked groups, loading skeletons', k:'avatar user profile image skeleton loading' },
+  { t:'Badge & Status', p:'badges', cat:'Component', d:'Severity badges, count indicators, dismissible tags', k:'badge status tag label count indicator pill severity' },
+  { t:'Breadcrumb & Pagination', p:'breadnav', cat:'Component', d:'Navigation breadcrumbs and page pagination controls', k:'breadcrumb pagination nav page next previous' },
+  { t:'Buttons & Toggles', p:'buttons', cat:'Component', d:'Primary, secondary, outline, ghost — all sizes and states', k:'button cta action primary secondary outline ghost danger' },
+  { t:'Callout', p:'callout', cat:'Component', d:'Info, warning, error, success callout banners', k:'callout alert banner info warning error success' },
+  { t:'Charts', p:'charts', cat:'Component', d:'Bar, line, donut charts with SVG axes', k:'chart graph bar line donut pie data visualization' },
+  { t:'Form Controls', p:'forms', cat:'Component', d:'Inputs, checkboxes, radio buttons, search fields', k:'form input field text checkbox radio search' },
+  { t:'Icons', p:'icons', cat:'Component', d:'Full SVG icon library', k:'icon svg symbol glyph' },
+  { t:'Modal & Toast', p:'overlays', cat:'Component', d:'Confirmation dialogs, notification toasts, tooltips', k:'modal dialog overlay toast notification popup alert' },
+  { t:'Navigation', p:'navmenu', cat:'Component', d:'Left sidebar nav with collapsible sections', k:'navigation nav sidebar menu left collapse' },
+  { t:'Panels & Filters', p:'panels', cat:'Component', d:'Side drawers, filter bars, applied filter chips', k:'panel filter drawer side chip apply' },
+  { t:'Progress & Slider', p:'progress', cat:'Component', d:'Progress bars, loading indicators, range sliders', k:'progress bar slider loading indicator range' },
+  { t:'Table', p:'table', cat:'Component', d:'Sortable, filterable data table with pagination and export', k:'table data row column sort filter paginate export csv' },
+  { t:'Tabs & Accordion', p:'tabs', cat:'Component', d:'Tab navigation and collapsible accordion sections', k:'tab accordion collapse expand section' },
+  { t:'Toggle & Select', p:'toggleselect', cat:'Component', d:'Toggle switches and dropdown select controls', k:'toggle switch select dropdown' },
+  { t:'--shell-accent', p:'colors', cat:'Token', d:'#6360D8 · Primary CTA, buttons, focus rings', k:'accent purple cta primary button' },
+  { t:'--shell-bg', p:'colors', cat:'Token', d:'App background color', k:'background bg surface' },
+  { t:'--shell-raised', p:'colors', cat:'Token', d:'Card and sidebar background', k:'card sidebar raised surface' },
+  { t:'--shell-border', p:'colors', cat:'Token', d:'Primary border and divider color', k:'border divider stroke' },
+  { t:'--shell-text', p:'colors', cat:'Token', d:'Primary text color', k:'text color primary body' },
+  { t:'--shell-text-muted', p:'colors', cat:'Token', d:'Secondary muted text', k:'text muted secondary label caption' },
+  { t:'--status-critical', p:'badges', cat:'Token', d:'#D12329 · Critical severity', k:'critical error red danger high severity' },
+  { t:'--status-high', p:'badges', cat:'Token', d:'High severity indicator', k:'high severity warning' },
+  { t:'--status-medium', p:'badges', cat:'Token', d:'Medium severity indicator', k:'medium severity yellow caution' },
+  { t:'--status-low', p:'badges', cat:'Token', d:'Low severity / success color', k:'low severity success green resolved' },
+];
+
+var _cmdOpen = false;
+var _cmdSelected = -1;
+var _cmdResults = [];
+
+function openCmdPalette() {
+  var overlay = document.getElementById('cmd-overlay');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  _cmdOpen = true;
+  _cmdSelected = -1;
+  var inp = document.getElementById('cmd-input');
+  if (inp) { inp.value = ''; inp.focus(); }
+  renderCmdResults('');
+}
+
+function closeCmdPalette() {
+  var overlay = document.getElementById('cmd-overlay');
+  if (overlay) overlay.classList.remove('open');
+  _cmdOpen = false;
+}
+
+function fuzzyScore(item, query) {
+  var q = query.toLowerCase();
+  var haystack = (item.t + ' ' + item.d + ' ' + item.k + ' ' + item.cat).toLowerCase();
+  if (haystack.indexOf(q) !== -1) return 2;
+  var words = q.split(' ').filter(Boolean);
+  var score = 0;
+  words.forEach(function(w) { if (haystack.indexOf(w) !== -1) score++; });
+  return score > 0 ? 1 : 0;
+}
+
+function renderCmdResults(query) {
+  var container = document.getElementById('cmd-results');
+  if (!container) return;
+
+  var results;
+  if (!query.trim()) {
+    results = SEARCH_INDEX.slice(0, 15);
+  } else {
+    results = SEARCH_INDEX
+      .map(function(item) { return { item: item, score: fuzzyScore(item, query) }; })
+      .filter(function(r) { return r.score > 0; })
+      .sort(function(a, b) { return b.score - a.score; })
+      .map(function(r) { return r.item; })
+      .slice(0, 20);
+  }
+
+  _cmdResults = results;
+  _cmdSelected = -1;
+
+  if (results.length === 0) {
+    container.innerHTML = '<div class="cmd-empty">No results for "' + query + '"</div>';
+    return;
+  }
+
+  var groups = {};
+  results.forEach(function(item) {
+    if (!groups[item.cat]) groups[item.cat] = [];
+    groups[item.cat].push(item);
+  });
+
+  var catIcons = {
+    Foundation: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+    Component:  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
+    Token:      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>'
+  };
+
+  var catOrder = ['Foundation', 'Component', 'Token'];
+  var html = '';
+  var idx = 0;
+  catOrder.forEach(function(cat) {
+    if (!groups[cat]) return;
+    html += '<div class="cmd-section-label">' + cat + '</div>';
+    groups[cat].forEach(function(item) {
+      html += '<div class="cmd-result-item" data-page="' + item.p + '" data-idx="' + idx + '">' +
+        '<div class="cmd-result-icon">' + (catIcons[item.cat] || '') + '</div>' +
+        '<div class="cmd-result-content">' +
+          '<div class="cmd-result-title">' + item.t + '</div>' +
+          '<div class="cmd-result-desc">' + item.d + '</div>' +
+        '</div>' +
+        '<span class="cmd-result-cat">' + item.cat + '</span>' +
+        '</div>';
+      idx++;
+    });
+  });
+
+  container.innerHTML = html;
+
+  container.querySelectorAll('.cmd-result-item').forEach(function(el) {
+    el.addEventListener('click', function() {
+      navigateToPage(el.dataset.page);
+      closeCmdPalette();
+    });
+    el.addEventListener('mouseenter', function() {
+      _cmdSelected = parseInt(el.dataset.idx);
+      updateCmdSelection();
+    });
+  });
+}
+
+function updateCmdSelection() {
+  var items = document.querySelectorAll('.cmd-result-item');
+  items.forEach(function(el) {
+    el.classList.toggle('selected', parseInt(el.dataset.idx) === _cmdSelected);
+  });
+  var sel = document.querySelector('.cmd-result-item.selected');
+  if (sel) sel.scrollIntoView({ block: 'nearest' });
+}
+
+function navigateToPage(page) {
+  var navItem = document.querySelector('.nav-item[data-page="' + page + '"]');
+  if (navItem) {
+    navItem.click();
+    // Scroll content to top
+    var content = document.querySelector('.ds-content');
+    if (content) content.scrollTop = 0;
+  }
+}
+
+// Trigger
+var cmdTrigger = document.getElementById('cmd-trigger');
+if (cmdTrigger) cmdTrigger.addEventListener('click', openCmdPalette);
+
+// Overlay click to close
+var cmdOverlay = document.getElementById('cmd-overlay');
+if (cmdOverlay) {
+  cmdOverlay.addEventListener('click', function(e) {
+    if (e.target === cmdOverlay) closeCmdPalette();
+  });
+}
+
+// Input handler
+var cmdInput = document.getElementById('cmd-input');
+if (cmdInput) {
+  cmdInput.addEventListener('input', function() {
+    renderCmdResults(cmdInput.value);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FEATURE 3 — Component Status Badges
+// ═══════════════════════════════════════════════════════════════════
+var COMPONENT_STATUS = {
+  buttons:'stable', forms:'stable', charts:'stable', icons:'stable',
+  callout:'stable', badges:'stable', overlays:'stable', tabs:'stable',
+  progress:'stable', table:'stable', breadnav:'stable', avatars:'stable',
+  toggleselect:'beta', navmenu:'beta', panels:'beta',
+  colors:'stable', typography:'stable', spacing:'stable', resolutions:'stable'
+};
+
+function initStatusBadges() {
+  document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
+    var page = item.dataset.page;
+    var status = COMPONENT_STATUS[page];
+    if (status && status !== 'stable') {
+      // Only inject once
+      if (!item.querySelector('.nav-status')) {
+        var badge = document.createElement('span');
+        badge.className = 'nav-status ' + status;
+        badge.textContent = status;
+        item.appendChild(badge);
+      }
+    }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FEATURE 2 — Copy-paste Code Snippets
+// ═══════════════════════════════════════════════════════════════════
+function stripEventAttrs(html) {
+  return html.replace(/\s+on\w+="[^"]*"/g, '').replace(/\s+on\w+='[^']*'/g, '');
+}
+
+function initCopyButtons() {
+  document.querySelectorAll('.comp-card-header').forEach(function(header) {
+    // Skip if already has a copy button
+    if (header.querySelector('.copy-btn')) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var card = header.closest('.comp-card');
+      if (!card) return;
+      var row = card.querySelector('.comp-row');
+      if (!row) return;
+      var raw = row.innerHTML;
+      var clean = stripEventAttrs(raw)
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(clean).then(function() {
+          btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+          btn.classList.add('copied');
+          setTimeout(function() {
+            btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+            btn.classList.remove('copied');
+          }, 1800);
+        });
+      }
+    });
+
+    header.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FEATURE 4 — Design Token Export
+// ═══════════════════════════════════════════════════════════════════
+var EXPORT_TOKENS = {
+  '--shell-bg':           { dark:'#0E0E0E',  light:'#F7F9FC' },
+  '--shell-raised':       { dark:'#131313',  light:'#FFFFFF' },
+  '--shell-border':       { dark:'#272727',  light:'#E6E6E6' },
+  '--shell-border-2':     { dark:'#3B3A3A',  light:'#D8D9DD' },
+  '--shell-text':         { dark:'#F9F9F9',  light:'#101010' },
+  '--shell-text-muted':   { dark:'#8A8A8A',  light:'#6E6E6E' },
+  '--shell-text-dim':     { dark:'#696969',  light:'#A3A5AF' },
+  '--shell-accent':       { dark:'#6360D8',  light:'#6360D8' },
+  '--shell-accent-hover': { dark:'#504BB8',  light:'#504BB8' },
+  '--ctrl-bg':            { dark:'#1C1C1C',  light:'#FFFFFF' },
+  '--ctrl-border':        { dark:'#333333',  light:'#D8D9DD' },
+  '--status-critical':    { dark:'#D12329',  light:'#D12329' },
+  '--status-high':        { dark:'#E15252',  light:'#E15252' },
+  '--status-medium':      { dark:'#D98B1D',  light:'#D98B1D' },
+  '--status-low':         { dark:'#31A56D',  light:'#31A56D' },
+  '--status-info':        { dark:'#6360D8',  light:'#6360D8' },
+};
+
+function initTokenExport() {
+  var page = document.getElementById('page-colors');
+  if (!page || page.querySelector('.token-export-bar')) return;
+
+  var bar = document.createElement('div');
+  bar.className = 'token-export-bar';
+  bar.innerHTML =
+    '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="3" x2="12" y2="21"/></svg>' +
+    '<span>Export design tokens</span>' +
+    '<button class="ds-btn t-outline sz-sm" id="export-css-btn">CSS Variables</button>' +
+    '<button class="ds-btn t-outline sz-sm" id="export-json-btn">JSON</button>';
+
+  // Insert before first child of the page
+  page.insertBefore(bar, page.firstChild);
+
+  document.getElementById('export-css-btn').addEventListener('click', function() {
+    var darkLines = [];
+    var lightLines = [];
+    Object.keys(EXPORT_TOKENS).forEach(function(k) {
+      var t = EXPORT_TOKENS[k];
+      darkLines.push('  ' + k + ': ' + t.dark + ';');
+      if (t.light !== t.dark) lightLines.push('  ' + k + ': ' + t.light + ';');
+    });
+    var css = ':root {\n' + darkLines.join('\n') + '\n}\n\nhtml.theme-light {\n' + lightLines.join('\n') + '\n}';
+    downloadText(css, 'pai-design-tokens.css', 'text/css');
+    showToast('success', 'CSS variables downloaded');
+  });
+
+  document.getElementById('export-json-btn').addEventListener('click', function() {
+    var dark = {}, light = {};
+    Object.keys(EXPORT_TOKENS).forEach(function(k) {
+      var snakeKey = k.replace(/^--/, '').replace(/-/g, '_');
+      dark[snakeKey] = EXPORT_TOKENS[k].dark;
+      light[snakeKey] = EXPORT_TOKENS[k].light;
+    });
+    var json = JSON.stringify({ dark: dark, light: light }, null, 2);
+    downloadText(json, 'pai-design-tokens.json', 'application/json');
+    showToast('success', 'JSON tokens downloaded');
+  });
+}
+
+function downloadText(content, filename, type) {
+  var blob = new Blob([content], { type: type });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FEATURE 5 — Interactive Button Playground
+// ═══════════════════════════════════════════════════════════════════
+var _playgroundInited = false;
+
+function initPlayground() {
+  if (_playgroundInited) return;
+  var page = document.getElementById('page-buttons');
+  if (!page) return;
+
+  _playgroundInited = true;
+
+  var section = document.createElement('div');
+  section.className = 'comp-section';
+  section.innerHTML =
+    '<div class="comp-section-title">Interactive Playground</div>' +
+    '<div class="playground-wrap">' +
+      '<div class="playground-header">Button Playground <span>Live Preview</span></div>' +
+      '<div class="playground-body">' +
+        '<div class="playground-controls">' +
+          '<div>' +
+            '<div class="pg-ctrl-label">Variant</div>' +
+            '<div class="pg-options" id="pg-variant">' +
+              '<label class="pg-option"><input type="radio" name="pg-v" value="primary" checked> Primary</label>' +
+              '<label class="pg-option"><input type="radio" name="pg-v" value="secondary"> Secondary</label>' +
+              '<label class="pg-option"><input type="radio" name="pg-v" value="outline"> Outline</label>' +
+              '<label class="pg-option"><input type="radio" name="pg-v" value="tertiary"> Ghost</label>' +
+              '<label class="pg-option"><input type="radio" name="pg-v" value="danger"> Danger</label>' +
+            '</div>' +
+          '</div>' +
+          '<div>' +
+            '<div class="pg-ctrl-label">Size</div>' +
+            '<div class="pg-options" id="pg-size">' +
+              '<label class="pg-option"><input type="radio" name="pg-s" value="sm"> Small</label>' +
+              '<label class="pg-option"><input type="radio" name="pg-s" value="md" checked> Medium</label>' +
+              '<label class="pg-option"><input type="radio" name="pg-s" value="lg"> Large</label>' +
+            '</div>' +
+          '</div>' +
+          '<div>' +
+            '<div class="pg-ctrl-label">Label</div>' +
+            '<input type="text" class="pg-text-input" id="pg-label" value="Click me">' +
+          '</div>' +
+          '<div>' +
+            '<label class="pg-option"><input type="checkbox" id="pg-disabled"> Disabled</label>' +
+          '</div>' +
+        '</div>' +
+        '<div class="playground-preview">' +
+          '<div class="playground-live" id="pg-live"></div>' +
+          '<div class="playground-code">' +
+            '<code id="pg-snippet"></code>' +
+            '<button class="pg-copy-btn" id="pg-copy-btn">Copy</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  page.appendChild(section);
+
+  function updatePlayground() {
+    var variant = (document.querySelector('input[name="pg-v"]:checked') || {}).value || 'primary';
+    var size = (document.querySelector('input[name="pg-s"]:checked') || {}).value || 'md';
+    var label = document.getElementById('pg-label').value || 'Button';
+    var disabled = document.getElementById('pg-disabled').checked;
+
+    var classes = 'ds-btn t-' + variant + ' sz-' + size;
+    var disabledAttr = disabled ? ' disabled' : '';
+    var snippet = '<button class="' + classes + '"' + disabledAttr + '>' + label + '</button>';
+
+    var live = document.getElementById('pg-live');
+    if (live) {
+      var btn = document.createElement('button');
+      btn.className = classes;
+      btn.textContent = label;
+      if (disabled) btn.setAttribute('disabled', '');
+      live.innerHTML = '';
+      live.appendChild(btn);
+    }
+
+    var snipEl = document.getElementById('pg-snippet');
+    if (snipEl) snipEl.textContent = snippet;
+  }
+
+  document.querySelectorAll('input[name="pg-v"], input[name="pg-s"]').forEach(function(r) {
+    r.addEventListener('change', updatePlayground);
+  });
+  var pgLabel = document.getElementById('pg-label');
+  if (pgLabel) pgLabel.addEventListener('input', updatePlayground);
+  var pgDisabled = document.getElementById('pg-disabled');
+  if (pgDisabled) pgDisabled.addEventListener('change', updatePlayground);
+
+  var pgCopyBtn = document.getElementById('pg-copy-btn');
+  if (pgCopyBtn) {
+    pgCopyBtn.addEventListener('click', function() {
+      var snip = document.getElementById('pg-snippet');
+      if (!snip || !navigator.clipboard) return;
+      navigator.clipboard.writeText(snip.textContent).then(function() {
+        pgCopyBtn.textContent = 'Copied!';
+        pgCopyBtn.classList.add('copied');
+        setTimeout(function() {
+          pgCopyBtn.textContent = 'Copy';
+          pgCopyBtn.classList.remove('copied');
+        }, 1800);
+      });
+    });
+  }
+
+  updatePlayground();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FEATURE 6 — AI Component Advisor
+// ═══════════════════════════════════════════════════════════════════
+// ─── AI Advisor — Internal Knowledge Base ───
+var DS_KB = [
+  { id:'buttons', name:'Buttons', page:'buttons',
+    desc:'Styled button component for all actions and CTAs.',
+    classes:['.ds-btn','.t-primary','.t-secondary','.t-outline','.t-ghost','.t-danger','.sz-sm','.sz-md','.sz-lg'],
+    snippet:'<button class="ds-btn t-primary sz-md">Save Changes</button>',
+    tips:['Use <code>t-primary</code> for the main CTA on a page','Use <code>t-danger</code> for destructive actions like delete or revoke','Use <code>t-ghost</code> for low-emphasis toolbar actions','Use <code>t-outline</code> alongside a primary button for secondary actions','Add <code>disabled</code> attribute to disable — never fake-disable with CSS opacity'],
+    keywords:['button','btn','click','action','cta','submit','save','delete','cancel','danger','primary','secondary','outline','ghost','trigger','confirm','press'] },
+  { id:'badges', name:'Badge & Status', page:'badges',
+    desc:'Severity badges, count indicators, and dismissible status tags.',
+    classes:['.ds-badge','.sev-critical','.sev-high','.sev-medium','.sev-low','.sev-info','.ds-count'],
+    snippet:'<span class="ds-badge sev-critical">Critical</span>',
+    tips:['Use <code>sev-critical</code> for CVSS 9.0–10.0 or P0 issues','Use <code>sev-high</code> for CVSS 7.0–8.9 or P1 issues','Use <code>sev-medium</code> for CVSS 4.0–6.9','Use <code>sev-low</code> for resolved, passed, or informational states','Use <code>ds-count</code> for numeric notification counts'],
+    keywords:['badge','status','severity','critical','high','medium','low','info','tag','label','pill','count','indicator','sev','vulnerability','risk','cvss','finding'] },
+  { id:'callout', name:'Callout', page:'callout',
+    desc:'Info, warning, error, and success callout banners for contextual alerts.',
+    classes:['.ds-callout','.cl-info','.cl-warning','.cl-error','.cl-success'],
+    snippet:'<div class="ds-callout cl-warning">Action may have unintended side effects.</div>',
+    tips:['Use <code>cl-error</code> for blocking issues the user must resolve','Use <code>cl-warning</code> for cautions that don\'t block progress','Use <code>cl-info</code> for helpful context or guidance','Use <code>cl-success</code> after a completed action','Keep callout text to 1–2 sentences'],
+    keywords:['callout','alert','banner','info','warning','error','success','notification','message','feedback','inline','attention'] },
+  { id:'forms', name:'Form Controls', page:'forms',
+    desc:'Inputs, checkboxes, radio buttons, and search fields.',
+    classes:['.ds-input','.ds-checkbox','.ds-radio','.ds-search','.ds-field','.ds-label','.ds-field-hint'],
+    snippet:'<div class="ds-field">\n  <label class="ds-label">Email</label>\n  <input class="ds-input" type="email" placeholder="user@example.com">\n</div>',
+    tips:['Always pair inputs with a <code>ds-label</code>','Use <code>ds-field-hint</code> for helper text below an input','Add the <code>error</code> class on <code>ds-input</code> to show validation state','Use <code>ds-search</code> for search — it includes the icon automatically'],
+    keywords:['form','input','field','text','checkbox','radio','select','search','label','email','password','number','textarea','control','validation','error'] },
+  { id:'overlays', name:'Modal & Toast', page:'overlays',
+    desc:'Confirmation dialogs, notification toasts, and tooltips.',
+    classes:['.ds-modal','showToast()','openModal()','closeModal()'],
+    snippet:"showToast('success', 'Changes saved successfully');",
+    tips:['Call <code>showToast(\'success\'|\'error\'|\'warning\', msg)</code> for non-blocking notifications','Toasts auto-dismiss after 3 seconds','Use modals for destructive confirmations — never use the browser <code>confirm()</code>','Open modals with <code>openModal(\'id\')</code>, close with <code>closeModal(\'id\')</code>'],
+    keywords:['modal','dialog','toast','notification','popup','alert','confirm','overlay','dismiss','message','notify','snackbar'] },
+  { id:'table', name:'Table', page:'table',
+    desc:'Sortable, filterable data table with pagination and CSV export.',
+    classes:['.ds-table','.ds-table-wrap','downloadTableCSV()'],
+    snippet:'<div class="ds-table-wrap">\n  <table class="ds-table">...</table>\n</div>',
+    tips:['Always wrap in <code>ds-table-wrap</code> for horizontal scroll','Use <code>data-sort</code> on <code>&lt;th&gt;</code> to enable column sorting','Export to CSV with <code>downloadTableCSV()</code>','Status-color rows using severity classes on <code>tr</code>'],
+    keywords:['table','data','row','column','sort','filter','paginate','pagination','export','csv','list','findings','results','grid'] },
+  { id:'tabs', name:'Tabs & Accordion', page:'tabs',
+    desc:'Tab navigation for switching views and accordion for collapsible content.',
+    classes:['.ds-tabs','.ds-tab','.ds-tab-active','.ds-accordion','.ds-accordion-item'],
+    snippet:'<div class="ds-tabs">\n  <button class="ds-tab ds-tab-active">Overview</button>\n  <button class="ds-tab">Details</button>\n</div>',
+    tips:['Use tabs when switching between equal-priority views in the same context','Use accordion when sections are long and users need to scan headings','Don\'t nest tabs inside tabs','Always have one tab active by default'],
+    keywords:['tab','tabs','accordion','collapse','expand','section','switch','view','panel'] },
+  { id:'avatars', name:'Avatar & Skeleton', page:'avatars',
+    desc:'User avatars, stacked groups, and loading skeleton placeholders.',
+    classes:['.ds-avatar','.ds-avatar-group','.ds-skeleton','.ds-skeleton-line'],
+    snippet:'<div class="ds-avatar" style="background:var(--shell-accent)">JS</div>',
+    tips:['Use 2-char initials when no image is available','Use <code>ds-skeleton</code> as a loading placeholder — remove once data loads','Stack up to 4 avatars with <code>ds-avatar-group</code>, then show a +N count'],
+    keywords:['avatar','user','profile','picture','image','initials','skeleton','loading','placeholder','spinner','group','stacked'] },
+  { id:'progress', name:'Progress & Slider', page:'progress',
+    desc:'Progress bars for task completion and sliders for range input.',
+    classes:['.ds-progress','.ds-progress-bar','.ds-slider'],
+    snippet:'<div class="ds-progress">\n  <div class="ds-progress-bar" style="width:72%"></div>\n</div>',
+    tips:['Always show the percentage value alongside the bar','Apply severity classes on the bar for risk scores','For indeterminate loading use the skeleton component instead'],
+    keywords:['progress','bar','slider','range','loading','percentage','completion','score','risk','indicator'] },
+  { id:'breadnav', name:'Breadcrumb & Pagination', page:'breadnav',
+    desc:'Breadcrumb trails for location context and page pagination controls.',
+    classes:['.ds-breadcrumb','.ds-pager','.ds-page-btn','buildPaginator()'],
+    snippet:'<nav class="ds-breadcrumb">\n  <a>Dashboard</a><span>/</span><a>Assets</a><span>/</span><span>Details</span>\n</nav>',
+    tips:['Show breadcrumbs when depth exceeds 2 levels','The last item should not be a link — it\'s the current page','Use <code>buildPaginator()</code> for pagination controls'],
+    keywords:['breadcrumb','pagination','pager','page','next','previous','nav','location','path','trail'] },
+  { id:'navmenu', name:'Navigation', page:'navmenu',
+    desc:'Collapsible left sidebar navigation with nested sub-items.',
+    classes:['.ds-navmenu','.ds-nav-item-row','.ds-nav-subitems','.ds-nav-sub-item','dsNavToggle()'],
+    snippet:'<nav class="ds-navmenu">...</nav>',
+    tips:['Group related items under section headers','Sub-items expand/collapse via <code>dsNavToggle()</code>','Mark active items with <code>ds-nav-sub-active</code>','Keep nesting to 2 levels max'],
+    keywords:['nav','navigation','sidebar','menu','left','collapse','expand','tree','nested','sub'] },
+  { id:'panels', name:'Panels & Filters', page:'panels',
+    desc:'Side drawer panels, filter action bars, and applied filter chips.',
+    classes:['.ds-panel','openPanel()','closePanel()','.ds-filter-bar','.ds-filter-chip'],
+    snippet:"openPanel('my-panel-id');",
+    tips:['Open with <code>openPanel(\'id\')</code>, close with <code>closePanel(\'id\')</code>','The overlay auto-locks body scroll','Use filter chips to show applied filters users can dismiss','Filter bars go above tables or data grids'],
+    keywords:['panel','drawer','side','filter','chip','applied','slide','settings','flyout','offcanvas'] },
+  { id:'toggleselect', name:'Toggle & Select', page:'toggleselect',
+    desc:'Toggle switches for binary settings and dropdown select controls.',
+    classes:['.ds-toggle','.ds-toggle.on','dsToggle()','.ds-select','.ds-select-wrap'],
+    snippet:'<div class="ds-toggle on" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>',
+    tips:['Toggles are for binary settings — use checkboxes for multi-select','Label the toggle with what turns ON, not what the control itself does','Toggle state is controlled by the <code>on</code> class via <code>dsToggle(el)</code>','Use select dropdowns for 4+ options; radio buttons for 2–3'],
+    keywords:['toggle','switch','on','off','select','dropdown','option','choose','enable','disable','setting'] },
+  { id:'icons', name:'Icons', page:'icons',
+    desc:'Lucide-based SVG icon library used throughout the design system.',
+    classes:['stroke="currentColor"','fill="none"'],
+    snippet:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n  <!-- icon paths -->\n</svg>',
+    tips:['Always use <code>stroke="currentColor"</code> so icons inherit text color','Sizes: 12px (dense), 14px (default), 16px (emphasized), 20px (featured)','Use <code>fill="none"</code> for the standard outline style','Icons are from the Lucide set — browse the Icons page'],
+    keywords:['icon','svg','symbol','glyph','lucide','image','visual'] },
+  { id:'charts', name:'Charts', page:'charts',
+    desc:'SVG bar, line, and donut charts for data visualization.',
+    classes:['.chart-bar','.chart-line','.chart-donut','initCharts()'],
+    snippet:'// Charts initialize automatically when the Charts page loads\ninitCharts();',
+    tips:['Use bar charts for comparisons across categories','Use line charts for trends over time','Use donut charts for part-to-whole relationships (e.g. severity distribution)','Always include axis labels and a legend'],
+    keywords:['chart','graph','bar','line','donut','pie','data','visualization','trend','metric','analytics'] },
+  { id:'color-tokens', name:'Color Tokens', page:'colors',
+    desc:'CSS custom properties for theming — dark and light.',
+    classes:['--shell-accent','--shell-bg','--shell-raised','--shell-border','--shell-text','--shell-text-muted','--status-critical','--status-high','--status-medium','--status-low'],
+    snippet:'/* Dark default */\n--shell-accent: #6360D8;\n--shell-bg: #0E0E0E;\n--shell-raised: #131313;\n--shell-border: #272727;\n--shell-text: #F9F9F9;\n\n/* Severity (same in both themes) */\n--status-critical: #D12329;\n--status-high:     #E15252;\n--status-medium:   #D98B1D;\n--status-low:      #31A56D;',
+    tips:['Always use CSS tokens — never hardcode hex values','<code>--shell-*</code> tokens adapt automatically to dark/light theme','<code>--shell-accent</code> is the primary purple (#6360D8) for CTAs and focus rings','<code>--status-*</code> colors are fixed across themes — they carry semantic meaning'],
+    keywords:['color','token','css','variable','hex','palette','theme','dark','light','accent','purple','severity','critical','high','medium','low','shell','status'] },
+  { id:'typography', name:'Typography', page:'typography',
+    desc:'Inter font type scale from 10px to 32px with defined weights.',
+    classes:['.ds-h1','.ds-h2','.ds-h3','.ds-label','.ds-caption','.ds-code'],
+    snippet:'<h2 class="ds-h2">Section Title</h2>\n<p>Body text here.</p>',
+    tips:['The system uses Inter loaded from Google Fonts','Use semantic heading classes for consistent hierarchy','<code>ds-caption</code> (11px) for timestamps, hints, and table meta','<code>ds-code</code> for inline technical strings or code'],
+    keywords:['typography','font','text','heading','body','size','weight','inter','h1','h2','h3','caption','label','code','type','scale'] },
+  { id:'spacing', name:'Spacing & Grid', page:'spacing',
+    desc:'4px base spacing unit and 12-column layout grid.',
+    classes:['4px base','12-column grid'],
+    snippet:'/* Spacing scale: 4 8 12 16 20 24 32 40 48px */\n/* All values must be multiples of 4 */',
+    tips:['All spacing values must be multiples of 4px','Standard card padding: 16px or 20px','Standard gap: 8px (tight), 12px (default), 20px (relaxed)','12-column grid with 24px gutters for page layout'],
+    keywords:['spacing','space','gap','padding','margin','grid','column','layout','gutter','unit','4px'] }
+];
+
+function queryDS(text) {
+  var q = text.toLowerCase();
+  var scores = DS_KB.map(function(item) {
+    var score = 0;
+    if (q.includes(item.name.toLowerCase())) score += 15;
+    if (q.includes(item.id)) score += 10;
+    item.keywords.forEach(function(kw) {
+      if (q.includes(kw)) score += (kw.length > 4 ? 4 : 2);
+    });
+    item.classes.forEach(function(cls) {
+      var c = cls.replace(/[.()']/g, '').toLowerCase();
+      if (c.length > 3 && q.includes(c)) score += 5;
+    });
+    return { item: item, score: score };
+  });
+  scores.sort(function(a, b) { return b.score - a.score; });
+  return scores[0].score >= 2 ? scores[0].item : null;
+}
+
+function buildAiResponse(item) {
+  var html = [];
+  html.push('<p><strong>' + item.name + '</strong> — ' + item.desc + '</p>');
+  if (item.classes && item.classes.length) {
+    html.push('<p style="margin-top:6px;font-size:11px;color:var(--shell-text-muted)">Classes / API</p><p>' + item.classes.map(function(c) { return '<code>' + c + '</code>'; }).join(' ') + '</p>');
+  }
+  if (item.snippet) {
+    html.push('<pre><code>' + escapeHtml(item.snippet) + '</code></pre>');
+  }
+  if (item.tips && item.tips.length) {
+    html.push('<ul>' + item.tips.map(function(t) { return '<li>' + t + '</li>'; }).join('') + '</ul>');
+  }
+  html.push('<p style="margin-top:8px"><a href="#" style="font-size:11px;color:var(--shell-accent);text-decoration:none;" onclick="document.querySelector(\'[data-page=' + item.page + ']\').click();document.getElementById(\'ai-panel\').classList.remove(\'open\');document.getElementById(\'ai-fab\').classList.remove(\'panel-open\');return false;">View ' + item.name + ' →</a></p>');
+  return html.join('');
+}
+
+function initAI() {
+  var fab = document.getElementById('ai-fab');
+  var panel = document.getElementById('ai-panel');
+  var closeBtn = document.getElementById('ai-close');
+  var userInput = document.getElementById('ai-user-input');
+  var sendBtn = document.getElementById('ai-send-btn');
+  if (!fab || !panel) return;
+  fab.addEventListener('click', function() {
+    panel.classList.toggle('open');
+    fab.classList.toggle('panel-open', panel.classList.contains('open'));
+    if (panel.classList.contains('open') && userInput) {
+      setTimeout(function() { userInput.focus(); }, 200);
+    }
+  });
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      panel.classList.remove('open');
+      fab.classList.remove('panel-open');
+    });
+  }
+  if (sendBtn) sendBtn.addEventListener('click', aiSend);
+  if (userInput) {
+    userInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); aiSend(); }
+    });
+  }
+}
+
+function aiSend() {
+  var userInput = document.getElementById('ai-user-input');
+  var msgs = document.getElementById('ai-msgs');
+  if (!userInput || !msgs) return;
+  var text = userInput.value.trim();
+  if (!text) return;
+
+  appendAiMsg('user', text);
+  userInput.value = '';
+
+  // Typing indicator
+  var typing = document.createElement('div');
+  typing.className = 'ai-typing';
+  typing.innerHTML = '<div class="ai-typing-dot"></div><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div>';
+  msgs.appendChild(typing);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  setTimeout(function() {
+    typing.remove();
+    var match = queryDS(text);
+    if (match) {
+      appendAiMsg('bot', buildAiResponse(match));
+    } else {
+      appendAiMsg('bot', '<p>I couldn\'t find a specific match. Try <kbd style="background:var(--shell-raised);border:1px solid var(--shell-border);border-radius:3px;padding:1px 5px;font-size:10px">Ctrl+K</kbd> to search, or browse the sidebar.</p><p style="margin-top:6px;color:var(--shell-text-muted);font-size:11px">Try asking:<br>• "What component for notifications?"<br>• "How do I show a badge?"<br>• "Token for critical severity?"</p>');
+    }
+  }, 350);
+}
+
+function appendAiMsg(role, text) {
+  var msgs = document.getElementById('ai-msgs');
+  if (!msgs) return;
+  var div = document.createElement('div');
+  div.className = 'ai-msg ai-msg-' + (role === 'user' ? 'user' : 'bot');
+  div.innerHTML = role === 'bot' ? renderAiMarkdown(text) : escapeHtml(text);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderAiMarkdown(text) {
+  // Code blocks
+  text = text.replace(/```[\w]*\n?([\s\S]*?)```/g, function(_, code) {
+    return '<pre><code>' + escapeHtml(code.trim()) + '</code></pre>';
+  });
+  // Inline code
+  text = text.replace(/`([^`]+)`/g, function(_, code) {
+    return '<code>' + escapeHtml(code) + '</code>';
+  });
+  // Bold
+  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  // Bullet lists — convert consecutive lines starting with "- " into <ul>
+  var lines = text.split('\n');
+  var out = [];
+  var inList = false;
+  lines.forEach(function(line) {
+    if (/^[-*] /.test(line)) {
+      if (!inList) { out.push('<ul>'); inList = true; }
+      out.push('<li>' + line.replace(/^[-*] /, '') + '</li>');
+    } else {
+      if (inList) { out.push('</ul>'); inList = false; }
+      if (line.trim()) out.push('<p>' + line + '</p>');
+    }
+  });
+  if (inList) out.push('</ul>');
+  return out.join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// KEYBOARD HANDLER — extends existing keydown listener
+// ═══════════════════════════════════════════════════════════════════
+document.addEventListener('keydown', function(e) {
+  // Ctrl+K or Cmd+K
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    if (_cmdOpen) { closeCmdPalette(); } else { openCmdPalette(); }
+    return;
+  }
+
+  if (_cmdOpen) {
+    if (e.key === 'Escape') {
+      closeCmdPalette();
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      _cmdSelected = Math.min(_cmdSelected + 1, _cmdResults.length - 1);
+      updateCmdSelection();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      _cmdSelected = Math.max(_cmdSelected - 1, 0);
+      updateCmdSelection();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (_cmdSelected >= 0 && _cmdResults[_cmdSelected]) {
+        navigateToPage(_cmdResults[_cmdSelected].p);
+        closeCmdPalette();
+      }
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// INITIALIZATION
+// ═══════════════════════════════════════════════════════════════════
+initTokenExport();
+initAI();
+
+// Inject playground when buttons page is visited (deferred)
+(function patchNavForPlayground() {
+  document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
+    item.addEventListener('click', function() {
+      if (item.dataset.page === 'buttons') {
+        setTimeout(function() {
+          initPlayground();
+        }, 50);
+      }
+    });
+  });
+})();
+
+// If already on buttons page on load, init playground immediately
+if (document.querySelector('#page-buttons.active')) {
+  initPlayground();
+}
