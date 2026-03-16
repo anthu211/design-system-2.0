@@ -364,13 +364,13 @@ function describeArc(cx, cy, r, startAngle, endAngle) {
 function buildDonutChart(containerId, data, size) {
   size = size || 160;
   var cx = size / 2, cy = size / 2;
-  var outerR = size / 2 - 6;
-  var strokeW = outerR * 0.36;
+  var outerR = size / 2 - 2;
+  var strokeW = outerR * 0.12;
   var total = data.reduce(function(s, d) { return s + d.value; }, 0);
   var startAngle = 0;
   var paths = data.map(function(d, i) {
     var sweep = (d.value / total) * 360;
-    var endAngle = startAngle + sweep - 0.4;
+    var endAngle = startAngle + sweep - 8;
     var path = describeArc(cx, cy, outerR - strokeW / 2, startAngle, endAngle);
     startAngle += sweep;
     return '<path d="' + path + '" fill="none" stroke="' + CHART_COLORS[i % CHART_COLORS.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round"><title>' + d.label + ': ' + d.value + '</title></path>';
@@ -498,7 +498,7 @@ function initCharts() {
     { label: 'High', value: 28 },
     { label: 'Medium', value: 45 },
     { label: 'Low', value: 15 }
-  ], 160);
+  ], 180);
   buildLineChart('line-chart-1',
     [24, 38, 30, 52, 47, 61, 55, 73, 68, 82, 76, 90],
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -631,6 +631,12 @@ document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
     if (item.dataset.page === 'breadnav') {
       setTimeout(initPaginators, 0);
     }
+    if (item.dataset.page === 'panels') {
+      setTimeout(function() {
+        var el = document.getElementById('demo-chips');
+        if (el && !_demoChipsHTML) _demoChipsHTML = el.innerHTML;
+      }, 0);
+    }
   });
 });
 
@@ -750,7 +756,8 @@ var TABLE_DATA = [
   { target: 'api.example.com',      vuln: 'Sensitive Data Exposure',severity: 'High',    status: 'Resolved', date: '2025-02-10' },
   { target: 'app.example.com',      vuln: 'Open Redirect',          severity: 'Low',     status: 'Open',     date: '2025-02-08' },
 ];
-var tableSortCol = -1, tableSortAsc = true, tableFilter = '';
+var tableSortCol = -1, tableSortAsc = true, tableFilter = '', tablePage = 1;
+var TABLE_PAGE_SIZE = 10;
 
 function severityOrder(s) {
   return { Critical: 0, High: 1, Medium: 2, Low: 3 }[s] || 4;
@@ -761,10 +768,23 @@ function statusBadge(s) {
 }
 function renderTable(data) {
   var tbody = document.getElementById('table-body');
-  var count = document.getElementById('table-count');
+  var countEl = document.getElementById('table-count');
+  var pager = document.getElementById('table-pager');
   if (!tbody) return;
-  if (count) count.textContent = data.length + ' findings';
-  tbody.innerHTML = data.map(function(row) {
+
+  var total = data.length;
+  var totalPages = Math.max(1, Math.ceil(total / TABLE_PAGE_SIZE));
+  tablePage = Math.max(1, Math.min(tablePage, totalPages));
+  var start = (tablePage - 1) * TABLE_PAGE_SIZE;
+  var pageData = data.slice(start, start + TABLE_PAGE_SIZE);
+
+  if (countEl) {
+    var end = Math.min(start + TABLE_PAGE_SIZE, total);
+    countEl.textContent = total === 0 ? '0 findings' :
+      (start + 1) + '–' + end + ' of ' + total + ' finding' + (total !== 1 ? 's' : '');
+  }
+
+  tbody.innerHTML = pageData.map(function(row) {
     return '<tr>' +
       '<td class="ds-td">' + row.target + '</td>' +
       '<td class="ds-td">' + row.vuln + '</td>' +
@@ -776,6 +796,12 @@ function renderTable(data) {
       '</button></td>' +
       '</tr>';
   }).join('');
+
+  if (pager) {
+    pager.dataset.total = totalPages;
+    pager.dataset.current = tablePage;
+    buildPaginator('table-pager');
+  }
 }
 function getFilteredSorted() {
   var data = TABLE_DATA.filter(function(row) {
@@ -808,12 +834,25 @@ function sortTable(col) {
 }
 function filterTable(q) {
   tableFilter = q;
+  tablePage = 1;
   renderTable(getFilteredSorted());
 }
 function initTable() {
   renderTable(getFilteredSorted());
-  var count = document.getElementById('table-count');
-  if (count) count.textContent = TABLE_DATA.length + ' findings';
+}
+function downloadTableCSV() {
+  var headers = ['Target', 'Vulnerability', 'Severity', 'Status', 'Date'];
+  var rows = TABLE_DATA.map(function(row) {
+    return [row.target, row.vuln, row.severity, row.status, row.date].map(function(v) {
+      return '"' + String(v).replace(/"/g, '""') + '"';
+    }).join(',');
+  });
+  var csv = [headers.join(',')].concat(rows).join('\n');
+  var blob = new Blob([csv], { type: 'text/csv' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'security-findings.csv'; a.click();
+  URL.revokeObjectURL(url);
 }
 // Init table if starting on that page
 if (document.querySelector('#page-table.active')) { initTable(); }
@@ -842,10 +881,288 @@ function changePage(id, page) {
   var total = parseInt(nav.dataset.total) || 1;
   page = Math.max(1, Math.min(total, page));
   nav.dataset.current = page;
-  buildPaginator(id);
+  if (id === 'table-pager') {
+    tablePage = page;
+    renderTable(getFilteredSorted());
+  } else {
+    buildPaginator(id);
+  }
 }
 function initPaginators() {
   buildPaginator('pager-1');
   buildPaginator('pager-2');
   buildPaginator('pager-3');
 }
+
+// ─── Toggle Switch ───
+function dsToggle(el) {
+  el.classList.toggle('on');
+}
+
+// ─── Select / Dropdown ───
+function dsSelectToggle(trigger) {
+  var wrap = trigger.parentNode;
+  var dropdown = wrap.querySelector('.ds-select-dropdown');
+  var isOpen = trigger.classList.contains('open');
+  // Close all open dropdowns
+  document.querySelectorAll('.ds-select.open').forEach(function(s) { s.classList.remove('open'); });
+  document.querySelectorAll('.ds-select-dropdown.open').forEach(function(d) { d.classList.remove('open'); });
+  if (!isOpen) {
+    trigger.classList.add('open');
+    dropdown.classList.add('open');
+    setTimeout(function() {
+      document.addEventListener('click', function handler(e) {
+        if (!wrap.contains(e.target)) {
+          trigger.classList.remove('open');
+          dropdown.classList.remove('open');
+          document.removeEventListener('click', handler);
+        }
+      });
+    }, 0);
+  }
+}
+function dsSelectPick(option) {
+  var dropdown = option.closest('.ds-select-dropdown');
+  var wrap = dropdown.parentNode;
+  var trigger = wrap.querySelector('.ds-select');
+  trigger.querySelector('span').textContent = option.textContent.trim();
+  trigger.classList.remove('ds-select-placeholder', 'open');
+  dropdown.classList.remove('open');
+  dropdown.querySelectorAll('.ds-select-option').forEach(function(o) { o.classList.remove('selected'); });
+  option.classList.add('selected');
+}
+
+// ─── Left Nav Toggle ───
+function dsNavToggle(row, subId) {
+  var sub = document.getElementById(subId);
+  if (!sub) return;
+  var isOpen = sub.style.display === 'flex';
+  var chevron = row.querySelector('.ds-nav-chevron');
+  if (isOpen) {
+    sub.style.display = 'none';
+    row.classList.remove('ds-nav-expanded');
+    if (chevron) chevron.classList.remove('ds-nav-chevron-open');
+  } else {
+    sub.style.display = 'flex';
+    row.classList.add('ds-nav-expanded');
+    if (chevron) chevron.classList.add('ds-nav-chevron-open');
+  }
+}
+
+// ─── Side Panel ───
+function openPanel(id) {
+  var panel = document.getElementById(id);
+  var overlay = document.getElementById(id + '-overlay');
+  if (panel) { panel.classList.add('open'); }
+  if (overlay) { overlay.classList.add('open'); }
+  document.body.style.overflow = 'hidden';
+}
+function closePanel(id) {
+  var panel = document.getElementById(id);
+  var overlay = document.getElementById(id + '-overlay');
+  if (panel) { panel.classList.remove('open'); }
+  if (overlay) { overlay.classList.remove('open'); }
+  document.body.style.overflow = '';
+}
+function openFilterPanel() { openPanel('demo-panel'); }
+
+// ─── Panel Tabs ───
+function panelTab(btn, targetId) {
+  var panel = btn.closest('.ds-panel');
+  panel.querySelectorAll('.ds-panel-tab').forEach(function(b) {
+    b.classList.remove('ds-panel-tab-active');
+  });
+  btn.classList.add('ds-panel-tab-active');
+  var body = panel.querySelector('.ds-panel-body');
+  body.querySelectorAll('[id^="panel-tab-"]').forEach(function(el) { el.style.display = 'none'; });
+  var target = document.getElementById(targetId);
+  if (target) target.style.display = 'flex';
+}
+
+// ─── Filter Chips ───
+var _demoChipsHTML = '';
+function removeChip(btn) {
+  var chip = btn.closest('.ds-filter-chip');
+  chip.style.transition = 'opacity .15s, transform .15s';
+  chip.style.opacity = '0';
+  chip.style.transform = 'scale(.85)';
+  setTimeout(function() { chip.remove(); }, 150);
+}
+function resetFilterChips() {
+  var el = document.getElementById('demo-chips');
+  if (el && _demoChipsHTML) el.innerHTML = _demoChipsHTML;
+}
+(function() {
+  var el = document.getElementById('demo-chips');
+  if (el) _demoChipsHTML = el.innerHTML;
+})();
+
+// ─── Hero Canvas — Cybersecurity Knowledge Graph ───
+function initHeroCanvas() {
+  var canvas = document.getElementById('hero-bg-canvas');
+  var cursorEl = document.getElementById('hero-cursor');
+  if (!canvas || !cursorEl) return;
+  var hero = document.getElementById('ds-home-hero');
+  var ctx = canvas.getContext('2d');
+  var W = 0, H = 0;
+  var mx = -9999, my = -9999, heroActive = false;
+  var raf = null;
+  var scanY = 0, scanState = 0, scanLastEnd = 0;
+  var A = [99, 96, 216]; // accent rgb
+  var REVEAL_R = 170;
+
+  var nodes = [
+    { l: 'AI Engine',    x: 0.50, y: 0.50, r: 5.5, hub: true  },
+    { l: 'Threat Intel', x: 0.13, y: 0.27, r: 3.8 },
+    { l: 'CVE',          x: 0.33, y: 0.14, r: 3.2 },
+    { l: 'Network',      x: 0.68, y: 0.18, r: 3.5 },
+    { l: 'SIEM',         x: 0.85, y: 0.45, r: 3.8 },
+    { l: 'Zero Trust',   x: 0.73, y: 0.73, r: 3.5 },
+    { l: 'SOC',          x: 0.19, y: 0.73, r: 3.2 },
+    { l: 'Endpoint',     x: 0.55, y: 0.83, r: 3.2 },
+    { l: 'Risk Score',   x: 0.35, y: 0.87, r: 3.2 },
+    { l: 'Compliance',   x: 0.88, y: 0.23, r: 3.2 },
+    { l: 'Identity',     x: 0.08, y: 0.56, r: 3.2 },
+    { l: 'Malware DB',   x: 0.43, y: 0.30, r: 3.0 },
+    { l: 'Firewall',     x: 0.79, y: 0.30, r: 3.0 }
+  ];
+  var edges = [
+    [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,11],[0,12],
+    [1,6],[1,10],[2,11],[3,4],[3,9],[3,12],[4,5],[4,12],[5,7],
+    [6,8],[6,10],[7,8],[11,2]
+  ];
+  var packets = edges.map(function(_e, i) {
+    return { ei: i, t: Math.random(), spd: 0.12 + Math.random() * 0.22 };
+  });
+
+  function resize() {
+    var r = hero.getBoundingClientRect();
+    W = canvas.width = r.width; H = canvas.height = r.height;
+  }
+  function np(n) { return { x: n.x * W, y: n.y * H, r: n.r * (W / 820) }; }
+  function dsq(ax, ay, bx, by) { return (ax-bx)*(ax-bx)+(ay-by)*(ay-by); }
+
+  function draw(ts) {
+    if (!raf) return;
+    ctx.clearRect(0, 0, W, H);
+    var npos = nodes.map(np);
+
+    // Scan-line state machine
+    if (scanState === 0) {
+      if (ts - scanLastEnd > 4200) { scanState = 1; scanY = -20; }
+    } else {
+      scanY += (H + 40) / (60 * 1.6);
+      if (scanY > H + 20) { scanState = 0; scanLastEnd = ts; }
+    }
+
+    // Draw scan glow band
+    if (scanState === 1) {
+      var sg = ctx.createLinearGradient(0, scanY - 28, 0, scanY + 6);
+      sg.addColorStop(0, 'rgba('+A[0]+','+A[1]+','+A[2]+',0)');
+      sg.addColorStop(0.6, 'rgba('+A[0]+','+A[1]+','+A[2]+',0.07)');
+      sg.addColorStop(1, 'rgba('+A[0]+','+A[1]+','+A[2]+',0.16)');
+      ctx.fillStyle = sg; ctx.fillRect(0, scanY - 28, W, 34);
+    }
+
+    // Edges
+    for (var i = 0; i < edges.length; i++) {
+      var e = edges[i];
+      var a = npos[e[0]], b = npos[e[1]];
+      var midX = (a.x+b.x)*0.5, midY = (a.y+b.y)*0.5;
+      var rd = heroActive ? Math.sqrt(dsq(midX, midY, mx, my)) : 9999;
+      var revA = Math.max(0, 1 - rd / REVEAL_R);
+      var scanB = scanState === 1 ? Math.max(0, (32-Math.abs(midY-scanY))/32)*0.1 : 0;
+      var alpha = 0.06 + revA * 0.52 + scanB;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+      ctx.strokeStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+alpha+')';
+      ctx.lineWidth = 0.7 + revA * 0.9; ctx.stroke();
+    }
+
+    // Packets (data flowing along edges)
+    for (var j = 0; j < packets.length; j++) {
+      var pk = packets[j];
+      pk.t = (pk.t + pk.spd * 0.003) % 1;
+      var pe = edges[pk.ei];
+      var pa = npos[pe[0]], pb = npos[pe[1]];
+      var px = pa.x + (pb.x - pa.x) * pk.t;
+      var py = pa.y + (pb.y - pa.y) * pk.t;
+      var prd = heroActive ? Math.sqrt(dsq(px, py, mx, my)) : 9999;
+      var pRevA = Math.max(0, 1 - prd / REVEAL_R);
+      var scanPB = scanState === 1 ? Math.max(0, (16-Math.abs(py-scanY))/16)*0.45 : 0;
+      var pAlpha = 0.06 + pRevA * 0.65 + scanPB;
+      if (pAlpha > 0.05) {
+        ctx.beginPath(); ctx.arc(px, py, 1.6, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+pAlpha+')'; ctx.fill();
+      }
+    }
+
+    // Nodes
+    for (var k = 0; k < npos.length; k++) {
+      var n = npos[k], nd = nodes[k];
+      var nd2 = heroActive ? Math.sqrt(dsq(n.x, n.y, mx, my)) : 9999;
+      var nRevA = Math.max(0, 1 - nd2 / REVEAL_R);
+      var scanNB = scanState === 1 ? Math.max(0, (22-Math.abs(n.y-scanY))/22)*0.2 : 0;
+      var nBaseA = nd.hub ? 0.13 : 0.08;
+      var nAlpha = nBaseA + nRevA * 0.72 + scanNB;
+      // Glow halo
+      if (nRevA > 0.08 || nd.hub) {
+        var gr = n.r * (2.5 + nRevA * 2.8);
+        var gg = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, gr);
+        gg.addColorStop(0, 'rgba('+A[0]+','+A[1]+','+A[2]+','+(nAlpha*0.32)+')');
+        gg.addColorStop(1, 'rgba('+A[0]+','+A[1]+','+A[2]+',0)');
+        ctx.beginPath(); ctx.arc(n.x, n.y, gr, 0, Math.PI*2);
+        ctx.fillStyle = gg; ctx.fill();
+      }
+      // Circle
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+(nAlpha*0.55)+')'; ctx.fill();
+      ctx.strokeStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+nAlpha+')';
+      ctx.lineWidth = 1; ctx.stroke();
+      // Label (fade in on reveal)
+      if (nRevA > 0.18) {
+        var fs = Math.max(9, Math.round(10 * W / 900));
+        ctx.font = fs + 'px Inter,sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        ctx.fillStyle = 'rgba(210,210,235,'+(nRevA * 0.88)+')';
+        ctx.fillText(nd.l, n.x, n.y + n.r + 5);
+      }
+    }
+
+    // Subtle reveal boundary ring
+    if (heroActive) {
+      ctx.beginPath(); ctx.arc(mx, my, REVEAL_R, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+',0.05)';
+      ctx.lineWidth = 1; ctx.stroke();
+    }
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  function start() {
+    if (raf) return;
+    resize();
+    raf = requestAnimationFrame(draw);
+  }
+
+  hero.addEventListener('mouseenter', function() {
+    heroActive = true;
+    hero.classList.add('hero-scanning');
+    cursorEl.classList.add('active');
+  });
+  hero.addEventListener('mouseleave', function() {
+    heroActive = false; mx = -9999; my = -9999;
+    hero.classList.remove('hero-scanning');
+    cursorEl.classList.remove('active');
+  });
+  hero.addEventListener('mousemove', function(e) {
+    var r = hero.getBoundingClientRect();
+    mx = e.clientX - r.left; my = e.clientY - r.top;
+    cursorEl.style.left = e.clientX + 'px';
+    cursorEl.style.top = e.clientY + 'px';
+  });
+  window.addEventListener('resize', function() { if (raf) resize(); });
+
+  start();
+}
+
+initHeroCanvas();

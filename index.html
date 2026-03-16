@@ -32,9 +32,15 @@
   <!-- Sidebar -->
   <nav class="ds-sidebar">
     <div class="nav-section">
+      <div class="nav-item active" data-page="home">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Overview
+      </div>
+    </div>
+    <div class="nav-section">
       <div class="nav-section-label">Foundation</div>
 
-      <div class="nav-item active" data-page="colors">
+      <div class="nav-item" data-page="colors">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5S7 9.76 7 7a5 5 0 0 1 5-5z"/></svg>
         Colors
       </div>
@@ -105,14 +111,174 @@
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Avatar &amp; Skeleton
       </div>
+      <div class="nav-item" data-page="toggleselect">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="8" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
+        Toggle &amp; Select
+      </div>
+      <div class="nav-item" data-page="navmenu">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="13" y1="8" x2="18" y2="8"/><line x1="13" y1="12" x2="18" y2="12"/><line x1="13" y1="16" x2="18" y2="16"/></svg>
+        Navigation
+      </div>
+      <div class="nav-item" data-page="panels">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+        Panels &amp; Filters
+      </div>
     </div>
   </nav>
 
   <!-- Main Content -->
   <main class="ds-content">
 
+    <!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <div class="ds-home-hero" id="ds-home-hero">
+    <canvas id="hero-bg-canvas" aria-hidden="true"></canvas>
+    <div class="ds-home-hero-content">
+    <div class="ds-home-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Prevalent AI · Design System v2.5
+    </div>
+    <h1 class="ds-home-title">Build consistent.<br>Ship faster.</h1>
+    <p class="ds-home-subtitle">The single source of truth for all UI patterns, tokens, and components used across Prevalent AI products. Every decision documented. Every component live.</p>
+    <div class="ds-home-actions">
+      <button class="ds-btn t-primary sz-lg" onclick="document.querySelector('[data-page=colors]').click()">Browse Foundation</button>
+      <button class="ds-btn t-outline sz-lg" onclick="document.querySelector('[data-page=buttons]').click()">View Components</button>
+    </div>
+    <div class="ds-home-stats">
+      <div class="ds-home-stat"><span class="ds-home-stat-num">20+</span><span class="ds-home-stat-label">Components</span></div>
+      <div class="ds-home-stat-divider"></div>
+      <div class="ds-home-stat"><span class="ds-home-stat-num">60+</span><span class="ds-home-stat-label">Design Tokens</span></div>
+      <div class="ds-home-stat-divider"></div>
+      <div class="ds-home-stat"><span class="ds-home-stat-num">2</span><span class="ds-home-stat-label">Theme Modes</span></div>
+      <div class="ds-home-stat-divider"></div>
+      <div class="ds-home-stat"><span class="ds-home-stat-num">1024px+</span><span class="ds-home-stat-label">Min Resolution</span></div>
+    </div>
+    </div><!-- /ds-home-hero-content -->
+  </div>
+
+  <div class="ds-home-section-title">Foundation</div>
+  <div class="ds-home-grid">
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=colors]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5S7 9.76 7 7a5 5 0 0 1 5-5z"/></svg>
+      </div>
+      <div class="ds-home-card-title">Colors</div>
+      <div class="ds-home-card-desc">Full palette with dark/light tokens, semantic status colors, and CTA accent.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=typography]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+      </div>
+      <div class="ds-home-card-title">Typography</div>
+      <div class="ds-home-card-desc">Inter type scale, heading levels, body sizes, and code styles.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=spacing]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+      </div>
+      <div class="ds-home-card-title">Spacing &amp; Grid</div>
+      <div class="ds-home-card-desc">4px base unit, 12-column grid, layout margins and gutters.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=resolutions]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div class="ds-home-card-title">Resolutions</div>
+      <div class="ds-home-card-desc">Desktop-only: 1024px minimum, 1440px primary target.</div>
+    </div>
+  </div>
+
+  <div class="ds-home-section-title" style="margin-top:40px;">Components</div>
+  <div class="ds-home-grid">
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=buttons]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
+      </div>
+      <div class="ds-home-card-title">Buttons</div>
+      <div class="ds-home-card-desc">Primary, secondary, outline, ghost — all sizes and states.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=forms]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div class="ds-home-card-title">Form Controls</div>
+      <div class="ds-home-card-desc">Inputs, checkboxes, radio buttons, search fields.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=toggleselect]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="16" cy="12" r="3" fill="var(--shell-accent)" stroke="none"/></svg>
+      </div>
+      <div class="ds-home-card-title">Toggle &amp; Select</div>
+      <div class="ds-home-card-desc">Toggle switches and dropdown select controls.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=charts]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <div class="ds-home-card-title">Charts</div>
+      <div class="ds-home-card-desc">Bar, line, and donut charts with SVG axes and labels.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=badges]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(209,35,41,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D12329" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="ds-home-card-title">Badge &amp; Status</div>
+      <div class="ds-home-card-desc">Status badges, count indicators, and dismissible tags.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=overlays]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <div class="ds-home-card-title">Modal &amp; Toast</div>
+      <div class="ds-home-card-desc">Confirmation dialogs, notification toasts, tooltips.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=tabs]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="ds-home-card-title">Tabs &amp; Accordion</div>
+      <div class="ds-home-card-desc">Tab navigation and collapsible accordion sections.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=table]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <div class="ds-home-card-title">Table</div>
+      <div class="ds-home-card-desc">Sortable, filterable data table with pagination and export.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=navmenu]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="13" y1="8" x2="18" y2="8"/><line x1="13" y1="12" x2="18" y2="12"/><line x1="13" y1="16" x2="18" y2="16"/></svg>
+      </div>
+      <div class="ds-home-card-title">Navigation</div>
+      <div class="ds-home-card-desc">Left sidebar nav with collapsible sections and sub-items.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=panels]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+      </div>
+      <div class="ds-home-card-title">Panels &amp; Filters</div>
+      <div class="ds-home-card-desc">Side drawers, filter bars, and applied filter chips.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=avatars]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(209,35,41,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D12329" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="ds-home-card-title">Avatar &amp; Skeleton</div>
+      <div class="ds-home-card-desc">User avatars, stacked groups, and loading skeletons.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=callout]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="ds-home-card-title">Callout</div>
+      <div class="ds-home-card-desc">Info, warning, error, and success callout banners.</div>
+    </div>
+  </div>
+</div>
+
     <!-- COLORS PAGE -->
-    <div class="page active" id="page-colors">
+    <div class="page" id="page-colors">
       <div class="page-header">
         <h1>Colors</h1>
         <p>The Prevalent AI palette is built around dark neutral shells with a purple–blue primary accent. Every token is defined for both light and dark modes.</p>
@@ -283,8 +449,7 @@
             <tr><td>Columns</td><td><code>12</code></td><td>Fluid, percentage-based</td></tr>
             <tr><td>Gutter</td><td><code>24px</code></td><td>Fixed regardless of viewport</td></tr>
             <tr><td>Margin (desktop)</td><td><code>48px</code></td><td>Left + right page margin</td></tr>
-            <tr><td>Margin (tablet)</td><td><code>24px</code></td><td>768px–1279px</td></tr>
-            <tr><td>Margin (mobile)</td><td><code>16px</code></td><td>Below 768px, collapses to 4-col</td></tr>
+            <tr><td>Margin (minimum)</td><td><code>24px</code></td><td>1024px–1279px</td></tr>
             <tr><td>Max content width</td><td><code>1440px</code></td><td>Centered on wide screens</td></tr>
           </tbody>
         </table>
@@ -322,11 +487,11 @@
     <div class="page" id="page-resolutions">
       <div class="page-header">
         <h1>Resolutions &amp; Breakpoints</h1>
-        <p>Prevalent AI is a desktop-first platform. The layout is optimised for 1440px but supports tablet and mobile viewports in responsive mode.</p>
+        <p>Prevalent AI is a web application targeting desktop browsers. Minimum supported viewport is 1024px wide. Resolutions below 1024px are not supported.</p>
       </div>
 
       <div class="callout info">
-        <strong>Primary target:</strong> 1440 × 900 and above at 100% browser zoom. QA testing should cover all three viewport categories below.
+        <strong>Primary target:</strong> 1440 × 900 and above at 100% browser zoom. QA testing should cover all desktop viewport categories below.
       </div>
 
       <div class="breakpoint-bar">
@@ -334,9 +499,6 @@
         <div class="bp-track">
           <div class="bp-fill"></div>
           <div class="bp-markers">
-            <span class="bp-marker">0</span>
-            <span class="bp-marker">480</span>
-            <span class="bp-marker">768</span>
             <span class="bp-marker active">1024</span>
             <span class="bp-marker active">1280</span>
             <span class="bp-marker active">1440</span>
@@ -344,9 +506,6 @@
           </div>
         </div>
         <div class="bp-labels">
-          <span class="bp-label">xs</span>
-          <span class="bp-label">sm</span>
-          <span class="bp-label">md</span>
           <span class="bp-label">lg</span>
           <span class="bp-label">xl</span>
           <span class="bp-label">2xl</span>
@@ -404,29 +563,6 @@
           </div>
         </div>
 
-        <div class="resolution-card supported">
-          <span class="res-badge supported">Supported</span>
-          <div class="res-screen" style="height:90px;"><div class="screen-inner" style="flex-direction:column;"><div class="screen-topbar" style="margin-bottom:3px;"></div><div class="screen-body" style="grid-template-columns:1fr 1fr;"><div class="screen-card"></div><div class="screen-card"></div></div></div></div>
-          <div class="res-title">Tablet</div>
-          <div class="res-dims">768–1024px</div>
-          <div class="res-specs">
-            <div class="res-spec-row"><span class="res-spec-key">Columns</span><span class="res-spec-val">8 (responsive)</span></div>
-            <div class="res-spec-row"><span class="res-spec-key">Margin</span><span class="res-spec-val">24px</span></div>
-            <div class="res-spec-row"><span class="res-spec-key">Sidebar</span><span class="res-spec-val">Slide-over</span></div>
-          </div>
-        </div>
-
-        <div class="resolution-card supported">
-          <span class="res-badge supported">Supported</span>
-          <div class="res-screen" style="height:90px;"><div class="screen-inner" style="flex-direction:column;padding:4px;"><div class="screen-topbar" style="margin-bottom:3px;"></div><div class="screen-body" style="grid-template-columns:1fr;"><div class="screen-card"></div></div></div></div>
-          <div class="res-title">Mobile</div>
-          <div class="res-dims">390 × 844</div>
-          <div class="res-specs">
-            <div class="res-spec-row"><span class="res-spec-key">Columns</span><span class="res-spec-val">4</span></div>
-            <div class="res-spec-row"><span class="res-spec-key">Margin</span><span class="res-spec-val">16px</span></div>
-            <div class="res-spec-row"><span class="res-spec-key">Nav</span><span class="res-spec-val">Bottom bar</span></div>
-          </div>
-        </div>
 
       </div>
 
@@ -435,10 +571,7 @@
         <table class="spec-table" style="margin:0;">
           <thead><tr><th>Name</th><th>Min Width</th><th>Columns</th><th>Gutter</th><th>Margin</th></tr></thead>
           <tbody>
-            <tr><td>xs (Mobile)</td><td><code>0px</code></td><td>4</td><td>12px</td><td>16px</td></tr>
-            <tr><td>sm</td><td><code>480px</code></td><td>4</td><td>16px</td><td>16px</td></tr>
-            <tr><td>md (Tablet)</td><td><code>768px</code></td><td>8</td><td>20px</td><td>24px</td></tr>
-            <tr><td>lg</td><td><code>1024px</code></td><td>12</td><td>16px</td><td>24px</td></tr>
+            <tr><td>lg &mdash; <strong>Minimum</strong></td><td><code>1024px</code></td><td>12</td><td>16px</td><td>24px</td></tr>
             <tr><td>xl (Laptop)</td><td><code>1280px</code></td><td>12</td><td>20px</td><td>32px</td></tr>
             <tr><td>2xl &mdash; <strong style="color:#8F8DDE;">Target</strong></td><td><code>1440px</code></td><td>12</td><td>24px</td><td>48px</td></tr>
             <tr><td>3xl</td><td><code>1920px</code></td><td>12</td><td>24px</td><td>auto</td></tr>
@@ -1664,13 +1797,26 @@
       <div class="comp-section">
         <div class="comp-section-title">Sortable Data Table</div>
         <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;overflow:hidden;">
+
+          <!-- Table header bar -->
           <div style="padding:16px 20px;border-bottom:1px solid var(--shell-border);display:flex;align-items:center;gap:12px;">
-            <div class="ds-input-field" style="flex:1;max-width:280px;height:32px;">
-              <div class="prefix" style="padding:0 8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-              <input type="text" id="table-search" placeholder="Search findings…" oninput="filterTable(this.value)" style="font-size:13px;">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--shell-text);">Security Findings</div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-top:2px;">All detected vulnerabilities across targets</div>
             </div>
-            <span id="table-count" style="font-size:12px;color:var(--shell-text-muted);margin-left:auto;"></span>
+            <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+              <div class="ds-input-field" style="width:220px;height:32px;">
+                <div class="prefix" style="padding:0 8px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                <input type="text" id="table-search" placeholder="Search…" oninput="filterTable(this.value)" style="font-size:13px;">
+              </div>
+              <button class="ds-btn t-outline sz-sm" onclick="downloadTableCSV()" style="height:32px;gap:5px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+              </button>
+            </div>
           </div>
+
+          <!-- Table -->
           <div style="overflow-x:auto;">
             <table class="ds-table" id="findings-table">
               <thead>
@@ -1685,6 +1831,12 @@
               </thead>
               <tbody id="table-body"></tbody>
             </table>
+          </div>
+
+          <!-- Table footer: row count + pagination -->
+          <div style="padding:12px 20px;border-top:1px solid var(--shell-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <span id="table-count" style="font-size:12px;color:var(--shell-text-muted);"></span>
+            <nav class="ds-pagination ds-pagination-sm" id="table-pager" data-total="1" data-current="1" data-pagesize="10"></nav>
           </div>
         </div>
       </div>
@@ -1860,9 +2012,557 @@
       </div>
     </div>
 
+    <!-- TOGGLE & SELECT PAGE -->
+    <div class="page" id="page-toggleselect">
+      <div class="page-header">
+        <h1>Toggle &amp; Select</h1>
+        <p>Toggle switches for binary on/off settings. Dropdown selects for single-option picking from a list.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Toggle Switch</div>
+        <div class="comp-card">
+          <div class="comp-card-header">States</div>
+          <div class="comp-row">
+            <label class="ds-toggle-wrap">
+              <div class="ds-toggle" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>
+              <span style="font-size:12px;color:var(--shell-text-muted);">Off</span>
+            </label>
+            <label class="ds-toggle-wrap">
+              <div class="ds-toggle on" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>
+              <span style="font-size:12px;color:var(--shell-text);">On</span>
+            </label>
+            <label class="ds-toggle-wrap" style="opacity:.45;pointer-events:none;">
+              <div class="ds-toggle"><div class="ds-toggle-thumb"></div></div>
+              <span style="font-size:12px;color:var(--shell-text-muted);">Disabled Off</span>
+            </label>
+            <label class="ds-toggle-wrap" style="opacity:.45;pointer-events:none;">
+              <div class="ds-toggle on"><div class="ds-toggle-thumb"></div></div>
+              <span style="font-size:12px;color:var(--shell-text);">Disabled On</span>
+            </label>
+          </div>
+          <div class="comp-card-header" style="margin-top:20px;">With label and description</div>
+          <div class="comp-row">
+            <label class="ds-toggle-wrap">
+              <span style="font-size:13px;color:var(--shell-text);">Label left</span>
+              <div class="ds-toggle on" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>
+            </label>
+            <label class="ds-toggle-wrap" style="align-items:flex-start;gap:12px;">
+              <div class="ds-toggle on" onclick="dsToggle(this)" style="margin-top:2px;flex-shrink:0;"><div class="ds-toggle-thumb"></div></div>
+              <div>
+                <div style="font-size:13px;font-weight:500;color:var(--shell-text);">Show Legend</div>
+                <div style="font-size:12px;color:var(--shell-text-muted);margin-top:2px;">Display or hide the legend for this chart</div>
+              </div>
+            </label>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Specs</div>
+              <ul>
+                <li>Track: 36×20px, full border-radius</li>
+                <li>Thumb: 16×16px slides left↔right in 0.18s</li>
+                <li>Off: shell-border background</li>
+                <li>On: shell-accent (#6360D8)</li>
+                <li>Disabled: 45% opacity, no interaction</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Usage</div>
+              <ul>
+                <li>Use for binary settings with immediate effect</li>
+                <li>Label should clearly state what ON means</li>
+                <li>Always pair with a descriptive label</li>
+                <li>Do not use for destructive or irreversible actions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Select / Dropdown</div>
+        <div class="comp-card">
+          <div class="comp-card-header">States</div>
+          <div class="ds-select-demo-grid">
+            <div>
+              <div class="ds-field-label">Chart Type <span class="ds-field-hint">— placeholder</span></div>
+              <div class="ds-select-wrap">
+                <div class="ds-select ds-select-placeholder" onclick="dsSelectToggle(this)">
+                  <span>Select chart type…</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-select-dropdown">
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Bar Chart</div>
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Line Chart</div>
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Donut Chart</div>
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Stacked Horizontal Bar</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="ds-field-label">Group By <span class="ds-field-hint">— with value</span></div>
+              <div class="ds-select-wrap">
+                <div class="ds-select" onclick="dsSelectToggle(this)">
+                  <span>Department</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-select-dropdown">
+                  <div class="ds-select-option selected" onclick="dsSelectPick(this)">Department</div>
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Team</div>
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Owner</div>
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Status</div>
+                </div>
+              </div>
+            </div>
+            <div style="opacity:.5;pointer-events:none;">
+              <div class="ds-field-label">Filter By <span class="ds-field-hint">— disabled</span></div>
+              <div class="ds-select-wrap">
+                <div class="ds-select ds-select-placeholder">
+                  <span>Optional data filter</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="ds-field-label">Widget Filter <span class="ds-field-hint">— optional</span></div>
+              <div class="ds-select-wrap">
+                <div class="ds-select ds-select-placeholder" onclick="dsSelectToggle(this)">
+                  <span>Select widget filter</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-select-dropdown">
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Global Filter 1</div>
+                  <div class="ds-select-option" onclick="dsSelectPick(this)">Global Filter 2</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Specs</div>
+              <ul>
+                <li>Height: 40px · border-radius: 8px</li>
+                <li>Border: 1px ctrl-border, accent on hover/open</li>
+                <li>Chevron rotates 180° when open</li>
+                <li>Dropdown max-height 220px with scroll</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Usage</div>
+              <ul>
+                <li>Use for 3+ options; radio buttons for 2–3</li>
+                <li>Always include a placeholder label</li>
+                <li>Selected option highlighted in accent color</li>
+                <li>Closes on outside click or option pick</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION PAGE -->
+    <div class="page" id="page-navmenu">
+      <div class="page-header">
+        <h1>Navigation</h1>
+        <p>Left sidebar navigation with collapsible sections, sub-items, and active states. Panel width: 220px.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Left Navigation Menu</div>
+        <div class="comp-card">
+          <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
+            <div>
+              <div class="comp-card-header">Live example — click to expand/collapse</div>
+              <div class="ds-navmenu">
+                <div class="ds-navmenu-header">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <span style="font-size:14px;font-weight:500;color:var(--shell-text);">EM Dashboard</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">Exposure Management</div>
+                  </div>
+                  <button class="ds-icon-btn" title="Collapse">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                  </button>
+                </div>
+                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-home-sub')">
+                  <div class="ds-nav-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Home
+                  </div>
+                  <svg class="ds-nav-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-nav-subitems" id="nav-home-sub"></div>
+                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-exposure-sub')">
+                  <div class="ds-nav-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                    Exposure
+                  </div>
+                  <svg class="ds-nav-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-nav-subitems" id="nav-exposure-sub"></div>
+                <div class="ds-nav-item-row ds-nav-expanded" onclick="dsNavToggle(this,'nav-discover-sub')">
+                  <div class="ds-nav-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    Discover
+                  </div>
+                  <svg class="ds-nav-chevron ds-nav-chevron-open" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-nav-subitems" id="nav-discover-sub" style="display:flex;">
+                  <div class="ds-nav-sub-item ds-nav-sub-active">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
+                    Device
+                  </div>
+                  <div class="ds-nav-sub-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                    Cloud
+                  </div>
+                </div>
+                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-report-sub')">
+                  <div class="ds-nav-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Report
+                  </div>
+                  <svg class="ds-nav-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-nav-subitems" id="nav-report-sub"></div>
+                <div class="ds-nav-section-header ds-nav-item-row ds-nav-expanded" onclick="dsNavToggle(this,'nav-workspace-sub')">
+                  <div class="ds-nav-label">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+                    Workspace
+                  </div>
+                  <svg class="ds-nav-chevron ds-nav-chevron-open" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="ds-nav-subitems" id="nav-workspace-sub" style="display:flex;">
+                  <div class="ds-nav-sub-item ds-nav-sub-active">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    Dashboard
+                  </div>
+                  <div class="ds-nav-sub-item">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Report
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="flex:1;min-width:240px;">
+              <div class="comp-card-header">Item states</div>
+              <div class="ds-navmenu" style="max-width:220px;gap:4px;">
+                <div class="ds-nav-item-row"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Default</div></div>
+                <div class="ds-nav-item-row" style="background:var(--shell-hover);"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Hover</div></div>
+                <div class="ds-nav-section-header ds-nav-item-row"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Section Header</div></div>
+                <div class="ds-nav-sub-item" style="padding-left:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Sub-item Default</div>
+                <div class="ds-nav-sub-item ds-nav-sub-active" style="padding-left:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Sub-item Active</div>
+              </div>
+              <div class="chart-doc" style="margin-top:20px;">
+                <div class="chart-doc-block">
+                  <div class="chart-doc-block-title">Anatomy</div>
+                  <ul>
+                    <li>Nav item: 36px height · 8px padding · 6px radius</li>
+                    <li>Section header: raised bg + medium weight</li>
+                    <li>Sub-item: 38px height · 30px left indent</li>
+                    <li>Active sub-item: accent color + accent bg tint</li>
+                    <li>Chevron rotates 180° when expanded</li>
+                    <li>Header has blue bottom border</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Page Sub-header</div>
+        <div class="comp-card">
+          <div class="comp-card-header">Title + Breadcrumb + Actions</div>
+          <div style="background:var(--shell-bg);border:1px solid var(--shell-border);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:12px;">
+            <div>
+              <div style="font-size:14px;font-weight:500;color:var(--shell-text);">Device Attack Surface</div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-top:2px;">Dashboard &gt; Workspace &gt; <span style="color:var(--shell-accent);">Device Attack Surface</span></div>
+            </div>
+            <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+              <button class="ds-icon-btn" style="background:var(--shell-raised);border-radius:50%;width:32px;height:32px;" title="More options">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+              </button>
+              <button class="ds-btn t-outline sz-sm" style="border-radius:20px;padding:0 12px;height:32px;gap:5px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Explore in
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Usage</div>
+              <ul>
+                <li>Title: 14px medium, primary color</li>
+                <li>Breadcrumb: 12px muted, last item in accent</li>
+                <li>··· opens context menu with page actions</li>
+                <li>"Explore in" is pill-shaped outline + icons</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANELS & FILTERS PAGE -->
+    <div class="page" id="page-panels">
+      <div class="page-header">
+        <h1>Panels &amp; Filters</h1>
+        <p>Right-side drawer panels, filter bars with active indicators, and applied filter chip displays.</p>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Filter Bar</div>
+        <div class="comp-card">
+          <div class="comp-card-header">Active Filters + Filter button</div>
+          <div class="comp-row">
+            <button class="ds-btn t-primary sz-sm" style="width:32px;height:32px;padding:0;border-radius:50%;flex-shrink:0;" title="Settings">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.73 8.27a6 6 0 0 1 0 7.46M4.93 4.93a10 10 0 0 0 0 14.14M8.27 8.27a6 6 0 0 0 0 7.46"/></svg>
+            </button>
+            <button class="ds-filter-count-btn" onclick="openPanel('demo-panel')">
+              Active Filters
+              <span class="ds-filter-count">1</span>
+            </button>
+            <div style="width:1px;height:28px;background:var(--ctrl-border);flex-shrink:0;"></div>
+            <button class="ds-filter-btn" onclick="openPanel('demo-panel')">
+              Filter
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="callout info" style="margin-top:4px;">"Active Filters" and "Filter" open the side panel demo below.</div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Anatomy</div>
+              <ul>
+                <li>Settings icon: 32px filled primary circle</li>
+                <li>Active Filters: pill with count badge</li>
+                <li>Divider: 1px × 28px vertical</li>
+                <li>Filter: lavender (#e0dff7) pill + icon</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Applied Filter Chips</div>
+        <div class="comp-card">
+          <div class="comp-card-header">Active filter display</div>
+          <div class="ds-filter-chips" id="demo-chips">
+            <span style="font-size:12px;color:var(--shell-text);white-space:nowrap;">Show</span>
+            <div class="ds-filter-chip">
+              <span class="ds-chip-key">Entity</span>
+              <span class="ds-chip-value">Host</span>
+              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
+            </div>
+            <span class="ds-filter-connector">where</span>
+            <div class="ds-filter-chip">
+              <span class="ds-chip-key">VM Onboarding Status</span>
+              <span class="ds-chip-value">False</span>
+              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
+            </div>
+            <div class="ds-filter-chip">
+              <span class="ds-chip-key">Severity</span>
+              <span class="ds-chip-value">Critical</span>
+              <span class="ds-chip-value">High</span>
+              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
+            </div>
+          </div>
+          <div style="margin-top:16px;">
+            <button class="ds-btn t-outline sz-sm" onclick="resetFilterChips()">Reset demo</button>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Anatomy</div>
+              <ul>
+                <li>Chip bg: shell-raised, 8px radius</li>
+                <li>Key label: 12px medium, muted color</li>
+                <li>Value pill: ctrl-bg, 4px radius</li>
+                <li>Multiple values can stack in one chip</li>
+                <li>Close ×: 18px circle button</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Connectors</div>
+              <ul>
+                <li>"Show" — plain text, primary color</li>
+                <li>"where" — accent color (#6360D8)</li>
+                <li>Plain conjunctions link filter groups</li>
+                <li>Each group is a self-contained chip</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Side Panel / Drawer</div>
+        <div class="comp-card">
+          <div class="comp-card-header">Right-side sliding panel</div>
+          <div class="comp-row">
+            <button class="ds-btn t-primary sz-md" onclick="openPanel('demo-panel')">Open Widget Settings Panel</button>
+            <span style="font-size:12px;color:var(--shell-text-muted);">Slides in from right with overlay backdrop</span>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Anatomy</div>
+              <ul>
+                <li>Width: 360px · slides from right in 0.25s</li>
+                <li>Header: icon + title + close ×</li>
+                <li>Tabs: underline variant</li>
+                <li>Body: overflow-y scroll, 16px padding</li>
+                <li>Footer: Cancel + Save (full-width pills)</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Behavior</div>
+              <ul>
+                <li>rgba(0,0,0,0.32) backdrop overlay</li>
+                <li>Click outside (backdrop) to dismiss</li>
+                <li>Close × button in header also dismisses</li>
+                <li>Body scroll locked when panel is open</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
+
+  <!-- SIDE PANEL DEMO -->
+  <div class="ds-panel-overlay" id="demo-panel-overlay" onclick="closePanel('demo-panel')"></div>
+  <div class="ds-panel" id="demo-panel">
+    <div class="ds-panel-header">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      <span class="ds-panel-title">Widget Settings</span>
+      <button class="ds-icon-btn" onclick="closePanel('demo-panel')" title="Close">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ds-panel-tabs">
+      <button class="ds-panel-tab" onclick="panelTab(this,'panel-tab-general')">General</button>
+      <button class="ds-panel-tab ds-panel-tab-active" onclick="panelTab(this,'panel-tab-data')">Data</button>
+    </div>
+    <div class="ds-panel-body">
+      <div id="panel-tab-general" style="display:none;flex-direction:column;gap:16px;">
+        <div>
+          <div class="ds-field-label">Widget Title</div>
+          <div class="ds-input-field"><input type="text" placeholder="Enter widget title…"></div>
+        </div>
+        <div>
+          <div class="ds-field-label">Description</div>
+          <div class="ds-input-field"><input type="text" placeholder="Optional description"></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div>
+            <div style="font-size:13px;font-weight:500;color:var(--shell-text);">Show Legend</div>
+            <div style="font-size:12px;color:var(--shell-text-muted);margin-top:2px;">Display or hide the chart legend</div>
+          </div>
+          <div class="ds-toggle on" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>
+        </div>
+      </div>
+      <div id="panel-tab-data" style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <div class="ds-field-label">Chart Type</div>
+          <div class="ds-select-wrap">
+            <div class="ds-select" onclick="dsSelectToggle(this)">
+              <span>Stacked Horizontal Bar Chart</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="ds-select-dropdown">
+              <div class="ds-select-option selected" onclick="dsSelectPick(this)">Stacked Horizontal Bar Chart</div>
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Vertical Bar Chart</div>
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Line Chart</div>
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Donut Chart</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="ds-field-label" style="margin-bottom:0;">Y-Axis</div>
+          <div style="font-size:12px;color:var(--shell-text-muted);">Vertical categories</div>
+        </div>
+        <div>
+          <div class="ds-field-label">Group By</div>
+          <div class="ds-select-wrap">
+            <div class="ds-select ds-select-placeholder" onclick="dsSelectToggle(this)">
+              <span>Department</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="ds-select-dropdown">
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Department</div>
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Team</div>
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Status</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="ds-field-label" style="margin-bottom:0;">X-Axis</div>
+          <div style="font-size:12px;color:var(--shell-text-muted);">Horizontal values</div>
+        </div>
+        <div>
+          <div class="ds-field-label">Widget Filter <span style="font-weight:400;color:var(--shell-text-muted);font-size:11px;">(Apply global filters – optional)</span></div>
+          <div class="ds-select-wrap">
+            <div class="ds-select ds-select-placeholder" onclick="dsSelectToggle(this)">
+              <span>Select widget filter</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="ds-select-dropdown">
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Filter 1</div>
+              <div class="ds-select-option" onclick="dsSelectPick(this)">Filter 2</div>
+            </div>
+          </div>
+        </div>
+        <div style="border:1px solid var(--ctrl-border);border-radius:8px;padding:10px;">
+          <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:8px;font-weight:500;">Applied Filters</div>
+          <div class="ds-filter-chips">
+            <span style="font-size:12px;color:var(--shell-text);white-space:nowrap;">Show</span>
+            <div class="ds-filter-chip">
+              <span class="ds-chip-key">Entity</span>
+              <span class="ds-chip-value">Host</span>
+              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
+            </div>
+            <span class="ds-filter-connector">where</span>
+            <div class="ds-filter-chip">
+              <span class="ds-chip-key">Type</span>
+              <span class="ds-chip-value">Bucket</span>
+              <span class="ds-chip-value">Server</span>
+              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+          <div>
+            <div style="font-size:12px;font-weight:500;color:var(--shell-text);">Show Legend</div>
+            <div style="font-size:12px;color:var(--shell-text-muted);">Display or hide the legend</div>
+          </div>
+          <div class="ds-toggle on" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-panel-footer">
+      <button class="ds-btn t-outline sz-md" style="flex:1;border-radius:24px;" onclick="closePanel('demo-panel')">Cancel</button>
+      <button class="ds-btn t-primary sz-md" style="flex:1;border-radius:24px;" onclick="closePanel('demo-panel');showToast('success','Changes saved successfully')">Save Changes</button>
+    </div>
+  </div>
+
 </div>
 
+<!-- Hero scan cursor -->
+<svg id="hero-cursor" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <circle class="hc-outer" cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="5 3"/>
+  <circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+  <line x1="20" y1="2" x2="20" y2="8" stroke="currentColor" stroke-width="1"/>
+  <line x1="20" y1="32" x2="20" y2="38" stroke="currentColor" stroke-width="1"/>
+  <line x1="2" y1="20" x2="8" y2="20" stroke="currentColor" stroke-width="1"/>
+  <line x1="32" y1="20" x2="38" y2="20" stroke="currentColor" stroke-width="1"/>
+  <circle cx="20" cy="20" r="1.5" fill="currentColor"/>
+</svg>
 <script src="main.js"></script>
 </body>
 </html>
