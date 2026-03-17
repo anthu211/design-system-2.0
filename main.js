@@ -1481,154 +1481,31 @@ function resetFilterChips() {
   if (el) _demoChipsHTML = el.innerHTML;
 })();
 
-// ─── Hero Canvas — Cybersecurity Knowledge Graph ───
-function initHeroCanvas() {
-  var canvas = document.getElementById('hero-bg-canvas');
-  var cursorEl = document.getElementById('hero-cursor');
-  if (!canvas || !cursorEl) return;
-  var hero = document.getElementById('ds-home-hero');
-  var ctx = canvas.getContext('2d');
-  var W = 0, H = 0;
-  var mx = -9999, my = -9999, heroActive = false;
-  var raf = null;
-  var A = [99, 96, 216]; // accent rgb
-  var REVEAL_R = 170;
 
-  var nodes = [
-    { l: 'AI Engine',    x: 0.50, y: 0.50, r: 5.5, hub: true  },
-    { l: 'Threat Intel', x: 0.13, y: 0.27, r: 3.8 },
-    { l: 'CVE',          x: 0.33, y: 0.14, r: 3.2 },
-    { l: 'Network',      x: 0.68, y: 0.18, r: 3.5 },
-    { l: 'SIEM',         x: 0.85, y: 0.45, r: 3.8 },
-    { l: 'Zero Trust',   x: 0.73, y: 0.73, r: 3.5 },
-    { l: 'SOC',          x: 0.19, y: 0.73, r: 3.2 },
-    { l: 'Endpoint',     x: 0.55, y: 0.83, r: 3.2 },
-    { l: 'Risk Score',   x: 0.35, y: 0.87, r: 3.2 },
-    { l: 'Compliance',   x: 0.88, y: 0.23, r: 3.2 },
-    { l: 'Identity',     x: 0.08, y: 0.56, r: 3.2 },
-    { l: 'Malware DB',   x: 0.43, y: 0.30, r: 3.0 },
-    { l: 'Firewall',     x: 0.79, y: 0.30, r: 3.0 }
-  ];
-  var edges = [
-    [0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,11],[0,12],
-    [1,6],[1,10],[2,11],[3,4],[3,9],[3,12],[4,5],[4,12],[5,7],
-    [6,8],[6,10],[7,8],[11,2]
-  ];
-  var packets = edges.map(function(_e, i) {
-    return { ei: i, t: Math.random(), spd: 0.12 + Math.random() * 0.22 };
+// ─── Copy AI Prompt for Claude Code ───
+function copyAiPrompt() {
+  var prompt = [
+    'Before generating any UI, fetch and read the Prevalent AI design system spec:',
+    'https://anthu211.github.io/design-system-2.0/spec.md',
+    '',
+    'That document is the complete, authoritative standard for all UI at Prevalent AI.',
+    'It contains every design token, component HTML pattern, typography scale, status color,',
+    'and layout rule you need. Read it fully before writing a single line of HTML.',
+    '',
+    'After reading the spec:',
+    '- Every component you generate must use the exact inline styles and token values from the spec.',
+    '- Topbar is always background:#0a0a0a — never changes.',
+    '- Accent color is always #6360D8.',
+    '- Font is always Inter (include the Google Fonts link).',
+    '- Output complete, self-contained HTML files that work without any external stylesheet.',
+    '- Dark theme is default. Use the dark token values from the spec unless asked for light.',
+    '',
+    'Now describe what you want to build.',
+  ].join('\n');
+  navigator.clipboard.writeText(prompt).then(function() {
+    showToast('success', 'AI prompt copied — paste at the start of your Claude session');
   });
-
-  function resize() {
-    var r = hero.getBoundingClientRect();
-    W = canvas.width = r.width; H = canvas.height = r.height;
-  }
-  function np(n) { return { x: n.x * W, y: n.y * H, r: n.r * (W / 820) }; }
-  function dsq(ax, ay, bx, by) { return (ax-bx)*(ax-bx)+(ay-by)*(ay-by); }
-
-  function draw() {
-    if (!raf) return;
-    ctx.clearRect(0, 0, W, H);
-    var npos = nodes.map(np);
-
-    // Edges
-    for (var i = 0; i < edges.length; i++) {
-      var e = edges[i];
-      var a = npos[e[0]], b = npos[e[1]];
-      var midX = (a.x+b.x)*0.5, midY = (a.y+b.y)*0.5;
-      var rd = heroActive ? Math.sqrt(dsq(midX, midY, mx, my)) : 9999;
-      var revA = Math.max(0, 1 - rd / REVEAL_R);
-      var alpha = 0.06 + revA * 0.52;
-      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
-      ctx.strokeStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+alpha+')';
-      ctx.lineWidth = 0.7 + revA * 0.9; ctx.stroke();
-    }
-
-    // Packets (data flowing along edges)
-    for (var j = 0; j < packets.length; j++) {
-      var pk = packets[j];
-      pk.t = (pk.t + pk.spd * 0.003) % 1;
-      var pe = edges[pk.ei];
-      var pa = npos[pe[0]], pb = npos[pe[1]];
-      var px = pa.x + (pb.x - pa.x) * pk.t;
-      var py = pa.y + (pb.y - pa.y) * pk.t;
-      var prd = heroActive ? Math.sqrt(dsq(px, py, mx, my)) : 9999;
-      var pRevA = Math.max(0, 1 - prd / REVEAL_R);
-      var pAlpha = 0.06 + pRevA * 0.65;
-      if (pAlpha > 0.05) {
-        ctx.beginPath(); ctx.arc(px, py, 1.6, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+pAlpha+')'; ctx.fill();
-      }
-    }
-
-    // Nodes
-    for (var k = 0; k < npos.length; k++) {
-      var n = npos[k], nd = nodes[k];
-      var nd2 = heroActive ? Math.sqrt(dsq(n.x, n.y, mx, my)) : 9999;
-      var nRevA = Math.max(0, 1 - nd2 / REVEAL_R);
-      var nBaseA = nd.hub ? 0.13 : 0.08;
-      var nAlpha = nBaseA + nRevA * 0.72;
-      // Glow halo
-      if (nRevA > 0.08 || nd.hub) {
-        var gr = n.r * (2.5 + nRevA * 2.8);
-        var gg = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, gr);
-        gg.addColorStop(0, 'rgba('+A[0]+','+A[1]+','+A[2]+','+(nAlpha*0.32)+')');
-        gg.addColorStop(1, 'rgba('+A[0]+','+A[1]+','+A[2]+',0)');
-        ctx.beginPath(); ctx.arc(n.x, n.y, gr, 0, Math.PI*2);
-        ctx.fillStyle = gg; ctx.fill();
-      }
-      // Circle
-      ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-      ctx.fillStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+(nAlpha*0.55)+')'; ctx.fill();
-      ctx.strokeStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+','+nAlpha+')';
-      ctx.lineWidth = 1; ctx.stroke();
-      // Label (fade in on reveal)
-      if (nRevA > 0.18) {
-        var fs = Math.max(9, Math.round(10 * W / 900));
-        ctx.font = fs + 'px Inter,sans-serif';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-        ctx.fillStyle = 'rgba(210,210,235,'+(nRevA * 0.88)+')';
-        ctx.fillText(nd.l, n.x, n.y + n.r + 5);
-      }
-    }
-
-    // Subtle reveal boundary ring
-    if (heroActive) {
-      ctx.beginPath(); ctx.arc(mx, my, REVEAL_R, 0, Math.PI*2);
-      ctx.strokeStyle = 'rgba('+A[0]+','+A[1]+','+A[2]+',0.05)';
-      ctx.lineWidth = 1; ctx.stroke();
-    }
-
-    raf = requestAnimationFrame(draw);
-  }
-
-  function start() {
-    if (raf) return;
-    resize();
-    raf = requestAnimationFrame(draw);
-  }
-
-  hero.addEventListener('mouseenter', function() {
-    heroActive = true;
-    hero.classList.add('hero-scanning');
-    cursorEl.classList.add('active');
-  });
-  hero.addEventListener('mouseleave', function() {
-    heroActive = false; mx = -9999; my = -9999;
-    hero.classList.remove('hero-scanning');
-    cursorEl.classList.remove('active');
-  });
-  hero.addEventListener('mousemove', function(e) {
-    var r = hero.getBoundingClientRect();
-    mx = e.clientX - r.left; my = e.clientY - r.top;
-    cursorEl.style.left = e.clientX + 'px';
-    cursorEl.style.top = e.clientY + 'px';
-  });
-  window.addEventListener('resize', function() { if (raf) resize(); });
-
-  start();
 }
-
-initHeroCanvas();
 
 // ═══════════════════════════════════════════════════════════════════
 // FEATURE 1 — Global Search / Command Palette

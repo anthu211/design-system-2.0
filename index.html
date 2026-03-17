@@ -156,7 +156,6 @@
     <!-- HOME PAGE -->
 <div class="page active" id="page-home">
   <div class="ds-home-hero" id="ds-home-hero">
-    <canvas id="hero-bg-canvas" aria-hidden="true"></canvas>
     <div class="ds-home-hero-content">
     <div class="ds-home-badge">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -178,6 +177,64 @@
       <div class="ds-home-stat"><span class="ds-home-stat-num">1024px+</span><span class="ds-home-stat-label">Min Resolution</span></div>
     </div>
     </div><!-- /ds-home-hero-content -->
+  </div>
+
+  <!-- Usage Guide -->
+  <div class="ds-usage-guide">
+    <div class="ds-usage-guide-header">
+      <div class="ds-usage-org-badge">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        Organization Standard
+      </div>
+      <h2>AI-generated dashboards start here</h2>
+      <p class="ds-usage-guide-subtitle">This is the single source of truth for all UI generation at Prevalent AI. Copy the AI prompt below and paste it at the start of any Claude session — it contains everything Claude needs inline, no installation or files required.</p>
+    </div>
+
+    <div class="ds-usage-steps">
+      <div class="ds-usage-step">
+        <div class="ds-usage-step-num">1</div>
+        <div class="ds-usage-step-title">Browse what exists</div>
+        <div class="ds-usage-step-desc">Use the left nav to explore all available components, tokens, and patterns. Understand what the system offers before prompting.</div>
+      </div>
+      <div class="ds-usage-step-arrow">›</div>
+      <div class="ds-usage-step">
+        <div class="ds-usage-step-num">2</div>
+        <div class="ds-usage-step-title">Copy the AI prompt</div>
+        <div class="ds-usage-step-desc">Use the button below to copy the design system context. It's fully self-contained — tokens, component HTML, and rules are all embedded. No files needed.</div>
+      </div>
+      <div class="ds-usage-step-arrow">›</div>
+      <div class="ds-usage-step">
+        <div class="ds-usage-step-num">3</div>
+        <div class="ds-usage-step-title">Describe &amp; generate</div>
+        <div class="ds-usage-step-desc">Tell Claude what to build. It will use the correct component classes, tokens, and layout patterns from this system automatically.</div>
+      </div>
+    </div>
+
+    <div class="ds-usage-files">
+      <span class="ds-usage-file-label">Design system files:</span>
+      <span class="ds-usage-file-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        styles.css
+      </span>
+      <span class="ds-usage-file-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        main.js
+      </span>
+      <span class="ds-usage-file-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        index.html
+      </span>
+      <span style="font-size:12px;color:var(--shell-text-muted);margin-left:4px;">— Claude Code reads these to generate consistent UI</span>
+    </div>
+
+    <div class="ds-usage-actions">
+      <button class="ds-btn t-primary sz-md" onclick="copyAiPrompt()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Copy AI Prompt for Claude Code
+      </button>
+      <button class="ds-btn t-outline sz-md" onclick="document.querySelector('[data-page=colors]').click()">Browse Foundation</button>
+      <button class="ds-btn t-outline sz-md" onclick="document.querySelector('[data-page=buttons]').click()">View Components</button>
+    </div>
   </div>
 
   <div class="ds-home-section-title">Foundation</div>
@@ -3019,16 +3076,6 @@
 </div>
 
 
-<!-- Hero scan cursor -->
-<svg id="hero-cursor" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <circle class="hc-outer" cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="5 3"/>
-  <circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
-  <line x1="20" y1="2" x2="20" y2="8" stroke="currentColor" stroke-width="1"/>
-  <line x1="20" y1="32" x2="20" y2="38" stroke="currentColor" stroke-width="1"/>
-  <line x1="2" y1="20" x2="8" y2="20" stroke="currentColor" stroke-width="1"/>
-  <line x1="32" y1="20" x2="38" y2="20" stroke="currentColor" stroke-width="1"/>
-  <circle cx="20" cy="20" r="1.5" fill="currentColor"/>
-</svg>
 <script src="main.js"></script>
 
 </body>
