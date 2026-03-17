@@ -155,10 +155,6 @@ All values are CSS custom properties. Use these names consistently so dark/light
 
       <!-- Sticky content sub-header (white, rounded bottom corners) -->
       <div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6e6e6;border-radius:0 0 8px 8px;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
-        <!-- Hamburger toggle -->
-        <button style="background:none;border:none;color:#6e6e6e;display:flex;align-items:center;padding:4px;flex-shrink:0;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
         <!-- Page title + breadcrumb -->
         <div style="min-width:0;">
           <div style="font-size:12px;font-weight:500;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Page Title</div>
