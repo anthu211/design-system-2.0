@@ -9,9 +9,9 @@ Read this entire document before generating any UI. Every component, token, and 
 
 - **Font:** Inter (load from Google Fonts: `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap`)
 - **Accent color:** `#6360D8` (purple-blue — used for CTA buttons, active states, links, focus rings)
-- **Default theme:** Dark. Light theme applies class `theme-light` on `<html>`.
-- **Topbar:** Always `background: #0a0a0a`, white logo — never changes with theme switching.
-- **Border radius scale:** inputs/cards `8px`, buttons `6px`, large cards `12px`, pill buttons `44px+`
+- **Default theme:** Light. Dark theme is opt-in — remove class `theme-light` from `<html>` for dark.
+- **Topbar:** Always `background: #131313`, white logo — never changes with theme switching.
+- **Border radius scale:** inputs `8px`, cards `12px`, **buttons `44px` (always pill-shaped)**
 - **Spacing unit:** 4px base — use multiples: 4, 8, 12, 16, 20, 24, 32, 48
 
 ---
@@ -20,7 +20,7 @@ Read this entire document before generating any UI. Every component, token, and 
 
 All values are CSS custom properties. Use these names consistently so dark/light switching works.
 
-### Dark Theme (default)
+### Dark Theme
 ```
 --shell-bg: #0E0E0E
 --shell-sidebar: #131313
@@ -45,18 +45,24 @@ All values are CSS custom properties. Use these names consistently so dark/light
 --table-border: #1F1F1F
 ```
 
-### Light Theme (html.theme-light overrides)
+### Light Theme — DEFAULT (html.theme-light overrides)
 ```
 --shell-bg: #F7F9FC
 --shell-sidebar: #FFFFFF
 --shell-border: #E6E6E6
 --shell-text: #101010
+--shell-text-2: #282828
 --shell-text-muted: #6E6E6E
 --shell-accent: #6360D8
+--shell-hover: rgba(0,0,0,0.04)
+--shell-active: rgba(99,96,216,0.08)
 --shell-raised: #F5F5F5
+--shell-elevated: #EFEFEF
 --ctrl-bg: #FFFFFF
---ctrl-border: #cfcfcf
+--ctrl-border: #CFCFCF
 --ctrl-text: #282828
+--ctrl-placeholder: #9CA3AF
+--ctrl-hover: #F5F5F5
 --card-bg: #FFFFFF
 --card-border: #E6E6E6
 --table-th-bg: #F5F5F5
@@ -67,47 +73,142 @@ All values are CSS custom properties. Use these names consistently so dark/light
 
 ## Page Shell
 
-Every dashboard uses this exact structure:
+**This is the mandatory standard structure for every Prevalent AI dashboard.** Copy this template exactly — topbar is always `#131313`, left nav is 220px white, content has a sticky sub-header with breadcrumb and CTAs.
 
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="theme-light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Page Title — Prevalent AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* paste full styles.css content here, OR define tokens + component styles inline */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #F7F9FC; color: #101010; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    a { text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border-radius: 44px; }
   </style>
 </head>
-<body style="margin:0;font-family:'Inter',sans-serif;background:var(--shell-bg);color:var(--shell-text);display:flex;flex-direction:column;height:100vh;">
+<body>
 
-  <!-- Topbar — always dark, never theme-switched -->
-  <div style="height:52px;background:#0a0a0a;border-bottom:1px solid #1e1e1e;display:flex;align-items:center;padding:0 16px;gap:10px;flex-shrink:0;z-index:100;">
-    <img src="pai-logo.svg" style="height:28px;" alt="Prevalent AI">
+  <!-- ── TOPBAR — always #131313, never changes with theme ── -->
+  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">
+    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">
     <span style="flex:1;"></span>
-    <!-- topbar right actions here -->
+    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>
+    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>
+    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 14px;border-radius:44px;">Navigator</button>
   </div>
 
-  <!-- Shell: sidebar + main -->
+  <!-- ── SHELL: sidebar + content ── -->
   <div style="display:flex;flex:1;overflow:hidden;">
 
-    <!-- Left Navigation -->
-    <nav style="width:220px;background:var(--shell-sidebar);border-right:1px solid var(--shell-border);overflow-y:auto;flex-shrink:0;padding:12px 0;">
-      <!-- nav content -->
+    <!-- ── LEFT NAV (220px, white) ── -->
+    <nav style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;">
+
+      <!-- Section header with title dropdown + collapse -->
+      <div style="padding:12px 12px 10px;border-bottom:1px solid #e6e6e6;flex-shrink:0;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#101010;">
+              EM Dashboard
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">Exposure Management</div>
+          </div>
+          <button style="background:none;border:none;color:#6e6e6e;padding:4px;display:flex;align-items:center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Nav items -->
+      <div style="padding:8px 0;flex:1;">
+        <!-- Active item: background rgba(99,96,216,0.08), color #6360D8 -->
+        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;background:rgba(99,96,216,0.08);color:#6360D8;font-size:13px;font-weight:500;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Home
+        </a>
+        <!-- Expandable item with chevron -->
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#101010;font-size:13px;font-weight:500;cursor:pointer;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Section Name
+          <svg style="margin-left:auto;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <!-- Sub-items (indented 36px left) -->
+        <a href="#" style="display:flex;align-items:center;padding:7px 12px 7px 36px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:12px;">Sub Item</a>
+        <!-- Default item -->
+        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Nav Item
+        </a>
+      </div>
     </nav>
 
-    <!-- Main Content -->
-    <main style="flex:1;overflow-y:auto;padding:28px 32px;">
-      <!-- page content -->
-    </main>
+    <!-- ── CONTENT AREA ── -->
+    <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
 
+      <!-- Sticky content sub-header (white, rounded bottom corners) -->
+      <div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6e6e6;border-radius:0 0 8px 8px;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+        <!-- Hamburger toggle -->
+        <button style="background:none;border:none;color:#6e6e6e;display:flex;align-items:center;padding:4px;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <!-- Page title + breadcrumb -->
+        <div style="min-width:0;">
+          <div style="font-size:12px;font-weight:500;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Page Title</div>
+          <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:3px;white-space:nowrap;">
+            <span>Dashboard</span><span>›</span><span>Section</span><span>›</span>
+            <span style="color:#6360D8;">Current Page</span>
+          </div>
+        </div>
+        <!-- Explore in dropdown pill -->
+        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">
+          Explore in <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <span style="flex:1;"></span>
+        <!-- Add / primary CTA (purple circle) -->
+        <button style="width:32px;height:32px;border-radius:50%;background:#6360D8;border:none;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <!-- Active Filters pill (outline #504bb8) -->
+        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0;">
+          Active Filters
+          <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">3</span>
+        </button>
+        <div style="width:1px;height:20px;background:#e6e6e6;flex-shrink:0;"></div>
+        <!-- Filter pill (light purple bg) -->
+        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;flex-shrink:0;">Filter</button>
+      </div>
+
+      <!-- Main content body -->
+      <div style="flex:1;padding:24px;background:#F7F9FC;">
+        <!-- Page content goes here -->
+      </div>
+
+    </div>
   </div>
+
 </body>
 </html>
 ```
+
+### Key Shell Rules
+- **Topbar** is always `background:#131313` — never changes with theme
+- **Left nav** is always 220px wide, `background:#fff`, `border-right:0.5px solid #d8d9dd`
+- **Section header** at top of nav: section title with dropdown chevron + collapse icon + subtitle
+- **Active nav item**: `background:rgba(99,96,216,0.08)`, `color:#6360D8`
+- **Sub-items**: indent `padding-left:36px`, `font-size:12px`, `color:#6e6e6e`
+- **Sticky sub-header**: white card, `border-radius:0 0 8px 8px`, `border-bottom:1px solid #e6e6e6` — always shown at top of content area
+- **Breadcrumb**: last segment always `color:#6360D8`
+- **Active Filters pill**: `border:1px solid #504bb8`, `color:#504bb8` with count badge
+- **Filter pill**: `background:#e0dff7`, `color:#504bb8`, `border-radius:44px`
+- **Content body**: `background:#F7F9FC`, `padding:24px`
 
 ---
 
@@ -116,7 +217,7 @@ Every dashboard uses this exact structure:
 ### Navigation Item
 ```html
 <!-- Active state -->
-<a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;margin:2px 8px;background:rgba(99,96,216,0.12);color:#6360D8;font-size:13px;font-weight:500;text-decoration:none;">
+<a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;margin:2px 8px;background:rgba(99,96,216,0.08);color:#6360D8;font-size:13px;font-weight:500;text-decoration:none;">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>
   Page Name
 </a>
@@ -156,34 +257,43 @@ Every dashboard uses this exact structure:
 
 ### Buttons
 
+**All buttons use `border-radius:44px` (pill shape) — this is the standard. Never use 6px on buttons.**
+
 ```html
-<!-- Primary (CTA) -->
-<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#6360D8;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;">
+<!-- Primary (CTA) — pill -->
+<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:#6360D8;color:#fff;border:none;border-radius:44px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;">
   Label
 </button>
 
-<!-- Outline -->
-<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:transparent;color:var(--shell-text);border:1px solid var(--ctrl-border);border-radius:6px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;">
+<!-- Outline — pill -->
+<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:transparent;color:#6360D8;border:1px solid #6360D8;border-radius:44px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;">
+  Label
+</button>
+
+<!-- Outline neutral — pill -->
+<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:transparent;color:var(--shell-text);border:1px solid var(--ctrl-border);border-radius:44px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;">
   Label
 </button>
 
 <!-- Ghost / text -->
-<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:transparent;color:var(--shell-text-muted);border:none;border-radius:6px;font-size:13px;font-weight:400;font-family:inherit;cursor:pointer;">
+<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:transparent;color:var(--shell-text-muted);border:none;border-radius:44px;font-size:13px;font-weight:400;font-family:inherit;cursor:pointer;">
   Label
 </button>
 
-<!-- Small -->
-<button style="padding:5px 12px;font-size:12px;border-radius:6px;/* + same bg/color/border as above */">Label</button>
+<!-- Small — pill -->
+<button style="display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:#6360D8;color:#fff;border:none;border-radius:44px;font-size:12px;font-weight:500;font-family:inherit;cursor:pointer;">Label</button>
 
-<!-- Large -->
-<button style="padding:11px 22px;font-size:14px;border-radius:6px;/* + same bg/color/border as above */">Label</button>
+<!-- Large — pill -->
+<button style="display:inline-flex;align-items:center;gap:6px;padding:11px 28px;background:#6360D8;color:#fff;border:none;border-radius:44px;font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;">Label</button>
 
-<!-- Pill / rounded -->
-<button style="border-radius:44px;/* + other styles */">Label</button>
-
-<!-- Icon-only button -->
-<button style="width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--ctrl-border);border-radius:6px;cursor:pointer;color:var(--shell-text-muted);">
+<!-- Icon-only circle button -->
+<button style="width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--ctrl-border);border-radius:50%;cursor:pointer;color:var(--shell-text-muted);">
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>
+</button>
+
+<!-- Icon-only circle CTA (accent) -->
+<button style="width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#6360D8;border:none;border-radius:50%;cursor:pointer;color:#fff;">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
 </button>
 ```
 
@@ -289,7 +399,7 @@ Every dashboard uses this exact structure:
 
 ### Data Table
 ```html
-<div style="border:1px solid var(--card-border);border-radius:10px;overflow:hidden;">
+<div style="border:1px solid var(--card-border);border-radius:12px;overflow:hidden;">
   <table style="width:100%;border-collapse:collapse;font-size:13px;">
     <thead>
       <tr>
@@ -406,8 +516,8 @@ function switchTab(btn, targetId) {
     <!-- Footer -->
     <div style="border-top:1px solid var(--card-border);padding:14px 16px;display:flex;gap:8px;flex-shrink:0;">
       <button onclick="document.getElementById('side-panel').style.width='0'"
-              style="flex:1;padding:8px;border-radius:24px;background:transparent;border:1px solid var(--ctrl-border);color:var(--shell-text);cursor:pointer;font-size:13px;font-family:inherit;">Cancel</button>
-      <button style="flex:1;padding:8px;border-radius:24px;background:#6360D8;border:none;color:#fff;cursor:pointer;font-size:13px;font-weight:500;font-family:inherit;">Apply</button>
+              style="flex:1;padding:8px;border-radius:44px;background:transparent;border:1px solid var(--ctrl-border);color:var(--shell-text);cursor:pointer;font-size:13px;font-family:inherit;">Cancel</button>
+      <button style="flex:1;padding:8px;border-radius:44px;background:#6360D8;border:none;color:#fff;cursor:pointer;font-size:13px;font-weight:500;font-family:inherit;">Apply</button>
     </div>
   </div>
 
@@ -440,8 +550,8 @@ function switchTab(btn, targetId) {
     <!-- Footer -->
     <div style="padding:14px 20px;border-top:1px solid var(--card-border);display:flex;justify-content:flex-end;gap:8px;">
       <button onclick="document.getElementById('my-modal-overlay').style.display='none'"
-              style="padding:8px 16px;background:transparent;border:1px solid var(--ctrl-border);color:var(--shell-text);border-radius:6px;font-size:13px;cursor:pointer;font-family:inherit;">Cancel</button>
-      <button style="padding:8px 16px;background:#6360D8;border:none;color:#fff;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;">Confirm</button>
+              style="padding:8px 20px;background:transparent;border:1px solid var(--ctrl-border);color:var(--shell-text);border-radius:44px;font-size:13px;cursor:pointer;font-family:inherit;">Cancel</button>
+      <button style="padding:8px 20px;background:#6360D8;border:none;color:#fff;border-radius:44px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;">Confirm</button>
     </div>
   </div>
 </div>
@@ -548,12 +658,12 @@ Code:           font-family:'SFMono-Regular',Consolas,monospace; font-size:12px;
 ## Rules
 
 1. **Never invent new colors** — use only the tokens above.
-2. **Topbar is always `#0a0a0a`** regardless of theme.
+2. **Topbar is always `#131313`** regardless of theme.
 3. **Accent `#6360D8`** is the only CTA/primary action color.
 4. **All interactive elements must work standalone** — use onclick inline or a `<script>` block in the output.
 5. **No external CSS framework** (no Bootstrap, Tailwind, etc.) — inline styles only, using the variables above.
 6. **Tables:** style `th` and `td` directly — no wrapper class required.
 7. **Every output is a complete, self-contained HTML file** unless the user explicitly asks for a snippet.
-8. **Dark theme is the default** — generate for dark first. If light is needed, wrap in `<html class="theme-light">`.
+8. **Light theme is the default** — always generate for light theme first. Add class `theme-light` on `<html>`. Dark theme is opt-in (remove `theme-light` class).
 9. **Font must always be Inter** — include the Google Fonts link tag in every generated file.
 10. **Spacing:** stick to the 4px scale — 4, 8, 12, 16, 20, 24, 32, 48px.

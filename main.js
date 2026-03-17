@@ -1492,19 +1492,280 @@ function copyAiPrompt() {
     'It contains every design token, component HTML pattern, typography scale, status color,',
     'and layout rule you need. Read it fully before writing a single line of HTML.',
     '',
-    'After reading the spec:',
-    '- Every component you generate must use the exact inline styles and token values from the spec.',
-    '- Topbar is always background:#0a0a0a — never changes.',
-    '- Accent color is always #6360D8.',
-    '- Font is always Inter (include the Google Fonts link).',
-    '- Output complete, self-contained HTML files that work without any external stylesheet.',
-    '- Dark theme is default. Use the dark token values from the spec unless asked for light.',
+    'MANDATORY SCREEN STRUCTURE — every page must use this exact shell:',
+    '',
+    '<!DOCTYPE html>',
+    '<html lang="en" class="theme-light">',
+    '<head>',
+    '  <meta charset="UTF-8">',
+    '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '  <title>Page Title — Prevalent AI</title>',
+    '  <link rel="preconnect" href="https://fonts.googleapis.com">',
+    '  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">',
+    '  <style>',
+    '    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }',
+    '    body { font-family: \'Inter\', sans-serif; background: #F7F9FC; color: #101010; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }',
+    '    a { text-decoration: none; } button { font-family: inherit; cursor: pointer; }',
+    '  </style>',
+    '</head>',
+    '<body>',
+    '',
+    '  <!-- TOPBAR — always #131313, never changes with theme -->',
+    '  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">',
+    '    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
+    '    <span style="flex:1;"></span>',
+    '    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>',
+    '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;">',
+    '      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+    '    </button>',
+    '    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>',
+    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 14px;border-radius:44px;">Navigator</button>',
+    '  </div>',
+    '',
+    '  <!-- SHELL -->',
+    '  <div style="display:flex;flex:1;overflow:hidden;">',
+    '',
+    '    <!-- LEFT NAV (220px, always white) -->',
+    '    <nav style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;">',
+    '      <div style="padding:12px 12px 10px;border-bottom:1px solid #e6e6e6;flex-shrink:0;">',
+    '        <div style="display:flex;align-items:center;justify-content:space-between;">',
+    '          <div>',
+    '            <div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#101010;">',
+    '              Dashboard Name',
+    '              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
+    '            </div>',
+    '            <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">Module / Product Area</div>',
+    '          </div>',
+    '          <button style="background:none;border:none;color:#6e6e6e;padding:4px;display:flex;align-items:center;">',
+    '            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+    '          </button>',
+    '        </div>',
+    '      </div>',
+    '      <div style="padding:8px 0;flex:1;">',
+    '        <!-- Active nav item -->',
+    '        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;background:rgba(99,96,216,0.08);color:#6360D8;font-size:13px;font-weight:500;">',
+    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>',
+    '          Active Item',
+    '        </a>',
+    '        <!-- Default nav item -->',
+    '        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">',
+    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>',
+    '          Nav Item',
+    '        </a>',
+    '      </div>',
+    '    </nav>',
+    '',
+    '    <!-- CONTENT AREA -->',
+    '    <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">',
+    '',
+    '      <!-- Sticky content sub-header -->',
+    '      <div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6e6e6;border-radius:0 0 8px 8px;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">',
+    '        <button style="background:none;border:none;color:#6e6e6e;display:flex;align-items:center;padding:4px;flex-shrink:0;">',
+    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+    '        </button>',
+    '        <div style="min-width:0;">',
+    '          <div style="font-size:12px;font-weight:500;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Page Title</div>',
+    '          <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:3px;white-space:nowrap;">',
+    '            <span>Dashboard</span><span>›</span><span>Section</span><span>›</span>',
+    '            <span style="color:#6360D8;">Current Page</span>',
+    '          </div>',
+    '        </div>',
+    '        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">',
+    '          Explore in <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
+    '        </button>',
+    '        <span style="flex:1;"></span>',
+    '        <button style="width:32px;height:32px;border-radius:50%;background:#6360D8;border:none;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">',
+    '          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+    '        </button>',
+    '        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0;">',
+    '          Active Filters',
+    '          <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">0</span>',
+    '        </button>',
+    '        <div style="width:1px;height:20px;background:#e6e6e6;flex-shrink:0;"></div>',
+    '        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;flex-shrink:0;">Filter</button>',
+    '      </div>',
+    '',
+    '      <!-- Main content body — all page content goes here -->',
+    '      <div style="flex:1;padding:24px;background:#F7F9FC;">',
+    '        <!-- YOUR CONTENT HERE -->',
+    '      </div>',
+    '',
+    '    </div>',
+    '  </div>',
+    '</body>',
+    '</html>',
+    '',
+    'Rules after reading spec:',
+    '- Use EXACT colors above — do not substitute or invent colors.',
+    '- Topbar is always #131313 — never switches with theme.',
+    '- Accent is always #6360D8. Active filters / Filter CTA always use #504bb8.',
+    '- ALL buttons must use border-radius:44px (pill shape). Never use 6px on any button.',
+    '- Font is always Inter. Include the Google Fonts link.',
+    '- Light theme is default — generate with <html class="theme-light">.',
+    '- Output complete, self-contained HTML files.',
     '',
     'Now describe what you want to build.',
   ].join('\n');
-  navigator.clipboard.writeText(prompt).then(function() {
+
+  function onCopied() {
     showToast('success', 'AI prompt copied — paste at the start of your Claude session');
-  });
+    var btn = document.querySelector('[onclick="copyAiPrompt()"]');
+    if (btn) {
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+      btn.style.background = '#31a56d';
+      setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+    }
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(prompt).then(onCopied).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = prompt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      onCopied();
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = prompt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    onCopied();
+  }
+}
+
+// ─── Copy Screen Shell Template ───
+function copyShellTemplate() {
+  var tpl = [
+    '<!DOCTYPE html>',
+    '<html lang="en" class="theme-light">',
+    '<head>',
+    '  <meta charset="UTF-8">',
+    '  <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    '  <title>Page Title — Prevalent AI</title>',
+    '  <link rel="preconnect" href="https://fonts.googleapis.com">',
+    '  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">',
+    '  <style>',
+    '    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }',
+    '    body { font-family: \'Inter\', sans-serif; background: #F7F9FC; color: #101010; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }',
+    '    a { text-decoration: none; } button { font-family: inherit; cursor: pointer; }',
+    '  </style>',
+    '</head>',
+    '<body>',
+    '',
+    '  <!-- TOPBAR — always #131313, never changes with theme -->',
+    '  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">',
+    '    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
+    '    <span style="flex:1;"></span>',
+    '    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>',
+    '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;">',
+    '      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+    '    </button>',
+    '    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>',
+    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 14px;border-radius:44px;">Navigator</button>',
+    '  </div>',
+    '',
+    '  <!-- SHELL -->',
+    '  <div style="display:flex;flex:1;overflow:hidden;">',
+    '',
+    '    <!-- LEFT NAV -->',
+    '    <nav style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;">',
+    '      <div style="padding:12px 12px 10px;border-bottom:1px solid #e6e6e6;flex-shrink:0;">',
+    '        <div style="display:flex;align-items:center;justify-content:space-between;">',
+    '          <div>',
+    '            <div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#101010;">',
+    '              Dashboard Name',
+    '              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
+    '            </div>',
+    '            <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">Module / Product Area</div>',
+    '          </div>',
+    '          <button style="background:none;border:none;color:#6e6e6e;padding:4px;display:flex;align-items:center;">',
+    '            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+    '          </button>',
+    '        </div>',
+    '      </div>',
+    '      <div style="padding:8px 0;flex:1;">',
+    '        <!-- Active nav item -->',
+    '        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;background:rgba(99,96,216,0.08);color:#6360D8;font-size:13px;font-weight:500;">',
+    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>',
+    '          Active Item',
+    '        </a>',
+    '        <!-- Default nav item -->',
+    '        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">',
+    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>',
+    '          Nav Item',
+    '        </a>',
+    '      </div>',
+    '    </nav>',
+    '',
+    '    <!-- CONTENT AREA -->',
+    '    <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">',
+    '',
+    '      <!-- Sticky sub-header -->',
+    '      <div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6e6e6;border-radius:0 0 8px 8px;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">',
+    '        <button style="background:none;border:none;color:#6e6e6e;display:flex;align-items:center;padding:4px;flex-shrink:0;">',
+    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+    '        </button>',
+    '        <div style="min-width:0;">',
+    '          <div style="font-size:12px;font-weight:500;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Page Title</div>',
+    '          <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:3px;white-space:nowrap;">',
+    '            <span>Dashboard</span><span>›</span><span>Section</span><span>›</span>',
+    '            <span style="color:#6360D8;">Current Page</span>',
+    '          </div>',
+    '        </div>',
+    '        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">',
+    '          Explore in <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
+    '        </button>',
+    '        <span style="flex:1;"></span>',
+    '        <button style="width:32px;height:32px;border-radius:50%;background:#6360D8;border:none;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">',
+    '          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+    '        </button>',
+    '        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0;">',
+    '          Active Filters',
+    '          <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">0</span>',
+    '        </button>',
+    '        <div style="width:1px;height:20px;background:#e6e6e6;flex-shrink:0;"></div>',
+    '        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;flex-shrink:0;">Filter</button>',
+    '      </div>',
+    '',
+    '      <!-- Main content -->',
+    '      <div style="flex:1;padding:24px;background:#F7F9FC;">',
+    '        <!-- YOUR CONTENT HERE -->',
+    '      </div>',
+    '',
+    '    </div>',
+    '  </div>',
+    '</body>',
+    '</html>',
+  ].join('\n');
+
+  function onCopied() {
+    showToast('success', 'Screen shell template copied — paste into your HTML file');
+    var btn = document.querySelector('[onclick="copyShellTemplate()"]');
+    if (btn) {
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+      btn.style.background = '#31a56d';
+      setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+    }
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(tpl).then(onCopied).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = tpl; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      onCopied();
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = tpl; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    onCopied();
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1530,6 +1791,7 @@ var SEARCH_INDEX = [
   { t:'Table', p:'table', cat:'Component', d:'Sortable, filterable data table with pagination and export', k:'table data row column sort filter paginate export csv' },
   { t:'Tabs & Accordion', p:'tabs', cat:'Component', d:'Tab navigation and collapsible accordion sections', k:'tab accordion collapse expand section' },
   { t:'Toggle & Select', p:'toggleselect', cat:'Component', d:'Toggle switches and dropdown select controls', k:'toggle switch select dropdown' },
+  { t:'Screen Shell', p:'screenshell', cat:'Template', d:'Mandatory full-page layout: topbar, left nav, sticky sub-header, content body', k:'screen shell layout template topbar nav breadcrumb structure page' },
   { t:'--shell-accent', p:'colors', cat:'Token', d:'#6360D8 · Primary CTA, buttons, focus rings', k:'accent purple cta primary button' },
   { t:'--shell-bg', p:'colors', cat:'Token', d:'App background color', k:'background bg surface' },
   { t:'--shell-raised', p:'colors', cat:'Token', d:'Card and sidebar background', k:'card sidebar raised surface' },

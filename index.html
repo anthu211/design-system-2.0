@@ -152,6 +152,13 @@
         Toggle &amp; Select
       </div>
     </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Templates</div>
+      <div class="nav-item" data-page="screenshell">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+        Screen Shell
+      </div>
+    </div>
   </nav>
 
   <!-- Main Content -->
@@ -3160,6 +3167,198 @@
     </div>
 
 
+
+<!-- SCREEN SHELL PAGE -->
+<div class="page" id="page-screenshell">
+  <div class="ds-page-header">
+    <h1>Screen Shell</h1>
+    <p>The standard full-page layout structure for every Prevalent AI dashboard. This template is mandatory — copy it as the starting point for any new screen.</p>
+  </div>
+
+  <!-- Zone diagram -->
+  <div class="ds-section-label" style="margin-bottom:12px;">Layout Zones</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:32px;">
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:14px 16px;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:6px;">Topbar</div>
+      <div style="font-size:13px;color:var(--shell-text);font-weight:500;margin-bottom:4px;">Always <code style="background:var(--shell-raised);padding:1px 5px;border-radius:4px;font-size:11px;">#131313</code></div>
+      <div style="font-size:12px;color:var(--shell-text-muted);">52px height · PAI logo left · bell, avatar, Navigator pill right</div>
+    </div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:14px 16px;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:6px;">Left Nav</div>
+      <div style="font-size:13px;color:var(--shell-text);font-weight:500;margin-bottom:4px;">220px · white <code style="background:var(--shell-raised);padding:1px 5px;border-radius:4px;font-size:11px;">#fff</code></div>
+      <div style="font-size:12px;color:var(--shell-text-muted);">Section header with dropdown + collapse · expandable items with sub-nav</div>
+    </div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:14px 16px;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:6px;">Content Sub-header</div>
+      <div style="font-size:13px;color:var(--shell-text);font-weight:500;margin-bottom:4px;">Sticky · white · rounded bottom</div>
+      <div style="font-size:12px;color:var(--shell-text-muted);">Page title + breadcrumb left · Add CTA + Active Filters + Filter right</div>
+    </div>
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:14px 16px;">
+      <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:6px;">Content Body</div>
+      <div style="font-size:13px;color:var(--shell-text);font-weight:500;margin-bottom:4px;"><code style="background:var(--shell-raised);padding:1px 5px;border-radius:4px;font-size:11px;">#F7F9FC</code> bg</div>
+      <div style="font-size:12px;color:var(--shell-text-muted);">Scrollable · 24px padding · all page content lives here</div>
+    </div>
+  </div>
+
+  <!-- Live preview -->
+  <div class="ds-section-label" style="margin-bottom:12px;">Live Preview</div>
+  <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;overflow:hidden;margin-bottom:32px;">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--card-border);font-size:13px;font-weight:600;color:var(--shell-text);display:flex;align-items:center;justify-content:space-between;">
+      <span>Standard Screen — Exposure Overview</span>
+      <span style="font-size:11px;font-weight:400;color:var(--shell-text-muted);">Scaled 55%</span>
+    </div>
+    <div style="padding:20px;background:var(--shell-raised);">
+      <div style="width:100%;height:460px;overflow:hidden;border-radius:8px;border:1px solid var(--card-border);position:relative;">
+        <div style="position:absolute;top:0;left:0;width:182%;transform-origin:top left;transform:scale(0.55);">
+          <!-- TOPBAR -->
+          <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;">
+            <svg width="100" height="20" viewBox="0 0 166 26" style="flex-shrink:0;"><text x="0" y="20" font-family="Inter,sans-serif" font-size="16" font-weight="700" fill="#ffffff">Prevalent AI</text></svg>
+            <span style="flex:1;"></span>
+            <span style="font-size:12px;color:#9ca3af;white-space:nowrap;">Last Updated: 2h ago</span>
+            <div style="width:1px;height:20px;background:#272727;"></div>
+            <div style="width:8px;height:8px;background:#e15252;border-radius:50%;position:relative;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" style="margin-left:-4px;margin-top:-4px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">A</div>
+            <div style="background:#6360D8;color:#fff;font-size:12px;font-weight:500;padding:6px 14px;border-radius:44px;white-space:nowrap;">Navigator</div>
+          </div>
+          <!-- SHELL -->
+          <div style="display:flex;height:836px;">
+            <!-- LEFT NAV -->
+            <div style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;flex-shrink:0;display:flex;flex-direction:column;">
+              <div style="padding:12px 12px 10px;border-bottom:1px solid #e6e6e6;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#101010;">EM Dashboard <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                    <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">Exposure Management</div>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </div>
+              </div>
+              <div style="padding:8px 0;">
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;background:rgba(99,96,216,0.08);color:#6360D8;font-size:13px;font-weight:500;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#101010;font-size:13px;font-weight:500;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  Exposure <svg style="margin-left:auto;" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div style="display:flex;align-items:center;padding:7px 12px 7px 36px;margin:1px 8px;border-radius:6px;color:#6360D8;background:rgba(99,96,216,0.05);font-size:12px;">Overview</div>
+                <div style="display:flex;align-items:center;padding:7px 12px 7px 36px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:12px;">Findings</div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Discover
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Report
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Knowledge Graph
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Data Quality
+                </div>
+              </div>
+            </div>
+            <!-- CONTENT -->
+            <div style="flex:1;background:#f7f9fc;display:flex;flex-direction:column;">
+              <!-- Sub-header -->
+              <div style="background:#fff;border-bottom:1px solid #e6e6e6;border-radius:0 0 8px 8px;padding:10px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                <div>
+                  <div style="font-size:12px;font-weight:500;color:#101010;">Exposure Overview</div>
+                  <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:3px;">
+                    <span>Dashboard</span><span>›</span><span>Exposure</span><span>›</span><span style="color:#6360D8;">Overview</span>
+                  </div>
+                </div>
+                <div style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:5px;">Explore in <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <span style="flex:1;"></span>
+                <div style="width:30px;height:30px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </div>
+                <div style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:5px;">
+                  Active Filters
+                  <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:15px;height:15px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 3px;">3</span>
+                </div>
+                <div style="width:1px;height:20px;background:#e6e6e6;"></div>
+                <div style="background:#e0dff7;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;">Filter</div>
+              </div>
+              <!-- Body placeholder -->
+              <div style="flex:1;padding:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-content:start;">
+                <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Total Assets</div><div style="font-size:24px;font-weight:700;color:#101010;margin-top:4px;">12,847</div><div style="font-size:11px;color:#31a56d;margin-top:4px;">▲ 3.2%</div></div>
+                <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Critical Findings</div><div style="font-size:24px;font-weight:700;color:#d12329;margin-top:4px;">284</div><div style="font-size:11px;color:#e15252;margin-top:4px;">▲ 12 new</div></div>
+                <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Risk Score</div><div style="font-size:24px;font-weight:700;color:#d98b1d;margin-top:4px;">68/100</div><div style="font-size:11px;color:#6e6e6e;margin-top:4px;">Medium</div></div>
+                <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Remediated</div><div style="font-size:24px;font-weight:700;color:#31a56d;margin-top:4px;">1,204</div><div style="font-size:11px;color:#31a56d;margin-top:4px;">▼ 8.1%</div></div>
+                <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px 16px 12px;grid-column:1/-1;"><div style="font-size:12px;font-weight:600;color:#101010;margin-bottom:10px;">Exposure Trend</div><div style="height:80px;background:linear-gradient(135deg,rgba(99,96,216,0.06) 0%,rgba(99,96,216,0.01) 100%);border-radius:6px;border:1px solid #e6e6e6;"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Anatomy breakdown -->
+  <div class="ds-section-label" style="margin-bottom:12px;">Component Anatomy</div>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+
+    <!-- Topbar spec -->
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;overflow:hidden;">
+      <div style="padding:10px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;font-weight:600;color:var(--shell-text);">Topbar</span>
+        <span style="font-size:11px;color:var(--shell-text-muted);">height: 52px · background: #131313 (always)</span>
+      </div>
+      <div style="padding:12px 16px;background:#131313;display:flex;align-items:center;gap:12px;border-radius:0 0 8px 8px;">
+        <div style="font-size:12px;font-weight:700;color:#fff;">PAI Logo</div>
+        <span style="flex:1;"></span>
+        <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>
+        <div style="width:30px;height:30px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">A</div>
+        <div style="background:#6360D8;color:#fff;font-size:12px;font-weight:500;padding:5px 12px;border-radius:44px;">Navigator</div>
+      </div>
+    </div>
+
+    <!-- Sub-header spec -->
+    <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;overflow:hidden;">
+      <div style="padding:10px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;gap:10px;">
+        <span style="font-size:12px;font-weight:600;color:var(--shell-text);">Content Sub-header</span>
+        <span style="font-size:11px;color:var(--shell-text-muted);">sticky · white · border-radius: 0 0 8px 8px</span>
+      </div>
+      <div style="padding:10px 16px;background:#fff;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e6e6e6;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <div>
+          <div style="font-size:12px;font-weight:500;color:#101010;">Page Title</div>
+          <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:3px;">
+            <span>Dashboard</span><span>›</span><span>Section</span><span>›</span><span style="color:#6360D8;">Current Page</span>
+          </div>
+        </div>
+        <div style="border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:5px;">Explore in <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <span style="flex:1;"></span>
+        <div style="width:30px;height:30px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div style="border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:5px;">
+          Active Filters
+          <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">3</span>
+        </div>
+        <div style="width:1px;height:20px;background:#e6e6e6;"></div>
+        <div style="background:#e0dff7;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;">Filter</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copy template button -->
+  <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--shell-active);border:1px solid var(--card-border);border-radius:10px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <div style="flex:1;">
+      <div style="font-size:13px;font-weight:600;color:var(--shell-text);">Organization Standard</div>
+      <div style="font-size:12px;color:var(--shell-text-muted);">This is the mandatory starting structure. Every screen at Prevalent AI must use this shell exactly.</div>
+    </div>
+    <button class="ds-btn t-primary sz-md" onclick="copyShellTemplate()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy Template
+    </button>
+  </div>
+</div>
+
   </main>
 
   <!-- SIDE PANEL DEMO -->
@@ -3279,6 +3478,8 @@
   </div>
 
 </div>
+
+
 <script src="main.js"></script>
 
 </body>
