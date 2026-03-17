@@ -1,8 +1,6 @@
 // ─── Global theme ───
-function updateLogo(theme) {
-  var logo = document.getElementById('topbar-logo');
-  if (!logo) return;
-  logo.src = theme === 'light' ? 'icons/pai-logo-black.svg' : 'icons/pai-logo.svg';
+function updateLogo() {
+  // Logo is always white (topbar is always black)
 }
 
 (function() {
@@ -507,63 +505,260 @@ function initCharts() {
 
 // ─── Icons ───
 var ICONS = [
-  { label: 'home', cat: 'navigation', path: '<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>' },
-  { label: 'chevron-right', cat: 'navigation', path: '<polyline points="9 18 15 12 9 6"/>' },
-  { label: 'chevron-left', cat: 'navigation', path: '<polyline points="15 18 9 12 15 6"/>' },
-  { label: 'chevron-up', cat: 'navigation', path: '<polyline points="18 15 12 9 6 15"/>' },
-  { label: 'chevron-down', cat: 'navigation', path: '<polyline points="6 9 12 15 18 9"/>' },
-  { label: 'arrow-right', cat: 'navigation', path: '<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>' },
-  { label: 'arrow-left', cat: 'navigation', path: '<line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>' },
-  { label: 'arrow-up', cat: 'navigation', path: '<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>' },
-  { label: 'arrow-down', cat: 'navigation', path: '<line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>' },
-  { label: 'external-link', cat: 'navigation', path: '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>' },
-  { label: 'menu', cat: 'navigation', path: '<line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>' },
-  { label: 'sidebar', cat: 'navigation', path: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/>' },
-  { label: 'plus', cat: 'actions', path: '<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>' },
-  { label: 'minus', cat: 'actions', path: '<line x1="5" y1="12" x2="19" y2="12"/>' },
-  { label: 'x', cat: 'actions', path: '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>' },
-  { label: 'check', cat: 'actions', path: '<polyline points="20 6 9 17 4 12"/>' },
-  { label: 'edit', cat: 'actions', path: '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>' },
-  { label: 'trash', cat: 'actions', path: '<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>' },
-  { label: 'copy', cat: 'actions', path: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>' },
-  { label: 'download', cat: 'actions', path: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>' },
-  { label: 'upload', cat: 'actions', path: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>' },
-  { label: 'refresh', cat: 'actions', path: '<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>' },
-  { label: 'search', cat: 'actions', path: '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>' },
-  { label: 'filter', cat: 'actions', path: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>' },
-  { label: 'settings', cat: 'actions', path: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>' },
-  { label: 'share', cat: 'actions', path: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>' },
-  { label: 'user', cat: 'actions', path: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
-  { label: 'users', cat: 'actions', path: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
-  { label: 'mail', cat: 'actions', path: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>' },
-  { label: 'alert-circle', cat: 'status', path: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>' },
-  { label: 'alert-triangle', cat: 'status', path: '<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>' },
-  { label: 'check-circle', cat: 'status', path: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
-  { label: 'info', cat: 'status', path: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>' },
-  { label: 'bell', cat: 'status', path: '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>' },
-  { label: 'shield', cat: 'status', path: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
-  { label: 'lock', cat: 'status', path: '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>' },
-  { label: 'eye', cat: 'status', path: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>' },
-  { label: 'tag', cat: 'status', path: '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>' },
-  { label: 'flag', cat: 'status', path: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>' },
-  { label: 'bar-chart', cat: 'data', path: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>' },
-  { label: 'pie-chart', cat: 'data', path: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>' },
-  { label: 'trending-up', cat: 'data', path: '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>' },
-  { label: 'trending-down', cat: 'data', path: '<polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/>' },
-  { label: 'database', cat: 'data', path: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>' },
-  { label: 'table', cat: 'data', path: '<path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>' },
-  { label: 'layers', cat: 'data', path: '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>' },
-  { label: 'file', cat: 'data', path: '<path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/>' },
-  { label: 'calendar', cat: 'data', path: '<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' },
-  { label: 'clock', cat: 'data', path: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
-  { label: 'image', cat: 'media', path: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>' },
-  { label: 'video', cat: 'media', path: '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>' },
-  { label: 'play', cat: 'media', path: '<polygon points="5 3 19 12 5 21 5 3"/>' },
-  { label: 'pause', cat: 'media', path: '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>' },
-  { label: 'volume', cat: 'media', path: '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>' },
-  { label: 'camera', cat: 'media', path: '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>' },
-  { label: 'mic', cat: 'media', path: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>' },
-  { label: 'headphones', cat: 'media', path: '<path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>' }
+  { file: 'CEI ID.svg', label: 'CEI ID', cat: 'general' },
+  { file: 'CEI Title.svg', label: 'CEI Title', cat: 'general' },
+  { file: 'CEI status.svg', label: 'CEI status', cat: 'status' },
+  { file: 'Count.svg', label: 'Count', cat: 'data' },
+  { file: 'FileText-1.svg', label: 'FileText-1', cat: 'general' },
+  { file: 'FileText.svg', label: 'FileText', cat: 'general' },
+  { file: 'KPI.svg', label: 'KPI', cat: 'data' },
+  { file: 'Link.svg', label: 'Link', cat: 'general' },
+  { file: 'SOX Control.svg', label: 'SOX Control', cat: 'general' },
+  { file: 'activity-status-1.svg', label: 'activity-status-1', cat: 'status' },
+  { file: 'activity-status.svg', label: 'activity-status', cat: 'status' },
+  { file: 'activity.svg', label: 'activity', cat: 'general' },
+  { file: 'add-circle.svg', label: 'add-circle', cat: 'actions' },
+  { file: 'add.svg', label: 'add', cat: 'actions' },
+  { file: 'agentic-mode.svg', label: 'agentic-mode', cat: 'general' },
+  { file: 'ai.svg', label: 'ai', cat: 'general' },
+  { file: 'arrows-1.svg', label: 'arrows-1', cat: 'navigation' },
+  { file: 'arrows-2.svg', label: 'arrows-2', cat: 'navigation' },
+  { file: 'arrows-3.svg', label: 'arrows-3', cat: 'navigation' },
+  { file: 'arrows-4.svg', label: 'arrows-4', cat: 'navigation' },
+  { file: 'arrows-5.svg', label: 'arrows-5', cat: 'navigation' },
+  { file: 'arrows-in.svg', label: 'arrows-in', cat: 'navigation' },
+  { file: 'arrows-out.svg', label: 'arrows-out', cat: 'navigation' },
+  { file: 'arrows-up-down.svg', label: 'arrows-up-down', cat: 'navigation' },
+  { file: 'arrows.svg', label: 'arrows', cat: 'navigation' },
+  { file: 'assessment-add.svg', label: 'assessment-add', cat: 'actions' },
+  { file: 'assessment-name.svg', label: 'assessment-name', cat: 'general' },
+  { file: 'assessment.svg', label: 'assessment', cat: 'general' },
+  { file: 'bookmark.svg', label: 'bookmark', cat: 'general' },
+  { file: 'business-unit.svg', label: 'business-unit', cat: 'general' },
+  { file: 'calendar-add.svg', label: 'calendar-add', cat: 'actions' },
+  { file: 'calendar-delete.svg', label: 'calendar-delete', cat: 'actions' },
+  { file: 'calendar.svg', label: 'calendar', cat: 'general' },
+  { file: 'canvas.svg', label: 'canvas', cat: 'general' },
+  { file: 'card-collapse.svg', label: 'card-collapse', cat: 'navigation' },
+  { file: 'card-expand.svg', label: 'card-expand', cat: 'navigation' },
+  { file: 'check-circle.svg', label: 'check-circle', cat: 'status' },
+  { file: 'check-cor.svg', label: 'check-cor', cat: 'status' },
+  { file: 'check.svg', label: 'check', cat: 'status' },
+  { file: 'class.svg', label: 'class', cat: 'general' },
+  { file: 'clock.svg', label: 'clock', cat: 'status' },
+  { file: 'close-circle.svg', label: 'close-circle', cat: 'status' },
+  { file: 'close.svg', label: 'close', cat: 'actions' },
+  { file: 'color.svg', label: 'color', cat: 'general' },
+  { file: 'combination.svg', label: 'combination', cat: 'general' },
+  { file: 'compare-trend.svg', label: 'compare-trend', cat: 'data' },
+  { file: 'compliance-standard.svg', label: 'compliance-standard', cat: 'general' },
+  { file: 'compliance-threshold.svg', label: 'compliance-threshold', cat: 'general' },
+  { file: 'contribution.svg', label: 'contribution', cat: 'data' },
+  { file: 'control-gap.svg', label: 'control-gap', cat: 'general' },
+  { file: 'control.svg', label: 'control', cat: 'general' },
+  { file: 'count-vf.svg', label: 'count-vf', cat: 'data' },
+  { file: 'criticality.svg', label: 'criticality', cat: 'general' },
+  { file: 'dasboard-edit.svg', label: 'dasboard-edit', cat: 'actions' },
+  { file: 'database-search.svg', label: 'database-search', cat: 'data' },
+  { file: 'deep-dive.svg', label: 'deep-dive', cat: 'general' },
+  { file: 'default-assessment.svg', label: 'default-assessment', cat: 'general' },
+  { file: 'delete.svg', label: 'delete', cat: 'actions' },
+  { file: 'display-label.svg', label: 'display-label', cat: 'actions' },
+  { file: 'donut.svg', label: 'donut', cat: 'data' },
+  { file: 'download-values.svg', label: 'download-values', cat: 'actions' },
+  { file: 'download.svg', label: 'download', cat: 'actions' },
+  { file: 'downloads.svg', label: 'downloads', cat: 'actions' },
+  { file: 'drag-widget.svg', label: 'drag-widget', cat: 'navigation' },
+  { file: 'drag.svg', label: 'drag', cat: 'navigation' },
+  { file: 'duplicate-filter.svg', label: 'duplicate-filter', cat: 'actions' },
+  { file: 'duplicate.svg', label: 'duplicate', cat: 'actions' },
+  { file: 'edit.svg', label: 'edit', cat: 'actions' },
+  { file: 'entity-add.svg', label: 'entity-add', cat: 'actions' },
+  { file: 'entity-error.svg', label: 'entity-error', cat: 'general' },
+  { file: 'entity-ticket.svg', label: 'entity-ticket', cat: 'general' },
+  { file: 'explicit-exclude.svg', label: 'explicit-exclude', cat: 'general' },
+  { file: 'explore-in.svg', label: 'explore-in', cat: 'navigation' },
+  { file: 'fail.svg', label: 'fail', cat: 'status' },
+  { file: 'file-error.svg', label: 'file-error', cat: 'general' },
+  { file: 'file.svg', label: 'file', cat: 'general' },
+  { file: 'filter.svg', label: 'filter', cat: 'actions' },
+  { file: 'findings-kpi.svg', label: 'findings-kpi', cat: 'data' },
+  { file: 'fix.svg', label: 'fix', cat: 'actions' },
+  { file: 'fragments.svg', label: 'fragments', cat: 'general' },
+  { file: 'framework-mapping.svg', label: 'framework-mapping', cat: 'actions' },
+  { file: 'general.svg', label: 'general', cat: 'general' },
+  { file: 'hide.svg', label: 'hide', cat: 'actions' },
+  { file: 'history.svg', label: 'history', cat: 'general' },
+  { file: 'horizontal bar.svg', label: 'horizontal bar', cat: 'data' },
+  { file: 'human-exposure.svg', label: 'human-exposure', cat: 'general' },
+  { file: 'icon-explore.svg', label: 'icon-explore', cat: 'general' },
+  { file: 'icon-vlan.svg', label: 'icon-vlan', cat: 'general' },
+  { file: 'implicit-include.svg', label: 'implicit-include', cat: 'general' },
+  { file: 'info-general.svg', label: 'info-general', cat: 'general' },
+  { file: 'info.svg', label: 'info', cat: 'general' },
+  { file: 'infrastructure-type.svg', label: 'infrastructure-type', cat: 'general' },
+  { file: 'insights-kpi.svg', label: 'insights-kpi', cat: 'data' },
+  { file: 'insights.svg', label: 'insights', cat: 'data' },
+  { file: 'instructions-edit.svg', label: 'instructions-edit', cat: 'actions' },
+  { file: 'interactive-mode.svg', label: 'interactive-mode', cat: 'general' },
+  { file: 'iot.svg', label: 'iot', cat: 'general' },
+  { file: 'key.svg', label: 'key', cat: 'status' },
+  { file: 'layers.svg', label: 'layers', cat: 'general' },
+  { file: 'line.svg', label: 'line', cat: 'data' },
+  { file: 'list.svg', label: 'list', cat: 'general' },
+  { file: 'lock.svg', label: 'lock', cat: 'status' },
+  { file: 'menu.svg', label: 'menu', cat: 'navigation' },
+  { file: 'misconfiguration.svg', label: 'misconfiguration', cat: 'general' },
+  { file: 'move.svg', label: 'move', cat: 'navigation' },
+  { file: 'navbar-KG-DQ.svg', label: 'navbar-KG-DQ', cat: 'navigation' },
+  { file: 'navbar-KG-kg.svg', label: 'navbar-KG-kg', cat: 'navigation' },
+  { file: 'navbar-campaign progress.svg', label: 'navbar-campaign progress', cat: 'navigation' },
+  { file: 'navbar-ccm.svg', label: 'navbar-ccm', cat: 'navigation' },
+  { file: 'navbar-ciso.svg', label: 'navbar-ciso', cat: 'navigation' },
+  { file: 'navbar-cloud.svg', label: 'navbar-cloud', cat: 'navigation' },
+  { file: 'navbar-compliance.svg', label: 'navbar-compliance', cat: 'navigation' },
+  { file: 'navbar-dashboard.svg', label: 'navbar-dashboard', cat: 'navigation' },
+  { file: 'navbar-data quality.svg', label: 'navbar-data quality', cat: 'navigation' },
+  { file: 'navbar-device.svg', label: 'navbar-device', cat: 'navigation' },
+  { file: 'navbar-discover.svg', label: 'navbar-discover', cat: 'navigation' },
+  { file: 'navbar-exposure.svg', label: 'navbar-exposure', cat: 'navigation' },
+  { file: 'navbar-findings-1.svg', label: 'navbar-findings-1', cat: 'navigation' },
+  { file: 'navbar-findings.svg', label: 'navbar-findings', cat: 'navigation' },
+  { file: 'navbar-history.svg', label: 'navbar-history', cat: 'navigation' },
+  { file: 'navbar-home.svg', label: 'navbar-home', cat: 'navigation' },
+  { file: 'navbar-identity.svg', label: 'navbar-identity', cat: 'navigation' },
+  { file: 'navbar-in depth.svg', label: 'navbar-in depth', cat: 'navigation' },
+  { file: 'navbar-kg.svg', label: 'navbar-kg', cat: 'navigation' },
+  { file: 'navbar-overview-1.svg', label: 'navbar-overview-1', cat: 'navigation' },
+  { file: 'navbar-overview.svg', label: 'navbar-overview', cat: 'navigation' },
+  { file: 'navbar-recommendations.svg', label: 'navbar-recommendations', cat: 'navigation' },
+  { file: 'navbar-remediation.svg', label: 'navbar-remediation', cat: 'navigation' },
+  { file: 'navbar-report.svg', label: 'navbar-report', cat: 'navigation' },
+  { file: 'navbar-trend.svg', label: 'navbar-trend', cat: 'navigation' },
+  { file: 'navbar-workspace.svg', label: 'navbar-workspace', cat: 'navigation' },
+  { file: 'navigation.svg', label: 'navigation', cat: 'navigation' },
+  { file: 'new-thread.svg', label: 'new-thread', cat: 'actions' },
+  { file: 'newly-added.svg', label: 'newly-added', cat: 'actions' },
+  { file: 'notification-alert.svg', label: 'notification-alert', cat: 'status' },
+  { file: 'notification-edit.svg', label: 'notification-edit', cat: 'status' },
+  { file: 'notifications-new.svg', label: 'notifications-new', cat: 'status' },
+  { file: 'notifications.svg', label: 'notifications', cat: 'status' },
+  { file: 'null.svg', label: 'null', cat: 'status' },
+  { file: 'open-ticket-SOX.svg', label: 'open-ticket-SOX', cat: 'navigation' },
+  { file: 'open-tickets-PCI.svg', label: 'open-tickets-PCI', cat: 'navigation' },
+  { file: 'open-tickets.svg', label: 'open-tickets', cat: 'navigation' },
+  { file: 'open.svg', label: 'open', cat: 'navigation' },
+  { file: 'operational-exposure.svg', label: 'operational-exposure', cat: 'general' },
+  { file: 'origin.svg', label: 'origin', cat: 'general' },
+  { file: 'os-family.svg', label: 'os-family', cat: 'general' },
+  { file: 'pass.svg', label: 'pass', cat: 'status' },
+  { file: 'patch.svg', label: 'patch', cat: 'actions' },
+  { file: 'pause.svg', label: 'pause', cat: 'actions' },
+  { file: 'people.svg', label: 'people', cat: 'general' },
+  { file: 'pin.svg', label: 'pin', cat: 'actions' },
+  { file: 'play.svg', label: 'play', cat: 'actions' },
+  { file: 'premise.svg', label: 'premise', cat: 'general' },
+  { file: 'preview.svg', label: 'preview', cat: 'actions' },
+  { file: 'printer.svg', label: 'printer', cat: 'actions' },
+  { file: 'project-item-selected.svg', label: 'project-item-selected', cat: 'general' },
+  { file: 'project-item.svg', label: 'project-item', cat: 'general' },
+  { file: 'project-new.svg', label: 'project-new', cat: 'general' },
+  { file: 'projects.svg', label: 'projects', cat: 'general' },
+  { file: 'publish.svg', label: 'publish', cat: 'actions' },
+  { file: 'redo.svg', label: 'redo', cat: 'actions' },
+  { file: 'refresh.svg', label: 'refresh', cat: 'actions' },
+  { file: 'reset.svg', label: 'reset', cat: 'actions' },
+  { file: 'resize.svg', label: 'resize', cat: 'navigation' },
+  { file: 'retry.svg', label: 'retry', cat: 'actions' },
+  { file: 'save-filter.svg', label: 'save-filter', cat: 'actions' },
+  { file: 'save.svg', label: 'save', cat: 'actions' },
+  { file: 'scope.svg', label: 'scope', cat: 'general' },
+  { file: 'search.svg', label: 'search', cat: 'actions' },
+  { file: 'security-control.svg', label: 'security-control', cat: 'general' },
+  { file: 'send.svg', label: 'send', cat: 'actions' },
+  { file: 'settings.svg', label: 'settings', cat: 'actions' },
+  { file: 'severity.svg', label: 'severity', cat: 'general' },
+  { file: 'share.svg', label: 'share', cat: 'actions' },
+  { file: 'sidebar-1.svg', label: 'sidebar-1', cat: 'navigation' },
+  { file: 'sidebar-2.svg', label: 'sidebar-2', cat: 'navigation' },
+  { file: 'sidebar-3.svg', label: 'sidebar-3', cat: 'navigation' },
+  { file: 'sidebar.svg', label: 'sidebar', cat: 'navigation' },
+  { file: 'skip.svg', label: 'skip', cat: 'actions' },
+  { file: 'software.svg', label: 'software', cat: 'general' },
+  { file: 'sort-ascending.svg', label: 'sort-ascending', cat: 'general' },
+  { file: 'sort-by.svg', label: 'sort-by', cat: 'general' },
+  { file: 'sort-default.svg', label: 'sort-default', cat: 'general' },
+  { file: 'sort-descending.svg', label: 'sort-descending', cat: 'general' },
+  { file: 'sox systems.svg', label: 'sox systems', cat: 'general' },
+  { file: 'stack-dashboard.svg', label: 'stack-dashboard', cat: 'data' },
+  { file: 'stack-horizontal bar.svg', label: 'stack-horizontal bar', cat: 'data' },
+  { file: 'stack-vertical bar.svg', label: 'stack-vertical bar', cat: 'data' },
+  { file: 'star-graph.svg', label: 'star-graph', cat: 'data' },
+  { file: 'star.svg', label: 'star', cat: 'general' },
+  { file: 'status.svg', label: 'status', cat: 'status' },
+  { file: 'stop.svg', label: 'stop', cat: 'actions' },
+  { file: 'sum-of-exposure.svg', label: 'sum-of-exposure', cat: 'general' },
+  { file: 'table.svg', label: 'table', cat: 'data' },
+  { file: 'template-add.svg', label: 'template-add', cat: 'actions' },
+  { file: 'threat-detection.svg', label: 'threat-detection', cat: 'general' },
+  { file: 'threat.svg', label: 'threat', cat: 'general' },
+  { file: 'thumbs-down.svg', label: 'thumbs-down', cat: 'general' },
+  { file: 'thumbs-up.svg', label: 'thumbs-up', cat: 'general' },
+  { file: 'ticket-breach.svg', label: 'ticket-breach', cat: 'general' },
+  { file: 'ticket-check.svg', label: 'ticket-check', cat: 'status' },
+  { file: 'ticket-new.svg', label: 'ticket-new', cat: 'general' },
+  { file: 'total-assets.svg', label: 'total-assets', cat: 'data' },
+  { file: 'total-findings.svg', label: 'total-findings', cat: 'data' },
+  { file: 'tree-graph.svg', label: 'tree-graph', cat: 'data' },
+  { file: 'trend-dashboard.svg', label: 'trend-dashboard', cat: 'data' },
+  { file: 'trend-down.svg', label: 'trend-down', cat: 'data' },
+  { file: 'trend-exposure.svg', label: 'trend-exposure', cat: 'data' },
+  { file: 'trend-up.svg', label: 'trend-up', cat: 'data' },
+  { file: 'type-application.svg', label: 'type-application', cat: 'general' },
+  { file: 'type.svg', label: 'type', cat: 'general' },
+  { file: 'undo.svg', label: 'undo', cat: 'actions' },
+  { file: 'unpin.svg', label: 'unpin', cat: 'actions' },
+  { file: 'upload-values.svg', label: 'upload-values', cat: 'actions' },
+  { file: 'upload.svg', label: 'upload', cat: 'actions' },
+  { file: 'user.svg', label: 'user', cat: 'general' },
+  { file: 'validation-status.svg', label: 'validation-status', cat: 'status' },
+  { file: 'vertical bar.svg', label: 'vertical bar', cat: 'data' },
+  { file: 'virtual-machine.svg', label: 'virtual-machine', cat: 'general' },
+  { file: 'vulnerability-management.svg', label: 'vulnerability-management', cat: 'general' },
+  { file: 'warning.svg', label: 'warning', cat: 'status' },
+  { file: 'widget edit.svg', label: 'widget edit', cat: 'actions' },
+  { file: 'zoom-in.svg', label: 'zoom-in', cat: 'navigation' },
+  { file: 'zoom-out.svg', label: 'zoom-out', cat: 'navigation' },
+  { file: 'account.svg', label: 'account', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'application.svg', label: 'application', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'cloud-account.svg', label: 'cloud-account', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'cloud-cluster.svg', label: 'cloud-cluster', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'cloud-container.svg', label: 'cloud-container', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'cloud-storage.svg', label: 'cloud-storage', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'navbar-device.svg', label: 'navbar-device', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'navbar-findings.svg', label: 'navbar-findings', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'navbar-identity.svg', label: 'navbar-identity', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'network-interface.svg', label: 'network-interface', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'network-services.svg', label: 'network-services', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'network.svg', label: 'network', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'person.svg', label: 'person', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'vulnerability.svg', label: 'vulnerability', cat: 'entities-outline', folder: 'icons/icons/entities/icons' },
+  { file: 'Frame 1618875519-1.svg', label: 'Frame 1618875519-1', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-10.svg', label: 'Frame 1618875519-10', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-11.svg', label: 'Frame 1618875519-11', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-12.svg', label: 'Frame 1618875519-12', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-13.svg', label: 'Frame 1618875519-13', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-14.svg', label: 'Frame 1618875519-14', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-2.svg', label: 'Frame 1618875519-2', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-3.svg', label: 'Frame 1618875519-3', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-4.svg', label: 'Frame 1618875519-4', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-5.svg', label: 'Frame 1618875519-5', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-6.svg', label: 'Frame 1618875519-6', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-7.svg', label: 'Frame 1618875519-7', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-8.svg', label: 'Frame 1618875519-8', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519-9.svg', label: 'Frame 1618875519-9', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'Frame 1618875519.svg', label: 'Frame 1618875519', cat: 'entities-filled', folder: 'icons/icons/entities' },
+  { file: 'assessment.svg', label: 'assessment', cat: 'entities-filled', folder: 'icons/icons/entities' },
 ];
 
 var iconFilter = 'all';
@@ -574,14 +769,17 @@ function renderIcons() {
   if (!grid) return;
   var filtered = ICONS.filter(function(ic) {
     var matchCat = iconFilter === 'all' || ic.cat === iconFilter;
-    var matchSearch = ic.label.indexOf(iconSearch.toLowerCase()) !== -1;
+    var matchSearch = ic.label.toLowerCase().indexOf(iconSearch.toLowerCase()) !== -1;
     return matchCat && matchSearch;
   });
   var count = document.getElementById('icon-count');
   if (count) count.textContent = filtered.length + ' icons';
   grid.innerHTML = filtered.map(function(ic) {
-    return '<button class="icon-card" data-label="' + ic.label + '" onclick="copyIcon(this,\'' + ic.label + '\')">' +
-      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' + ic.path + '</svg>' +
+    var enc = ic.file.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    var lbl = ic.label.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    var folder = ic.folder || 'icons/icons';
+    return '<button class="icon-card" data-label="' + lbl + '" onclick="copyIcon(this,\'' + ic.label.replace(/'/g,"\\'") + '\')">' +
+      '<img src="' + folder + '/' + enc + '" width="24" height="24" alt="" style="object-fit:contain;">' +
       '<span class="icon-card-label">' + ic.label + '</span></button>';
   }).join('');
 }
@@ -613,8 +811,265 @@ document.querySelectorAll('.icon-cat-btn').forEach(function(btn) {
   });
 });
 
+// Icon/Logo tab switcher
+document.querySelectorAll('#icon-tab-bar [data-icontab]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#icon-tab-bar [data-icontab]').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var tab = btn.dataset.icontab;
+    document.getElementById('icon-panel').style.display = tab === 'icons' ? '' : 'none';
+    document.getElementById('logo-panel').style.display = tab === 'logos' ? '' : 'none';
+    if (tab === 'icons') renderIcons();
+    if (tab === 'logos') renderLogos();
+  });
+});
+
 // Render icons on load
 renderIcons();
+
+// ─── Logos (Data Sources + Frameworks) ───
+var LOGOS = [
+  { file: 'AWS Cloudtrail ConsoleLogin.svg', label: 'AWS Cloudtrail ConsoleLogin', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS Describe Config Rules.svg', label: 'AWS Describe Config Rules', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS Describe Standards Controls.svg', label: 'AWS Describe Standards Controls', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS EC2 Instance.svg', label: 'AWS EC2 Instance', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS ECS Task Container.svg', label: 'AWS ECS Task Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS EKS Container.svg', label: 'AWS EKS Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS EMR Cluster.svg', label: 'AWS EMR Cluster', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS EMR EC2 Fleet.svg', label: 'AWS EMR EC2 Fleet', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS EMR EC2 Instance.svg', label: 'AWS EMR EC2 Instance', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS Get Enabled Standards.svg', label: 'AWS Get Enabled Standards', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS IAM Center.svg', label: 'AWS IAM Center', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS IAM Users.svg', label: 'AWS IAM Users', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS IAM.svg', label: 'AWS IAM', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS List Security Control Definitions.svg', label: 'AWS List Security Control Definitions', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS List Standards Control Associations.svg', label: 'AWS List Standards Control Associations', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS Organizations List Accounts-1.svg', label: 'AWS Organizations List Accounts-1', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS Organizations List Accounts.svg', label: 'AWS Organizations List Accounts', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS Organizations.svg', label: 'AWS Organizations', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS Resource Details.svg', label: 'AWS Resource Details', cat: 'datasource', folder: 'data soruces' },
+  { file: 'AWS SH.svg', label: 'AWS SH', cat: 'datasource', folder: 'data soruces' },
+  { file: 'BMS.svg', label: 'BMS', cat: 'datasource', folder: 'data soruces' },
+  { file: 'BambooHR HR Report Pull.svg', label: 'BambooHR HR Report Pull', cat: 'datasource', folder: 'data soruces' },
+  { file: 'CISA Known Exploited Vulnerabilities.svg', label: 'CISA Known Exploited Vulnerabilities', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Cortex.svg', label: 'Cortex', cat: 'datasource', folder: 'data soruces' },
+  { file: 'CrowdStrike Host List.svg', label: 'CrowdStrike Host List', cat: 'datasource', folder: 'data soruces' },
+  { file: 'CrowdStrike Host.svg', label: 'CrowdStrike Host', cat: 'datasource', folder: 'data soruces' },
+  { file: 'CrowdStrike ZeroTrustAssessment.svg', label: 'CrowdStrike ZeroTrustAssessment', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Default-1.svg', label: 'Default-1', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Default.svg', label: 'Default', cat: 'datasource', folder: 'data soruces' },
+  { file: 'EPSS Score API.svg', label: 'EPSS Score API', cat: 'datasource', folder: 'data soruces' },
+  { file: 'GlobalProtect Connection Logs.svg', label: 'GlobalProtect Connection Logs', cat: 'datasource', folder: 'data soruces' },
+  { file: 'GlobalProtect GlobalProtect.svg', label: 'GlobalProtect GlobalProtect', cat: 'datasource', folder: 'data soruces' },
+  { file: 'GlobalProtect.svg', label: 'GlobalProtect', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Heimdal.svg', label: 'Heimdal', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Horizon3ai Assets Page.svg', label: 'Horizon3ai Assets Page', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Horizon3ai.svg', label: 'Horizon3ai', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Infoblox.svg', label: 'Infoblox', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Jira List Assets.svg', label: 'Jira List Assets', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Jira.svg', label: 'Jira', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure ACI Container.svg', label: 'MS Azure ACI Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD Device Groups.svg', label: 'MS Azure AD Device Groups', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD Devices.svg', label: 'MS Azure AD Devices', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD Directory Members.svg', label: 'MS Azure AD Directory Members', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD Registered Users.svg', label: 'MS Azure AD Registered Users', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD Sign-in Logs.svg', label: 'MS Azure AD Sign-in Logs', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD User Registration Details.svg', label: 'MS Azure AD User Registration Details', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD User Registration.svg', label: 'MS Azure AD User Registration', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AD Users.svg', label: 'MS Azure AD Users', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure AKS Container.svg', label: 'MS Azure AKS Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Blob Storage Container.svg', label: 'MS Azure Blob Storage Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure File Share.svg', label: 'MS Azure File Share', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Queue Storage.svg', label: 'MS Azure Queue Storage', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Resource Details.svg', label: 'MS Azure Resource Details', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Resource List.svg', label: 'MS Azure Resource List', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Security Center Alerts.svg', label: 'MS Azure Security Center Alerts', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Security Resources.svg', label: 'MS Azure Security Resources', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Subscriptions.svg', label: 'MS Azure Subscriptions', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Table Storage.svg', label: 'MS Azure Table Storage', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure VDI.svg', label: 'MS Azure VDI', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Azure Virtual Machine.svg', label: 'MS Azure Virtual Machine', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Defender Device Events.svg', label: 'MS Defender Device Events', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Defender Device List.svg', label: 'MS Defender Device List', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Defender.svg', label: 'MS Defender', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Intune MDM-1.svg', label: 'MS Intune MDM-1', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Intune MDM.svg', label: 'MS Intune MDM', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Intune Managed Device Encryption State.svg', label: 'MS Intune Managed Device Encryption State', cat: 'datasource', folder: 'data soruces' },
+  { file: 'MS Intune Managed Device.svg', label: 'MS Intune Managed Device', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Mega List Applications.svg', label: 'Mega List Applications', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure ACI Container.svg', label: 'Microsoft Azure ACI Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure AKS Container.svg', label: 'Microsoft Azure AKS Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Blob Storage Container.svg', label: 'Microsoft Azure Blob Storage Container', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure File Share.svg', label: 'Microsoft Azure File Share', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Queue Storage.svg', label: 'Microsoft Azure Queue Storage', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Resource Details.svg', label: 'Microsoft Azure Resource Details', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Resource List.svg', label: 'Microsoft Azure Resource List', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Security Center Alerts.svg', label: 'Microsoft Azure Security Center Alerts', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Security Resources.svg', label: 'Microsoft Azure Security Resources', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Table Storage.svg', label: 'Microsoft Azure Table Storage', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure VDI.svg', label: 'Microsoft Azure VDI', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Azure Virtual Machine.svg', label: 'Microsoft Azure Virtual Machine', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Events.svg', label: 'Microsoft Defender For Endpoint Device Events', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device List.svg', label: 'Microsoft Defender For Endpoint Device List', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Software Inventory-1.svg', label: 'Microsoft Defender For Endpoint Device Software Inventory-1', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Software Inventory-2.svg', label: 'Microsoft Defender For Endpoint Device Software Inventory-2', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Software Inventory-3.svg', label: 'Microsoft Defender For Endpoint Device Software Inventory-3', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Software Inventory-4.svg', label: 'Microsoft Defender For Endpoint Device Software Inventory-4', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Software Inventory-5.svg', label: 'Microsoft Defender For Endpoint Device Software Inventory-5', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Software Inventory.svg', label: 'Microsoft Defender For Endpoint Device Software Inventory', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device Software Vulnerability.svg', label: 'Microsoft Defender For Endpoint Device Software Vulnerability', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Microsoft Defender For Endpoint Device TVM Secure Config.svg', label: 'Microsoft Defender For Endpoint Device TVM Secure Config', cat: 'datasource', folder: 'data soruces' },
+  { file: 'NVD CVE API.svg', label: 'NVD CVE API', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Prevalent Assessment.svg', label: 'Prevalent Assessment', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Prevalent Finding.svg', label: 'Prevalent Finding', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Puppy Graph.svg', label: 'Puppy Graph', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Qualys Host List.svg', label: 'Qualys Host List', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Qualys Host Summary.svg', label: 'Qualys Host Summary', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Qualys Host Vulnerability.svg', label: 'Qualys Host Vulnerability', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Qualys KnowledgeBase.svg', label: 'Qualys KnowledgeBase', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Rapid7 InsightVM Asset Group Assets.svg', label: 'Rapid7 InsightVM Asset Group Assets', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Rapid7 InsightVM Assets.svg', label: 'Rapid7 InsightVM Assets', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Rapid7 InsightVM Site Assets.svg', label: 'Rapid7 InsightVM Site Assets', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Rapid7 InsightVM Tag Assets.svg', label: 'Rapid7 InsightVM Tag Assets', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Rapid7 InsightVM Vulnerabilities.svg', label: 'Rapid7 InsightVM Vulnerabilities', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Rapid7 InsightVM.svg', label: 'Rapid7 InsightVM', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Saviynt IGA Accounts.svg', label: 'Saviynt IGA Accounts', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Saviynt IGA Users.svg', label: 'Saviynt IGA Users', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Saviynt IGA.svg', label: 'Saviynt IGA', cat: 'datasource', folder: 'data soruces' },
+  { file: 'SentinelOne Agents.svg', label: 'SentinelOne Agents', cat: 'datasource', folder: 'data soruces' },
+  { file: 'SentinelOne.svg', label: 'SentinelOne', cat: 'datasource', folder: 'data soruces' },
+  { file: 'ServiceNow ITSM.svg', label: 'ServiceNow ITSM', cat: 'datasource', folder: 'data soruces' },
+  { file: 'ServiceNow Service Catalog.svg', label: 'ServiceNow Service Catalog', cat: 'datasource', folder: 'data soruces' },
+  { file: 'SuccessFactors HR.svg', label: 'SuccessFactors HR', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tanium CVE Findings.svg', label: 'Tanium CVE Findings', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tanium Endpoints Extended Host List Report.svg', label: 'Tanium Endpoints Extended Host List Report', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tanium Endpoints.svg', label: 'Tanium Endpoints', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tanium.svg', label: 'Tanium', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tenable.io Asset.svg', label: 'Tenable.io Asset', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tenable.io Assets.svg', label: 'Tenable.io Assets', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tenable.io Vulnerabilities.svg', label: 'Tenable.io Vulnerabilities', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tenable.io Vulnerability-1.svg', label: 'Tenable.io Vulnerability-1', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tenable.io Vulnerability.svg', label: 'Tenable.io Vulnerability', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tenable.sc Analysis.svg', label: 'Tenable.sc Analysis', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Tenable.sc Assets.svg', label: 'Tenable.sc Assets', cat: 'datasource', folder: 'data soruces' },
+  { file: 'WinEvents 4624.svg', label: 'WinEvents 4624', cat: 'datasource', folder: 'data soruces' },
+  { file: 'WinEvents 4725.svg', label: 'WinEvents 4725', cat: 'datasource', folder: 'data soruces' },
+  { file: 'WinEvents 4726.svg', label: 'WinEvents 4726', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Wiz Cloud Resource.svg', label: 'Wiz Cloud Resource', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Wiz Vulnerability-1.svg', label: 'Wiz Vulnerability-1', cat: 'datasource', folder: 'data soruces' },
+  { file: 'Wiz Vulnerability.svg', label: 'Wiz Vulnerability', cat: 'datasource', folder: 'data soruces' },
+  { file: 'apache kyuubi.svg', label: 'apache kyuubi', cat: 'datasource', folder: 'data soruces' },
+  { file: 'iTOP PC.svg', label: 'iTOP PC', cat: 'datasource', folder: 'data soruces' },
+  { file: 'iTOP Server.svg', label: 'iTOP Server', cat: 'datasource', folder: 'data soruces' },
+  { file: 'iTOP VMware.svg', label: 'iTOP VMware', cat: 'datasource', folder: 'data soruces' },
+  { file: 'iceberg.svg', label: 'iceberg', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-aws-cloud-trail.svg', label: 'logo-aws-cloud-trail', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-aws-identity-store.svg', label: 'logo-aws-identity-store', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-aws.svg', label: 'logo-aws', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-azure-1.svg', label: 'logo-azure-1', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-azure.svg', label: 'logo-azure', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-bamboo-hr.svg', label: 'logo-bamboo-hr', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-cisa-vulnernich.svg', label: 'logo-cisa-vulnernich', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-crowdstrike.svg', label: 'logo-crowdstrike', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-direct-cloudaccount.svg', label: 'logo-direct-cloudaccount', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-endpoint-central.svg', label: 'logo-endpoint-central', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-epss.svg', label: 'logo-epss', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-globalprotect-vpn.svg', label: 'logo-globalprotect-vpn', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-intunes.svg', label: 'logo-intunes', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-itop.svg', label: 'logo-itop', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-lansweeper.svg', label: 'logo-lansweeper', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-mega-software.svg', label: 'logo-mega-software', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-nessus-pro.svg', label: 'logo-nessus-pro', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-nessus.svg', label: 'logo-nessus', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-nvd.svg', label: 'logo-nvd', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-qualys.svg', label: 'logo-qualys', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-rapid7.svg', label: 'logo-rapid7', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-saviynt.svg', label: 'logo-saviynt', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-sentinel-one.svg', label: 'logo-sentinel-one', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-service-now.svg', label: 'logo-service-now', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-success-factor.svg', label: 'logo-success-factor', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-tenable.svg', label: 'logo-tenable', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-vectra.svg', label: 'logo-vectra', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-windows-security-log.svg', label: 'logo-windows-security-log', cat: 'datasource', folder: 'data soruces' },
+  { file: 'logo-wiz.svg', label: 'logo-wiz', cat: 'datasource', folder: 'data soruces' },
+  { file: 'CIS AWS Foundations Benchmark v1.4.0.svg', label: 'CIS AWS Foundations Benchmark v1.4.0', cat: 'framework', folder: 'framework' },
+  { file: 'CIS Microsoft Azure Foundations Benchmark v1.3.0.svg', label: 'CIS Microsoft Azure Foundations Benchmark v1.3.0', cat: 'framework', folder: 'framework' },
+  { file: 'CIS v8.1.svg', label: 'CIS v8.1', cat: 'framework', folder: 'framework' },
+  { file: 'CMMC 2.0 Level 1.svg', label: 'CMMC 2.0 Level 1', cat: 'framework', folder: 'framework' },
+  { file: 'CMMC 2.0 Level 2.svg', label: 'CMMC 2.0 Level 2', cat: 'framework', folder: 'framework' },
+  { file: 'COBIT 2019.svg', label: 'COBIT 2019', cat: 'framework', folder: 'framework' },
+  { file: 'COSO v2017.svg', label: 'COSO v2017', cat: 'framework', folder: 'framework' },
+  { file: 'CSA CCM v4.svg', label: 'CSA CCM v4', cat: 'framework', folder: 'framework' },
+  { file: 'CSA IoT Security Controls v2.svg', label: 'CSA IoT Security Controls v2', cat: 'framework', folder: 'framework' },
+  { file: 'CSCRF.svg', label: 'CSCRF', cat: 'framework', folder: 'framework' },
+  { file: 'DEFSTAN 05-138.svg', label: 'DEFSTAN 05-138', cat: 'framework', folder: 'framework' },
+  { file: 'DORA V1.0.svg', label: 'DORA V1.0', cat: 'framework', folder: 'framework' },
+  { file: 'Default.svg', label: 'Default', cat: 'framework', folder: 'framework' },
+  { file: 'E8 Maturity Level One.svg', label: 'E8 Maturity Level One', cat: 'framework', folder: 'framework' },
+  { file: 'E8 Maturity Level Three.svg', label: 'E8 Maturity Level Three', cat: 'framework', folder: 'framework' },
+  { file: 'E8 Maturity Level Two.svg', label: 'E8 Maturity Level Two', cat: 'framework', folder: 'framework' },
+  { file: 'FedRAMP R5 - High.svg', label: 'FedRAMP R5 - High', cat: 'framework', folder: 'framework' },
+  { file: 'FedRAMP R5 - Moderate.svg', label: 'FedRAMP R5 - Moderate', cat: 'framework', folder: 'framework' },
+  { file: 'Fedramp R5.svg', label: 'Fedramp R5', cat: 'framework', folder: 'framework' },
+  { file: 'GAPP 2011.svg', label: 'GAPP 2011', cat: 'framework', folder: 'framework' },
+  { file: 'HIPAA - HICP Large Practice.svg', label: 'HIPAA - HICP Large Practice', cat: 'framework', folder: 'framework' },
+  { file: 'HIPAA - HICP Medium Practice.svg', label: 'HIPAA - HICP Medium Practice', cat: 'framework', folder: 'framework' },
+  { file: 'HIPAA - HICP Small Practice.svg', label: 'HIPAA - HICP Small Practice', cat: 'framework', folder: 'framework' },
+  { file: 'HISF 2025.svg', label: 'HISF 2025', cat: 'framework', folder: 'framework' },
+  { file: 'HISF.svg', label: 'HISF', cat: 'framework', folder: 'framework' },
+  { file: 'MPA Content Security Program v5.1.svg', label: 'MPA Content Security Program v5.1', cat: 'framework', folder: 'framework' },
+  { file: 'NIST 800-53 rev5.svg', label: 'NIST 800-53 rev5', cat: 'framework', folder: 'framework' },
+  { file: 'NIST AI RMF v1.0 TEST.svg', label: 'NIST AI RMF v1.0 TEST', cat: 'framework', folder: 'framework' },
+  { file: 'NIST AI RMF v1.0.svg', label: 'NIST AI RMF v1.0', cat: 'framework', folder: 'framework' },
+  { file: 'PCI DSS v4.0.1.svg', label: 'PCI DSS v4.0.1', cat: 'framework', folder: 'framework' },
+  { file: 'SCF 2025.1.1.svg', label: 'SCF 2025.1.1', cat: 'framework', folder: 'framework' },
+  { file: 'SPARTA V3.1.svg', label: 'SPARTA V3.1', cat: 'framework', folder: 'framework' },
+  { file: 'StateRAMP Low Category 1.svg', label: 'StateRAMP Low Category 1', cat: 'framework', folder: 'framework' },
+  { file: 'StateRAMP Low+ Category 2.svg', label: 'StateRAMP Low+ Category 2', cat: 'framework', folder: 'framework' },
+  { file: 'StateRAMP Moderate Category 3.svg', label: 'StateRAMP Moderate Category 3', cat: 'framework', folder: 'framework' },
+  { file: 'pai.svg', label: 'pai', cat: 'framework', folder: 'framework' },
+];
+
+var logoSearch = '';
+var logoFilter = 'all';
+
+function renderLogos() {
+  var grid = document.getElementById('logo-grid');
+  if (!grid) return;
+  var q = logoSearch.toLowerCase();
+  var filtered = LOGOS.filter(function(lg) {
+    var matchCat = logoFilter === 'all' || lg.cat === logoFilter;
+    var matchSearch = lg.label.toLowerCase().indexOf(q) !== -1;
+    return matchCat && matchSearch;
+  });
+  var count = document.getElementById('logo-count');
+  if (count) count.textContent = filtered.length + ' logos';
+  grid.innerHTML = filtered.map(function(lg) {
+    var enc = lg.file.replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    return '<button class="icon-card" onclick="copyIcon(this,\'' + lg.label.replace(/'/g,"\\'") + '\')">' +
+      '<img src="icons/' + lg.folder + '/' + enc + '" width="32" height="32" alt="" style="object-fit:contain;">' +
+      '<span class="icon-card-label">' + lg.label + '</span></button>';
+  }).join('');
+}
+
+document.querySelectorAll('.logo-cat-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.logo-cat-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    logoFilter = btn.dataset.logocat;
+    renderLogos();
+  });
+});
+
+var logoSearchInput = document.getElementById('logo-search');
+if (logoSearchInput) {
+  logoSearchInput.addEventListener('input', function() {
+    logoSearch = logoSearchInput.value;
+    renderLogos();
+  });
+}
+
+renderLogos();
 
 // Re-init charts and icons when switching to those pages
 document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
@@ -624,6 +1079,7 @@ document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
     }
     if (item.dataset.page === 'icons') {
       renderIcons();
+      renderLogos();
     }
     if (item.dataset.page === 'table') {
       initTable();
@@ -965,6 +1421,34 @@ function closePanel(id) {
   document.body.style.overflow = '';
 }
 function openFilterPanel() { openPanel('demo-panel'); }
+
+function toggleFilterPanel() {
+  var panel = document.getElementById('filter-side-panel');
+  var btn = document.getElementById('filter-panel-toggle');
+  if (!panel) return;
+  var isOpen = panel.classList.toggle('open');
+  if (btn) btn.classList.toggle('active', isOpen);
+}
+
+function toggleWidgetPanel() {
+  var panel = document.getElementById('widget-settings-panel');
+  var btn = document.getElementById('widget-settings-toggle');
+  if (!panel) return;
+  var isOpen = panel.classList.toggle('open');
+  if (btn) btn.classList.toggle('active', isOpen);
+}
+
+function widgetPanelTab(btn, targetId) {
+  var container = btn.closest('.ds-filter-side-panel');
+  container.querySelectorAll('.ds-panel-tab').forEach(function(b) { b.classList.remove('ds-panel-tab-active'); });
+  btn.classList.add('ds-panel-tab-active');
+  ['wpanel-general','wpanel-data'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  var target = document.getElementById(targetId);
+  if (target) target.style.display = 'flex';
+}
 
 // ─── Panel Tabs ───
 function panelTab(btn, targetId) {
@@ -1570,254 +2054,6 @@ function initPlayground() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// FEATURE 6 — AI Component Advisor
-// ═══════════════════════════════════════════════════════════════════
-// ─── AI Advisor — Internal Knowledge Base ───
-var DS_KB = [
-  { id:'buttons', name:'Buttons', page:'buttons',
-    desc:'Styled button component for all actions and CTAs.',
-    classes:['.ds-btn','.t-primary','.t-secondary','.t-outline','.t-ghost','.t-danger','.sz-sm','.sz-md','.sz-lg'],
-    snippet:'<button class="ds-btn t-primary sz-md">Save Changes</button>',
-    tips:['Use <code>t-primary</code> for the main CTA on a page','Use <code>t-danger</code> for destructive actions like delete or revoke','Use <code>t-ghost</code> for low-emphasis toolbar actions','Use <code>t-outline</code> alongside a primary button for secondary actions','Add <code>disabled</code> attribute to disable — never fake-disable with CSS opacity'],
-    keywords:['button','btn','click','action','cta','submit','save','delete','cancel','danger','primary','secondary','outline','ghost','trigger','confirm','press'] },
-  { id:'badges', name:'Badge & Status', page:'badges',
-    desc:'Severity badges, count indicators, and dismissible status tags.',
-    classes:['.ds-badge','.sev-critical','.sev-high','.sev-medium','.sev-low','.sev-info','.ds-count'],
-    snippet:'<span class="ds-badge sev-critical">Critical</span>',
-    tips:['Use <code>sev-critical</code> for CVSS 9.0–10.0 or P0 issues','Use <code>sev-high</code> for CVSS 7.0–8.9 or P1 issues','Use <code>sev-medium</code> for CVSS 4.0–6.9','Use <code>sev-low</code> for resolved, passed, or informational states','Use <code>ds-count</code> for numeric notification counts'],
-    keywords:['badge','status','severity','critical','high','medium','low','info','tag','label','pill','count','indicator','sev','vulnerability','risk','cvss','finding'] },
-  { id:'callout', name:'Callout', page:'callout',
-    desc:'Info, warning, error, and success callout banners for contextual alerts.',
-    classes:['.ds-callout','.cl-info','.cl-warning','.cl-error','.cl-success'],
-    snippet:'<div class="ds-callout cl-warning">Action may have unintended side effects.</div>',
-    tips:['Use <code>cl-error</code> for blocking issues the user must resolve','Use <code>cl-warning</code> for cautions that don\'t block progress','Use <code>cl-info</code> for helpful context or guidance','Use <code>cl-success</code> after a completed action','Keep callout text to 1–2 sentences'],
-    keywords:['callout','alert','banner','info','warning','error','success','notification','message','feedback','inline','attention'] },
-  { id:'forms', name:'Form Controls', page:'forms',
-    desc:'Inputs, checkboxes, radio buttons, and search fields.',
-    classes:['.ds-input','.ds-checkbox','.ds-radio','.ds-search','.ds-field','.ds-label','.ds-field-hint'],
-    snippet:'<div class="ds-field">\n  <label class="ds-label">Email</label>\n  <input class="ds-input" type="email" placeholder="user@example.com">\n</div>',
-    tips:['Always pair inputs with a <code>ds-label</code>','Use <code>ds-field-hint</code> for helper text below an input','Add the <code>error</code> class on <code>ds-input</code> to show validation state','Use <code>ds-search</code> for search — it includes the icon automatically'],
-    keywords:['form','input','field','text','checkbox','radio','select','search','label','email','password','number','textarea','control','validation','error'] },
-  { id:'overlays', name:'Modal & Toast', page:'overlays',
-    desc:'Confirmation dialogs, notification toasts, and tooltips.',
-    classes:['.ds-modal','showToast()','openModal()','closeModal()'],
-    snippet:"showToast('success', 'Changes saved successfully');",
-    tips:['Call <code>showToast(\'success\'|\'error\'|\'warning\', msg)</code> for non-blocking notifications','Toasts auto-dismiss after 3 seconds','Use modals for destructive confirmations — never use the browser <code>confirm()</code>','Open modals with <code>openModal(\'id\')</code>, close with <code>closeModal(\'id\')</code>'],
-    keywords:['modal','dialog','toast','notification','popup','alert','confirm','overlay','dismiss','message','notify','snackbar'] },
-  { id:'table', name:'Table', page:'table',
-    desc:'Sortable, filterable data table with pagination and CSV export.',
-    classes:['.ds-table','.ds-table-wrap','downloadTableCSV()'],
-    snippet:'<div class="ds-table-wrap">\n  <table class="ds-table">...</table>\n</div>',
-    tips:['Always wrap in <code>ds-table-wrap</code> for horizontal scroll','Use <code>data-sort</code> on <code>&lt;th&gt;</code> to enable column sorting','Export to CSV with <code>downloadTableCSV()</code>','Status-color rows using severity classes on <code>tr</code>'],
-    keywords:['table','data','row','column','sort','filter','paginate','pagination','export','csv','list','findings','results','grid'] },
-  { id:'tabs', name:'Tabs & Accordion', page:'tabs',
-    desc:'Tab navigation for switching views and accordion for collapsible content.',
-    classes:['.ds-tabs','.ds-tab','.ds-tab-active','.ds-accordion','.ds-accordion-item'],
-    snippet:'<div class="ds-tabs">\n  <button class="ds-tab ds-tab-active">Overview</button>\n  <button class="ds-tab">Details</button>\n</div>',
-    tips:['Use tabs when switching between equal-priority views in the same context','Use accordion when sections are long and users need to scan headings','Don\'t nest tabs inside tabs','Always have one tab active by default'],
-    keywords:['tab','tabs','accordion','collapse','expand','section','switch','view','panel'] },
-  { id:'avatars', name:'Avatar & Skeleton', page:'avatars',
-    desc:'User avatars, stacked groups, and loading skeleton placeholders.',
-    classes:['.ds-avatar','.ds-avatar-group','.ds-skeleton','.ds-skeleton-line'],
-    snippet:'<div class="ds-avatar" style="background:var(--shell-accent)">JS</div>',
-    tips:['Use 2-char initials when no image is available','Use <code>ds-skeleton</code> as a loading placeholder — remove once data loads','Stack up to 4 avatars with <code>ds-avatar-group</code>, then show a +N count'],
-    keywords:['avatar','user','profile','picture','image','initials','skeleton','loading','placeholder','spinner','group','stacked'] },
-  { id:'progress', name:'Progress & Slider', page:'progress',
-    desc:'Progress bars for task completion and sliders for range input.',
-    classes:['.ds-progress','.ds-progress-bar','.ds-slider'],
-    snippet:'<div class="ds-progress">\n  <div class="ds-progress-bar" style="width:72%"></div>\n</div>',
-    tips:['Always show the percentage value alongside the bar','Apply severity classes on the bar for risk scores','For indeterminate loading use the skeleton component instead'],
-    keywords:['progress','bar','slider','range','loading','percentage','completion','score','risk','indicator'] },
-  { id:'breadnav', name:'Breadcrumb & Pagination', page:'breadnav',
-    desc:'Breadcrumb trails for location context and page pagination controls.',
-    classes:['.ds-breadcrumb','.ds-pager','.ds-page-btn','buildPaginator()'],
-    snippet:'<nav class="ds-breadcrumb">\n  <a>Dashboard</a><span>/</span><a>Assets</a><span>/</span><span>Details</span>\n</nav>',
-    tips:['Show breadcrumbs when depth exceeds 2 levels','The last item should not be a link — it\'s the current page','Use <code>buildPaginator()</code> for pagination controls'],
-    keywords:['breadcrumb','pagination','pager','page','next','previous','nav','location','path','trail'] },
-  { id:'navmenu', name:'Navigation', page:'navmenu',
-    desc:'Collapsible left sidebar navigation with nested sub-items.',
-    classes:['.ds-navmenu','.ds-nav-item-row','.ds-nav-subitems','.ds-nav-sub-item','dsNavToggle()'],
-    snippet:'<nav class="ds-navmenu">...</nav>',
-    tips:['Group related items under section headers','Sub-items expand/collapse via <code>dsNavToggle()</code>','Mark active items with <code>ds-nav-sub-active</code>','Keep nesting to 2 levels max'],
-    keywords:['nav','navigation','sidebar','menu','left','collapse','expand','tree','nested','sub'] },
-  { id:'panels', name:'Panels & Filters', page:'panels',
-    desc:'Side drawer panels, filter action bars, and applied filter chips.',
-    classes:['.ds-panel','openPanel()','closePanel()','.ds-filter-bar','.ds-filter-chip'],
-    snippet:"openPanel('my-panel-id');",
-    tips:['Open with <code>openPanel(\'id\')</code>, close with <code>closePanel(\'id\')</code>','The overlay auto-locks body scroll','Use filter chips to show applied filters users can dismiss','Filter bars go above tables or data grids'],
-    keywords:['panel','drawer','side','filter','chip','applied','slide','settings','flyout','offcanvas'] },
-  { id:'toggleselect', name:'Toggle & Select', page:'toggleselect',
-    desc:'Toggle switches for binary settings and dropdown select controls.',
-    classes:['.ds-toggle','.ds-toggle.on','dsToggle()','.ds-select','.ds-select-wrap'],
-    snippet:'<div class="ds-toggle on" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>',
-    tips:['Toggles are for binary settings — use checkboxes for multi-select','Label the toggle with what turns ON, not what the control itself does','Toggle state is controlled by the <code>on</code> class via <code>dsToggle(el)</code>','Use select dropdowns for 4+ options; radio buttons for 2–3'],
-    keywords:['toggle','switch','on','off','select','dropdown','option','choose','enable','disable','setting'] },
-  { id:'icons', name:'Icons', page:'icons',
-    desc:'Lucide-based SVG icon library used throughout the design system.',
-    classes:['stroke="currentColor"','fill="none"'],
-    snippet:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\n  <!-- icon paths -->\n</svg>',
-    tips:['Always use <code>stroke="currentColor"</code> so icons inherit text color','Sizes: 12px (dense), 14px (default), 16px (emphasized), 20px (featured)','Use <code>fill="none"</code> for the standard outline style','Icons are from the Lucide set — browse the Icons page'],
-    keywords:['icon','svg','symbol','glyph','lucide','image','visual'] },
-  { id:'charts', name:'Charts', page:'charts',
-    desc:'SVG bar, line, and donut charts for data visualization.',
-    classes:['.chart-bar','.chart-line','.chart-donut','initCharts()'],
-    snippet:'// Charts initialize automatically when the Charts page loads\ninitCharts();',
-    tips:['Use bar charts for comparisons across categories','Use line charts for trends over time','Use donut charts for part-to-whole relationships (e.g. severity distribution)','Always include axis labels and a legend'],
-    keywords:['chart','graph','bar','line','donut','pie','data','visualization','trend','metric','analytics'] },
-  { id:'color-tokens', name:'Color Tokens', page:'colors',
-    desc:'CSS custom properties for theming — dark and light.',
-    classes:['--shell-accent','--shell-bg','--shell-raised','--shell-border','--shell-text','--shell-text-muted','--status-critical','--status-high','--status-medium','--status-low'],
-    snippet:'/* Dark default */\n--shell-accent: #6360D8;\n--shell-bg: #0E0E0E;\n--shell-raised: #131313;\n--shell-border: #272727;\n--shell-text: #F9F9F9;\n\n/* Severity (same in both themes) */\n--status-critical: #D12329;\n--status-high:     #E15252;\n--status-medium:   #D98B1D;\n--status-low:      #31A56D;',
-    tips:['Always use CSS tokens — never hardcode hex values','<code>--shell-*</code> tokens adapt automatically to dark/light theme','<code>--shell-accent</code> is the primary purple (#6360D8) for CTAs and focus rings','<code>--status-*</code> colors are fixed across themes — they carry semantic meaning'],
-    keywords:['color','token','css','variable','hex','palette','theme','dark','light','accent','purple','severity','critical','high','medium','low','shell','status'] },
-  { id:'typography', name:'Typography', page:'typography',
-    desc:'Inter font type scale from 10px to 32px with defined weights.',
-    classes:['.ds-h1','.ds-h2','.ds-h3','.ds-label','.ds-caption','.ds-code'],
-    snippet:'<h2 class="ds-h2">Section Title</h2>\n<p>Body text here.</p>',
-    tips:['The system uses Inter loaded from Google Fonts','Use semantic heading classes for consistent hierarchy','<code>ds-caption</code> (11px) for timestamps, hints, and table meta','<code>ds-code</code> for inline technical strings or code'],
-    keywords:['typography','font','text','heading','body','size','weight','inter','h1','h2','h3','caption','label','code','type','scale'] },
-  { id:'spacing', name:'Spacing & Grid', page:'spacing',
-    desc:'4px base spacing unit and 12-column layout grid.',
-    classes:['4px base','12-column grid'],
-    snippet:'/* Spacing scale: 4 8 12 16 20 24 32 40 48px */\n/* All values must be multiples of 4 */',
-    tips:['All spacing values must be multiples of 4px','Standard card padding: 16px or 20px','Standard gap: 8px (tight), 12px (default), 20px (relaxed)','12-column grid with 24px gutters for page layout'],
-    keywords:['spacing','space','gap','padding','margin','grid','column','layout','gutter','unit','4px'] }
-];
-
-function queryDS(text) {
-  var q = text.toLowerCase();
-  var scores = DS_KB.map(function(item) {
-    var score = 0;
-    if (q.includes(item.name.toLowerCase())) score += 15;
-    if (q.includes(item.id)) score += 10;
-    item.keywords.forEach(function(kw) {
-      if (q.includes(kw)) score += (kw.length > 4 ? 4 : 2);
-    });
-    item.classes.forEach(function(cls) {
-      var c = cls.replace(/[.()']/g, '').toLowerCase();
-      if (c.length > 3 && q.includes(c)) score += 5;
-    });
-    return { item: item, score: score };
-  });
-  scores.sort(function(a, b) { return b.score - a.score; });
-  return scores[0].score >= 2 ? scores[0].item : null;
-}
-
-function buildAiResponse(item) {
-  var html = [];
-  html.push('<p><strong>' + item.name + '</strong> — ' + item.desc + '</p>');
-  if (item.classes && item.classes.length) {
-    html.push('<p style="margin-top:6px;font-size:11px;color:var(--shell-text-muted)">Classes / API</p><p>' + item.classes.map(function(c) { return '<code>' + c + '</code>'; }).join(' ') + '</p>');
-  }
-  if (item.snippet) {
-    html.push('<pre><code>' + escapeHtml(item.snippet) + '</code></pre>');
-  }
-  if (item.tips && item.tips.length) {
-    html.push('<ul>' + item.tips.map(function(t) { return '<li>' + t + '</li>'; }).join('') + '</ul>');
-  }
-  html.push('<p style="margin-top:8px"><a href="#" style="font-size:11px;color:var(--shell-accent);text-decoration:none;" onclick="document.querySelector(\'[data-page=' + item.page + ']\').click();document.getElementById(\'ai-panel\').classList.remove(\'open\');document.getElementById(\'ai-fab\').classList.remove(\'panel-open\');return false;">View ' + item.name + ' →</a></p>');
-  return html.join('');
-}
-
-function initAI() {
-  var fab = document.getElementById('ai-fab');
-  var panel = document.getElementById('ai-panel');
-  var closeBtn = document.getElementById('ai-close');
-  var userInput = document.getElementById('ai-user-input');
-  var sendBtn = document.getElementById('ai-send-btn');
-  if (!fab || !panel) return;
-  fab.addEventListener('click', function() {
-    panel.classList.toggle('open');
-    fab.classList.toggle('panel-open', panel.classList.contains('open'));
-    if (panel.classList.contains('open') && userInput) {
-      setTimeout(function() { userInput.focus(); }, 200);
-    }
-  });
-  if (closeBtn) {
-    closeBtn.addEventListener('click', function() {
-      panel.classList.remove('open');
-      fab.classList.remove('panel-open');
-    });
-  }
-  if (sendBtn) sendBtn.addEventListener('click', aiSend);
-  if (userInput) {
-    userInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); aiSend(); }
-    });
-  }
-}
-
-function aiSend() {
-  var userInput = document.getElementById('ai-user-input');
-  var msgs = document.getElementById('ai-msgs');
-  if (!userInput || !msgs) return;
-  var text = userInput.value.trim();
-  if (!text) return;
-
-  appendAiMsg('user', text);
-  userInput.value = '';
-
-  // Typing indicator
-  var typing = document.createElement('div');
-  typing.className = 'ai-typing';
-  typing.innerHTML = '<div class="ai-typing-dot"></div><div class="ai-typing-dot"></div><div class="ai-typing-dot"></div>';
-  msgs.appendChild(typing);
-  msgs.scrollTop = msgs.scrollHeight;
-
-  setTimeout(function() {
-    typing.remove();
-    var match = queryDS(text);
-    if (match) {
-      appendAiMsg('bot', buildAiResponse(match));
-    } else {
-      appendAiMsg('bot', '<p>I couldn\'t find a specific match. Try <kbd style="background:var(--shell-raised);border:1px solid var(--shell-border);border-radius:3px;padding:1px 5px;font-size:10px">Ctrl+K</kbd> to search, or browse the sidebar.</p><p style="margin-top:6px;color:var(--shell-text-muted);font-size:11px">Try asking:<br>• "What component for notifications?"<br>• "How do I show a badge?"<br>• "Token for critical severity?"</p>');
-    }
-  }, 350);
-}
-
-function appendAiMsg(role, text) {
-  var msgs = document.getElementById('ai-msgs');
-  if (!msgs) return;
-  var div = document.createElement('div');
-  div.className = 'ai-msg ai-msg-' + (role === 'user' ? 'user' : 'bot');
-  div.innerHTML = role === 'bot' ? renderAiMarkdown(text) : escapeHtml(text);
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function escapeHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function renderAiMarkdown(text) {
-  // Code blocks
-  text = text.replace(/```[\w]*\n?([\s\S]*?)```/g, function(_, code) {
-    return '<pre><code>' + escapeHtml(code.trim()) + '</code></pre>';
-  });
-  // Inline code
-  text = text.replace(/`([^`]+)`/g, function(_, code) {
-    return '<code>' + escapeHtml(code) + '</code>';
-  });
-  // Bold
-  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  // Bullet lists — convert consecutive lines starting with "- " into <ul>
-  var lines = text.split('\n');
-  var out = [];
-  var inList = false;
-  lines.forEach(function(line) {
-    if (/^[-*] /.test(line)) {
-      if (!inList) { out.push('<ul>'); inList = true; }
-      out.push('<li>' + line.replace(/^[-*] /, '') + '</li>');
-    } else {
-      if (inList) { out.push('</ul>'); inList = false; }
-      if (line.trim()) out.push('<p>' + line + '</p>');
-    }
-  });
-  if (inList) out.push('</ul>');
-  return out.join('');
-}
-
-// ═══════════════════════════════════════════════════════════════════
 // KEYBOARD HANDLER — extends existing keydown listener
 // ═══════════════════════════════════════════════════════════════════
 document.addEventListener('keydown', function(e) {
@@ -1853,7 +2089,6 @@ document.addEventListener('keydown', function(e) {
 // INITIALIZATION
 // ═══════════════════════════════════════════════════════════════════
 initTokenExport();
-initAI();
 
 // Inject playground when buttons page is visited (deferred)
 (function patchNavForPlayground() {

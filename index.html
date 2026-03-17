@@ -117,7 +117,7 @@
       </div>
       <div class="nav-item" data-page="icons">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        Icons
+        Icons &amp; Logos
       </div>
       <div class="nav-item" data-page="overlays">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
@@ -1322,26 +1322,54 @@
     <!-- ICONS PAGE -->
     <div class="page" id="page-icons">
       <div class="page-header">
-        <h1>Icons</h1>
-        <p>Stroke-based icon system using Feather icon paths. Click any icon to copy its name. All icons use 24px viewBox at 1.75px stroke width.</p>
+        <h1>Icons &amp; Logos</h1>
+        <p>224 product icons and 163 data source logos. Click any item to copy its name.</p>
       </div>
 
-      <div class="icon-search-bar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="icon-search" placeholder="Search icons…">
-        <span class="icon-count" id="icon-count">0 icons</span>
+      <!-- Tab switcher -->
+      <div class="ds-tabs-pill" style="margin-bottom:20px;" id="icon-tab-bar">
+        <div class="ds-tabs-list">
+          <button class="ds-tab active" data-icontab="icons">Icons <span style="font-size:11px;opacity:0.6;">254</span></button>
+          <button class="ds-tab" data-icontab="logos">Logos <span style="font-size:11px;opacity:0.6;">199</span></button>
+        </div>
       </div>
 
-      <div class="icon-cats">
-        <button class="icon-cat-btn active" data-cat="all">All</button>
-        <button class="icon-cat-btn" data-cat="navigation">Navigation</button>
-        <button class="icon-cat-btn" data-cat="actions">Actions</button>
-        <button class="icon-cat-btn" data-cat="status">Status</button>
-        <button class="icon-cat-btn" data-cat="data">Data</button>
-        <button class="icon-cat-btn" data-cat="media">Media</button>
+      <!-- Icons panel -->
+      <div id="icon-panel">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;">
+          <div class="icon-search-bar" style="flex:1;min-width:200px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="icon-search" placeholder="Search icons…">
+            <span class="icon-count" id="icon-count">0 icons</span>
+          </div>
+        </div>
+        <div class="icon-cats">
+          <button class="icon-cat-btn active" data-cat="all">All</button>
+          <button class="icon-cat-btn" data-cat="navigation">Navigation</button>
+          <button class="icon-cat-btn" data-cat="actions">Actions</button>
+          <button class="icon-cat-btn" data-cat="status">Status</button>
+          <button class="icon-cat-btn" data-cat="data">Data</button>
+          <button class="icon-cat-btn" data-cat="general">General</button>
+          <button class="icon-cat-btn" data-cat="entities-outline">Entities — Outline</button>
+          <button class="icon-cat-btn" data-cat="entities-filled">Entities — Filled</button>
+        </div>
+        <div class="icon-grid" id="icon-grid"></div>
       </div>
 
-      <div class="icon-grid" id="icon-grid"></div>
+      <!-- Logos panel -->
+      <div id="logo-panel" style="display:none;">
+        <div class="icon-search-bar" style="margin-bottom:12px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="logo-search" placeholder="Search logos…">
+          <span class="icon-count" id="logo-count">199 logos</span>
+        </div>
+        <div class="icon-cats" style="margin-bottom:16px;">
+          <button class="logo-cat-btn icon-cat-btn active" data-logocat="all">All</button>
+          <button class="logo-cat-btn icon-cat-btn" data-logocat="datasource">Data Sources</button>
+          <button class="logo-cat-btn icon-cat-btn" data-logocat="framework">Frameworks</button>
+        </div>
+        <div class="icon-grid" id="logo-grid"></div>
+      </div>
     </div>
 
     <!-- CALLOUT PAGE -->
@@ -1829,13 +1857,13 @@
               <div style="font-size:12px;color:var(--shell-text-muted);margin-top:2px;">All detected vulnerabilities across targets</div>
             </div>
             <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
-              <div class="ds-input-field" style="width:220px;height:32px;">
+              <div class="ds-input-field" style="width:220px;height:32px;border-radius:60px;">
                 <div class="prefix" style="padding:0 8px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
                 <input type="text" id="table-search" placeholder="Search…" oninput="filterTable(this.value)" style="font-size:13px;">
               </div>
-              <button class="ds-btn t-outline sz-sm" onclick="downloadTableCSV()" style="height:32px;gap:5px;">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Export
+              <button onclick="downloadTableCSV()" style="background:var(--shell-accent);color:#fff;border:none;border-radius:54px;height:32px;padding:0 14px 0 16px;cursor:pointer;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;">
+                Download
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               </button>
             </div>
           </div>
@@ -2540,39 +2568,142 @@
         <p>Right-side drawer panels, filter bars with active indicators, and applied filter chip displays.</p>
       </div>
 
+      <!-- Filter Bar + Sticky Panel Demo -->
       <div class="comp-section">
-        <div class="comp-section-title">Filter Bar</div>
-        <div class="comp-card">
-          <div class="comp-card-header">Active Filters + Filter button</div>
-          <div class="comp-row">
-            <button class="ds-btn t-primary sz-sm" style="width:32px;height:32px;padding:0;border-radius:50%;flex-shrink:0;" title="Settings">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.73 8.27a6 6 0 0 1 0 7.46M4.93 4.93a10 10 0 0 0 0 14.14M8.27 8.27a6 6 0 0 0 0 7.46"/></svg>
-            </button>
-            <button class="ds-filter-count-btn" onclick="openPanel('demo-panel')">
-              Active Filters
-              <span class="ds-filter-count">1</span>
-            </button>
-            <div style="width:1px;height:28px;background:var(--ctrl-border);flex-shrink:0;"></div>
-            <button class="ds-filter-btn" onclick="openPanel('demo-panel')">
-              Filter
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
-            </button>
-          </div>
-          <div class="callout info" style="margin-top:4px;">"Active Filters" and "Filter" open the side panel demo below.</div>
-          <div class="chart-doc">
-            <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Anatomy</div>
-              <ul>
-                <li>Settings icon: 32px filled primary circle</li>
-                <li>Active Filters: pill with count badge</li>
-                <li>Divider: 1px × 28px vertical</li>
-                <li>Filter: lavender (#e0dff7) pill + icon</li>
-              </ul>
+        <div class="comp-section-title">Filter Bar &amp; Sticky Panel</div>
+        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:14px;">Click <strong>Filter</strong> to open the sticky right panel — it sits alongside the content without blocking it. Hover <strong>Active Filters</strong> to preview applied filters in a popover.</p>
+
+        <div class="filter-demo-layout">
+          <!-- Left: content + toolbar -->
+          <div class="filter-demo-main">
+            <!-- Toolbar -->
+            <div class="comp-row" style="margin-bottom:16px;flex-wrap:wrap;">
+              <button class="ds-btn t-primary sz-sm" style="width:32px;height:32px;padding:0;border-radius:50%;flex-shrink:0;" title="Settings">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.73 8.27a6 6 0 0 1 0 7.46M4.93 4.93a10 10 0 0 0 0 14.14M8.27 8.27a6 6 0 0 0 0 7.46"/></svg>
+              </button>
+              <!-- Active Filters hover popover -->
+              <div class="ds-active-filters-wrap">
+                <button class="ds-filter-count-btn">
+                  Active Filters
+                  <span class="ds-filter-count">3</span>
+                </button>
+                <div class="ds-active-filters-popover">
+                  <div class="ds-active-filters-popover-title">Applied Filters</div>
+                  <div class="ds-filter-chips" style="flex-direction:column;align-items:flex-start;gap:6px;">
+                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                      <span style="font-size:12px;color:var(--shell-text);white-space:nowrap;">Show</span>
+                      <div class="ds-filter-chip"><span class="ds-chip-key">Entity</span><span class="ds-chip-value">Host</span></div>
+                      <span class="ds-filter-connector">where</span>
+                      <div class="ds-filter-chip"><span class="ds-chip-key">VM Onboarding</span><span class="ds-chip-value">False</span></div>
+                      <div class="ds-filter-chip"><span class="ds-chip-key">Severity</span><span class="ds-chip-value">Critical</span><span class="ds-chip-value">High</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="width:1px;height:28px;background:var(--ctrl-border);flex-shrink:0;"></div>
+              <button class="ds-filter-btn" id="filter-panel-toggle" onclick="toggleFilterPanel()">
+                Filter
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+              </button>
             </div>
+            <!-- Mock data table -->
+            <div style="overflow-x:auto;">
+              <table class="ds-table">
+                <thead>
+                  <tr>
+                    <th class="ds-th">Host</th>
+                    <th class="ds-th">Severity</th>
+                    <th class="ds-th">Status</th>
+                    <th class="ds-th">Last Seen</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>api-gateway-01</td><td><span class="ds-badge danger">Critical</span></td><td><span class="ds-badge warning dot">Scanning</span></td><td>2 min ago</td></tr>
+                  <tr><td>db-cluster-main</td><td><span class="ds-badge danger">Critical</span></td><td><span class="ds-badge success dot">Active</span></td><td>5 min ago</td></tr>
+                  <tr><td>auth-service.k8s</td><td><span class="ds-badge warning">High</span></td><td><span class="ds-badge success dot">Active</span></td><td>12 min ago</td></tr>
+                  <tr><td>web-proxy-edge-02</td><td><span class="ds-badge warning">High</span></td><td><span class="ds-badge neutral dot">Offline</span></td><td>1 hr ago</td></tr>
+                  <tr><td>ci-runner-k8s-pool</td><td><span class="ds-badge info">Info</span></td><td><span class="ds-badge success dot">Active</span></td><td>3 min ago</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Right: sticky filter side panel -->
+          <div class="ds-filter-side-panel" id="filter-side-panel">
+            <div class="ds-panel-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
+              <span class="ds-panel-title">Filters</span>
+              <button class="ds-icon-btn" onclick="toggleFilterPanel()" title="Close">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="ds-panel-body" style="display:flex;flex-direction:column;gap:16px;">
+              <div>
+                <div class="ds-field-label">Entity Type</div>
+                <div class="ds-select-wrap">
+                  <div class="ds-select" onclick="dsSelectToggle(this)">
+                    <span>Host</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                  <div class="ds-select-dropdown">
+                    <div class="ds-select-option selected" onclick="dsSelectPick(this)">Host</div>
+                    <div class="ds-select-option" onclick="dsSelectPick(this)">Container</div>
+                    <div class="ds-select-option" onclick="dsSelectPick(this)">Application</div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="ds-field-label">Severity</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                  <label class="ds-checkbox-item"><input type="checkbox" class="ds-checkbox-box" checked> Critical</label>
+                  <label class="ds-checkbox-item"><input type="checkbox" class="ds-checkbox-box" checked> High</label>
+                  <label class="ds-checkbox-item"><input type="checkbox" class="ds-checkbox-box"> Medium</label>
+                  <label class="ds-checkbox-item"><input type="checkbox" class="ds-checkbox-box"> Low</label>
+                </div>
+              </div>
+              <div>
+                <div class="ds-field-label">VM Onboarding Status</div>
+                <div class="ds-select-wrap">
+                  <div class="ds-select" onclick="dsSelectToggle(this)">
+                    <span>False</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                  <div class="ds-select-dropdown">
+                    <div class="ds-select-option selected" onclick="dsSelectPick(this)">False</div>
+                    <div class="ds-select-option" onclick="dsSelectPick(this)">True</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ds-panel-footer">
+              <button class="ds-btn t-outline sz-sm" style="flex:1;border-radius:24px;">Clear All</button>
+              <button class="ds-btn t-primary sz-sm" style="flex:1;border-radius:24px;">Apply</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-doc" style="margin-top:16px;">
+          <div class="chart-doc-block">
+            <div class="chart-doc-block-title">Active Filters</div>
+            <ul>
+              <li>Hover to reveal popover with applied chips</li>
+              <li>Count badge shows number of active filters</li>
+              <li>Popover dismisses on mouse-out automatically</li>
+            </ul>
+          </div>
+          <div class="chart-doc-block">
+            <div class="chart-doc-block-title">Filter Panel</div>
+            <ul>
+              <li>Sticky — sits alongside content, no overlay</li>
+              <li>Width: 280px, slides in 0.25s</li>
+              <li>Left content stays fully interactive</li>
+              <li>Close via × or clicking Filter again</li>
+            </ul>
           </div>
         </div>
       </div>
 
+      <!-- Applied Filter Chips -->
       <div class="comp-section">
         <div class="comp-section-title">Applied Filter Chips</div>
         <div class="comp-card">
@@ -2624,32 +2755,142 @@
         </div>
       </div>
 
+      <!-- Widget Settings Inline Panel -->
       <div class="comp-section">
-        <div class="comp-section-title">Side Panel / Drawer</div>
+        <div class="comp-section-title">Widget Settings Panel</div>
+        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:14px;">Click the <strong>settings icon</strong> on the widget header to open the inline panel — it sits alongside the content with General and Data tabs, no overlay.</p>
+
+        <div class="filter-demo-layout">
+          <!-- Left: widget preview -->
+          <div class="filter-demo-main">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+              <span style="flex:1;font-size:14px;font-weight:600;color:var(--shell-text);">Top Vulnerabilities by Severity</span>
+              <button class="ds-icon-btn" id="widget-settings-toggle" onclick="toggleWidgetPanel()" title="Widget Settings">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </button>
+            </div>
+            <!-- Mock chart bars -->
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--shell-text-muted);margin-bottom:4px;"><span>Critical</span><span>127</span></div>
+                <div style="height:8px;background:var(--shell-raised);border-radius:4px;overflow:hidden;"><div style="width:85%;height:100%;background:#e53935;border-radius:4px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--shell-text-muted);margin-bottom:4px;"><span>High</span><span>94</span></div>
+                <div style="height:8px;background:var(--shell-raised);border-radius:4px;overflow:hidden;"><div style="width:65%;height:100%;background:#e57c1a;border-radius:4px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--shell-text-muted);margin-bottom:4px;"><span>Medium</span><span>58</span></div>
+                <div style="height:8px;background:var(--shell-raised);border-radius:4px;overflow:hidden;"><div style="width:42%;height:100%;background:#e5b91a;border-radius:4px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--shell-text-muted);margin-bottom:4px;"><span>Low</span><span>22</span></div>
+                <div style="height:8px;background:var(--shell-raised);border-radius:4px;overflow:hidden;"><div style="width:20%;height:100%;background:#6360d8;border-radius:4px;"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Widget Settings inline panel -->
+          <div class="ds-filter-side-panel" id="widget-settings-panel">
+            <div class="ds-panel-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span class="ds-panel-title">Widget Settings</span>
+              <button class="ds-icon-btn" onclick="toggleWidgetPanel()" title="Close">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+            <div class="ds-panel-tabs">
+              <button class="ds-panel-tab ds-panel-tab-active" onclick="widgetPanelTab(this,'wpanel-general')">General</button>
+              <button class="ds-panel-tab" onclick="widgetPanelTab(this,'wpanel-data')">Data</button>
+            </div>
+            <div class="ds-panel-body" style="display:flex;flex-direction:column;gap:16px;">
+              <div id="wpanel-general" style="display:flex;flex-direction:column;gap:16px;">
+                <div>
+                  <div class="ds-field-label">Widget Title</div>
+                  <div class="ds-input-field"><input type="text" value="Top Vulnerabilities by Severity"></div>
+                </div>
+                <div>
+                  <div class="ds-field-label">Description</div>
+                  <div class="ds-input-field"><input type="text" placeholder="Optional description"></div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                  <div>
+                    <div style="font-size:13px;font-weight:500;color:var(--shell-text);">Show Legend</div>
+                    <div style="font-size:12px;color:var(--shell-text-muted);margin-top:2px;">Display or hide the chart legend</div>
+                  </div>
+                  <div class="ds-toggle on" onclick="dsToggle(this)"><div class="ds-toggle-thumb"></div></div>
+                </div>
+              </div>
+              <div id="wpanel-data" style="display:none;flex-direction:column;gap:16px;">
+                <div>
+                  <div class="ds-field-label">Chart Type</div>
+                  <div class="ds-select-wrap">
+                    <div class="ds-select" onclick="dsSelectToggle(this)">
+                      <span>Stacked Horizontal Bar</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="ds-select-dropdown">
+                      <div class="ds-select-option selected" onclick="dsSelectPick(this)">Stacked Horizontal Bar</div>
+                      <div class="ds-select-option" onclick="dsSelectPick(this)">Vertical Bar Chart</div>
+                      <div class="ds-select-option" onclick="dsSelectPick(this)">Line Chart</div>
+                      <div class="ds-select-option" onclick="dsSelectPick(this)">Donut Chart</div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="ds-field-label">Group By</div>
+                  <div class="ds-select-wrap">
+                    <div class="ds-select" onclick="dsSelectToggle(this)">
+                      <span>Severity</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="ds-select-dropdown">
+                      <div class="ds-select-option selected" onclick="dsSelectPick(this)">Severity</div>
+                      <div class="ds-select-option" onclick="dsSelectPick(this)">Asset Type</div>
+                      <div class="ds-select-option" onclick="dsSelectPick(this)">Team</div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="ds-field-label">Aggregate By</div>
+                  <div class="ds-select-wrap">
+                    <div class="ds-select" onclick="dsSelectToggle(this)">
+                      <span>Count</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </div>
+                    <div class="ds-select-dropdown">
+                      <div class="ds-select-option selected" onclick="dsSelectPick(this)">Count</div>
+                      <div class="ds-select-option" onclick="dsSelectPick(this)">Sum</div>
+                      <div class="ds-select-option" onclick="dsSelectPick(this)">Average</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ds-panel-footer">
+              <button class="ds-btn t-outline sz-md" style="flex:1;border-radius:24px;" onclick="toggleWidgetPanel()">Cancel</button>
+              <button class="ds-btn t-primary sz-md" style="flex:1;border-radius:24px;" onclick="toggleWidgetPanel();showToast('success','Widget settings saved')">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overlay Drawer (modal/widget settings use case) -->
+      <div class="comp-section">
+        <div class="comp-section-title">Overlay Drawer</div>
         <div class="comp-card">
-          <div class="comp-card-header">Right-side sliding panel</div>
+          <div class="comp-card-header">Widget settings — full overlay panel</div>
           <div class="comp-row">
             <button class="ds-btn t-primary sz-md" onclick="openPanel('demo-panel')">Open Widget Settings Panel</button>
-            <span style="font-size:12px;color:var(--shell-text-muted);">Slides in from right with overlay backdrop</span>
+            <span style="font-size:12px;color:var(--shell-text-muted);">Slides in from right with backdrop overlay</span>
           </div>
           <div class="chart-doc">
             <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Anatomy</div>
+              <div class="chart-doc-block-title">Use for</div>
               <ul>
-                <li>Width: 360px · slides from right in 0.25s</li>
-                <li>Header: icon + title + close ×</li>
-                <li>Tabs: underline variant</li>
-                <li>Body: overflow-y scroll, 16px padding</li>
-                <li>Footer: Cancel + Save (full-width pills)</li>
-              </ul>
-            </div>
-            <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Behavior</div>
-              <ul>
-                <li>rgba(0,0,0,0.32) backdrop overlay</li>
-                <li>Click outside (backdrop) to dismiss</li>
-                <li>Close × button in header also dismisses</li>
-                <li>Body scroll locked when panel is open</li>
+                <li>Widget configuration, settings requiring focus</li>
+                <li>When interaction with the page should be blocked</li>
+                <li>Click backdrop or × to dismiss</li>
               </ul>
             </div>
           </div>
@@ -2777,35 +3018,6 @@
 
 </div>
 
-<!-- AI Advisor Panel -->
-<div id="ai-panel">
-  <div class="ai-ph">
-    <div style="display:flex;align-items:center;gap:8px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><circle cx="18" cy="6" r="3" fill="var(--shell-accent)" stroke="none"/></svg>
-      <span style="font-size:13px;font-weight:600;color:var(--shell-text);">AI Advisor</span>
-      <span class="ds-badge info" style="font-size:9px;padding:1px 6px;">Beta</span>
-    </div>
-    <button class="ds-icon-btn" id="ai-close" title="Close">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>
-  <div class="ai-msgs" id="ai-msgs">
-    <div class="ai-msg ai-msg-bot">
-      <span>Hi! I'm your PAI Design System assistant. Ask me about components, tokens, usage patterns, or implementation guidance.</span>
-    </div>
-  </div>
-<div class="ai-input-row">
-    <input id="ai-user-input" class="ai-input" type="text" placeholder="Ask about components, tokens…">
-    <button class="ai-send" id="ai-send-btn" title="Send">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
-  </div>
-</div>
-
-<!-- AI FAB -->
-<button class="ai-fab" id="ai-fab" title="AI Advisor">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M8 12h.01M12 12h.01M16 12h.01"/><circle cx="19" cy="5" r="3" fill="var(--shell-accent)" stroke="none"/></svg>
-</button>
 
 <!-- Hero scan cursor -->
 <svg id="hero-cursor" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2818,5 +3030,6 @@
   <circle cx="20" cy="20" r="1.5" fill="currentColor"/>
 </svg>
 <script src="main.js"></script>
+
 </body>
 </html>
