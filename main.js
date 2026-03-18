@@ -1388,16 +1388,78 @@ function dsSelectPick(option) {
   option.classList.add('selected');
 }
 
+// ─── Left Nav helpers ───
+function dsNavCollapseSubEl(sub) {
+  if (!sub || sub.style.display !== 'flex') return;
+  sub.style.display = 'none';
+  sub.querySelectorAll('.ds-nav-sub-active').forEach(function(a) { a.classList.remove('ds-nav-sub-active'); });
+  // Walk backwards to find the controlling row
+  var prev = sub.previousElementSibling;
+  while (prev) {
+    if (prev.classList.contains('ds-nav-item-row')) {
+      prev.classList.remove('ds-nav-expanded');
+      var c = prev.querySelector('.ds-nav-chevron');
+      if (c) c.classList.remove('ds-nav-chevron-open');
+      break;
+    }
+    prev = prev.previousElementSibling;
+  }
+}
+
+// ─── Left Nav Sub-item Select ───
+// ─── Nav menu demo collapse toggle ───
+function dsNavMenuToggleCollapse() {
+  var navmenu = document.getElementById('demo-navmenu');
+  var icon = document.getElementById('demo-nav-collapse-icon');
+  var btn = document.getElementById('demo-nav-collapse-btn');
+  if (!navmenu) return;
+  var collapsed = navmenu.classList.toggle('nav-collapsed');
+  if (collapsed) {
+    // Lock hover-expand immediately after click-collapse
+    navmenu.classList.add('nav-click-collapsed');
+    navmenu.addEventListener('mouseleave', function onLeave() {
+      navmenu.classList.remove('nav-click-collapsed');
+      navmenu.removeEventListener('mouseleave', onLeave);
+    });
+  }
+  if (icon) {
+    icon.innerHTML = collapsed
+      ? '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="11 8 15 12 11 16"/>'
+      : '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="15 8 11 12 15 16"/>';
+  }
+  if (btn) btn.title = collapsed ? 'Expand nav' : 'Collapse to icon rail';
+}
+
+function dsNavSubSelect(el) {
+  var navmenu = el.closest('.ds-navmenu');
+  if (!navmenu) return;
+  var parentSub = el.closest('.ds-nav-subitems');
+  // Clear all active sub-items
+  navmenu.querySelectorAll('.ds-nav-sub-active').forEach(function(s) {
+    s.classList.remove('ds-nav-sub-active');
+  });
+  el.classList.add('ds-nav-sub-active');
+  // Collapse all other open sections
+  navmenu.querySelectorAll('.ds-nav-subitems').forEach(function(sub) {
+    if (sub !== parentSub) dsNavCollapseSubEl(sub);
+  });
+}
+
 // ─── Left Nav Toggle ───
 function dsNavToggle(row, subId) {
   var sub = document.getElementById(subId);
   if (!sub) return;
   var isOpen = sub.style.display === 'flex';
+  var navmenu = row.closest('.ds-navmenu');
+  // Collapse all other open sections (accordion)
+  if (navmenu) {
+    navmenu.querySelectorAll('.ds-nav-subitems').forEach(function(s) {
+      if (s.id !== subId) dsNavCollapseSubEl(s);
+    });
+  }
   var chevron = row.querySelector('.ds-nav-chevron');
   if (isOpen) {
-    sub.style.display = 'none';
-    row.classList.remove('ds-nav-expanded');
-    if (chevron) chevron.classList.remove('ds-nav-chevron-open');
+    dsNavCollapseSubEl(sub);
   } else {
     sub.style.display = 'flex';
     row.classList.add('ds-nav-expanded');
@@ -1519,7 +1581,7 @@ function copyAiPrompt() {
     '      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
     '    </button>',
     '    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>',
-    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 14px;border-radius:44px;">Navigator</button>',
+    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:5px 14px;border-radius:44px;">Navigator</button>',
     '  </div>',
     '',
     '  <!-- SHELL -->',
@@ -1567,19 +1629,19 @@ function copyAiPrompt() {
     '            <span style="color:#6360D8;">Current Page</span>',
     '          </div>',
     '        </div>',
-    '        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">',
+    '        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:5px 14px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">',
     '          Explore in <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
     '        </button>',
     '        <span style="flex:1;"></span>',
     '        <button style="width:32px;height:32px;border-radius:50%;background:#6360D8;border:none;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">',
     '          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
     '        </button>',
-    '        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0;">',
+    '        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;display:flex;align-items:center;gap:6px;flex-shrink:0;">',
     '          Active Filters',
     '          <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">0</span>',
     '        </button>',
     '        <div style="width:1px;height:20px;background:#e6e6e6;flex-shrink:0;"></div>',
-    '        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;flex-shrink:0;">Filter</button>',
+    '        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;flex-shrink:0;">Filter</button>',
     '      </div>',
     '',
     '      <!-- Main content body — all page content goes here -->',
@@ -1601,11 +1663,12 @@ function copyAiPrompt() {
     '- Light theme is default — generate with <html class="theme-light">.',
     '- Output complete, self-contained HTML files.',
     '',
-    'Now describe what you want to build.',
+    '---',
+    'Now describe what you want to build and I\'ll generate it using the design system above.',
   ].join('\n');
 
   function onCopied() {
-    showToast('success', 'AI prompt copied — paste at the start of your Claude session');
+    showToast('success', 'Prompt copied — paste it into any AI coding tool to get started');
     var btn = document.querySelector('[onclick="copyAiPrompt()"]');
     if (btn) {
       var orig = btn.innerHTML;
@@ -1647,6 +1710,26 @@ function copyShellTemplate() {
     '    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }',
     '    body { font-family: \'Inter\', sans-serif; background: #F7F9FC; color: #101010; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }',
     '    a { text-decoration: none; } button { font-family: inherit; cursor: pointer; }',
+    '    /* ── Left nav collapse ── */',
+    '    #shell-nav { transition: width 0.22s ease, padding 0.22s ease; }',
+    '    #shell-nav.nav-collapsed { width: 52px !important; padding: 16px 8px !important; overflow: hidden; }',
+    '    #shell-nav.nav-collapsed .nav-hdr-info { display: none; }',
+    '    #shell-nav.nav-collapsed .nav-hdr { flex-direction: column; align-items: center; border-bottom: none !important; padding-bottom: 6px; margin-bottom: 0; }',
+    '    #shell-nav.nav-collapsed .nav-row { justify-content: center; }',
+    '    #shell-nav.nav-collapsed .nav-lbl { display: none; }',
+    '    #shell-nav.nav-collapsed .nav-chev { display: none; }',
+    '    #shell-nav.nav-collapsed .nav-sub { display: none; }',
+    '    #shell-nav.nav-collapsed .nav-sub.nav-active { display: flex; justify-content: center; padding: 7px 8px !important; background: rgba(99,96,216,0.08); border-radius: 6px; }',
+    '    #shell-nav.nav-collapsed .nav-sub.nav-active .nav-lbl { display: none; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover { width: 220px !important; padding: 16px !important; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-hdr-info { display: block; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-hdr { flex-direction: row; align-items: flex-start; border-bottom: 1px solid #467fcd !important; padding-bottom: 8px; margin-bottom: 12px; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-row { justify-content: space-between; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-lbl { display: flex; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-chev { display: block; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-sub { display: flex; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-sub.nav-active { padding: 8px 8px 8px 30px !important; }',
+    '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-sub.nav-active .nav-lbl { display: flex; }',
     '  </style>',
     '</head>',
     '<body>',
@@ -1660,39 +1743,58 @@ function copyShellTemplate() {
     '      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
     '    </button>',
     '    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>',
-    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 14px;border-radius:44px;">Navigator</button>',
+    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:5px 14px;border-radius:44px;">Navigator</button>',
     '  </div>',
     '',
     '  <!-- SHELL -->',
     '  <div style="display:flex;flex:1;overflow:hidden;">',
     '',
-    '    <!-- LEFT NAV -->',
-    '    <nav style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;">',
-    '      <div style="padding:12px 12px 10px;border-bottom:1px solid #e6e6e6;flex-shrink:0;">',
-    '        <div style="display:flex;align-items:center;justify-content:space-between;">',
-    '          <div>',
-    '            <div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#101010;">',
-    '              Dashboard Name',
-    '              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
-    '            </div>',
-    '            <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">Module / Product Area</div>',
+    '    <!-- LEFT NAV — collapsible to 52px icon rail; hover expands; button click collapses immediately -->',
+    '    <nav id="shell-nav" style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;padding:16px;gap:0;">',
+    '      <!-- Nav header: blue accent bottom border -->',
+    '      <div class="nav-hdr" style="display:flex;align-items:flex-start;justify-content:space-between;padding:0 8px 8px 12px;border-bottom:1px solid #467fcd;margin-bottom:12px;flex-shrink:0;">',
+    '        <div class="nav-hdr-info">',
+    '          <div style="display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:#101010;">',
+    '            Dashboard Name',
+    '            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
     '          </div>',
-    '          <button style="background:none;border:none;color:#6e6e6e;padding:4px;display:flex;align-items:center;">',
-    '            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
-    '          </button>',
+    '          <div style="font-size:12px;color:#6e6e6e;margin-top:2px;">Module / Product Area</div>',
     '        </div>',
+    '        <!-- Collapse toggle: click to collapse to icon rail -->',
+    '        <button id="shell-nav-btn" onclick="shellNavToggle()" style="background:none;border:none;color:#6e6e6e;padding:0;cursor:pointer;display:flex;align-items:center;" title="Collapse sidebar">',
+    '          <svg id="shell-nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="15 8 11 12 15 16"/></svg>',
+    '        </button>',
     '      </div>',
-    '      <div style="padding:8px 0;flex:1;">',
-    '        <!-- Active nav item -->',
-    '        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;background:rgba(99,96,216,0.08);color:#6360D8;font-size:13px;font-weight:500;">',
-    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>',
-    '          Active Item',
-    '        </a>',
-    '        <!-- Default nav item -->',
-    '        <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">',
-    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><!-- icon --></svg>',
-    '          Nav Item',
-    '        </a>',
+    '      <!-- Nav items -->',
+    '      <div style="display:flex;flex-direction:column;gap:12px;flex:1;">',
+    '        <!-- Default nav item: icon+label left, chevron right -->',
+    '        <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#fff;cursor:pointer;">',
+    '          <div style="display:flex;align-items:center;gap:8px;">',
+    '            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><!-- icon --></svg>',
+    '            <span class="nav-lbl" style="display:flex;font-size:14px;color:#6e6e6e;font-weight:400;">Nav Item</span>',
+    '          </div>',
+    '          <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
+    '        </div>',
+    '        <!-- Expanded section: grey bg #f5f5f5, chevron flips up, GREY text — only active child gets blue -->',
+    '        <div>',
+    '          <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#f5f5f5;cursor:pointer;">',
+    '            <div style="display:flex;align-items:center;gap:8px;">',
+    '              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><!-- icon --></svg>',
+    '              <span class="nav-lbl" style="display:flex;font-size:14px;color:#6e6e6e;font-weight:400;">Active Section</span>',
+    '            </div>',
+    '            <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>',
+    '          </div>',
+    '          <!-- Active sub-item: indent 30px, #6360d8 + bg tint — parent stays grey. In collapsed rail: only this icon shows in accent color -->',
+    '          <a href="#" class="nav-sub nav-active" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;background:rgba(99,96,216,0.08);border-radius:6px;">',
+    '            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6360d8" stroke-width="2"><!-- icon --></svg>',
+    '            <span class="nav-lbl" style="display:flex;font-size:14px;color:#6360d8;font-weight:400;">Active Sub Item</span>',
+    '          </a>',
+    '          <!-- Default sub-item -->',
+    '          <a href="#" class="nav-sub" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;">',
+    '            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><!-- icon --></svg>',
+    '            <span class="nav-lbl" style="display:flex;font-size:14px;color:#6e6e6e;font-weight:400;">Sub Item</span>',
+    '          </a>',
+    '        </div>',
     '      </div>',
     '    </nav>',
     '',
@@ -1708,19 +1810,19 @@ function copyShellTemplate() {
     '            <span style="color:#6360D8;">Current Page</span>',
     '          </div>',
     '        </div>',
-    '        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">',
+    '        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:5px 14px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">',
     '          Explore in <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>',
     '        </button>',
     '        <span style="flex:1;"></span>',
     '        <button style="width:32px;height:32px;border-radius:50%;background:#6360D8;border:none;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">',
     '          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
     '        </button>',
-    '        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:6px;flex-shrink:0;">',
+    '        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;display:flex;align-items:center;gap:6px;flex-shrink:0;">',
     '          Active Filters',
     '          <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">0</span>',
     '        </button>',
     '        <div style="width:1px;height:20px;background:#e6e6e6;flex-shrink:0;"></div>',
-    '        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;flex-shrink:0;">Filter</button>',
+    '        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;flex-shrink:0;">Filter</button>',
     '      </div>',
     '',
     '      <!-- Main content -->',
@@ -1730,6 +1832,27 @@ function copyShellTemplate() {
     '',
     '    </div>',
     '  </div>',
+    '',
+    '  <script>',
+    '    function shellNavToggle() {',
+    '      var nav = document.getElementById(\'shell-nav\');',
+    '      var icon = document.getElementById(\'shell-nav-icon\');',
+    '      var btn = document.getElementById(\'shell-nav-btn\');',
+    '      if (!nav) return;',
+    '      var collapsed = nav.classList.toggle(\'nav-collapsed\');',
+    '      if (collapsed) {',
+    '        nav.classList.add(\'click-collapsed\');',
+    '        nav.addEventListener(\'mouseleave\', function onLeave() {',
+    '          nav.classList.remove(\'click-collapsed\');',
+    '          nav.removeEventListener(\'mouseleave\', onLeave);',
+    '        });',
+    '      }',
+    '      if (icon) icon.innerHTML = collapsed',
+    '        ? \'<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="11 8 15 12 11 16"/>\'',
+    '        : \'<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="15 8 11 12 15 16"/>\';',
+    '      if (btn) btn.title = collapsed ? \'Expand sidebar\' : \'Collapse sidebar\';',
+    '    }',
+    '  </script>',
     '</body>',
     '</html>',
   ].join('\n');

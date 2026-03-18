@@ -159,6 +159,7 @@
         Screen Shell
       </div>
     </div>
+
   </nav>
 
   <!-- Main Content -->
@@ -166,111 +167,140 @@
 
     <!-- HOME PAGE -->
 <div class="page active" id="page-home">
-  <div class="ds-home-hero" id="ds-home-hero">
+  <div class="ds-home-intro" id="ds-home-hero">
 
-    <!-- Decorative floating chips -->
-    <div class="ds-hero-deco" aria-hidden="true">
-      <span class="ds-hero-chip" style="top:14%;left:4%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>Button
-      </span>
-      <span class="ds-hero-chip accent" style="top:38%;left:2%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Badge
-      </span>
-      <span class="ds-hero-chip" style="top:62%;left:5%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18"/></svg>Table
-      </span>
-      <span class="ds-hero-chip" style="top:80%;left:3%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Chart
-      </span>
-      <span class="ds-hero-chip accent" style="top:14%;right:4%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="9" height="9" rx="2"/><rect x="13" y="3" width="9" height="9" rx="2"/></svg>KPI Card
-      </span>
-      <span class="ds-hero-chip" style="top:38%;right:2%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Modal
-      </span>
-      <span class="ds-hero-chip" style="top:62%;right:5%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="8" cy="12" r="3" fill="currentColor" stroke="none"/></svg>Toggle
-      </span>
-      <span class="ds-hero-chip accent" style="top:80%;right:3%;">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>Token
-      </span>
-    </div>
+    <!-- Hero: two-column -->
+    <div class="ds-home-hero">
 
-    <div class="ds-home-hero-content">
-    <div class="ds-home-badge">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Prevalent AI · Design System v2.5
-    </div>
-    <h1 class="ds-home-title">Build <span class="accent-word">consistent.</span><br>Ship faster.</h1>
-    <p class="ds-home-subtitle">The single source of truth for all UI patterns, tokens, and components used across Prevalent AI products. Every decision documented. Every component live.</p>
-    <div class="ds-home-stats">
-      <div class="ds-home-stat"><span class="ds-home-stat-num">25+</span><span class="ds-home-stat-label">Components</span></div>
-      <div class="ds-home-stat-divider"></div>
-      <div class="ds-home-stat"><span class="ds-home-stat-num">30+</span><span class="ds-home-stat-label">Design Tokens</span></div>
-      <div class="ds-home-stat-divider"></div>
-      <div class="ds-home-stat"><span class="ds-home-stat-num">2</span><span class="ds-home-stat-label">Theme Modes</span></div>
-      <div class="ds-home-stat-divider"></div>
-      <div class="ds-home-stat"><span class="ds-home-stat-num">1024px+</span><span class="ds-home-stat-label">Min Resolution</span></div>
-    </div>
-    </div><!-- /ds-home-hero-content -->
-  </div>
-
-  <!-- Usage Guide -->
-  <div class="ds-usage-guide">
-    <div class="ds-usage-guide-header">
-      <div class="ds-usage-org-badge">
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
-        Organization Standard
+      <!-- Left: text + stats -->
+      <div class="ds-hero-left">
+        <div class="ds-home-badge">
+          <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+          Prevalent AI · Design System v2.5
+        </div>
+        <h1 class="ds-home-title">Build <span class="accent-word">consistent</span> UI.<br>Ship faster.</h1>
+        <p class="ds-home-subtitle">The single source of truth for all UI patterns, tokens, and components at Prevalent AI. Every decision documented. Every component live.</p>
+        <div class="ds-home-stats">
+          <div class="ds-home-stat"><span class="ds-home-stat-num">25+</span><span class="ds-home-stat-label">Components</span></div>
+          <div class="ds-home-stat-divider"></div>
+          <div class="ds-home-stat"><span class="ds-home-stat-num">30+</span><span class="ds-home-stat-label">Design Tokens</span></div>
+          <div class="ds-home-stat-divider"></div>
+          <div class="ds-home-stat"><span class="ds-home-stat-num">2</span><span class="ds-home-stat-label">Theme Modes</span></div>
+          <div class="ds-home-stat-divider"></div>
+          <div class="ds-home-stat"><span class="ds-home-stat-num">1024px+</span><span class="ds-home-stat-label">Responsive</span></div>
+        </div>
       </div>
-      <h2>AI-generated dashboards start here</h2>
-      <p class="ds-usage-guide-subtitle">Copy the AI prompt below and paste it at the start of any Claude session — it contains everything Claude needs inline, no installation or files required.</p>
+
+      <!-- Right: live component preview -->
+      <div class="ds-hero-right">
+        <div class="ds-hero-preview">
+          <div class="ds-hp-label">Components</div>
+          <!-- Buttons -->
+          <div class="ds-hp-row">
+            <button style="background:#6360D8;border:none;color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Primary</button>
+            <button style="background:none;border:1px solid #cfcfcf;color:#6e6e6e;font-size:11px;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Outline</button>
+            <button style="background:rgba(99,96,216,0.08);border:none;color:#6360D8;font-size:11px;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Ghost</button>
+          </div>
+          <!-- Badges -->
+          <div class="ds-hp-row">
+            <span style="background:#d1fae5;color:#065f46;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Active</span>
+            <span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Warning</span>
+            <span style="background:#fee2e2;color:#991b1b;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Critical</span>
+            <span style="background:#ede9fe;color:#5b21b6;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Info</span>
+          </div>
+          <!-- KPI cards -->
+          <div class="ds-hp-row" style="gap:8px;align-items:stretch;">
+            <div style="flex:1;background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:10px 12px;">
+              <div style="font-size:10px;color:var(--shell-text-muted);margin-bottom:5px;">Total Assets</div>
+              <div style="font-size:17px;font-weight:700;color:var(--shell-text);line-height:1;">12,480</div>
+              <div style="font-size:10px;color:#31a56d;margin-top:5px;display:flex;align-items:center;gap:3px;">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg> 4.2%
+              </div>
+            </div>
+            <div style="flex:1;background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:10px 12px;">
+              <div style="font-size:10px;color:var(--shell-text-muted);margin-bottom:5px;">Critical CVEs</div>
+              <div style="font-size:17px;font-weight:700;color:#e15252;line-height:1;">247</div>
+              <div style="font-size:10px;color:#e15252;margin-top:5px;display:flex;align-items:center;gap:3px;">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg> 12.1%
+              </div>
+            </div>
+          </div>
+          <!-- Mini table -->
+          <div style="border:1px solid var(--card-border);border-radius:8px;overflow:hidden;">
+            <div style="display:grid;grid-template-columns:1fr 64px 64px;padding:6px 10px;background:var(--shell-raised);font-size:9px;font-weight:700;color:var(--shell-text-muted);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--card-border);">
+              <span>Asset</span><span>Risk</span><span>Status</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 64px 64px;padding:7px 10px;font-size:10px;color:var(--shell-text);background:var(--card-bg);">
+              <span style="color:var(--shell-text-muted);">192.168.1.1</span>
+              <span style="color:#e15252;font-weight:500;">Critical</span>
+              <span style="color:#31a56d;font-weight:500;">Active</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 64px 64px;padding:7px 10px;font-size:10px;color:var(--shell-text);border-top:1px solid var(--card-border);background:var(--card-bg);">
+              <span style="color:var(--shell-text-muted);">api.prod.io</span>
+              <span style="color:#f97316;font-weight:500;">High</span>
+              <span style="color:var(--shell-text-muted);">Resolved</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="ds-usage-steps">
-      <div class="ds-usage-step">
-        <div class="ds-usage-step-num">1</div>
-        <div class="ds-usage-step-title">Browse what exists</div>
-        <div class="ds-usage-step-desc">Use the left nav to explore all available components, tokens, and patterns. Understand what the system offers before prompting.</div>
+    <div class="ds-intro-rule"></div>
+
+    <!-- Usage Guide -->
+    <div class="ds-usage-guide">
+      <div class="ds-usage-guide-hdr">
+        <div>
+          <p class="ds-usage-label">How to use</p>
+          <p class="ds-usage-label-sub">Three steps to generate consistent, on-brand UI with any AI coding tool</p>
+        </div>
+        <button class="ds-btn t-primary sz-md" onclick="copyAiPrompt()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Copy Vibe Coding Prompt
+        </button>
       </div>
-      <div class="ds-usage-step-arrow">›</div>
-      <div class="ds-usage-step">
-        <div class="ds-usage-step-num">2</div>
-        <div class="ds-usage-step-title">Copy the AI prompt</div>
-        <div class="ds-usage-step-desc">Use the button below to copy the design system context. It's fully self-contained — tokens, component HTML, and rules are all embedded. No files needed.</div>
+      <div class="ds-usage-steps">
+        <div class="ds-usage-step">
+          <div class="ds-step-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <div class="ds-step-body">
+            <span class="ds-step-num">01</span>
+            <div class="ds-step-title">Browse the system</div>
+            <div class="ds-step-desc">Explore all components, tokens, and layout patterns. Know what's available before you prompt.</div>
+          </div>
+        </div>
+        <div class="ds-usage-step">
+          <div class="ds-step-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="ds-step-body">
+            <span class="ds-step-num">02</span>
+            <div class="ds-step-title">Copy the prompt</div>
+            <div class="ds-step-desc">Shell, tokens, 25+ patterns, and rules — all embedded. One click, no files needed.</div>
+          </div>
+        </div>
+        <div class="ds-usage-step">
+          <div class="ds-step-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div class="ds-step-body">
+            <span class="ds-step-num">03</span>
+            <div class="ds-step-title">Describe &amp; generate</div>
+            <div class="ds-step-desc">Paste into Cursor, Claude, v0, or Copilot. Tell it what to build. Consistent UI, every time.</div>
+          </div>
+        </div>
       </div>
-      <div class="ds-usage-step-arrow">›</div>
-      <div class="ds-usage-step">
-        <div class="ds-usage-step-num">3</div>
-        <div class="ds-usage-step-title">Describe &amp; generate</div>
-        <div class="ds-usage-step-desc">Tell Claude what to build. It will use the correct component classes, tokens, and layout patterns from this system automatically.</div>
+      <div class="ds-usage-chips">
+        <span class="ds-usage-chip-label">Prompt includes:</span>
+        <span class="ds-usage-chip">Screen shell &amp; layout</span>
+        <span class="ds-usage-chip">Design tokens</span>
+        <span class="ds-usage-chip">25+ component patterns</span>
+        <span class="ds-usage-chip">UI rules &amp; constraints</span>
       </div>
     </div>
 
-    <div class="ds-usage-files">
-      <span class="ds-usage-file-label">Design system files:</span>
-      <span class="ds-usage-file-pill">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        styles.css
-      </span>
-      <span class="ds-usage-file-pill">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        main.js
-      </span>
-      <span class="ds-usage-file-pill">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        index.html
-      </span>
-      <span style="font-size:12px;color:var(--shell-text-muted);margin-left:4px;">— Claude Code reads these to generate consistent UI</span>
-    </div>
-
-    <div class="ds-usage-actions">
-      <button class="ds-btn t-primary sz-md" onclick="copyAiPrompt()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Copy AI Prompt for Claude Code
-      </button>
-      <button class="ds-btn t-outline sz-md" onclick="document.querySelector('[data-page=colors]').click()">Browse Foundation</button>
-      <button class="ds-btn t-outline sz-md" onclick="document.querySelector('[data-page=buttons]').click()">View Components</button>
-    </div>
   </div>
 
   <div class="ds-home-section-title">Foundation</div>
@@ -2519,7 +2549,7 @@
           <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start;">
             <div>
               <div class="comp-card-header">Live example — click to expand/collapse</div>
-              <div class="ds-navmenu">
+              <div class="ds-navmenu" id="demo-navmenu">
                 <div class="ds-navmenu-header">
                   <div>
                     <div style="display:flex;align-items:center;gap:8px;">
@@ -2528,66 +2558,66 @@
                     </div>
                     <div style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">Exposure Management</div>
                   </div>
-                  <button class="ds-icon-btn" title="Collapse">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+                  <button class="ds-icon-btn" id="demo-nav-collapse-btn" title="Collapse to icon rail" onclick="dsNavMenuToggleCollapse()">
+                    <svg id="demo-nav-collapse-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="15 8 11 12 15 16"/></svg>
                   </button>
                 </div>
-                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-home-sub')">
+                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-home-sub')" title="Home">
                   <div class="ds-nav-label">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                    Home
+                    <span class="ds-nav-label-text">Home</span>
                   </div>
                   <svg class="ds-nav-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <div class="ds-nav-subitems" id="nav-home-sub"></div>
-                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-exposure-sub')">
+                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-exposure-sub')" title="Exposure">
                   <div class="ds-nav-label">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-                    Exposure
+                    <span class="ds-nav-label-text">Exposure</span>
                   </div>
                   <svg class="ds-nav-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <div class="ds-nav-subitems" id="nav-exposure-sub"></div>
-                <div class="ds-nav-item-row ds-nav-expanded" onclick="dsNavToggle(this,'nav-discover-sub')">
+                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-discover-sub')" title="Discover">
                   <div class="ds-nav-label">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    Discover
+                    <span class="ds-nav-label-text">Discover</span>
                   </div>
-                  <svg class="ds-nav-chevron ds-nav-chevron-open" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  <svg class="ds-nav-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
-                <div class="ds-nav-subitems" id="nav-discover-sub" style="display:flex;">
-                  <div class="ds-nav-sub-item ds-nav-sub-active">
+                <div class="ds-nav-subitems" id="nav-discover-sub">
+                  <div class="ds-nav-sub-item" onclick="dsNavSubSelect(this)">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/></svg>
-                    Device
+                    <span class="ds-nav-label-text">Device</span>
                   </div>
-                  <div class="ds-nav-sub-item">
+                  <div class="ds-nav-sub-item" onclick="dsNavSubSelect(this)">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
-                    Cloud
+                    <span class="ds-nav-label-text">Cloud</span>
                   </div>
                 </div>
-                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-report-sub')">
+                <div class="ds-nav-item-row" onclick="dsNavToggle(this,'nav-report-sub')" title="Report">
                   <div class="ds-nav-label">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    Report
+                    <span class="ds-nav-label-text">Report</span>
                   </div>
                   <svg class="ds-nav-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <div class="ds-nav-subitems" id="nav-report-sub"></div>
-                <div class="ds-nav-section-header ds-nav-item-row ds-nav-expanded" onclick="dsNavToggle(this,'nav-workspace-sub')">
+                <div class="ds-nav-section-header ds-nav-item-row ds-nav-expanded" onclick="dsNavToggle(this,'nav-workspace-sub')" title="Workspace">
                   <div class="ds-nav-label">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
-                    Workspace
+                    <span class="ds-nav-label-text">Workspace</span>
                   </div>
                   <svg class="ds-nav-chevron ds-nav-chevron-open" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
                 <div class="ds-nav-subitems" id="nav-workspace-sub" style="display:flex;">
-                  <div class="ds-nav-sub-item ds-nav-sub-active">
+                  <div class="ds-nav-sub-item ds-nav-sub-active" onclick="dsNavSubSelect(this)">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                    Dashboard
+                    <span class="ds-nav-label-text">Dashboard</span>
                   </div>
-                  <div class="ds-nav-sub-item">
+                  <div class="ds-nav-sub-item" onclick="dsNavSubSelect(this)">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    Report
+                    <span class="ds-nav-label-text">Report</span>
                   </div>
                 </div>
               </div>
@@ -2595,11 +2625,11 @@
             <div style="flex:1;min-width:240px;">
               <div class="comp-card-header">Item states</div>
               <div class="ds-navmenu" style="max-width:220px;gap:4px;">
-                <div class="ds-nav-item-row"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Default</div></div>
-                <div class="ds-nav-item-row" style="background:var(--shell-hover);"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Hover</div></div>
-                <div class="ds-nav-section-header ds-nav-item-row"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Section Header</div></div>
-                <div class="ds-nav-sub-item" style="padding-left:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Sub-item Default</div>
-                <div class="ds-nav-sub-item ds-nav-sub-active" style="padding-left:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Sub-item Active</div>
+                <div class="ds-nav-item-row"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Default</div></div>
+                <div class="ds-nav-item-row" style="background:var(--shell-hover);"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Hover</div></div>
+                <div class="ds-nav-section-header ds-nav-item-row"><div class="ds-nav-label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Section Header</div></div>
+                <div class="ds-nav-sub-item" style="padding-left:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Sub-item Default</div>
+                <div class="ds-nav-sub-item ds-nav-sub-active" style="padding-left:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Sub-item Active</div>
               </div>
               <div class="chart-doc" style="margin-top:20px;">
                 <div class="chart-doc-block">
@@ -3245,45 +3275,78 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" style="margin-left:-4px;margin-top:-4px;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             </div>
             <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;">A</div>
-            <div style="background:#6360D8;color:#fff;font-size:12px;font-weight:500;padding:6px 14px;border-radius:44px;white-space:nowrap;">Navigator</div>
+            <div style="background:#6360D8;color:#fff;font-size:12px;font-weight:500;padding:5px 14px;border-radius:44px;white-space:nowrap;">Navigator</div>
           </div>
           <!-- SHELL -->
           <div style="display:flex;height:836px;">
             <!-- LEFT NAV -->
-            <div style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;flex-shrink:0;display:flex;flex-direction:column;">
-              <div style="padding:12px 12px 10px;border-bottom:1px solid #e6e6e6;">
-                <div style="display:flex;align-items:center;justify-content:space-between;">
-                  <div>
-                    <div style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:#101010;">EM Dashboard <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-                    <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">Exposure Management</div>
+            <nav style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;padding:16px;gap:0;">
+              <!-- Section header with blue accent border -->
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:0 8px 8px 12px;border-bottom:1px solid #467fcd;margin-bottom:12px;flex-shrink:0;">
+                <div>
+                  <div style="font-size:14px;font-weight:500;color:#101010;line-height:1.3;">EM Dashboard</div>
+                  <div style="font-size:11px;color:#6e6e6e;margin-top:2px;">Exposure Management</div>
+                </div>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2" style="margin-top:2px;flex-shrink:0;"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <!-- Nav items -->
+              <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
+                <!-- Home (default item) -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;cursor:pointer;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span style="font-size:14px;color:#6e6e6e;">Home</span>
                   </div>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </div>
+                <!-- Exposure (expanded section) -->
+                <div style="display:flex;flex-direction:column;gap:0;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;background:#f5f5f5;cursor:pointer;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                      <span style="font-size:14px;color:#6e6e6e;">Exposure</span>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                  </div>
+                  <!-- Sub-items -->
+                  <div style="display:flex;flex-direction:column;gap:2px;margin-top:4px;">
+                    <div style="padding:5px 8px 5px 30px;font-size:14px;color:#6360d8;font-weight:500;border-radius:6px;background:rgba(99,96,216,0.08);">Overview</div>
+                    <div style="padding:5px 8px 5px 30px;font-size:14px;color:#6e6e6e;border-radius:6px;">Findings</div>
+                  </div>
+                </div>
+                <!-- Discover -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;cursor:pointer;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span style="font-size:14px;color:#6e6e6e;">Discover</span>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <!-- Report -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;cursor:pointer;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    <span style="font-size:14px;color:#6e6e6e;">Report</span>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <!-- Knowledge Graph -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;cursor:pointer;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <span style="font-size:14px;color:#6e6e6e;">Knowledge Graph</span>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <!-- Data Quality -->
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;border-radius:6px;cursor:pointer;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    <span style="font-size:14px;color:#6e6e6e;">Data Quality</span>
+                  </div>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </div>
               </div>
-              <div style="padding:8px 0;">
-                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;background:rgba(99,96,216,0.08);color:#6360D8;font-size:13px;font-weight:500;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#101010;font-size:13px;font-weight:500;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                  Exposure <svg style="margin-left:auto;" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </div>
-                <div style="display:flex;align-items:center;padding:7px 12px 7px 36px;margin:1px 8px;border-radius:6px;color:#6360D8;background:rgba(99,96,216,0.05);font-size:12px;">Overview</div>
-                <div style="display:flex;align-items:center;padding:7px 12px 7px 36px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:12px;">Findings</div>
-                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Discover
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Report
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Knowledge Graph
-                </div>
-                <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;margin:1px 8px;border-radius:6px;color:#6e6e6e;font-size:13px;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Data Quality
-                </div>
-              </div>
-            </div>
+            </nav>
             <!-- CONTENT -->
             <div style="flex:1;background:#f7f9fc;display:flex;flex-direction:column;">
               <!-- Sub-header -->
@@ -3294,17 +3357,17 @@
                     <span>Dashboard</span><span>›</span><span>Exposure</span><span>›</span><span style="color:#6360D8;">Overview</span>
                   </div>
                 </div>
-                <div style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:5px;">Explore in <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                <div style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:5px 14px;display:flex;align-items:center;gap:5px;">Explore in <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
                 <span style="flex:1;"></span>
                 <div style="width:30px;height:30px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
                 </div>
-                <div style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:5px;">
+                <div style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;display:flex;align-items:center;gap:5px;">
                   Active Filters
                   <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:15px;height:15px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 3px;">3</span>
                 </div>
                 <div style="width:1px;height:20px;background:#e6e6e6;"></div>
-                <div style="background:#e0dff7;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;">Filter</div>
+                <div style="background:#e0dff7;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;">Filter</div>
               </div>
               <!-- Body placeholder -->
               <div style="flex:1;padding:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-content:start;">
@@ -3353,17 +3416,17 @@
             <span>Dashboard</span><span>›</span><span>Section</span><span>›</span><span style="color:#6360D8;">Current Page</span>
           </div>
         </div>
-        <div style="border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:4px 12px;display:flex;align-items:center;gap:5px;">Explore in <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div style="border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:5px 14px;display:flex;align-items:center;gap:5px;">Explore in <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
         <span style="flex:1;"></span>
         <div style="width:30px;height:30px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </div>
-        <div style="border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 10px;display:flex;align-items:center;gap:5px;">
+        <div style="border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;display:flex;align-items:center;gap:5px;">
           Active Filters
           <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">3</span>
         </div>
         <div style="width:1px;height:20px;background:#e6e6e6;"></div>
-        <div style="background:#e0dff7;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:6px 16px;">Filter</div>
+        <div style="background:#e0dff7;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;">Filter</div>
       </div>
     </div>
   </div>
