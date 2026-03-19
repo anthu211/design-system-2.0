@@ -102,7 +102,7 @@ All values are CSS custom properties. Use these names consistently so dark/light
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
     </button>
     <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>
-    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:5px 14px;border-radius:44px;">Navigator</button>
+    <button style="background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;border:1px solid #b1b8f5;border-radius:44px;font-size:12px;font-weight:500;padding:5px 14px;font-family:inherit;cursor:pointer;">Navigator</button>
   </div>
 
   <!-- ── SHELL: sidebar + content ── -->
@@ -343,6 +343,11 @@ Each item is `justify-content:space-between` — icon+label on the left, chevron
   Label
 </button>
 
+<!-- Primary Special — gradient text pill (use for Navigator, hero CTAs) -->
+<button style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;border:1px solid #b1b8f5;border-radius:44px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;">
+  Label
+</button>
+
 <!-- Outline — pill -->
 <button style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:transparent;color:#6360D8;border:1px solid #6360D8;border-radius:44px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer;">
   Label
@@ -451,26 +456,38 @@ Each item is `justify-content:space-between` — icon+label on the left, chevron
 ---
 
 ### Badge / Status Tag
+
+Status badge colors differ between light and dark themes. Always use the correct set for the page theme.
+
+**Light theme (default):**
 ```html
 <!-- Success / Active -->
-<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#192C15;color:#31A56D;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">
+<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#EFF7ED;color:#1A7D4D;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">
   <span style="width:5px;height:5px;border-radius:50%;background:#31A56D;flex-shrink:0;"></span>Active
 </span>
 
 <!-- Danger / Critical -->
-<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#260808;color:#D12329;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Critical</span>
+<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#F9EEEE;color:#D12329;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Critical</span>
 
 <!-- Warning -->
-<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#2C2613;color:#D98B1D;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Warning</span>
+<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#F2EDDB;color:#D98B1D;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Warning</span>
 
 <!-- Caution / Yellow -->
-<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#514B09;color:#CDB900;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Caution</span>
+<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#F7F6EB;color:#CDB900;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Caution</span>
 
 <!-- Neutral / Info -->
-<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:var(--shell-raised);color:var(--shell-text-muted);border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Inactive</span>
+<span style="display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:#F5F5F5;color:#6E6E6E;border-radius:20px;font-size:11px;font-weight:500;white-space:nowrap;">Inactive</span>
 
 <!-- Count badge (number pill) -->
 <span style="display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;background:#6360D8;color:#fff;border-radius:20px;font-size:11px;font-weight:600;">4</span>
+```
+
+**Dark theme (html without class="theme-light"):**
+```html
+<!-- Active --> <span style="...background:#192C15;color:#31A56D;...">Active</span>
+<!-- Critical --> <span style="...background:#260808;color:#D12329;...">Critical</span>
+<!-- Warning --> <span style="...background:#2C2613;color:#D98B1D;...">Warning</span>
+<!-- Caution --> <span style="...background:#514B09;color:#CDB900;...">Caution</span>
 ```
 
 ---
@@ -637,6 +654,74 @@ function switchTab(btn, targetId) {
 
 ---
 
+### Chart Tooltip
+
+Shown on hover over any chart element (bar, donut segment, line dot, horizontal bar row). The tooltip floats below the cursor with a caret arrow at the top pointing up toward the chart.
+
+**Structure:**
+- `border: 1px solid <series-color>` — matches the hovered bar/segment/line color
+- `border-radius: 8px`, `background: var(--card-bg)`, `padding: 12px 13px`, `min-width: 180px`
+- Arrow caret at top-center: outer triangle in series color, inner triangle in `var(--card-bg)` to create outlined effect
+- Title row: group/label name, `font-size: 14px`, `font-weight: 600`, `color: var(--shell-text)`
+- Data rows: colored dot (8px circle) + label left-aligned · value right-aligned, `font-size: 14px`, `font-weight: 500`
+- **Hovered series row**: label + value `font-weight: 700`, value `color: <series-color>`
+
+**Behavior by chart type:**
+- **Grouped bar chart**: title = x-axis group label (e.g. "Jan"); rows = all series for that group; active row = hovered bar's series
+- **Donut chart**: title = segment label; rows = Value + Share %; active row = Share
+- **Line chart**: title = x-axis label; row = metric name + value; active
+- **Horizontal bar**: title = bar label; row = Count + value; active
+
+```html
+<!-- Place once at end of <body> -->
+<div id="chart-tooltip" style="position:fixed;z-index:1000;pointer-events:none;display:none;
+     background:var(--card-bg);border-radius:8px;padding:12px 13px;min-width:180px;
+     box-shadow:0 4px 16px rgba(0,0,0,0.14);font-family:inherit;">
+</div>
+
+<script>
+var _ctEl = null;
+function _ct() { if (!_ctEl) _ctEl = document.getElementById('chart-tooltip'); return _ctEl; }
+
+function showChartTooltip(e, title, rows, borderColor) {
+  var el = _ct(); if (!el) return;
+  var rowsHtml = rows.map(function(r) {
+    var dot = r.color ? '<span style="width:8px;height:8px;border-radius:50%;background:' + r.color + ';flex-shrink:0;display:inline-block;"></span>' : '';
+    var active = r.active;
+    var fw = active ? '700' : '500';
+    var vc = active ? r.color : 'inherit';
+    return '<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:14px;font-weight:' + fw + ';color:var(--shell-text);white-space:nowrap;">' +
+      '<span style="display:flex;align-items:center;gap:6px;">' + dot + r.label + '</span>' +
+      '<span style="color:' + vc + ';">' + r.value + '</span></div>';
+  }).join('');
+  el.innerHTML =
+    '<div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid ' + borderColor + ';"></div>' +
+    '<div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid var(--card-bg);"></div>' +
+    '<div style="font-size:14px;font-weight:600;color:var(--shell-text);margin-bottom:8px;">' + title + '</div>' +
+    '<div style="display:flex;flex-direction:column;gap:11px;">' + rowsHtml + '</div>';
+  el.style.border = '1px solid ' + borderColor;
+  el.style.display = 'block';
+  positionChartTooltip(e);
+}
+function positionChartTooltip(e) {
+  var el = _ct(); if (!el || el.style.display === 'none') return;
+  var x = e.clientX - el.offsetWidth / 2, y = e.clientY + 18;
+  if (x + el.offsetWidth > window.innerWidth - 8) x = window.innerWidth - el.offsetWidth - 8;
+  if (x < 8) x = 8;
+  if (y + el.offsetHeight > window.innerHeight - 8) y = e.clientY - el.offsetHeight - 18;
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+}
+function hideChartTooltip() { var el = _ct(); if (el) el.style.display = 'none'; }
+
+// Attach to SVG bars:
+// bar.addEventListener('mouseover', function(e) { showChartTooltip(e, groupLabel, rows, color); });
+// bar.addEventListener('mousemove', positionChartTooltip);
+// bar.addEventListener('mouseleave', hideChartTooltip);
+</script>
+```
+
+---
+
 ### Toast Notification
 ```html
 <!-- Place at end of body. Show by adding to #toast-container via JS -->
@@ -722,14 +807,14 @@ Code:           font-family:'SFMono-Regular',Consolas,monospace; font-size:12px;
 
 ## Status Colors (semantic)
 
-| Status   | Background | Text     |
-|----------|------------|----------|
-| Active   | `#192C15`  | `#31A56D`|
-| Warning  | `#2C2613`  | `#D98B1D`|
-| Critical | `#260808`  | `#D12329`|
-| Caution  | `#514B09`  | `#CDB900`|
-| Info     | `rgba(99,96,216,0.1)` | `#6360D8` |
-| Neutral  | `var(--shell-raised)` | `var(--shell-text-muted)` |
+| Status   | Light BG   | Light Text | Dark BG    | Dark Text  |
+|----------|------------|------------|------------|------------|
+| Active   | `#EFF7ED`  | `#1A7D4D`  | `#192C15`  | `#31A56D`  |
+| Warning  | `#F2EDDB`  | `#D98B1D`  | `#2C2613`  | `#D98B1D`  |
+| Critical | `#F9EEEE`  | `#D12329`  | `#260808`  | `#D12329`  |
+| Caution  | `#F7F6EB`  | `#CDB900`  | `#514B09`  | `#CDB900`  |
+| Info     | `rgba(99,96,216,0.1)` | `#6360D8` | `rgba(99,96,216,0.1)` | `#6360D8` |
+| Neutral  | `#F5F5F5`  | `#6E6E6E`  | `var(--shell-raised)` | `var(--shell-text-muted)` |
 
 ---
 
@@ -751,9 +836,13 @@ Code:           font-family:'SFMono-Regular',Consolas,monospace; font-size:12px;
     - Large: `padding:11px 28px; font-size:14px`
     - Icon-only: `width:32px; height:32px; border-radius:50%`
     - Shell buttons (topbar Navigator, sub-header Explore/Filter): always Small size
+    - **Navigator button** uses Primary Special style: gradient text `#467fcd → #47adcb`, `border:1px solid #b1b8f5`
+14. **Badge colors depend on theme** — use light theme colors (`#EFF7ED`, `#F9EEEE`, `#F2EDDB`, `#F7F6EB`) for light pages; dark colors (`#192C15`, `#260808`, `#2C2613`, `#514B09`) for dark pages.
 12. **Nav item rules:**
     - Icon size: 18px · Label: 14px · Icon-label gap: 8px · Chevron always on right
     - Expanded parent: `background:#f5f5f5`, text `#6e6e6e` — never blue
     - Active sub-item only: `color:#6360D8`, `background:rgba(99,96,216,0.08)`, `padding-left:30px`
     - Only ONE item can be active at a time — accordion behavior
 13. **Cards:** `border-radius:12px`, `border:1px solid var(--card-border)`, `background:var(--card-bg)`
+14. **Badge colors depend on theme** — use light theme colors (`#EFF7ED`, `#F9EEEE`, `#F2EDDB`, `#F7F6EB`) for light pages; dark colors (`#192C15`, `#260808`, `#2C2613`, `#514B09`) for dark pages.
+15. **Chart tooltips are mandatory** on all chart hovers (bars, donut segments, line dots, horizontal bar rows). Border + dot + active-value color must match the hovered series color. Include `#chart-tooltip` div and the three tooltip functions (`showChartTooltip`, `positionChartTooltip`, `hideChartTooltip`) in every file with charts.

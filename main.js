@@ -347,6 +347,45 @@ document.querySelectorAll('.ds-textarea-field[data-max]').forEach(function(ta) {
 // ─── Charts ───
 var CHART_COLORS = ['#6760d8', '#47adcb', '#2fa76d', '#d12329', '#f59e0b'];
 
+// ─── Chart Tooltip ───────────────────────────────────────────────────────────
+var _ctEl = null;
+function _ct() { if (!_ctEl) _ctEl = document.getElementById('chart-tooltip'); return _ctEl; }
+
+function showChartTooltip(e, title, rows, borderColor) {
+  var el = _ct(); if (!el) return;
+  var rowsHtml = rows.map(function(r) {
+    var dot = r.color ? '<span class="ct-dot" style="background:' + r.color + ';"></span>' : '';
+    var valStyle = r.active ? 'color:' + r.color + ';' : '';
+    return '<div class="ct-row' + (r.active ? ' ct-active' : '') + '">' +
+      '<span class="ct-label">' + dot + r.label + '</span>' +
+      '<span class="ct-val" style="' + valStyle + '">' + r.value + '</span>' +
+    '</div>';
+  }).join('');
+  el.innerHTML =
+    '<div class="ct-arrow-outer" style="border-bottom:7px solid ' + borderColor + ';"></div>' +
+    '<div class="ct-arrow-inner"></div>' +
+    '<div class="ct-title">' + title + '</div>' +
+    '<div class="ct-rows">' + rowsHtml + '</div>';
+  el.style.border = '1px solid ' + borderColor;
+  el.style.display = 'block';
+  positionChartTooltip(e);
+}
+
+function positionChartTooltip(e) {
+  var el = _ct(); if (!el || el.style.display === 'none') return;
+  var tw = el.offsetWidth, th = el.offsetHeight;
+  var x = e.clientX - tw / 2;
+  var y = e.clientY + 18;
+  var vw = window.innerWidth, vh = window.innerHeight;
+  if (x + tw > vw - 8) x = vw - tw - 8;
+  if (x < 8) x = 8;
+  if (y + th > vh - 8) y = e.clientY - th - 18;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+}
+
+function hideChartTooltip() { var el = _ct(); if (el) el.style.display = 'none'; }
+
 function polarToCartesian(cx, cy, r, angleDeg) {
   var rad = (angleDeg - 90) * Math.PI / 180;
   return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
@@ -371,11 +410,25 @@ function buildDonutChart(containerId, data, size) {
     var endAngle = startAngle + sweep - 8;
     var path = describeArc(cx, cy, outerR - strokeW / 2, startAngle, endAngle);
     startAngle += sweep;
-    return '<path d="' + path + '" fill="none" stroke="' + CHART_COLORS[i % CHART_COLORS.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round"><title>' + d.label + ': ' + d.value + '</title></path>';
+    return '<path d="' + path + '" fill="none" stroke="' + CHART_COLORS[i % CHART_COLORS.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round" style="cursor:pointer;" data-di="' + i + '"></path>';
   }).join('');
   var el = document.getElementById(containerId);
   if (!el) return;
   el.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" style="overflow:visible;">' + paths + '</svg>';
+  var total = data.reduce(function(s, d) { return s + d.value; }, 0);
+  el.querySelectorAll('path[data-di]').forEach(function(path) {
+    var i = parseInt(path.dataset.di);
+    var d = data[i], color = CHART_COLORS[i % CHART_COLORS.length];
+    var pct = Math.round(d.value / total * 100) + '%';
+    path.addEventListener('mouseover', function(e) {
+      showChartTooltip(e, d.label, [
+        { label: 'Value', value: d.value.toLocaleString(), color: color, active: false },
+        { label: 'Share', value: pct, color: color, active: true }
+      ], color);
+    });
+    path.addEventListener('mousemove', positionChartTooltip);
+    path.addEventListener('mouseleave', hideChartTooltip);
+  });
 }
 
 function buildVerticalBarChart(containerId, series, groups, colors) {
@@ -416,7 +469,7 @@ function buildVerticalBarChart(containerId, series, groups, colors) {
       var bh = Math.max(2, (v / yMax) * innerH);
       var bx = startX + si * (barW + barGap);
       var by = pad.top + innerH - bh;
-      bars += '<rect x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh + '" fill="' + (colors[si] || CHART_COLORS[si]) + '" rx="2" class="chart-bar"><title>' + s.label + ' (' + grp + '): ' + v + '</title></rect>';
+      bars += '<rect x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh + '" fill="' + (colors[si] || CHART_COLORS[si]) + '" rx="2" class="chart-bar" data-gi="' + gi + '" data-si="' + si + '"></rect>';
     });
     xLabels += '<text x="' + groupCX + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + grp + '</text>';
   });
@@ -426,6 +479,19 @@ function buildVerticalBarChart(containerId, series, groups, colors) {
 
   el.innerHTML = '<svg class="chart-bar-svg" width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
     gridLines + axes + bars + yLabels + xLabels + '</svg>';
+
+  el.querySelectorAll('.chart-bar').forEach(function(bar) {
+    bar.addEventListener('mouseover', function(e) {
+      var gi = parseInt(this.dataset.gi), si = parseInt(this.dataset.si);
+      var color = colors[si] || CHART_COLORS[si];
+      var rows = series.map(function(s, idx) {
+        return { label: s.label, value: s.values[gi].toLocaleString(), color: colors[idx] || CHART_COLORS[idx], active: idx === si };
+      });
+      showChartTooltip(e, groups[gi], rows, color);
+    });
+    bar.addEventListener('mousemove', positionChartTooltip);
+    bar.addEventListener('mouseleave', hideChartTooltip);
+  });
 }
 
 function buildLineChart(containerId, data, labels) {
@@ -466,7 +532,7 @@ function buildLineChart(containerId, data, labels) {
   var dots = data.map(function(v, i) {
     var x = (pad.left + i * step).toFixed(1);
     var y = (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
-    return '<circle cx="' + x + '" cy="' + y + '" r="3.5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5"><title>' + labels[i] + ': ' + v + '</title></circle>';
+    return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" style="cursor:pointer;" data-li="' + i + '"></circle>';
   }).join('');
 
   var axes = '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
@@ -478,6 +544,16 @@ function buildLineChart(containerId, data, labels) {
     '<polygon points="' + areaPts + '" fill="url(#lg1)"/>' +
     '<polyline points="' + pts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
     dots + xLabels + yLabels + '</svg>';
+  el.querySelectorAll('circle[data-li]').forEach(function(circle) {
+    var i = parseInt(circle.dataset.li);
+    circle.addEventListener('mouseover', function(e) {
+      showChartTooltip(e, labels[i], [
+        { label: 'Total Findings', value: data[i].toLocaleString(), color: '#6760d8', active: true }
+      ], '#6760d8');
+    });
+    circle.addEventListener('mousemove', positionChartTooltip);
+    circle.addEventListener('mouseleave', hideChartTooltip);
+  });
 }
 
 function initCharts() {
@@ -501,6 +577,23 @@ function initCharts() {
     [24, 38, 30, 52, 47, 61, 55, 73, 68, 82, 76, 90],
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   );
+  // Horizontal bar chart hover
+  document.querySelectorAll('.css-hbar-row').forEach(function(row) {
+    var bar = row.querySelector('.css-hbar');
+    var labelEl = row.querySelector('.css-hbar-label');
+    var valEl = row.querySelector('.css-hbar-val');
+    if (!bar || !labelEl || !valEl) return;
+    var color = bar.style.background;
+    var label = labelEl.textContent.trim();
+    var value = valEl.textContent.trim();
+    row.addEventListener('mouseover', function(e) {
+      showChartTooltip(e, label, [
+        { label: 'Count', value: value, color: color, active: true }
+      ], color);
+    });
+    row.addEventListener('mousemove', positionChartTooltip);
+    row.addEventListener('mouseleave', hideChartTooltip);
+  });
 }
 
 // ─── Icons ───
@@ -1581,7 +1674,7 @@ function copyAiPrompt() {
     '      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
     '    </button>',
     '    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>',
-    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:5px 14px;border-radius:44px;">Navigator</button>',
+    '    <button style="background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;border:1px solid #b1b8f5;border-radius:44px;font-size:12px;font-weight:500;padding:5px 14px;font-family:inherit;cursor:pointer;">Navigator</button>',
     '  </div>',
     '',
     '  <!-- SHELL -->',
@@ -1743,7 +1836,7 @@ function copyShellTemplate() {
     '      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
     '    </button>',
     '    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>',
-    '    <button style="background:#6360D8;border:none;color:#fff;font-size:12px;font-weight:500;padding:5px 14px;border-radius:44px;">Navigator</button>',
+    '    <button style="background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;border:1px solid #b1b8f5;border-radius:44px;font-size:12px;font-weight:500;padding:5px 14px;font-family:inherit;cursor:pointer;">Navigator</button>',
     '  </div>',
     '',
     '  <!-- SHELL -->',
