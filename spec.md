@@ -667,7 +667,7 @@ Shown on hover over any chart element (bar, donut segment, line dot, horizontal 
 - **Hovered series row**: label + value `font-weight: 700`, value `color: <series-color>`
 
 **Behavior by chart type:**
-- **Grouped bar chart**: title = x-axis group label (e.g. "Jan"); rows = all series for that group; active row = hovered bar's series
+- **Grouped bar chart**: title = x-axis group label (e.g. "Jan"); row = hovered bar's series label + value only (one row)
 - **Donut chart**: title = segment label; rows = Value + Share %; active row = Share
 - **Line chart**: title = x-axis label; row = metric name + value; active
 - **Horizontal bar**: title = bar label; row = Count + value; active

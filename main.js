@@ -484,10 +484,9 @@ function buildVerticalBarChart(containerId, series, groups, colors) {
     bar.addEventListener('mouseover', function(e) {
       var gi = parseInt(this.dataset.gi), si = parseInt(this.dataset.si);
       var color = colors[si] || CHART_COLORS[si];
-      var rows = series.map(function(s, idx) {
-        return { label: s.label, value: s.values[gi].toLocaleString(), color: colors[idx] || CHART_COLORS[idx], active: idx === si };
-      });
-      showChartTooltip(e, groups[gi], rows, color);
+      showChartTooltip(e, groups[gi], [
+        { label: series[si].label, value: series[si].values[gi].toLocaleString(), color: color, active: true }
+      ], color);
     });
     bar.addEventListener('mousemove', positionChartTooltip);
     bar.addEventListener('mouseleave', hideChartTooltip);
