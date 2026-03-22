@@ -443,6 +443,238 @@ Each item is `justify-content:space-between` — icon+label on the left, chevron
 
 ---
 
+### Dropdown — Tags (chips inside trigger)
+
+A multi-select dropdown where selected values render as removable pill-tags inside the trigger button. Use when selections should be visible at a glance without opening the panel.
+
+**Specs:**
+- Trigger: same as single-select (`height:36px`, `border-radius:8px`, `border:1px solid var(--ctrl-border)`) but wraps tags inline
+- Tags (chips): `background:rgba(99,96,216,.12)`, `color:#6360d8`, `border-radius:4px`, `padding:2px 6px`, `font-size:12px`, with an `×` remove button
+- Placeholder text hidden once ≥1 tag is selected
+- Dropdown options show a checkmark `✓` on selected items
+
+```html
+<div style="position:relative;min-width:260px;">
+  <!-- Trigger with chips -->
+  <div onclick="var d=this.nextElementSibling;d.style.display=d.style.display==='block'?'none':'block'"
+       style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;border:1px solid var(--ctrl-border);border-radius:8px;background:var(--ctrl-bg);padding:4px 8px;min-height:36px;cursor:pointer;font-size:13px;color:var(--ctrl-text);user-select:none;">
+    <!-- Tag chip (repeat for each selected value) -->
+    <span style="display:inline-flex;align-items:center;gap:4px;background:rgba(99,96,216,.12);color:#6360d8;border-radius:4px;padding:2px 6px;font-size:12px;font-weight:500;">
+      SQL Injection
+      <span onclick="event.stopPropagation();this.parentElement.remove()" style="cursor:pointer;line-height:1;font-size:14px;opacity:.7;">&times;</span>
+    </span>
+    <span style="display:inline-flex;align-items:center;gap:4px;background:rgba(99,96,216,.12);color:#6360d8;border-radius:4px;padding:2px 6px;font-size:12px;font-weight:500;">
+      XSS
+      <span onclick="event.stopPropagation();this.parentElement.remove()" style="cursor:pointer;line-height:1;font-size:14px;opacity:.7;">&times;</span>
+    </span>
+    <!-- Chevron (push to end) -->
+    <svg style="margin-left:auto;flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <!-- Dropdown list -->
+  <div style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:8px;z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.2);max-height:200px;overflow-y:auto;">
+    <div style="padding:8px 12px;font-size:13px;cursor:pointer;color:#6360d8;display:flex;align-items:center;gap:8px;">
+      <span>✓</span> SQL Injection
+    </div>
+    <div style="padding:8px 12px;font-size:13px;cursor:pointer;color:#6360d8;display:flex;align-items:center;gap:8px;">
+      <span>✓</span> XSS
+    </div>
+    <div style="padding:8px 12px;font-size:13px;cursor:pointer;color:var(--ctrl-text);display:flex;align-items:center;gap:8px;">
+      <span style="opacity:0;">✓</span> Auth Bypass
+    </div>
+    <div style="padding:8px 12px;font-size:13px;cursor:pointer;color:var(--ctrl-text);display:flex;align-items:center;gap:8px;">
+      <span style="opacity:0;">✓</span> CSRF
+    </div>
+  </div>
+</div>
+```
+
+---
+
+### Multi-Select Dropdown Panel
+
+A floating panel triggered by a button. Contains search, segmented control (AND/OR/EXACT), and a checkbox list.
+
+**Anatomy:**
+- **Trigger button**: `height:36px`, `border-radius:8px`, optional count badge (purple pill, `background:#6760d8`)
+- **Panel**: `width:309px`, `border-radius:12px`, white bg with shadow
+- **Header**: title (16px, semibold) + close X button
+- **Search**: `height:32px`, `border-radius:8px`, search icon button (`background:#f5f5f5`, `border-radius:4px`)
+- **Segmented control** (AND/OR/EXACT): `height:32px`, full-width container (`background:rgba(0,0,51,.059)`, `border-radius:8px`); active segment = white bg + border + 4px radius
+- **Checkbox list**: `max-height:220px`, scrollable; row = `14×14px` checkbox + label text
+  - **Unchecked**: `border:1px solid #e6e6e6`, white bg
+  - **Checked**: `background:#6760d8`, white SVG checkmark
+  - **Indeterminate** (Select All partial): `background:#f7f9fc`, `border-color:#a2a1f7`, purple dash icon
+  - **Select All row**: bold text; state cycles unchecked→checked→indeterminate based on item states
+- **Footer**: "Select Inverse" purple text link + Cancel (outline, pill `border-radius:20px`, `height:32px`) + Apply (`background:#6760d8`, pill)
+
+**Checkbox SVGs (10×10):**
+- Check: `<polyline points="2 6 5 9 10 3"/>` stroke white
+- Dash: `<line x1="2" y1="5" x2="8" y2="5"/>` stroke purple
+
+```html
+<!-- Trigger -->
+<div style="position:relative;display:inline-block;">
+  <button id="ms-trigger" onclick="dsMsToggle('ms-panel')"
+          style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid var(--shell-border);border-radius:8px;background:var(--card-bg);color:var(--shell-text);font-size:13px;cursor:pointer;font-family:inherit;">
+    Filter Origin
+    <span id="ms-count" style="display:none;background:#6760d8;color:#fff;border-radius:99px;font-size:11px;font-weight:600;padding:1px 6px;"></span>
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+
+  <!-- Panel -->
+  <div id="ms-panel" style="display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:300;width:309px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;box-shadow:0 16px 36px -20px rgba(0,6,46,.2),0 12px 60px rgba(0,0,0,.15);flex-direction:column;">
+
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 12px 0;">
+      <span style="font-size:16px;font-weight:600;color:var(--shell-text);">Filter Origin</span>
+      <button onclick="document.getElementById('ms-panel').style.display='none'"
+              style="width:26px;height:26px;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center;border-radius:6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Search -->
+    <div style="padding:12px 12px 0;">
+      <div style="display:flex;align-items:center;height:32px;border:1px solid var(--shell-border);border-radius:8px;background:var(--card-bg);overflow:hidden;">
+        <input type="text" placeholder="Search" oninput="dsMsSearch(this,'ms-panel')"
+               style="flex:1;border:none;background:transparent;outline:none;font-size:13px;color:var(--shell-text);padding:0 8px;font-family:inherit;">
+        <button style="width:26px;height:26px;margin:2px;border:none;cursor:pointer;background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Segmented control: AND / OR / EXACT -->
+    <div id="ms-panel-seg" style="display:flex;align-items:center;height:32px;background:rgba(0,0,51,.059);border-radius:8px;margin:12px 12px 0;">
+      <button onclick="dsMsSegment(this)" style="flex:1;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--shell-text);cursor:pointer;height:100%;border-radius:8px;font-family:inherit;">AND</button>
+      <button onclick="dsMsSegment(this)" style="flex:1;border:1px solid rgba(0,0,45,.09);background:var(--card-bg);font-size:13px;font-weight:500;color:var(--shell-text);cursor:pointer;height:100%;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.08);font-family:inherit;">OR</button>
+      <button onclick="dsMsSegment(this)" style="flex:1;border:none;background:transparent;font-size:13px;font-weight:500;color:var(--shell-text);cursor:pointer;height:100%;border-radius:8px;font-family:inherit;">EXACT</button>
+    </div>
+
+    <!-- Checkbox list -->
+    <div id="ms-panel-list" style="display:flex;flex-direction:column;padding:12px 12px 0;max-height:220px;overflow-y:auto;">
+      <!-- Select All (indeterminate) -->
+      <div onclick="dsMsSelectAll(this,'ms-panel-list','ms-count')" style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;user-select:none;font-size:14px;font-weight:700;color:#3c3c3c;">
+        <div class="ms-cb" style="width:14px;height:14px;border-radius:3px;border:1px solid #a2a1f7;background:#f7f9fc;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg class="ms-dash" width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="#6760d8" stroke-width="2.2" stroke-linecap="round"><line x1="2" y1="5" x2="8" y2="5"/></svg>
+        </div>
+        Select All
+      </div>
+      <!-- Checked item -->
+      <div onclick="dsMsItem(this,'ms-panel-list','ms-count')" style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;user-select:none;font-size:14px;color:#3c3c3c;">
+        <div class="ms-cb" data-checked="1" style="width:14px;height:14px;border-radius:3px;border:1px solid #6760d8;background:#6760d8;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg class="ms-chk" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg>
+        </div>
+        AWS
+      </div>
+      <!-- Unchecked item -->
+      <div onclick="dsMsItem(this,'ms-panel-list','ms-count')" style="display:flex;align-items:center;gap:8px;padding:8px 0;cursor:pointer;user-select:none;font-size:14px;color:#3c3c3c;">
+        <div class="ms-cb" data-checked="0" style="width:14px;height:14px;border-radius:3px;border:1px solid #e6e6e6;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg class="ms-chk" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polyline points="2 6 5 9 10 3"/></svg>
+        </div>
+        AWS IAM Center
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;border-top:1px solid var(--shell-border);margin-top:12px;">
+      <button onclick="dsMsInverse('ms-panel-list','ms-count')"
+              style="font-size:14px;font-weight:500;color:#6360d8;background:none;border:none;cursor:pointer;padding:0;font-family:inherit;">Select Inverse</button>
+      <div style="display:flex;gap:8px;">
+        <button onclick="document.getElementById('ms-panel').style.display='none'"
+                style="height:32px;padding:0 12px;border:1px solid #e6e6e6;border-radius:20px;background:transparent;cursor:pointer;font-size:14px;font-weight:500;color:#6e6e6e;font-family:inherit;">Cancel</button>
+        <button onclick="dsMsApply('ms-panel')"
+                style="height:32px;padding:0 12px;border:none;border-radius:20px;background:#6360d8;cursor:pointer;font-size:14px;font-weight:500;color:#fff;font-family:inherit;">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Open/close panel
+function dsMsToggle(id) {
+  var p = document.getElementById(id);
+  p.style.display = p.style.display === 'flex' ? 'none' : 'flex';
+  p.style.flexDirection = 'column';
+}
+// Segmented control
+function dsMsSegment(btn) {
+  btn.closest('[id$="-seg"]').querySelectorAll('button').forEach(function(b) {
+    b.style.background = 'transparent'; b.style.border = 'none'; b.style.boxShadow = 'none'; b.style.borderRadius = '8px';
+  });
+  btn.style.background = 'var(--card-bg)'; btn.style.border = '1px solid rgba(0,0,45,.09)';
+  btn.style.borderRadius = '4px'; btn.style.boxShadow = '0 1px 3px rgba(0,0,0,.08)';
+}
+// Search filter
+function dsMsSearch(input, panelId) {
+  var list = document.getElementById(panelId + '-list') || document.getElementById(panelId).querySelector('[id$="-list"]');
+  var q = input.value.toLowerCase();
+  list.querySelectorAll('div[onclick*="dsMsItem"]').forEach(function(row) {
+    row.style.display = row.textContent.trim().toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+// Toggle individual item
+function dsMsItem(row, listId, countId) {
+  var cb = row.querySelector('.ms-cb'), chk = row.querySelector('.ms-chk');
+  var checked = cb.dataset.checked === '1';
+  if (checked) {
+    cb.dataset.checked = '0'; cb.style.background = '#fff'; cb.style.borderColor = '#e6e6e6';
+    if (chk) chk.style.display = 'none';
+  } else {
+    cb.dataset.checked = '1'; cb.style.background = '#6760d8'; cb.style.borderColor = '#6760d8';
+    if (chk) { chk.style.display = ''; chk.setAttribute('stroke','#fff'); }
+  }
+  _syncSelectAll(listId, countId);
+}
+// Select All
+function dsMsSelectAll(row, listId, countId) {
+  var list = document.getElementById(listId);
+  var allCb = row.querySelector('.ms-cb');
+  var doCheck = allCb.dataset.checked !== '1';
+  list.querySelectorAll('div[onclick*="dsMsItem"]').forEach(function(r) {
+    var cb = r.querySelector('.ms-cb'), chk = r.querySelector('.ms-chk');
+    if (doCheck) { cb.dataset.checked='1'; cb.style.background='#6760d8'; cb.style.borderColor='#6760d8'; if(chk){chk.style.display='';chk.setAttribute('stroke','#fff');} }
+    else { cb.dataset.checked='0'; cb.style.background='#fff'; cb.style.borderColor='#e6e6e6'; if(chk) chk.style.display='none'; }
+  });
+  _syncSelectAll(listId, countId);
+}
+// Select Inverse
+function dsMsInverse(listId, countId) {
+  var list = document.getElementById(listId);
+  list.querySelectorAll('div[onclick*="dsMsItem"]').forEach(function(row) {
+    dsMsItem(row, listId, countId);
+  });
+}
+// Apply & close
+function dsMsApply(panelId) {
+  var panel = document.getElementById(panelId);
+  panel.style.display = 'none';
+  // update count badge from list state
+}
+// Internal: sync Select All state
+function _syncSelectAll(listId, countId) {
+  var list = document.getElementById(listId);
+  var items = list.querySelectorAll('div[onclick*="dsMsItem"]');
+  var total = items.length, checked = 0;
+  items.forEach(function(r) { if (r.querySelector('.ms-cb').dataset.checked==='1') checked++; });
+  var allRow = list.querySelector('div[onclick*="dsMsSelectAll"]');
+  if (allRow) {
+    var allCb = allRow.querySelector('.ms-cb'), dash = allRow.querySelector('.ms-dash');
+    allCb.dataset.checked = checked === total ? '1' : '0';
+    if (checked === 0) { allCb.style.background='#f7f9fc'; allCb.style.borderColor='#a2a1f7'; if(dash) dash.style.display='none'; }
+    else if (checked === total) { allCb.style.background='#6760d8'; allCb.style.borderColor='#6760d8'; if(dash) dash.style.display='none'; }
+    else { allCb.style.background='#f7f9fc'; allCb.style.borderColor='#a2a1f7'; if(dash) dash.style.display=''; }
+  }
+  if (countId) {
+    var el = document.getElementById(countId);
+    if (el) { el.textContent = checked; el.style.display = checked > 0 ? '' : 'none'; }
+  }
+}
+</script>
+```
+
+---
+
 ### Toggle Switch
 ```html
 <div onclick="var on=this.dataset.on==='1';this.dataset.on=on?'0':'1';this.style.background=on?'var(--ctrl-border)':'#6360D8';this.firstElementChild.style.transform=on?'translateX(2px)':'translateX(18px)'"
@@ -622,6 +854,12 @@ function switchTab(btn, targetId) {
 ---
 
 ### Modal / Dialog
+
+Two variants:
+1. **Standard modal** — dark card bg, standard header/body/footer
+2. **Form Dialogue** — grey header (`#f5f5f5` light / `#2a2a2a` dark), `58px` height, `border-radius: 20px 20px 0 0`, section labels with dividers, pill footer buttons
+
+#### Standard Modal
 ```html
 <!-- Trigger -->
 <button onclick="document.getElementById('my-modal-overlay').style.display='flex'" style="/* button styles */">Open</button>
@@ -651,6 +889,156 @@ function switchTab(btn, targetId) {
   </div>
 </div>
 ```
+
+#### Form Dialogue Modal (Create Alert pattern)
+
+**Anatomy:**
+- **Header**: `background:#f5f5f5` (dark: `#2a2a2a`), height `58px`, `border-radius:20px 20px 0 0`. Contains: icon (32px rounded box) + title (16px, weight 500) + info icon + close button.
+- **Body**: `padding:20px`. Sections separated by label + full-width divider line.
+  - **Section head**: label (`font-size:12px;font-weight:600;color:#101010`) + `flex:1` horizontal rule (`height:1px;background:var(--shell-border)`)
+  - **Condition row**: 3-column grid (`display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px`) of `<select>` elements (`height:42px;border-radius:4px`)
+  - **"+ Add Condition" link**: `color:#6760d8`, `font-size:13px`, `font-weight:500`
+  - **Full-width select**: `height:38px;border-radius:6px`
+  - **Textarea**: `height:80px;border-radius:6px`
+  - **Collapsible panel**: trigger row with chevron, body toggled by `.open` class
+  - **Checkbox**: `accent-color:#6760d8`
+- **Footer**: `padding:14px 20px`. Cancel: `border:1px solid #cfcfcf;border-radius:20px;height:32px;min-width:72px`. Next/Submit: `background:#6760d8;border-radius:20px;height:32px;min-width:72px` (disabled: `background:#a3a5af`).
+
+```html
+<!-- Form Dialogue Trigger -->
+<button onclick="document.getElementById('create-alert-overlay').style.display='flex'">Create Alert</button>
+
+<!-- Modal overlay (place at end of body) -->
+<div id="create-alert-overlay" onclick="if(event.target===this)this.style.display='none'"
+     style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;align-items:center;justify-content:center;padding:24px;">
+  <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 48px rgba(0,0,0,.5);">
+
+    <!-- Grey header -->
+    <div style="display:flex;align-items:center;gap:10px;padding:0 20px;height:58px;background:#f5f5f5;border-radius:20px 20px 0 0;border-bottom:1px solid var(--shell-border);flex-shrink:0;">
+      <div style="width:32px;height:32px;border-radius:8px;background:var(--card-bg);display:flex;align-items:center;justify-content:center;color:var(--shell-text-2);flex-shrink:0;">
+        <!-- Bell/notification icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><line x1="12" y1="2" x2="12" y2="3"/></svg>
+      </div>
+      <span style="flex:1;font-size:16px;font-weight:500;color:var(--shell-text);">Create Alert</span>
+      <!-- Info button -->
+      <button style="width:28px;height:28px;border-radius:6px;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </button>
+      <!-- Close button -->
+      <button onclick="document.getElementById('create-alert-overlay').style.display='none'"
+              style="width:28px;height:28px;border-radius:6px;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:20px;display:flex;flex-direction:column;gap:0;">
+
+      <!-- Section: Alert based on -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:12px;font-weight:600;color:#101010;white-space:nowrap;">Alert based on</span>
+          <span style="flex:1;height:1px;background:var(--shell-border);"></span>
+        </div>
+        <!-- 3-column condition row -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+          <select style="height:42px;padding:0 28px 0 10px;border:1px solid var(--shell-border);border-radius:4px;background:var(--card-bg);color:var(--shell-text);font-size:13px;appearance:none;cursor:pointer;font-family:inherit;">
+            <option>Select When</option>
+          </select>
+          <select style="height:42px;padding:0 28px 0 10px;border:1px solid var(--shell-border);border-radius:4px;background:var(--card-bg);color:var(--shell-text);font-size:13px;appearance:none;cursor:pointer;font-family:inherit;">
+            <option>Operator</option>
+          </select>
+          <select style="height:42px;padding:0 28px 0 10px;border:1px solid var(--shell-border);border-radius:4px;background:var(--card-bg);color:var(--shell-text);font-size:13px;appearance:none;cursor:pointer;font-family:inherit;">
+            <option>Condition</option>
+          </select>
+        </div>
+        <button style="font-size:13px;color:#6760d8;font-weight:500;cursor:pointer;background:none;border:none;padding:0;display:inline-flex;align-items:center;gap:4px;font-family:inherit;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Condition
+        </button>
+      </div>
+
+      <!-- Section: Action -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:12px;font-weight:600;color:#101010;white-space:nowrap;">Action</span>
+          <span style="flex:1;height:1px;background:var(--shell-border);"></span>
+        </div>
+        <select style="width:100%;height:38px;padding:0 28px 0 10px;border:1px solid var(--shell-border);border-radius:6px;background:var(--card-bg);color:var(--shell-text);font-size:13px;appearance:none;cursor:pointer;font-family:inherit;box-sizing:border-box;">
+          <option>Select Alert Creation Method</option>
+        </select>
+      </div>
+
+      <!-- Section: Add Description -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:12px;font-weight:600;color:#101010;white-space:nowrap;">Add Description</span>
+          <span style="flex:1;height:1px;background:var(--shell-border);"></span>
+        </div>
+        <textarea placeholder="Description"
+          style="width:100%;height:80px;padding:10px 12px;border:1px solid var(--shell-border);border-radius:6px;background:var(--card-bg);color:var(--shell-text);font-size:13px;resize:vertical;box-sizing:border-box;font-family:inherit;"></textarea>
+      </div>
+
+      <!-- Section: Alert Priority -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:12px;font-weight:600;color:#101010;white-space:nowrap;">Alert Priority</span>
+          <span style="flex:1;height:1px;background:var(--shell-border);"></span>
+        </div>
+        <select style="width:100%;height:38px;padding:0 28px 0 10px;border:1px solid var(--shell-border);border-radius:6px;background:var(--card-bg);color:var(--shell-text);font-size:13px;appearance:none;cursor:pointer;font-family:inherit;box-sizing:border-box;">
+          <option>Select Alert Priority</option>
+          <option>Critical</option><option>High</option><option>Medium</option><option>Low</option>
+        </select>
+      </div>
+
+      <!-- Collapsible: Ticket History -->
+      <div id="ticket-hist" style="border:1px solid var(--shell-border);border-radius:8px;overflow:hidden;margin-bottom:14px;">
+        <button onclick="var b=document.getElementById('ticket-hist-body');var open=b.style.display==='block';b.style.display=open?'none':'block';"
+                style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;background:var(--shell-raised);font-size:13px;font-weight:500;color:var(--shell-text);border:none;width:100%;text-align:left;font-family:inherit;">
+          <span>Ticket History</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div id="ticket-hist-body" style="display:none;padding:10px 14px;border-top:1px solid var(--shell-border);">
+          <!-- Ticket row -->
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--shell-border);font-size:12px;color:var(--shell-text-2);">
+            <span style="font-weight:600;color:var(--shell-text);min-width:90px;">TKT-APP</span>
+            <span style="background:rgba(0,0,0,.06);color:#6e6e6e;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:500;">Open</span>
+            <span style="flex:1;color:var(--shell-text-muted);font-size:11px;">Mar 12, 2025</span>
+            <span style="font-size:11px;">3 tickets</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 0;font-size:12px;color:var(--shell-text-2);">
+            <span style="font-weight:600;color:var(--shell-text);min-width:90px;">TKT-APP-9</span>
+            <span style="background:rgba(49,165,109,.12);color:#1a7d4d;border-radius:4px;padding:1px 7px;font-size:11px;font-weight:500;">Open</span>
+            <span style="flex:1;color:var(--shell-text-muted);font-size:11px;">Feb 28, 2025</span>
+            <span style="font-size:11px;">1 ticket</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkbox -->
+      <label style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--shell-text-2);cursor:pointer;margin-bottom:4px;">
+        <input type="checkbox" checked style="width:15px;height:15px;accent-color:#6760d8;cursor:pointer;">
+        Send report also
+      </label>
+    </div>
+
+    <!-- Footer -->
+    <div style="padding:14px 20px;border-top:1px solid var(--shell-border);display:flex;align-items:center;justify-content:flex-end;gap:8px;">
+      <button onclick="document.getElementById('create-alert-overlay').style.display='none'"
+              style="height:32px;min-width:72px;padding:0 16px;border:1px solid #cfcfcf;border-radius:20px;background:transparent;cursor:pointer;font-size:13px;font-weight:500;color:var(--shell-text-2);font-family:inherit;">Cancel</button>
+      <button disabled
+              style="height:32px;min-width:72px;padding:0 16px;border:none;border-radius:20px;background:#a3a5af;cursor:not-allowed;font-size:13px;font-weight:500;color:#fff;font-family:inherit;">Next</button>
+    </div>
+  </div>
+</div>
+```
+
+**Rules:**
+- Section label color is `#101010` (hardcoded, not a token) — always dark regardless of theme
+- The grey header background is hardcoded: `#f5f5f5` light, `#2a2a2a` dark
+- Select elements use `appearance:none` with a custom SVG chevron background-image
+- Footer pill buttons: `height:32px`, `min-width:72px`, `border-radius:20px`
+- Submit/Next button is disabled (`background:#a3a5af`) until all required fields are filled
 
 ---
 
@@ -837,7 +1225,6 @@ Code:           font-family:'SFMono-Regular',Consolas,monospace; font-size:12px;
     - Icon-only: `width:32px; height:32px; border-radius:50%`
     - Shell buttons (topbar Navigator, sub-header Explore/Filter): always Small size
     - **Navigator button** uses Primary Special style: gradient text `#467fcd → #47adcb`, `border:1px solid #b1b8f5`
-14. **Badge colors depend on theme** — use light theme colors (`#EFF7ED`, `#F9EEEE`, `#F2EDDB`, `#F7F6EB`) for light pages; dark colors (`#192C15`, `#260808`, `#2C2613`, `#514B09`) for dark pages.
 12. **Nav item rules:**
     - Icon size: 18px · Label: 14px · Icon-label gap: 8px · Chevron always on right
     - Expanded parent: `background:#f5f5f5`, text `#6e6e6e` — never blue
@@ -846,3 +1233,4 @@ Code:           font-family:'SFMono-Regular',Consolas,monospace; font-size:12px;
 13. **Cards:** `border-radius:12px`, `border:1px solid var(--card-border)`, `background:var(--card-bg)`
 14. **Badge colors depend on theme** — use light theme colors (`#EFF7ED`, `#F9EEEE`, `#F2EDDB`, `#F7F6EB`) for light pages; dark colors (`#192C15`, `#260808`, `#2C2613`, `#514B09`) for dark pages.
 15. **Chart tooltips are mandatory** on all chart hovers (bars, donut segments, line dots, horizontal bar rows). Border + dot + active-value color must match the hovered series color. Include `#chart-tooltip` div and the three tooltip functions (`showChartTooltip`, `positionChartTooltip`, `hideChartTooltip`) in every file with charts.
+16. **Form Dialogue modals** use the grey-header pattern: `background:#f5f5f5` (dark: `#2a2a2a`), `height:58px`, `border-radius:20px 20px 0 0`. Body sections use the label+divider pattern. Footer uses pill buttons (`border-radius:20px`, `height:32px`). Section labels are always `#101010` hardcoded (not a token). Submit button is disabled (`background:#a3a5af`) until required fields are complete.
