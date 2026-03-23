@@ -73,7 +73,7 @@ Prevalent AI is a **B2B cybersecurity exposure management platform** for enterpr
 1. **Shell is mandatory** — every page uses the full shell from `shell.md`. Copy it verbatim.
 2. **Topbar is always `#131313`** — never changes with theme.
 3. **Accent `#6360D8`** is the only CTA/primary color. Filter CTAs use `#504bb8`.
-4. **All buttons are pill-shaped** (`border-radius:44px`). Never use `6px` on a button.
+4. **CTA/text buttons are pill-shaped** (`border-radius:44px`). Icon-only buttons: circle (`border-radius:50%`) or borderless (no background, no border — radius irrelevant). Never `6px` on a button that has a visible background or border.
 5. **Font is always Inter** — include Google Fonts link in every file.
 6. **Light theme is default** — generate with `<html class="theme-light">`.
 7. **Output complete, self-contained HTML files** — no external dependencies other than Google Fonts and PAI logo.
@@ -81,8 +81,11 @@ Prevalent AI is a **B2B cybersecurity exposure management platform** for enterpr
 9. **Tables before cards** for list data — analysts need density, not decoration.
 10. **Destructive actions need confirmation modals** — name the item, state the consequence, red confirm button.
 11. **No external CSS frameworks** — inline styles only, using the variables above.
-12. **Charts use inline SVG only** — never `<canvas>`, Chart.js, D3, or any external chart library.
+12. **⚠ Charts use inline SVG ONLY** — NEVER `<canvas>`, Chart.js, D3, or any external chart library. Copy the exact patterns from `charts.md`. If you write `<canvas>` you are violating this rule.
 13. **Content body starts DIRECTLY with page content** — no extra `<h1>` or description paragraph below the sub-header.
 14. **KPI cards:** max 5 in a row · `border-radius:8px` · `gap:8px` between cards.
 15. **Nav:** expanded parent stays grey (`#f5f5f5`) — only the active sub-item gets blue. One active item at a time.
-16. **Spacing:** stick to the 4px scale — 4, 8, 12, 16, 20, 24, 32, 48px.
+16. **Spacing:** strict 4px scale only — 4, 8, 12, 16, 20, 24, 32, 48px. Never use 3px, 5px, 6px, 10px, 11px, 14px.
+17. **Minimum interactive button height: 32px** — use `sz-md` (32px) or larger for all clickable actions. `sz-sm` (24px) is for count badges and inline labels only, not buttons users click to take action.
+18. **Data tables must include:** (a) checkbox column as first `<th>`/`<td>` for row selection, (b) row hover actions revealed on `tr:hover`, (c) pagination footer with row count `Showing X–Y of Z` for any list.
+19. **Fetch `charts.md`** whenever the page contains any chart — it is never optional.

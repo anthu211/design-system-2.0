@@ -140,12 +140,19 @@ html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
 /* ── Data Table ── */
 .ds-table-wrap { width:100%;overflow-x:auto; }
 .ds-table { width:100%;border-collapse:collapse;font-size:13px; }
-.ds-table th { padding:10px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);background:var(--table-th-bg);border-bottom:1px solid var(--shell-border);white-space:nowrap; }
-.ds-table td { padding:11px 16px;border-bottom:1px solid var(--table-border);color:var(--shell-text-2);vertical-align:middle; }
+.ds-table th { padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);background:var(--table-th-bg);border-bottom:1px solid var(--shell-border);white-space:nowrap; }
+.ds-table td { padding:12px 16px;border-bottom:1px solid var(--table-border);color:var(--shell-text-2);vertical-align:middle; }
 .ds-table tbody tr:last-child td { border-bottom:none; }
 .ds-table tbody tr:hover td { background:var(--shell-hover); }
+/* Row hover actions — hidden by default, revealed on row hover */
+.ds-table tbody tr .row-actions { display:none; }
+.ds-table tbody tr:hover .row-actions { display:inline-flex;gap:4px; }
 .ds-table-action { background:none;border:none;cursor:pointer;color:var(--shell-text-muted);padding:4px;border-radius:4px; }
 .ds-table-action:hover { color:var(--shell-text);background:var(--shell-hover); }
+/* Checkbox column */
+.ds-table th.col-check,.ds-table td.col-check { width:40px;padding:8px 16px;text-align:center; }
+/* Pagination footer */
+.ds-table-footer { display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--shell-border);font-size:12px;color:var(--shell-text-muted); }
 
 /* ── Tabs ── */
 .ds-tabs-list { display:flex;border-bottom:1px solid var(--shell-border);background:var(--shell-raised);padding:0 4px; }
@@ -330,7 +337,8 @@ Use CSS classes for proper hover/focus/disabled states:
   <span class="ds-spinner"></span> Saving…
 </button>
 
-<!-- Sizes: sz-sm (24px) | sz-md (32px) | sz-lg (40px) -->
+<!-- Sizes: sz-md (32px) ← minimum for any clickable action | sz-lg (40px) for hero CTAs -->
+<!-- sz-sm (24px) is for count badges and inline label chips ONLY — never for action buttons -->
 
 <!-- Icon-only circle (neutral) -->
 <button style="width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--ctrl-border);border-radius:50%;cursor:pointer;color:var(--shell-text-muted);">
@@ -620,12 +628,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
 ### Data Table
 
+Every table must have: **(1) checkbox col 1, (2) row hover actions, (3) pagination footer with row count.**
+
 ```html
 <div style="border:1px solid var(--card-border);border-radius:12px;overflow:hidden;">
   <div class="ds-table-wrap">
     <table class="ds-table">
       <thead>
         <tr>
+          <th class="col-check"><input type="checkbox" style="accent-color:#6360D8;cursor:pointer;" onclick="document.querySelectorAll('.row-cb').forEach(function(c){c.checked=this.checked;}.bind(this))"></th>
           <th>Finding</th>
           <th>Severity</th>
           <th>Asset</th>
@@ -635,18 +646,55 @@ document.addEventListener('DOMContentLoaded', function(){
       </thead>
       <tbody>
         <tr>
+          <td class="col-check"><input type="checkbox" class="row-cb" style="accent-color:#6360D8;cursor:pointer;"></td>
           <td style="color:var(--shell-text);font-weight:500;">SQL Injection in /api/login</td>
           <td><span class="ds-badge danger">Critical</span></td>
           <td style="color:var(--shell-text-muted);">prod-api-01</td>
           <td><span class="ds-badge warning dot">Open</span></td>
           <td>
-            <button class="ds-table-action">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
-            </button>
+            <!-- Row hover actions: hidden by default, shown on tr:hover via CSS -->
+            <div class="row-actions">
+              <button class="ds-table-action" title="View">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+              <button class="ds-table-action" title="Export">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-check"><input type="checkbox" class="row-cb" style="accent-color:#6360D8;cursor:pointer;"></td>
+          <td style="color:var(--shell-text);font-weight:500;">Auth Bypass in /admin</td>
+          <td><span class="ds-badge danger">Critical</span></td>
+          <td style="color:var(--shell-text-muted);">prod-api-02</td>
+          <td><span class="ds-badge warning dot">Open</span></td>
+          <td>
+            <div class="row-actions">
+              <button class="ds-table-action" title="View"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+              <button class="ds-table-action" title="Export"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <!-- Pagination footer — always include for any table -->
+  <div class="ds-table-footer">
+    <span>Showing 1–2 of 24 findings</span>
+    <div class="ds-pagination">
+      <button class="ds-page-btn" disabled>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="ds-page-btn active">1</button>
+      <button class="ds-page-btn">2</button>
+      <button class="ds-page-btn">3</button>
+      <span class="ds-page-ellipsis">…</span>
+      <button class="ds-page-btn">12</button>
+      <button class="ds-page-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
   </div>
 </div>
 ```
