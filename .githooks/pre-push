@@ -26,6 +26,11 @@ sed -i '' "s/${CURRENT}/${NEW_VERSION}/g" "$FILE"
 
 echo "[pre-push] Version bumped: ${CURRENT} → ${NEW_VERSION}"
 
-# Amend the last commit to include the version bump (no extra commit left behind)
+# Commit the bump, then push it immediately so it's included in this push
+BRANCH=$(git -C "$REPO_ROOT" symbolic-ref --short HEAD)
 git -C "$REPO_ROOT" add "$FILE"
-git -C "$REPO_ROOT" commit --amend --no-edit
+git -C "$REPO_ROOT" commit -m "chore: bump version to ${NEW_VERSION}"
+git -C "$REPO_ROOT" push --no-verify origin "HEAD:${BRANCH}"
+
+# The outer push will now find nothing new to send (already done above)
+exit 0
