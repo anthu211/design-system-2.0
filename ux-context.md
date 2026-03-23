@@ -12,49 +12,24 @@ Prevalent AI is a **cybersecurity risk and exposure management platform** used b
 
 ## 2. User Personas
 
-### Persona 1 — The Security Analyst
+### Persona 1 — The CISO
 
 **Who they are**
-A hands-on security practitioner who spends most of their day inside the platform. They run scans, triage findings, investigate assets, and track remediation progress. Typically 2–6 years of experience. Detail-oriented and fast-moving.
-
-**Primary goals**
-- Quickly identify and prioritise critical and high findings
-- Drill into asset details to understand blast radius
-- Track remediation status without chasing developers
-- Export findings for reporting
-
-**Frustrations**
-- Dashboards that hide data behind extra clicks
-- Inconsistent severity labelling across screens
-- Slow tables that don't sort or filter quickly
-- Having to switch tools to get full context
-
-**UI implications**
-- Default to dense, tabular data layouts — cards hide too much
-- Always show severity prominently (colour + label, never just colour)
-- Tables must support sort, filter, and export without leaving the page
-- Pagination with row counts — analysts need to know how much data exists
-- Status badges must be immediately readable at a glance
-- Avoid modal-heavy flows — keep context visible while acting
-
----
-
-### Persona 2 — The CISO
-
-**Who they are**
-A senior security leader who uses the platform for oversight, board reporting, and strategic decisions. Visits less frequently than analysts but needs instant comprehension. Not always a hands-on technical user.
+A senior security leader who uses the platform for oversight, board reporting, and strategic decisions. Visits less frequently than operational users but needs instant comprehension. Not always a hands-on technical user. Accountable to the board for risk posture.
 
 **Primary goals**
 - Understand overall risk posture at a glance
 - Track trend direction (are we improving or getting worse?)
 - Get board-ready data without manual compilation
 - Validate that the team is focused on the right priorities
+- Communicate risk in business terms, not technical jargon
 
 **Frustrations**
 - Dashboards with too many numbers and no clear signal
 - Metrics that don't connect to business impact
 - Reports that require manual assembly from multiple screens
 - Unclear trend direction — is a number good or bad?
+- Being asked to interpret raw data rather than conclusions
 
 **UI implications**
 - Lead every summary view with KPI cards — large numbers, clear labels, explicit trend direction
@@ -66,29 +41,123 @@ A senior security leader who uses the platform for oversight, board reporting, a
 
 ---
 
-### Persona 3 — The IT Admin
+### Persona 2 — GRC (Governance, Risk & Compliance)
 
 **Who they are**
-Responsible for asset inventory, integrations, scan configuration, and user management. Often the person who onboarded the platform. Technically capable but primarily operational — not a security analyst.
+Responsible for compliance programme management, risk registers, policy governance, and audit readiness. Works closely with auditors and regulators. Needs to map security controls to compliance frameworks (SOC 2, ISO 27001, NIST CSF, CIS). Methodical and documentation-driven.
 
 **Primary goals**
-- Keep asset inventory accurate and up to date
-- Configure and monitor integrations without errors
-- Manage user access and permissions
-- Resolve scan failures quickly
+- Track compliance posture across multiple frameworks simultaneously
+- Collect and organise audit evidence without chasing engineering teams
+- Monitor control effectiveness and flag gaps before audits
+- Generate compliance reports for regulators and leadership
+- Maintain risk register with treatment status
 
 **Frustrations**
-- Integration errors with no clear explanation
-- Asset data that's stale or missing source context
-- Unclear permission states — what can each role actually do?
-- Settings buried across multiple sections
+- Security data that isn't mapped to compliance frameworks
+- Having to manually cross-reference findings against controls
+- Reports that require reformatting for regulatory submission
+- No clear audit trail for who changed what and when
+- Compliance scores with no drill-down to underlying evidence
 
 **UI implications**
-- Form controls must have clear validation states and error messages (not just red borders)
-- Status indicators for integrations must show source, last sync time, and error reason
-- Settings screens benefit from grouped sections with clear headers — not a single long form
-- Destructive actions (delete, disconnect) must have confirmation modals
-- Empty states should explain why data is missing and what to do
+- Lead with compliance framework status — percentage complete per framework
+- Tables of controls grouped by domain (e.g. Access Control, Incident Response)
+- Control status must show: current state, last reviewed date, evidence attached Y/N
+- Export to PDF/CSV is a primary action, not a buried option
+- Risk register needs treatment columns: Accept / Mitigate / Transfer / Avoid
+- Audit trail / changelog visible on every significant record
+- Filter by framework, domain, owner, and status
+
+---
+
+### Persona 3 — Security Architect
+
+**Who they are**
+Designs and oversees the security architecture of the organisation. Focused on attack surface management, system topology, integration security, and threat modelling. Technically deep — prefers precision over simplicity. Evaluates the platform for technical accuracy and completeness.
+
+**Primary goals**
+- Map and understand the full attack surface
+- Identify architectural weaknesses and exposure paths
+- Evaluate integration security configurations
+- Understand asset relationships and blast radius
+- Drive security design decisions based on real data
+
+**Frustrations**
+- Oversimplified summaries that hide technical detail
+- Findings without enough context to understand root cause
+- No way to see relationships between assets or systems
+- Integration configurations that can't be audited or validated
+- UI that treats all vulnerabilities the same regardless of exposure
+
+**UI implications**
+- Show technical detail prominently — CVSSv3 vector string, exploit paths, affected configurations
+- Asset relationship views — group by system, subnet, integration, or owner
+- Findings must be filterable by exposure: internet-facing vs internal
+- Configuration audit tables with exact values, not just pass/fail
+- Technical metadata visible in default views without drilling in
+- Avoid dumbing down labels — "Remote Code Execution" not "Critical Issue"
+
+---
+
+### Persona 4 — Security Engineer (Vulnerability / IT / SecOps)
+
+**Who they are**
+The operational hands of the security team. Covers vulnerability management engineers, IT operations, and SecOps practitioners. Responsible for running scans, managing asset inventory, configuring integrations, and tracking remediation. Spends the most time in the platform day-to-day. Detail-oriented and task-focused.
+
+**Primary goals**
+- Run scans and validate results without errors
+- Track vulnerability remediation status and SLA compliance
+- Keep asset inventory accurate and integration pipelines healthy
+- Assign findings to engineering teams and track progress
+- Resolve scan failures and integration errors quickly
+
+**Frustrations**
+- Integration errors with no actionable explanation
+- Scan results that can't be filtered or bulk-assigned
+- Asset data that's stale or missing source context
+- Settings buried across multiple unrelated sections
+- Remediation workflows that require leaving the platform
+
+**UI implications**
+- Dense operational tables: CVE ID, CVSS score, severity, affected asset, status, assignee, SLA date
+- Severity and status always visible in default columns — never tooltip-only
+- Bulk select + bulk assign/close/export in table toolbar
+- Integration status shows: source name, last sync time, next sync, error reason if failed
+- Form validation messages below each field (not just red borders)
+- Settings grouped into labelled sections: Scans / Integrations / Assets / Users
+- Destructive actions (delete, disconnect) require confirmation modals naming the item
+
+---
+
+### Persona 5 — SOC Analyst
+
+**Who they are**
+A front-line security operations analyst focused on alert triage, threat detection, and incident response. Works in real-time, high-pressure environments. Needs to move fast and maintain context across multiple open investigations. Shift-based, often handling dozens of events per session.
+
+**Primary goals**
+- Triage and prioritise alerts quickly — critical first
+- Understand the full context of an alert without switching tools
+- Track investigation status across active incidents
+- Escalate or close findings with a clear audit trail
+- Identify patterns across alerts (same asset, same threat actor)
+
+**Frustrations**
+- Dashboards that require multiple clicks to reach alert detail
+- Severity information that's inconsistent or buried
+- No way to see related alerts linked to the same asset or campaign
+- Slow tables that can't be filtered at speed
+- Investigation notes scattered or inaccessible mid-triage
+
+**UI implications**
+- Lead with alert/incident queue — severity sorted, most critical first
+- Severity badge (colour + label) always visible in default column
+- Row-level quick actions on hover: Acknowledge, Escalate, Close, Investigate
+- Detail panel slides in from right without leaving the queue (no full-page navigation)
+- Time context always visible: alert created, last updated, SLA remaining
+- Bulk actions prominent: Acknowledge All, Assign to Me, Close Selected
+- Filter bar always visible above the table: severity, status, source, asset, date range
+- No modal-heavy flows during active triage — keep the queue in view
 
 ---
 
@@ -152,7 +221,7 @@ These laws are baked into the design system spec. The AI must apply them on ever
 These are product-level rules that shape every design decision.
 
 ### Data Density Over Decoration
-Prevalent AI users — especially analysts — work with high volumes of data. Whitespace and decoration serve clarity, not aesthetics. Tables are preferred over cards for lists. Summary cards (KPI) are appropriate only for aggregate metrics, not for individual items.
+Prevalent AI users — especially SOC Analysts and Security Engineers — work with high volumes of data. Whitespace and decoration serve clarity, not aesthetics. Tables are preferred over cards for lists. Summary cards (KPI) are appropriate only for aggregate metrics, not for individual items.
 
 **Rule:** Never replace a table with cards to "look cleaner." If an analyst needs to compare 50 findings, they need a table.
 
@@ -162,7 +231,7 @@ Not every user needs every detail immediately. Structure content in layers: summ
 **Rule:** Dashboards show aggregates. Lists show items. Detail pages show everything. Never dump all detail on the first level.
 
 ### Status Visibility at All Times
-Security users need to know the state of things without hunting for it. Every asset, finding, scan, and integration must have a visible, consistently labelled status.
+Security users need to know the state of things without hunting for it. Every asset, finding, scan, integration, and control must have a visible, consistently labelled status.
 
 **Rule:** Status is never hidden in a tooltip or revealed only on hover. It must be visible in default table views.
 

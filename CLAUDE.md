@@ -31,7 +31,7 @@ These rules are derived from the spec. Apply them without being asked.
 - **Light theme is default** — generate with `<html class="theme-light">`.
 - **Output complete, self-contained HTML files** — no external dependencies other than Google Fonts and the PAI logo SVG.
 - **Status must always be visible** — never hide severity or status in a tooltip only.
-- **Tables before cards** for list data — analysts need density, not decoration.
+- **Tables before cards** for list data — operational users need density, not decoration.
 - **Destructive actions need confirmation modals** — name the item, state the consequence, use a red confirm button.
 
 ---
@@ -194,5 +194,6 @@ Build: [describe what you want]
 ## Notes
 
 - This file is version-controlled. Update it as the design system evolves.
-- When new personas are added to `ux-context.md`, add them to the `/new-component` persona values above.
+- **Personas:** `ciso` · `grc` · `security-architect` · `security-engineer` · `soc-analyst`
+- When new personas are added to `ux-context.md`, update the persona list above and the command files.
 - When new shortcut commands are added, document them here before use.

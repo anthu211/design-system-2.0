@@ -1788,9 +1788,9 @@ html.theme-light .ds-filter-chip { background:#f0f0f0; }
   height: 1px; background: var(--card-border); margin: 4px 0 20px;
 }
 
-/* Commands 3-column grid */
+/* Commands 4-column grid */
 .ds-claude-cmds-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px;
 }
 .ds-claude-cmd-card {
   padding: 16px 18px; background: var(--card-bg);
@@ -1870,9 +1870,11 @@ html.theme-light .ds-claude-code-block { background: #1a1a2e; }
 .ds-claude-persona-chip::before {
   content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0;
 }
-.ds-claude-persona-chip.analyst { color: #6760d8; border-color: rgba(99,96,216,.3); background: rgba(99,96,216,.08); }
-.ds-claude-persona-chip.ciso    { color: #D98B1D; border-color: rgba(217,139,29,.3); background: rgba(217,139,29,.08); }
-.ds-claude-persona-chip.itadmin { color: #31A56D; border-color: rgba(49,165,109,.3); background: rgba(49,165,109,.08); }
+.ds-claude-persona-chip.ciso      { color: #D98B1D; border-color: rgba(217,139,29,.3); background: rgba(217,139,29,.08); }
+.ds-claude-persona-chip.grc       { color: #0B7285; border-color: rgba(11,114,133,.3);  background: rgba(11,114,133,.08); }
+.ds-claude-persona-chip.secarch   { color: #6760d8; border-color: rgba(99,96,216,.3);   background: rgba(99,96,216,.08); }
+.ds-claude-persona-chip.seceng    { color: #31A56D; border-color: rgba(49,165,109,.3);  background: rgba(49,165,109,.08); }
+.ds-claude-persona-chip.socanalyst{ color: #C0392B; border-color: rgba(192,57,43,.3);   background: rgba(192,57,43,.08); }
 
 @media (max-width: 1100px) {
   .ds-claude-cmds-grid { grid-template-columns: repeat(2, 1fr); }
