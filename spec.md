@@ -3,6 +3,19 @@
 
 Read this entire document before generating any UI. Every component, token, and layout must conform to this spec.
 
+> **Also read before generating UI:**
+> - [UX Context](ux-context.md) — Personas (Analyst, CISO, IT Admin), UX laws, and product principles
+> - [CLAUDE.md](CLAUDE.md) — Shortcut commands, mandatory rules, and how to use both files together
+>
+> Hosted at: `https://anthu211.github.io/design-system-2.0/`
+
+## Product Context
+Prevalent AI is a **B2B cybersecurity exposure management platform** for enterprise security teams.
+Users are under pressure, data-heavy, and expert. UI must be fast, dense, and decisive — not decorative.
+- **Primary user:** Security Analyst (daily, data-heavy, needs tables + filters + export)
+- **Executive user:** CISO (weekly, needs KPI summary + trends + board-ready output)
+- **Operational user:** IT Admin (configuration, integrations, user management)
+
 ---
 
 ## Visual Identity
@@ -772,10 +785,13 @@ function switchTab(btn, targetId) {
   btn.style.borderBottomColor = '#6360D8';
   btn.style.color = '#6360D8';
   btn.style.fontWeight = '600';
-  var ids = ['tab-one','tab-two']; // update with actual tab ids
-  ids.forEach(function(id) { var el=document.getElementById(id); if(el) el.style.display='none'; });
   var target = document.getElementById(targetId);
-  if (target) target.style.display = 'block';
+  if (!target) return;
+  var parent = target.parentElement;
+  parent.querySelectorAll(':scope > [id]').forEach(function(el) {
+    el.style.display = 'none';
+  });
+  target.style.display = 'block';
 }
 </script>
 ```
@@ -1101,10 +1117,33 @@ function positionChartTooltip(e) {
 }
 function hideChartTooltip() { var el = _ct(); if (el) el.style.display = 'none'; }
 
-// Attach to SVG bars:
-// bar.addEventListener('mouseover', function(e) { showChartTooltip(e, groupLabel, rows, color); });
-// bar.addEventListener('mousemove', positionChartTooltip);
-// bar.addEventListener('mouseleave', hideChartTooltip);
+// HOW TO WIRE TOOLTIP TO ANY CHART ELEMENT
+// Call these three listeners on every interactive SVG element (bar, segment, dot, row):
+
+element.addEventListener('mouseover', function(e) {
+  showChartTooltip(e,
+    'Group Label',         // title — x-axis group or segment name
+    [
+      { label: 'Series A', value: '42', color: '#6360D8', active: true },
+      { label: 'Series B', value: '18', color: '#31A56D', active: false }
+    ],
+    '#6360D8'              // border color — matches the hovered element's fill
+  );
+});
+element.addEventListener('mousemove', positionChartTooltip);
+element.addEventListener('mouseleave', hideChartTooltip);
+
+// GROUPED BAR CHART — full working example:
+// After rendering bars as SVG <rect> elements, loop and attach:
+bars.forEach(function(rect, i) {
+  rect.addEventListener('mouseover', function(e) {
+    showChartTooltip(e, groupLabels[i], [
+      { label: seriesName, value: dataValues[i], color: seriesColor, active: true }
+    ], seriesColor);
+  });
+  rect.addEventListener('mousemove', positionChartTooltip);
+  rect.addEventListener('mouseleave', hideChartTooltip);
+});
 </script>
 ```
 
