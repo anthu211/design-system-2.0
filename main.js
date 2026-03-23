@@ -1791,6 +1791,39 @@ function downloadClaudeMd() {
     });
 }
 
+// ─── Download Full Claude Setup (claude-setup.zip) ───
+function downloadClaudeSetup() {
+  var btn = document.getElementById('claude-setup-dl-btn');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Downloading…';
+  }
+  fetch('https://anthu211.github.io/design-system-2.0/claude-setup.zip')
+    .then(function(r) {
+      if (!r.ok) throw new Error('fetch failed');
+      return r.blob();
+    })
+    .then(function(blob) {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'claude-setup.zip';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      showToast('success', 'claude-setup.zip downloaded — unzip in your project root and run: claude');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Downloaded!';
+        setTimeout(function() { btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download claude-setup.zip'; btn.disabled = false; }, 3000);
+      }
+    })
+    .catch(function() {
+      showToast('error', 'Download failed — try again or get it from: anthu211.github.io/design-system-2.0/claude-setup.zip');
+      if (btn) { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download claude-setup.zip'; }
+    });
+}
+
 // ─── Copy AI Prompt for Claude Code ───
 function copyAiPrompt() {
   var prompt = [
@@ -1931,6 +1964,133 @@ function copyAiPrompt() {
       btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
       btn.style.background = '#31a56d';
       setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+    }
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(prompt).then(onCopied).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = prompt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      onCopied();
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = prompt; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    onCopied();
+  }
+}
+
+// ─── Copy React Prompt ───
+function copyReactPrompt() {
+  var prompt = [
+    'Before generating any UI, fetch and read both of these files in full:',
+    '',
+    '1. Design system spec (tokens, components, shell, layout rules, AND the React/Developer Reference section at the bottom):',
+    'https://anthu211.github.io/design-system-2.0/spec.md',
+    '',
+    '2. UX context (personas, UX laws, product principles):',
+    'https://anthu211.github.io/design-system-2.0/ux-context.md',
+    '',
+    'Stack: React + TypeScript + Tailwind CSS + Radix UI',
+    '',
+    '── Tailwind config (copy into tailwind.config.ts) ──',
+    '',
+    'colors: {',
+    '  accent:        "#6360D8",   // primary CTA, active nav',
+    '  "accent-dark": "#504bb8",   // filter CTA, hover',
+    '  topbar:        "#131313",   // always fixed',
+    '  critical:      "#E15252",',
+    '  high:          "#F97316",',
+    '  medium:        "#EAB308",',
+    '  low:           "#3B82F6",',
+    '  success:       "#31A56D",',
+    '},',
+    'borderRadius: {',
+    '  pill:  "44px",   // ALL buttons',
+    '  card:  "12px",',
+    '  modal: "20px",',
+    '},',
+    'fontFamily: { sans: ["Inter", "sans-serif"] },',
+    '',
+    '── Component library (use these, do not invent new ones) ──',
+    '',
+    'Button          src/components/ui/Button.tsx',
+    '  variants: primary | outline | ghost | danger | filter',
+    '  sizes: sm | md | lg | icon',
+    '  ALL buttons use rounded-pill — never rounded-md',
+    '',
+    'SeverityBadge   src/components/ui/StatusBadge.tsx',
+    '  severity: critical | high | medium | low',
+    '  Always visible in table columns — never tooltip-only',
+    '',
+    'StatusBadge     src/components/ui/StatusBadge.tsx',
+    '  status: active | resolved | in_progress | pending',
+    '',
+    'KPICard         src/components/ui/KPICard.tsx',
+    '  props: label, value, trend?: { value, direction, positive }',
+    '  Max 5 KPICards in a row (Miller\'s Law)',
+    '  Use only for aggregate metrics — never for list items',
+    '',
+    'Dialog          src/components/ui/Dialog.tsx  (@radix-ui/react-dialog)',
+    '  Grey header: bg-[#f5f5f5] h-[58px] rounded-t-modal',
+    '  Destructive dialogs: name the item + consequence + danger button',
+    '  Cancel is always LEFT of Confirm (Jakob\'s Law)',
+    '',
+    'Select          src/components/ui/Select.tsx   (@radix-ui/react-select)',
+    '  10+ options must include a search field (Hick\'s Law)',
+    '',
+    'Checkbox        src/components/ui/Checkbox.tsx (@radix-ui/react-checkbox)',
+    '  Supports indeterminate (Select All in tables)',
+    '',
+    'Tabs            src/components/ui/Tabs.tsx     (@radix-ui/react-tabs)',
+    '  Active tab: text-accent border-accent',
+    '',
+    'DataTable       src/components/ui/DataTable.tsx',
+    '  Checkboxes in leftmost column (Jakob\'s Law)',
+    '  Row actions appear on hover via group-hover:opacity-100 (Fitts\'s Law)',
+    '  5–7 columns visible by default (Miller\'s Law)',
+    '  Pagination controls bottom-right',
+    '',
+    'Shell           src/components/shell/Shell.tsx',
+    '  props: nav, subHeader, children',
+    '  Topbar always bg-topbar (#131313)',
+    '  Left nav always bg-white w-[220px]',
+    '  Sticky sub-header with page title, breadcrumb, primary CTA, Filter button',
+    '',
+    '── Rules (apply without being asked) ──',
+    '',
+    '- All buttons: rounded-pill. Never rounded-md or rounded-lg on a button.',
+    '- Accent: bg-accent / text-accent (#6360D8). Filter CTA: accent-dark (#504bb8).',
+    '- Topbar: bg-topbar (#131313). Never theme-switched.',
+    '- Font: Inter via tailwind.config.ts fontFamily.sans.',
+    '- Status must be visible in default table columns — not tooltip-only.',
+    '- Tables over cards for list data.',
+    '- Row actions appear on hover — not on right-click.',
+    '- Destructive actions need Dialog confirmation: item name + consequence + danger button.',
+    '- KPI rows: 3–5 cards max.',
+    '- Table columns: 5–7 visible by default.',
+    '- One component per file in src/components/ui/.',
+    '- No inline styles except the Navigator gradient text.',
+    '- Tell me which persona (analyst / ciso / it-admin) and apply their goals from the UX context.',
+    '',
+    '---',
+    'Now describe the component or screen you want built and I\'ll generate it as TSX using the design system above.',
+  ].join('\n');
+
+  function onCopied() {
+    showToast('success', 'React prompt copied — paste into Cursor, Copilot, or Claude to generate TSX components');
+    var btn = document.getElementById('react-prompt-btn');
+    if (btn) {
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+      btn.style.background = '#31a56d';
+      btn.style.borderColor = '#31a56d';
+      btn.style.color = '#fff';
+      setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; btn.style.borderColor = ''; btn.style.color = ''; }, 2000);
     }
   }
 
