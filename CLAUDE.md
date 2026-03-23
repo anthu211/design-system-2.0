@@ -38,51 +38,57 @@ These rules are derived from the spec. Apply them without being asked.
 
 ## Slash Commands
 
-These commands are implemented as prompt files in `.claude/commands/`. They work automatically in Claude Code — type the command and Claude fetches the spec, applies the rules, and generates the output.
+These commands are implemented as prompt files in `.claude/commands/`. They work automatically in Claude Code — just type the command and describe what you want. Claude fetches the spec fresh, applies all design system rules, and creates or edits the file directly.
 
-> **How they work:** Each file in `.claude/commands/` is a prompt template. When you run `/new-component AlertsTable analyst`, Claude Code reads `new-component.md`, substitutes your arguments, and executes it. The spec and UX context URLs are embedded in each command file — Claude always fetches them fresh.
+> **How they work:** Each file in `.claude/commands/` is a prompt template. Claude Code reads the matching file, substitutes your description, and executes it. No copy-pasting required.
 
-### `/new-component [component-name] [persona]`
-### `/new-component [component-name] [persona] react`
+---
 
-Generates a UI component or screen. Defaults to a self-contained HTML file. Add `react` as a third argument to generate TSX instead.
+### `/new-page [describe what you want]`
+
+**Creates a new, complete HTML page and saves it as a file in the current directory.**
+
+Just describe the screen you need. Claude infers the persona, derives a filename, generates the full page, and writes it to disk.
+
+**Examples:**
+```
+/new-page alerts dashboard for the analyst team
+/new-page executive risk summary with KPI cards and trend charts
+/new-page integration settings with connection status and error states
+/new-page vulnerability findings detail for a specific asset
+/new-page third party vendor risk overview
+```
 
 **What it does:**
-1. Fetches and reads the spec (including the React/Developer Reference section) and UX context
-2. Builds the component using exact design system tokens and the mandatory shell
-3. Applies the named persona's goals and frustrations to shape the output
-4. Returns a complete, production-ready file — HTML or TSX depending on the third argument
+1. Fetches the spec and UX context
+2. Infers persona from the description (analyst / ciso / it-admin)
+3. Generates a complete, self-contained HTML file with the mandatory shell
+4. Saves it as `[kebab-case-name].html` in the current directory
+5. Reports the filename, persona applied, and key design decisions
 
-**Examples (HTML — vibe coding / prototyping):**
+---
+
+### `/new-component [describe what to add]`
+
+**Adds a component to an existing HTML page — edits the file in place.**
+
+Describe the component you want and which page it belongs to. Claude reads the existing file, adds the new component in the right place, and confirms what changed.
+
+**Examples:**
 ```
-/new-component AlertsTable analyst
-/new-component RiskOverviewDashboard ciso
-/new-component IntegrationSettings it-admin
-/new-component FindingsDetail analyst
+/new-component add a filter bar to alerts-dashboard.html
+/new-component add a delete confirmation modal to the findings table
+/new-component add KPI cards at the top of risk-overview.html
+/new-component add an empty state to the vendor table
+/new-component add a bulk action toolbar to the alerts table
 ```
 
-**Examples (React — developer-ready TSX):**
-```
-/new-component AlertsTable analyst react
-/new-component RiskOverviewDashboard ciso react
-/new-component IntegrationSettings it-admin react
-/new-component FindingsDetail analyst react
-```
-
-**Persona values:** `analyst` · `ciso` · `it-admin`
-
-**What persona changes:**
-- `analyst` → Dense tables, visible severity, row-level actions, sort/filter/export prominent
-- `ciso` → KPI cards first, trend direction explicit, max 5 metrics, minimal jargon
-- `it-admin` → Clear form validation, integration status visible, destructive action confirmations, grouped settings
-
-**What `react` changes (vs HTML):**
-- Output is `.tsx` files, one component per file in `src/components/ui/`
-- Styling uses Tailwind classes — no inline styles except Navigator gradient
-- Interactive components use Radix UI primitives (Dialog, Select, Checkbox, Tabs)
-- All tokens reference the Tailwind config values (`bg-accent`, `rounded-pill`, etc.)
-- Shell is the `Shell` layout component, not raw HTML
-- No `<link>` tags or `<style>` blocks — font loaded via `next/font/google` or layout
+**What it does:**
+1. Fetches the spec and UX context
+2. Reads the target HTML file
+3. Adds the component (HTML + CSS + JS) without rewriting the whole file
+4. Matches the existing page's tokens and style
+5. Reports what was added and where
 
 ---
 
@@ -143,6 +149,7 @@ Identifies which persona a feature primarily serves, surfaces their goals and fr
 | File / Directory | Purpose |
 |-----------------|---------|
 | `CLAUDE.md` | This file — loaded automatically by Claude Code every session |
+| `.claude/commands/new-page.md` | Prompt for `/new-page` slash command |
 | `.claude/commands/new-component.md` | Prompt for `/new-component` slash command |
 | `.claude/commands/ux-review.md` | Prompt for `/ux-review` slash command |
 | `.claude/commands/persona-check.md` | Prompt for `/persona-check` slash command |
@@ -155,23 +162,27 @@ Live spec files: `https://anthu211.github.io/design-system-2.0/`
 
 ## How to Work in This Project
 
-**For a new screen:**
+**To build a new page:**
 ```
-/new-component [ScreenName] [persona]
-```
-
-**For reviewing existing work:**
-```
-/ux-review
-[paste HTML]
+/new-page [describe the screen you need]
 ```
 
-**For checking if a feature fits the user:**
+**To add a component to an existing page:**
+```
+/new-component [describe what to add and which file]
+```
+
+**To review an existing screen:**
+```
+/ux-review [paste HTML or describe the screen]
+```
+
+**To check if a feature fits the right user:**
 ```
 /persona-check [describe the feature]
 ```
 
-**For a general build:**
+**For a general build (no slash command):**
 ```
 Read our spec: https://anthu211.github.io/design-system-2.0/spec.md
 Read our UX context: https://anthu211.github.io/design-system-2.0/ux-context.md

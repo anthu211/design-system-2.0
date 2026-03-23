@@ -528,10 +528,17 @@ function buildLineChart(containerId, data, labels) {
   }).join('');
 
   var dotStroke = document.body.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
-  var dots = data.map(function(v, i) {
-    var x = (pad.left + i * step).toFixed(1);
-    var y = (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
-    return '<circle cx="' + x + '" cy="' + y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" style="cursor:pointer;" data-li="' + i + '"></circle>';
+
+  // Visible dots (pointer-events:none — hit detection handled by overlay circles)
+  var pointCoords = data.map(function(v, i) {
+    return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat((pad.top + innerH - (v / yMax) * innerH).toFixed(1)) };
+  });
+  var visibleDots = pointCoords.map(function(p) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
+  }).join('');
+  // Invisible overlay circles — r=16 gives 32px hit area (Fitts's Law)
+  var overlayDots = pointCoords.map(function(p, i) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="16" fill="transparent" style="cursor:pointer;" data-li="' + i + '"></circle>';
   }).join('');
 
   var axes = '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
@@ -542,11 +549,18 @@ function buildLineChart(containerId, data, labels) {
     gridLines + axes +
     '<polygon points="' + areaPts + '" fill="url(#lg1)"/>' +
     '<polyline points="' + pts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
-    dots + xLabels + yLabels + '</svg>';
+    visibleDots + xLabels + yLabels + overlayDots + '</svg>';
+
+  // Overlay circles handle hover — snaps tooltip to exact dot position
   el.querySelectorAll('circle[data-li]').forEach(function(circle) {
     var i = parseInt(circle.dataset.li);
-    circle.addEventListener('mouseover', function(e) {
-      showChartTooltip(e, labels[i], [
+    circle.addEventListener('mouseover', function() {
+      // Synthesise event at exact dot position so tooltip caret aligns to the point
+      var svgEl = circle.closest('svg');
+      var rect = svgEl.getBoundingClientRect();
+      var scaleX = rect.width / W;
+      var syntheticE = { clientX: rect.left + pointCoords[i].x * scaleX, clientY: rect.top + pointCoords[i].y * (rect.height / H) };
+      showChartTooltip(syntheticE, labels[i], [
         { label: 'Total Findings', value: data[i].toLocaleString(), color: '#6760d8', active: true }
       ], '#6760d8');
     });

@@ -290,35 +290,68 @@ All values are CSS custom properties. Use these names consistently so dark/light
 
 Each item is `justify-content:space-between` — icon+label on the left, chevron always on the right.
 
+**Icon rule: never leave `<!-- icon -->` as a placeholder — always use a real SVG path from the list below.**
+
+Common nav icon paths (copy the `<path>` or `<polyline>` directly into the SVG wrapper):
+
+| Section | SVG path content |
+|---------|-----------------|
+| Risk Overview / Dashboard | `<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>` |
+| Findings / Vulnerabilities | `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>` |
+| Assets | `<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>` |
+| Reports / Documents | `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>` |
+| Settings | `<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>` |
+| Users / Identity | `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>` |
+| Integrations | `<polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>` |
+| Scan / Activity | `<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>` |
+
+**KPI card icons** — small icon top-right of card, `width:16px; height:16px; color:var(--shell-text-muted)`:
+
+| Metric | SVG path content |
+|--------|-----------------|
+| Risk Score | `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>` |
+| Critical Findings | `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>` |
+| Assets at Risk | `<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>` |
+| Remediation Rate | `<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>` |
+| Exposure Score | `<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>` |
+
 ```html
-<!-- Default nav item -->
+<!-- Default nav item — replace path content from table above -->
 <div style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#fff;cursor:pointer;">
   <div style="display:flex;align-items:center;gap:8px;">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><!-- icon --></svg>
-    <span style="font-size:14px;color:#6e6e6e;font-weight:400;">Nav Item</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+    </svg>
+    <span style="font-size:14px;color:#6e6e6e;font-weight:400;">Risk Overview</span>
   </div>
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
 </div>
 
-<!-- Expanded section — grey bg #f5f5f5, chevron flips up, GREY text — parent never gets blue -->
+<!-- Expanded section — grey bg, chevron flips up, parent text stays grey (never blue) -->
 <div style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#f5f5f5;cursor:pointer;">
   <div style="display:flex;align-items:center;gap:8px;">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><!-- icon --></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+    </svg>
     <span style="font-size:14px;color:#6e6e6e;font-weight:400;">Section Name</span>
   </div>
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
 </div>
 
-<!-- Active sub-item: indent 30px, color #6360d8, bg tint — ONLY this gets blue, parent stays grey -->
+<!-- Active sub-item: indent 30px, blue color + bg tint — ONLY sub-item gets blue -->
 <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 8px 8px 30px;text-decoration:none;background:rgba(99,96,216,0.08);border-radius:6px;">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6360d8" stroke-width="2"><!-- icon --></svg>
-  <span style="font-size:14px;color:#6360d8;font-weight:400;">Active Sub Item</span>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6360d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+  </svg>
+  <span style="font-size:14px;color:#6360d8;font-weight:400;">Findings</span>
 </a>
 
 <!-- Default sub-item -->
 <a href="#" style="display:flex;align-items:center;gap:8px;padding:8px 8px 8px 30px;text-decoration:none;">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><!-- icon --></svg>
-  <span style="font-size:14px;color:#6e6e6e;font-weight:400;">Sub Item</span>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+  </svg>
+  <span style="font-size:14px;color:#6e6e6e;font-weight:400;">Reports</span>
 </a>
 ```
 
@@ -1058,6 +1091,246 @@ Two variants:
 
 ---
 
+### Charts — Visual Rules
+
+**Implementation:** All charts use inline SVG. Never use `<canvas>`, Chart.js, D3, or any external library. SVG gives pixel-perfect control, works without a build step, and matches the design system exactly.
+
+---
+
+#### Chart wrapper
+
+Every chart lives inside a content card:
+```html
+<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:20px 24px;">
+  <div style="font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:2px;">Chart Title</div>
+  <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:16px;">Subtitle or date range</div>
+  <div id="my-chart" style="width:100%;"></div>
+</div>
+```
+
+---
+
+#### Shared visual tokens (apply to every chart type)
+
+| Element | Value |
+|---------|-------|
+| Grid lines | `stroke: var(--shell-border)` · `stroke-width: 1` · dashed: `stroke-dasharray: 4 4` |
+| Axis lines | `stroke: var(--shell-border)` · `stroke-width: 1` · solid |
+| Axis labels | `font-size: 11px` · `fill: var(--shell-text-muted)` · `font-family: inherit` |
+| Y-axis label | `text-anchor: end` · 6px gap from axis |
+| X-axis label | `text-anchor: middle` · 6px below bottom axis |
+| Y-tick count | 4–5 ticks — never more than 6 |
+| Chart padding | `top: 16` · `right: 20` · `bottom: 36` · `left: 44` (always leaves room for y-axis labels) |
+| Series colors | Critical `#D12329` · High `#D98B1D` · Accent/primary `#6760d8` · Success `#31A56D` |
+| Single-series | Always use accent `#6760d8` for the line/bars |
+
+---
+
+#### Line Chart
+
+```
+Line:        stroke:#6760d8  stroke-width:2  stroke-linecap:round  stroke-linejoin:round
+Area fill:   linearGradient  top stop-opacity:0.20  bottom stop-opacity:0  (same color as line)
+Dots:        r:5  fill:#6760d8  stroke:#fff (light) / stroke:#0e0e0e (dark)  stroke-width:1.5
+             pointer-events:none — hit detection via invisible r:16 overlay circles
+Hover area:  r:16  fill:transparent  cursor:pointer  (sits on top of visible dot in SVG layer order)
+```
+
+```html
+<!-- Line chart — complete self-contained example -->
+<div id="line-chart" style="width:100%;"></div>
+<script>
+(function() {
+  var el = document.getElementById('line-chart');
+  var W = el.offsetWidth || 600;
+  var H = 200;
+  var pad = { top: 16, right: 20, bottom: 36, left: 44 };
+  var iW = W - pad.left - pad.right;
+  var iH = H - pad.top - pad.bottom;
+
+  var data   = [912, 888, 871, 854, 848, 831];
+  var labels = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+
+  var yMax = Math.ceil(Math.max.apply(null, data) / 10) * 10;
+  var yMin = Math.floor(Math.min.apply(null, data) / 10) * 10;
+  var yRange = yMax - yMin || 10;
+  var step = iW / (data.length - 1);
+
+  function yPos(v) { return pad.top + iH - ((v - yMin) / yRange) * iH; }
+
+  /* Grid + axis labels */
+  var ticks = 4;
+  var grid = '', yLbls = '';
+  for (var t = 0; t <= ticks; t++) {
+    var v = yMin + (t / ticks) * yRange;
+    var gy = yPos(v);
+    grid  += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + iW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1" stroke-dasharray="4 4"/>';
+    yLbls += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" style="font-size:11px;fill:var(--shell-text-muted);font-family:inherit;">' + Math.round(v) + '</text>';
+  }
+
+  /* Point coordinates */
+  var coords = data.map(function(v, i) {
+    return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat(yPos(v).toFixed(1)) };
+  });
+  var linePts  = coords.map(function(p) { return p.x + ',' + p.y; }).join(' ');
+  var areaPts  = (pad.left + ',') + (pad.top + iH) + ' ' + linePts + ' ' + (pad.left + iW) + ',' + (pad.top + iH);
+
+  /* X labels */
+  var xLbls = labels.map(function(l, i) {
+    return '<text x="' + coords[i].x + '" y="' + (H - 6) + '" text-anchor="middle" style="font-size:11px;fill:var(--shell-text-muted);font-family:inherit;">' + l + '</text>';
+  }).join('');
+
+  /* Dots: visible (no pointer-events) + invisible overlay (r=16 for Fitts's Law) */
+  var dotStroke = '#ffffff';
+  var visDots = coords.map(function(p) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"/>';
+  }).join('');
+  var hitDots = coords.map(function(p, i) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="16" fill="transparent" style="cursor:pointer;" data-i="' + i + '"/>';
+  }).join('');
+
+  var uid = 'lg' + Date.now();
+  el.innerHTML =
+    '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
+    '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="#6760d8" stop-opacity="0.20"/>' +
+      '<stop offset="100%" stop-color="#6760d8" stop-opacity="0"/>' +
+    '</linearGradient></defs>' +
+    grid +
+    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + iH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<polygon points="' + areaPts + '" fill="url(#' + uid + ')"/>' +
+    '<polyline points="' + linePts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    visDots + xLbls + yLbls + hitDots +
+    '</svg>';
+
+  /* Tooltip wiring — snaps to exact dot coordinates */
+  el.querySelectorAll('circle[data-i]').forEach(function(c) {
+    var i = parseInt(c.dataset.i);
+    c.addEventListener('mouseover', function() {
+      var svg = c.closest('svg');
+      var r = svg.getBoundingClientRect();
+      var sx = r.width / W, sy = r.height / H;
+      showChartTooltip(
+        { clientX: r.left + coords[i].x * sx, clientY: r.top + coords[i].y * sy },
+        labels[i],
+        [{ label: 'Risk Score', value: data[i].toLocaleString(), color: '#6760d8', active: true }],
+        '#6760d8'
+      );
+    });
+    c.addEventListener('mousemove', positionChartTooltip);
+    c.addEventListener('mouseleave', hideChartTooltip);
+  });
+})();
+</script>
+```
+
+**Rules:**
+- `yMin` must be calculated from actual data — never hardcode 0 as baseline unless data starts near 0. Using 0 as baseline for values like 831–912 compresses the trend into a flat line.
+- Use `stroke-dasharray:"4 4"` on grid lines — not solid.
+- Never draw a bottom axis line unless you also draw a left axis line.
+
+---
+
+#### Donut Chart — Construction Pattern
+
+**Never use `<canvas>` for donut charts.** Always use SVG arcs with these rules:
+- `stroke-linecap="round"` — mandatory for rounded segment ends
+- 8° gap between segments (subtract 8 from sweep angle before drawing end angle)
+- `strokeWidth = outerRadius × 0.28` — gives a proportionally thick ring at any size
+- Center label: total count in `font-size:22px; font-weight:700`, subtitle in `font-size:11px; color:var(--shell-text-muted)`
+
+```html
+<!-- Donut chart container — size it with width/height on the wrapper -->
+<div style="position:relative;width:160px;height:160px;">
+  <svg id="my-donut" width="160" height="160" viewBox="0 0 160 160" style="overflow:visible;"></svg>
+  <!-- Center label — absolutely positioned -->
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+    <span style="font-size:22px;font-weight:700;color:var(--shell-text);line-height:1;">332</span>
+    <span style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">total</span>
+  </div>
+</div>
+
+<script>
+function polarToCartesian(cx, cy, r, angleDeg) {
+  var rad = (angleDeg - 90) * Math.PI / 180;
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+}
+function describeArc(cx, cy, r, startAngle, endAngle) {
+  var s = polarToCartesian(cx, cy, r, endAngle);
+  var e = polarToCartesian(cx, cy, r, startAngle);
+  var largeArc = (endAngle - startAngle) <= 180 ? '0' : '1';
+  return 'M ' + s.x + ' ' + s.y + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 0 ' + e.x + ' ' + e.y;
+}
+
+var segments = [
+  { label: 'Critical', value: 24,  color: '#D12329' },
+  { label: 'High',     value: 90,  color: '#D98B1D' },
+  { label: 'Medium',   value: 143, color: '#6760d8' },
+  { label: 'Low',      value: 75,  color: '#31A56D' }
+];
+var size = 160, cx = 80, cy = 80;
+var outerR  = size / 2 - 4;
+var strokeW = outerR * 0.28;   /* ← proportional thickness — always 0.28 */
+var r = outerR - strokeW / 2;
+var total = segments.reduce(function(s, d) { return s + d.value; }, 0);
+var startAngle = 0;
+var svgEl = document.getElementById('my-donut');
+
+svgEl.innerHTML = segments.map(function(d) {
+  var sweep    = (d.value / total) * 360;
+  var endAngle = startAngle + sweep - 8;  /* ← 8° gap between segments */
+  var path     = describeArc(cx, cy, r, startAngle, endAngle);
+  startAngle  += sweep;
+  return '<path d="' + path + '" fill="none" stroke="' + d.color + '" stroke-width="' + strokeW + '" stroke-linecap="round" style="cursor:pointer;" data-label="' + d.label + '" data-value="' + d.value + '" data-pct="' + Math.round(d.value/total*100) + '" data-color="' + d.color + '"></path>';
+}).join('');
+
+/* Tooltip wiring */
+svgEl.querySelectorAll('path').forEach(function(path) {
+  path.addEventListener('mouseover', function(e) {
+    var color = path.dataset.color;
+    showChartTooltip(e, path.dataset.label, [
+      { label: 'Count', value: path.dataset.value, color: color, active: false },
+      { label: 'Share', value: path.dataset.pct + '%', color: color, active: true }
+    ], color);
+  });
+  path.addEventListener('mousemove', positionChartTooltip);
+  path.addEventListener('mouseleave', hideChartTooltip);
+});
+</script>
+```
+
+**Severity color order (always):** Critical `#D12329` → High `#D98B1D` → Medium `#6760d8` → Low `#31A56D`
+
+---
+
+#### Grouped Bar Chart
+
+```
+Bar shape:     rx:3 (slightly rounded top corners)
+Bar width:     auto — fit to group width, min 6px max 18px
+Bar gap:       3px between bars in the same group
+Group gap:     equal division of innerWidth by group count
+Grid lines:    horizontal only, dashed (stroke-dasharray:"4 4")
+Hover:         darken fill by 15% OR add stroke:same-color stroke-width:1.5
+```
+
+Series colors (in order): `#D12329` · `#D98B1D` · `#6760d8` · `#31A56D`
+
+---
+
+#### Horizontal Bar Chart
+
+```
+Bar height:    16px
+Bar radius:    4px (right end only — use clipPath or rx on a rect)
+Track:         full-width rect, fill:var(--shell-raised), height:16px, rx:4
+Label:         left-aligned, font-size:13px, min-width:120px
+Value:         right-aligned, font-size:12px, font-weight:600, color matches fill
+Row height:    40px (16px bar + 12px padding top/bottom)
+```
+
+---
+
 ### Chart Tooltip
 
 Shown on hover over any chart element (bar, donut segment, line dot, horizontal bar row). The tooltip floats below the cursor with a caret arrow at the top pointing up toward the chart.
@@ -1134,7 +1407,6 @@ element.addEventListener('mousemove', positionChartTooltip);
 element.addEventListener('mouseleave', hideChartTooltip);
 
 // GROUPED BAR CHART — full working example:
-// After rendering bars as SVG <rect> elements, loop and attach:
 bars.forEach(function(rect, i) {
   rect.addEventListener('mouseover', function(e) {
     showChartTooltip(e, groupLabels[i], [
@@ -1144,6 +1416,9 @@ bars.forEach(function(rect, i) {
   rect.addEventListener('mousemove', positionChartTooltip);
   rect.addEventListener('mouseleave', hideChartTooltip);
 });
+
+// See "Charts — Visual Rules > Line Chart" section above for the complete line chart
+// construction pattern including the correct hover/snap-to-point implementation.
 </script>
 ```
 
@@ -1269,7 +1544,11 @@ Code:           font-family:'SFMono-Regular',Consolas,monospace; font-size:12px;
     - Expanded parent: `background:#f5f5f5`, text `#6e6e6e` — never blue
     - Active sub-item only: `color:#6360D8`, `background:rgba(99,96,216,0.08)`, `padding-left:30px`
     - Only ONE item can be active at a time — accordion behavior
-13. **Cards:** `border-radius:12px`, `border:1px solid var(--card-border)`, `background:var(--card-bg)`
+13. **Cards:**
+    - **KPI cards** (metric summary): `border-radius:8px`, `padding:16px 20px`, `border:1px solid var(--card-border)`, `background:var(--card-bg)`
+    - **KPI row gap**: `gap:8px` between cards — never more than 12px
+    - **Content/section cards** (tables, charts, panels): `border-radius:12px`, `border:1px solid var(--card-border)`, `background:var(--card-bg)`
+    - **Modals**: `border-radius:20px` (already documented in Rule 16)
 14. **Badge colors depend on theme** — use light theme colors (`#EFF7ED`, `#F9EEEE`, `#F2EDDB`, `#F7F6EB`) for light pages; dark colors (`#192C15`, `#260808`, `#2C2613`, `#514B09`) for dark pages.
 15. **Chart tooltips are mandatory** on all chart hovers (bars, donut segments, line dots, horizontal bar rows). Border + dot + active-value color must match the hovered series color. Include `#chart-tooltip` div and the three tooltip functions (`showChartTooltip`, `positionChartTooltip`, `hideChartTooltip`) in every file with charts.
 16. **Form Dialogue modals** use the grey-header pattern: `background:#f5f5f5` (dark: `#2a2a2a`), `height:58px`, `border-radius:20px 20px 0 0`. Body sections use the label+divider pattern. Footer uses pill buttons (`border-radius:20px`, `height:32px`). Section labels are always `#101010` hardcoded (not a token). Submit button is disabled (`background:#a3a5af`) until required fields are complete.

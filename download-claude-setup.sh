@@ -15,6 +15,7 @@ rm -f claude-setup.zip
 
 # Create zip with the .claude directory and CLAUDE.md
 zip -r claude-setup.zip \
+  .claude/commands/new-page.md \
   .claude/commands/new-component.md \
   .claude/commands/ux-review.md \
   .claude/commands/persona-check.md \
