@@ -35,7 +35,7 @@ Prevalent AI is a **B2B cybersecurity exposure management platform** for enterpr
 - **Filter/Active Filters CTA:** `#504bb8`
 - **Default theme:** Light (`<html class="theme-light">`). Dark theme is opt-in.
 - **Topbar:** Always `background: #131313` — never changes with theme.
-- **Border radius:** inputs `8px` · cards `12px` · **buttons `44px` (always pill)** · modals `20px`
+- **Border radius:** inputs `8px` · cards `4px` · **buttons `44px` (always pill)** · modals `12px`
 - **Spacing unit:** 4px base — use multiples: 4, 8, 12, 16, 20, 24, 32, 48
 
 ---
@@ -59,7 +59,7 @@ Prevalent AI is a **B2B cybersecurity exposure management platform** for enterpr
 --shell-bg: #F7F9FC          --shell-sidebar: #FFFFFF       --shell-border: #E6E6E6
 --shell-text: #101010        --shell-text-2: #282828        --shell-text-muted: #6E6E6E
 --shell-accent: #6360D8      --shell-hover: rgba(0,0,0,0.04)
---shell-active: rgba(99,96,216,0.08)  --shell-raised: #F5F5F5  --shell-elevated: #EFEFEF
+--shell-active: rgba(99,96,216,0.08)  --shell-raised: #F5F5F5  --shell-elevated: #EBEBEB
 --ctrl-bg: #FFFFFF           --ctrl-border: #CFCFCF         --ctrl-text: #282828
 --ctrl-placeholder: #9CA3AF  --ctrl-hover: #F5F5F5
 --card-bg: #FFFFFF           --card-border: #E6E6E6
@@ -83,7 +83,7 @@ Prevalent AI is a **B2B cybersecurity exposure management platform** for enterpr
 11. **No external CSS frameworks** — inline styles only, using the variables above.
 12. **⚠ Charts use inline SVG ONLY** — NEVER `<canvas>`, Chart.js, D3, or any external chart library. Copy the exact patterns from `charts.md`. If you write `<canvas>` you are violating this rule.
 13. **Content body starts DIRECTLY with page content** — no extra `<h1>` or description paragraph below the sub-header.
-14. **KPI cards:** max 5 in a row · `border-radius:8px` · `gap:8px` between cards.
+14. **KPI cards:** max 5 in a row · `border-radius:4px` · `gap:8px` between cards · `padding:8px 12px`.
 15. **Nav:** expanded parent stays grey (`#f5f5f5`) — only the active sub-item gets blue. One active item at a time.
 16. **Spacing:** strict 4px scale only — 4, 8, 12, 16, 20, 24, 32, 48px. Never use 3px, 5px, 6px, 10px, 11px, 14px.
 17. **Minimum interactive button height: 32px** — use `sz-md` (32px) or larger for all clickable actions. `sz-sm` (24px) is for count badges and inline labels only, not buttons users click to take action.

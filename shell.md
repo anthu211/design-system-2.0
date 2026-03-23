@@ -23,6 +23,15 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     a { text-decoration: none; }
     button { font-family: inherit; cursor: pointer; border-radius: 44px; }
 
+    /* ── IMPORTANT: Paste the full Required CSS Classes block from components.md after this line ── */
+
+    /* ── Navigator (t-special) button — always in topbar ── */
+    .ds-btn { display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;border-radius:44px;font-family:inherit;transition:background 150ms,border-color 150ms;white-space:nowrap;user-select:none;line-height:1; }
+    .ds-btn.sz-sm { height:32px;padding:0 12px;font-size:13px;font-weight:500; }
+    .ds-btn.t-special { background:transparent;border:1px solid #b1b8f5; }
+    .ds-btn.t-special .btn-text { background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;background-clip:text;color:transparent; }
+    .ds-btn.t-special:hover { background:rgba(177,184,245,0.12); }
+
     /* ── Nav Collapse CSS (required) ── */
     #shell-nav { transition: width 0.22s ease, padding 0.22s ease; }
     #shell-nav.nav-collapsed { width: 52px !important; padding: 16px 8px !important; overflow: hidden; }
@@ -56,7 +65,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
     </button>
     <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>
-    <button style="background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;border:1px solid #b1b8f5;border-radius:44px;font-size:12px;font-weight:500;padding:5px 14px;font-family:inherit;cursor:pointer;">Navigator</button>
+    <button class="ds-btn sz-sm t-special"><span class="btn-text">Navigator</span></button>
   </div>
 
   <!-- ── SHELL: sidebar + content ── -->
@@ -120,17 +129,17 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
 
       <!-- Sticky content sub-header (white, rounded bottom corners) -->
-      <div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6e6e6;border-radius:0 0 8px 8px;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+      <div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6e6e6;border-radius:0 0 8px 8px;padding:12px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
         <!-- Page title + breadcrumb -->
         <div style="min-width:0;">
           <div style="font-size:12px;font-weight:500;color:#101010;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Page Title</div>
-          <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:3px;white-space:nowrap;">
+          <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:4px;white-space:nowrap;">
             <span>Dashboard</span><span>›</span><span>Section</span><span>›</span>
             <span style="color:#6360D8;">Current Page</span>
           </div>
         </div>
         <!-- Explore in dropdown pill -->
-        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:5px 14px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">
+        <button style="background:none;border:1px solid #e6e6e6;border-radius:44px;color:#6e6e6e;font-size:12px;padding:8px 14px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0;">
           Explore in <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <span style="flex:1;"></span>
@@ -138,14 +147,42 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
         <button style="width:32px;height:32px;border-radius:50%;background:#6360D8;border:none;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
-        <!-- Active Filters pill (outline #504bb8) -->
-        <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;display:flex;align-items:center;gap:6px;flex-shrink:0;">
-          Active Filters
-          <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">3</span>
-        </button>
+        <!-- Active Filters pill — hover shows popover with applied filter chips -->
+        <!-- Replace the 3 filter chip values with filters actually active on this page -->
+        <div style="position:relative;flex-shrink:0;"
+             onmouseenter="this.querySelector('.af-pop').style.display='block'"
+             onmouseleave="this.querySelector('.af-pop').style.display='none'">
+          <button style="background:none;border:1px solid #504bb8;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:8px 14px;display:flex;align-items:center;gap:6px;white-space:nowrap;">
+            Active Filters
+            <span style="background:#504bb8;color:#fff;font-size:10px;font-weight:600;min-width:16px;height:16px;border-radius:44px;display:flex;align-items:center;justify-content:center;padding:0 4px;">3</span>
+          </button>
+          <div class="af-pop" style="display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:250;background:#fff;border:1px solid #e6e6e6;border-radius:8px;padding:14px;min-width:300px;box-shadow:0 8px 28px rgba(0,0,0,0.14);">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#6e6e6e;margin-bottom:10px;">Active Filters</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div style="display:inline-flex;align-items:center;gap:6px;background:#f5f5f5;border-radius:8px;padding:4px 8px;font-size:12px;border:1px solid #e6e6e6;">
+                <span style="color:#6e6e6e;font-weight:500;">Severity</span>
+                <span style="background:#fff;border-radius:4px;padding:1px 6px;color:#101010;">Critical</span>
+                <span style="font-size:10px;color:#9ca3af;">+</span>
+                <span style="background:#fff;border-radius:4px;padding:1px 6px;color:#101010;">High</span>
+                <button onclick="event.stopPropagation();this.closest('div[style]').remove()" style="background:none;border:none;cursor:pointer;color:#9ca3af;font-size:13px;padding:0 2px;line-height:1;border-radius:0;">×</button>
+              </div>
+              <div style="display:inline-flex;align-items:center;gap:6px;background:#f5f5f5;border-radius:8px;padding:4px 8px;font-size:12px;border:1px solid #e6e6e6;">
+                <span style="color:#6e6e6e;font-weight:500;">Status</span>
+                <span style="background:#fff;border-radius:4px;padding:1px 6px;color:#101010;">Open</span>
+                <button onclick="event.stopPropagation();this.closest('div[style]').remove()" style="background:none;border:none;cursor:pointer;color:#9ca3af;font-size:13px;padding:0 2px;line-height:1;border-radius:0;">×</button>
+              </div>
+              <div style="display:inline-flex;align-items:center;gap:6px;background:#f5f5f5;border-radius:8px;padding:4px 8px;font-size:12px;border:1px solid #e6e6e6;">
+                <span style="color:#6e6e6e;font-weight:500;">Asset Group</span>
+                <span style="background:#fff;border-radius:4px;padding:1px 6px;color:#101010;">Production</span>
+                <button onclick="event.stopPropagation();this.closest('div[style]').remove()" style="background:none;border:none;cursor:pointer;color:#9ca3af;font-size:13px;padding:0 2px;line-height:1;border-radius:0;">×</button>
+              </div>
+            </div>
+            <button style="margin-top:10px;background:none;border:none;font-size:12px;font-weight:500;color:#6360D8;cursor:pointer;padding:0;font-family:inherit;border-radius:0;">Clear all filters</button>
+          </div>
+        </div>
         <div style="width:1px;height:20px;background:#e6e6e6;flex-shrink:0;"></div>
         <!-- Filter pill (light purple bg) -->
-        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:5px 14px;flex-shrink:0;">Filter</button>
+        <button style="background:#e0dff7;border:none;border-radius:44px;color:#504bb8;font-size:12px;font-weight:500;padding:8px 14px;flex-shrink:0;">Filter</button>
       </div>
 
       <!-- Main content body — starts DIRECTLY with page content. NO h1/heading/description below sub-header -->
@@ -187,14 +224,15 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 ## Key Shell Rules
 
 - **Topbar** is always `background:#131313` — never changes with theme
+- **Navigator button** (topbar, right side): always `class="ds-btn sz-sm t-special"` with `<span class="btn-text">Navigator</span>` inside — gradient text, `border:1px solid #b1b8f5`, pill shape
 - **Left nav** is always 220px wide, `background:#fff`, `border-right:0.5px solid #d8d9dd`
 - **Nav header** at top of nav: dashboard name with dropdown chevron + collapse icon + subtitle
 - **Active sub-item** (leaf only): `color:#6360D8`, `background:rgba(99,96,216,0.08)`, `border-radius:6px`
 - **Expanded parent**: `background:#f5f5f5`, text/icon stays `#6e6e6e` — never blue
 - **Sub-items**: indent `padding-left:30px`, `font-size:14px`, `color:#6e6e6e`
-- **Sticky sub-header**: white card, `border-radius:0 0 8px 8px`, always at top of content area
-- **Breadcrumb**: last segment always `color:#6360D8`
-- **Active Filters pill**: `border:1px solid #504bb8`, `color:#504bb8` with count badge
+- **Sticky sub-header**: white card, `border-radius:0 0 8px 8px`, `padding:12px 16px`, always at top of content area
+- **Breadcrumb**: `gap:4px` between segments, last segment always `color:#6360D8`
+- **Active Filters pill**: `border:1px solid #504bb8`, `color:#504bb8` with count badge, `padding:8px 14px` (min 32px height). Hover reveals a popover showing 2–3 applied filter chips (key + value). Replace chip values with filters actually active on the page. Chips use the same inline chip style: `background:#f5f5f5`, `border-radius:8px`, `padding:4px 8px`. Use `onmouseenter/onmouseleave` on the wrapper `<div>` to show/hide. Always include "Clear all filters" link at the bottom of the popover.
 - **Filter pill**: `background:#e0dff7`, `color:#504bb8`, `border-radius:44px`
 - **Content body**: `background:#F7F9FC`, `padding:24px` — content starts DIRECTLY here, no extra h1/description
 

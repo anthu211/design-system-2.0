@@ -12,7 +12,7 @@ Add to your page `<style>` block. Required for interactive states (hover, focus,
 
 ```css
 /* ── Buttons ── */
-.ds-btn { display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;border-radius:24px;font-family:inherit;transition:background 150ms,color 150ms,border-color 150ms,box-shadow 150ms;white-space:nowrap;user-select:none;line-height:1;text-decoration:none; }
+.ds-btn { display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;border-radius:44px;font-family:inherit;transition:background 150ms,color 150ms,border-color 150ms,box-shadow 150ms;white-space:nowrap;user-select:none;line-height:1;text-decoration:none; }
 .ds-btn:focus-visible { outline:2px solid #6760d8;outline-offset:2px; }
 .ds-btn[disabled] { cursor:not-allowed;pointer-events:none; }
 .ds-btn.sz-sm { height:24px;padding:0 12px;font-size:12px;font-weight:500; }
@@ -113,7 +113,7 @@ html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
 .ds-dropdown-trigger-text.placeholder { color:var(--ctrl-placeholder); }
 .ds-dropdown-chevron { flex-shrink:0;transition:transform 150ms;color:var(--ctrl-placeholder); }
 .ds-dropdown[data-open="true"] .ds-dropdown-chevron { transform:rotate(180deg); }
-.ds-dropdown-panel { position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.28);z-index:50;overflow:hidden;display:none; }
+.ds-dropdown-panel { position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--ctrl-panel-bg);border:1px solid var(--ctrl-border);border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.28);z-index:50;overflow:hidden;display:none; }
 .ds-dropdown[data-open="true"] .ds-dropdown-panel { display:block; }
 .ds-dropdown-options { max-height:220px;overflow-y:auto; }
 .ds-dropdown-option { display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:14px;cursor:pointer;transition:background 100ms;color:var(--shell-text-2); }
@@ -271,13 +271,111 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 /* ── Icon Button ── */
 .ds-icon-btn { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;transition:background .12s,color .12s;flex-shrink:0; }
 .ds-icon-btn:hover { background:var(--shell-hover);color:var(--shell-text); }
+
+/* ── Count badge neutral variant ── */
+.ds-badge-count.neutral { background:var(--shell-elevated);color:var(--shell-text-muted); }
+
+/* ── Callout dark context variants (use on dark card backgrounds) ── */
+.ds-callout-error-dark   { background:rgba(225,82,82,0.28);color:#F9F9F9;border:1px solid rgba(225,82,82,0.35); }
+.ds-callout-success-dark { background:rgba(49,165,109,0.28);color:#F9F9F9;border:1px solid rgba(49,165,109,0.35); }
+.ds-callout-warning-dark { background:rgba(217,139,29,0.28);color:#F9F9F9;border:1px solid rgba(217,139,29,0.35); }
+
+/* ── Toggle Switch — multi-size system (preferred over .ds-toggle for new patterns) ── */
+.ds-toggle-wrap { display:inline-flex;align-items:center;gap:8px;cursor:pointer;user-select:none;font-family:inherit; }
+.ds-toggle-wrap.is-disabled { opacity:.4;pointer-events:none; }
+.ds-toggle-track { position:relative;display:inline-block;flex-shrink:0;border-radius:99px;background:var(--shell-border);transition:background 200ms ease; }
+.ds-toggle-track.on { background:#6760d8; }
+.ds-toggle-track .ds-toggle-thumb { position:absolute;top:50%;transform:translateY(-50%);border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);transition:left 200ms ease; }
+.ds-toggle-track.sz-sm { width:32px;height:18px; }
+.ds-toggle-track.sz-sm .ds-toggle-thumb { width:14px;height:14px;left:2px; }
+.ds-toggle-track.sz-sm.on .ds-toggle-thumb { left:16px; }
+.ds-toggle-track.sz-md { width:44px;height:24px; }
+.ds-toggle-track.sz-md .ds-toggle-thumb { width:18px;height:18px;left:3px; }
+.ds-toggle-track.sz-md.on .ds-toggle-thumb { left:23px; }
+.ds-toggle-track.sz-lg { width:56px;height:30px; }
+.ds-toggle-track.sz-lg .ds-toggle-thumb { width:24px;height:24px;left:3px; }
+.ds-toggle-track.sz-lg.on .ds-toggle-thumb { left:29px; }
+.ds-toggle-label { font-size:13px;color:var(--shell-text-2); }
+
+/* ── Custom Radio Group ── */
+.ds-radio-group { display:inline-flex;flex-direction:column;gap:6px;font-family:inherit; }
+.ds-radio-options { display:flex;flex-direction:column;gap:10px; }
+.ds-radio-item { display:inline-flex;align-items:flex-start;gap:8px;cursor:pointer;user-select:none; }
+.ds-radio-item.disabled { opacity:.5;pointer-events:none; }
+.ds-radio-dot { flex-shrink:0;margin-top:1px;border-radius:50%;background:var(--ctrl-bg);border:2px solid var(--ctrl-border);display:flex;align-items:center;justify-content:center;transition:border-color 150ms;cursor:pointer; }
+.ds-radio-dot.sz-sm { width:14px;height:14px; }
+.ds-radio-dot.sz-md { width:18px;height:18px; }
+.ds-radio-dot.checked { border-color:#6760d8; }
+.ds-radio-dot.checked::after { content:'';border-radius:50%;background:#6760d8; }
+.ds-radio-dot.sz-sm.checked::after { width:6px;height:6px; }
+.ds-radio-dot.sz-md.checked::after { width:8px;height:8px; }
+.ds-radio-text { font-size:14px;color:var(--shell-text-2);line-height:1.4; }
+.ds-radio-desc { font-size:12px;color:var(--ctrl-placeholder);margin-top:2px;line-height:1.4; }
+.ds-field-error { font-size:12px;color:#d12329;margin-top:4px; }
+
+/* ── Custom Checkbox ── */
+.ds-checkbox-item { display:inline-flex;align-items:flex-start;gap:8px;cursor:pointer;user-select:none;font-family:inherit; }
+.ds-checkbox-item.disabled { opacity:.5;pointer-events:none; }
+.ds-checkbox-box { flex-shrink:0;margin-top:1px;border-radius:3px;background:var(--ctrl-bg);border:2px solid var(--ctrl-border);display:flex;align-items:center;justify-content:center;transition:background 150ms,border-color 150ms;cursor:pointer; }
+.ds-checkbox-box.sz-sm { width:14px;height:14px; }
+.ds-checkbox-box.sz-md { width:18px;height:18px; }
+.ds-checkbox-box.checked,.ds-checkbox-box.indeterminate { background:#6760d8;border-color:#6760d8; }
+.ds-checkbox-box svg { display:none; }
+.ds-checkbox-box.checked svg.chk,.ds-checkbox-box.indeterminate svg.dash { display:block; }
+.ds-checkbox-text { font-size:14px;color:var(--shell-text-2);line-height:1.4; }
+
+/* ── Filter Bar ── */
+.ds-filter-bar { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+.ds-filter-btn { display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:44px;background:#e0dff7;color:#504bb8;font-size:14px;font-weight:500;border:none;cursor:pointer;white-space:nowrap;transition:background .12s; }
+.ds-filter-btn:hover { background:#d4d2f5; }
+.ds-filter-btn.active { background:var(--shell-accent);color:#fff; }
+.ds-filter-btn.active:hover { background:#5450c0; }
+.ds-filter-count-btn { display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:44px;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);color:#504bb8;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .12s; }
+.ds-filter-count-btn:hover { background:var(--ctrl-hover); }
+.ds-filter-count { background:#e0dff7;color:var(--shell-accent);border-radius:60px;padding:1px 5px;font-size:12px;min-width:18px;text-align:center;font-weight:500; }
+
+/* ── Active Filters popover ── */
+.ds-active-filters-wrap { position:relative; }
+.ds-active-filters-popover { display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:250;background:var(--card-bg);border:1px solid var(--shell-border);border-radius:10px;padding:14px;min-width:340px;box-shadow:0 8px 28px rgba(0,0,0,.22); }
+.ds-active-filters-wrap:hover .ds-active-filters-popover { display:block; }
+.ds-active-filters-popover-title { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:10px; }
+
+/* ── Filter Chips ── */
+.ds-filter-chips { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+.ds-filter-chip { display:flex;align-items:center;gap:6px;background:var(--shell-raised);border-radius:8px;padding:4px 8px;font-size:12px;border:1px solid var(--card-border); }
+.ds-chip-key { color:var(--shell-text-muted);font-weight:500;white-space:nowrap; }
+.ds-chip-value { background:var(--ctrl-bg);border-radius:4px;padding:3px 8px;color:var(--shell-text);white-space:nowrap; }
+.ds-chip-close { background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:10px;width:18px;height:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--shell-text-muted);line-height:1;padding:0;transition:color .1s; }
+.ds-chip-close:hover { color:var(--shell-text); }
+
+/* ── KPI Cards ── */
+.ds-kpi-row { display:flex;gap:8px; }
+.ds-kpi-card { flex:1;min-width:0;background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:8px 12px;min-height:90px;display:flex;flex-direction:column;justify-content:space-between; }
+.ds-kpi-value { font-size:24px;font-weight:700;color:var(--shell-text);line-height:1.1; }
+.ds-kpi-label { font-size:12px;font-weight:500;color:var(--shell-text-muted);line-height:1.3; }
+.ds-kpi-trend { display:flex;align-items:center;gap:4px;margin-top:6px; }
+.ds-kpi-delta { display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:500; }
+.ds-kpi-delta.up-good,.ds-kpi-delta.down-good { color:#31a56d; }
+.ds-kpi-delta.up-bad,.ds-kpi-delta.down-bad { color:#e15252; }
+.ds-kpi-delta.neutral { color:var(--shell-text-muted); }
+.ds-kpi-period { font-size:11px;color:var(--shell-text-muted); }
+
+/* ── Side Panel / Drawer ── */
+.ds-panel-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:300; }
+.ds-panel-overlay.open { display:block; }
+.ds-panel { position:fixed;top:0;right:0;bottom:0;width:360px;background:var(--card-bg);border-left:1px solid var(--card-border);border-radius:8px 0 0 8px;display:flex;flex-direction:column;z-index:301;transform:translateX(100%);transition:transform .25s ease;box-shadow:-4px 0 24px rgba(0,0,0,.15); }
+.ds-panel.open { transform:translateX(0); }
+.ds-panel-header { display:flex;align-items:center;gap:8px;padding:14px 16px 13px;flex-shrink:0;border-bottom:1px solid var(--card-border); }
+.ds-panel-title { flex:1;font-size:14px;font-weight:600;color:var(--shell-text); }
+.ds-panel-body { flex:1;overflow-y:auto;padding:16px; }
+.ds-panel-footer { border-top:1px solid var(--card-border);padding:14px 16px;display:flex;gap:8px;flex-shrink:0; }
 ```
 
 ---
 
 ### Card
 ```html
-<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;overflow:hidden;">
+<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
   <div style="padding:12px 16px;border-bottom:1px solid var(--card-border);font-size:13px;font-weight:600;color:var(--shell-text);">Card Title</div>
   <div style="padding:16px;"><!-- card body --></div>
 </div>
@@ -287,17 +385,40 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 
 ### KPI Card
 
-Max 5 in a row. `border-radius:8px`, `gap:8px` between cards.
+Max 5 in a row. `border-radius:4px`, `gap:8px` between cards, `padding:8px 12px`. Use CSS classes for consistent sizing.
 
 ```html
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;">
-  <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:16px 20px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-      <span style="font-size:12px;font-weight:500;color:var(--shell-text-muted);">Total Findings</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--shell-text-muted)" stroke-width="2"><!-- icon path --></svg>
+<!-- Use .ds-kpi-row + .ds-kpi-card classes (max 5 cards) -->
+<div class="ds-kpi-row">
+  <div class="ds-kpi-card">
+    <div>
+      <div class="ds-kpi-label">Total Findings</div>
+      <div class="ds-kpi-value">842</div>
     </div>
-    <div style="font-size:24px;font-weight:700;color:var(--shell-text);line-height:1;">842</div>
-    <div style="font-size:12px;color:#D12329;margin-top:4px;">↑ 12% vs last week</div>
+    <div class="ds-kpi-trend">
+      <span class="ds-kpi-delta up-bad">↑ 12%</span>
+      <span class="ds-kpi-period">vs last week</span>
+    </div>
+  </div>
+  <div class="ds-kpi-card">
+    <div>
+      <div class="ds-kpi-label">Critical</div>
+      <div class="ds-kpi-value" style="color:#D12329;">47</div>
+    </div>
+    <div class="ds-kpi-trend">
+      <span class="ds-kpi-delta down-good">↓ 3%</span>
+      <span class="ds-kpi-period">vs last week</span>
+    </div>
+  </div>
+  <div class="ds-kpi-card">
+    <div>
+      <div class="ds-kpi-label">Resolved</div>
+      <div class="ds-kpi-value" style="color:#31A56D;">128</div>
+    </div>
+    <div class="ds-kpi-trend">
+      <span class="ds-kpi-delta up-good">↑ 8%</span>
+      <span class="ds-kpi-period">vs last week</span>
+    </div>
   </div>
 </div>
 ```
@@ -323,8 +444,9 @@ Use CSS classes for proper hover/focus/disabled states:
 <!-- Ghost / text -->
 <button class="ds-btn sz-md t-tertiary">Learn more</button>
 
-<!-- Special (gradient text — Navigator, hero CTAs) -->
-<button class="ds-btn sz-md t-special"><span class="btn-text">Navigator</span></button>
+<!-- Special (gradient text — Navigator in topbar, hero CTAs) -->
+<!-- Navigator is ALWAYS sz-sm t-special — never a plain button, never inline-styled -->
+<button class="ds-btn sz-sm t-special"><span class="btn-text">Navigator</span></button>
 
 <!-- Danger -->
 <button class="ds-btn sz-md t-danger">Delete</button>
@@ -430,12 +552,36 @@ Use CSS classes for proper hover/focus/disabled states:
 
 ### Checkbox & Radio
 
+Use CSS classes for proper checked/indeterminate states and theming. Native fallback works for simple forms.
+
 ```html
+<!-- Custom Checkbox (preferred — supports indeterminate + theming) -->
+<label class="ds-checkbox-item" onclick="var b=this.querySelector('.ds-checkbox-box');b.classList.toggle('checked');b.querySelectorAll('svg').forEach(s=>s.style.display='none');if(b.classList.contains('checked'))b.querySelector('.chk').style.display='block';">
+  <div class="ds-checkbox-box sz-md">
+    <svg class="chk" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polyline points="2 6 5 9 10 3"/></svg>
+  </div>
+  <span class="ds-checkbox-text">Enable notifications</span>
+</label>
+
+<!-- Custom Radio Group (preferred) -->
+<div class="ds-radio-group">
+  <div class="ds-radio-options">
+    <label class="ds-radio-item" onclick="this.closest('.ds-radio-options').querySelectorAll('.ds-radio-dot').forEach(d=>d.classList.remove('checked'));this.querySelector('.ds-radio-dot').classList.add('checked')">
+      <div class="ds-radio-dot sz-md"></div>
+      <div><div class="ds-radio-text">Option A</div><div class="ds-radio-desc">Description for option A</div></div>
+    </label>
+    <label class="ds-radio-item" onclick="this.closest('.ds-radio-options').querySelectorAll('.ds-radio-dot').forEach(d=>d.classList.remove('checked'));this.querySelector('.ds-radio-dot').classList.add('checked')">
+      <div class="ds-radio-dot sz-md"></div>
+      <div><div class="ds-radio-text">Option B</div><div class="ds-radio-desc">Description for option B</div></div>
+    </label>
+  </div>
+</div>
+
+<!-- Native (simple inline use) -->
 <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--shell-text);cursor:pointer;">
   <input type="checkbox" style="width:15px;height:15px;accent-color:#6360D8;cursor:pointer;">
   Label text
 </label>
-
 <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--shell-text);cursor:pointer;">
   <input type="radio" name="group" style="width:15px;height:15px;accent-color:#6360D8;cursor:pointer;">
   Label text
@@ -539,6 +685,63 @@ function _syncSelectAll(listId,countId){var list=document.getElementById(listId)
 
 ---
 
+### Filter Bar
+
+The filter bar goes directly below the sub-header or at the top of the content area. Use `.ds-filter-bar` wrapper.
+
+```html
+<div class="ds-filter-bar">
+  <!-- "Active Filters" count button (outline, shows popover on hover) -->
+  <div class="ds-active-filters-wrap">
+    <button class="ds-filter-count-btn">
+      Active Filters
+      <span class="ds-filter-count">3</span>
+    </button>
+    <!-- Hover popover: shows applied filters — populate with page-relevant values -->
+    <div class="ds-active-filters-popover">
+      <div class="ds-active-filters-popover-title">Active Filters</div>
+      <div class="ds-filter-chips" style="flex-direction:column;align-items:flex-start;gap:6px;">
+        <div class="ds-filter-chip">
+          <span class="ds-chip-key">Severity</span>
+          <span class="ds-chip-value">Critical</span>
+          <span style="font-size:10px;color:var(--shell-text-muted);margin:0 2px;">+</span>
+          <span class="ds-chip-value">High</span>
+          <button class="ds-chip-close" onclick="this.closest('.ds-filter-chip').remove()">×</button>
+        </div>
+        <div class="ds-filter-chip">
+          <span class="ds-chip-key">Status</span>
+          <span class="ds-chip-value">Open</span>
+          <button class="ds-chip-close" onclick="this.closest('.ds-filter-chip').remove()">×</button>
+        </div>
+        <div class="ds-filter-chip">
+          <span class="ds-chip-key">Asset Group</span>
+          <span class="ds-chip-value">Production</span>
+          <button class="ds-chip-close" onclick="this.closest('.ds-filter-chip').remove()">×</button>
+        </div>
+      </div>
+      <button style="margin-top:10px;background:none;border:none;font-size:12px;font-weight:500;color:#6360D8;cursor:pointer;padding:0;font-family:inherit;">Clear all filters</button>
+    </div>
+  </div>
+  <!-- Quick filter pills -->
+  <button class="ds-filter-btn active">Critical</button>
+  <button class="ds-filter-btn">High</button>
+  <button class="ds-filter-btn">Open</button>
+  <!-- Separator + search -->
+  <div style="width:1px;height:20px;background:var(--shell-border);flex-shrink:0;"></div>
+  <div style="display:flex;align-items:center;border:1px solid var(--ctrl-border);border-radius:8px;background:var(--ctrl-bg);padding:0 10px;height:36px;gap:6px;">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--shell-text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Search…" style="flex:1;background:none;border:none;outline:none;color:var(--ctrl-text);font-size:13px;font-family:inherit;min-width:160px;">
+  </div>
+  <!-- Export (right-aligned) -->
+  <button class="ds-btn sz-md t-outline" style="margin-left:auto;">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Export
+  </button>
+</div>
+```
+
+---
+
 ### Toggle Switch
 
 ```html
@@ -631,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function(){
 Every table must have: **(1) checkbox col 1, (2) row hover actions, (3) pagination footer with row count.**
 
 ```html
-<div style="border:1px solid var(--card-border);border-radius:12px;overflow:hidden;">
+<div style="border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
   <div class="ds-table-wrap">
     <table class="ds-table">
       <thead>
@@ -772,29 +975,54 @@ function dsTab(btn, targetId) {
 
 ---
 
-### Inline Side Panel
+### Inline Side Panel (sticky filter panel inside content area)
 
 ```html
 <div style="display:flex;border:1px solid var(--card-border);border-radius:10px;overflow:hidden;min-height:320px;background:var(--card-bg);">
+  <!-- Main content -->
   <div style="flex:1;min-width:0;padding:16px;">
-    <button onclick="var p=document.getElementById('side-panel');var open=p.style.width!=='300px';p.style.width=open?'300px':'0';this.style.background=open?'#6360D8':'';this.style.color=open?'#fff':'';"
-            style="display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:44px;background:rgba(99,96,216,0.1);color:#6360D8;border:none;cursor:pointer;font-size:12px;font-weight:500;font-family:inherit;">
+    <button onclick="var p=document.getElementById('inline-panel');p.classList.toggle('open');this.classList.toggle('t-primary');"
+            class="ds-btn sz-md t-secondary">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/></svg>
       Filter
     </button>
   </div>
-  <div id="side-panel" style="width:0;overflow:hidden;flex-shrink:0;border-left:1px solid var(--card-border);background:var(--card-bg);display:flex;flex-direction:column;transition:width .25s ease;">
-    <div style="padding:14px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;gap:8px;flex-shrink:0;">
-      <span style="flex:1;font-size:14px;font-weight:600;color:var(--shell-text);">Filters</span>
-      <button onclick="document.getElementById('side-panel').style.width='0'" style="background:none;border:none;cursor:pointer;color:var(--shell-text-muted);padding:4px;display:flex;align-items:center;">
+  <!-- Inline filter panel (uses ds-filter-side-panel CSS class) -->
+  <div id="inline-panel" style="width:0;overflow:hidden;flex-shrink:0;border-left:1px solid var(--card-border);background:var(--card-bg);display:flex;flex-direction:column;transition:width .25s ease;">
+    <div class="ds-panel-header">
+      <span class="ds-panel-title">Filters</span>
+      <button class="ds-icon-btn" onclick="document.getElementById('inline-panel').style.width='0'">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
-    <div style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px;"></div>
-    <div style="border-top:1px solid var(--card-border);padding:14px 16px;display:flex;gap:8px;flex-shrink:0;">
-      <button onclick="document.getElementById('side-panel').style.width='0'" class="ds-btn sz-md t-outline" style="flex:1;">Cancel</button>
+    <div class="ds-panel-body" style="display:flex;flex-direction:column;gap:16px;"></div>
+    <div class="ds-panel-footer">
+      <button class="ds-btn sz-md t-outline" style="flex:1;" onclick="document.getElementById('inline-panel').style.width='0'">Cancel</button>
       <button class="ds-btn sz-md t-primary" style="flex:1;">Apply</button>
     </div>
+  </div>
+</div>
+```
+
+### Slide-out Drawer Panel (full-height overlay)
+
+```html
+<!-- Trigger -->
+<button class="ds-btn sz-md t-secondary" onclick="document.getElementById('drawer-overlay').classList.add('open');document.getElementById('drawer').classList.add('open')">Open Details</button>
+
+<!-- Overlay + Drawer -->
+<div id="drawer-overlay" class="ds-panel-overlay" onclick="this.classList.remove('open');document.getElementById('drawer').classList.remove('open')"></div>
+<div id="drawer" class="ds-panel">
+  <div class="ds-panel-header">
+    <span class="ds-panel-title">Finding Details</span>
+    <button class="ds-icon-btn" onclick="document.getElementById('drawer-overlay').classList.remove('open');document.getElementById('drawer').classList.remove('open')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="ds-panel-body"><!-- panel content --></div>
+  <div class="ds-panel-footer">
+    <button class="ds-btn sz-md t-outline" style="flex:1;" onclick="document.getElementById('drawer-overlay').classList.remove('open');document.getElementById('drawer').classList.remove('open')">Close</button>
+    <button class="ds-btn sz-md t-primary" style="flex:1;">Save</button>
   </div>
 </div>
 ```
@@ -1036,17 +1264,17 @@ function showToast(type, message) {
 ### Filter Chips (applied filters display)
 
 ```html
-<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+<div class="ds-filter-chips">
   <span style="font-size:12px;color:var(--shell-text);">Show</span>
-  <div style="display:inline-flex;align-items:center;gap:4px;background:var(--shell-raised);border:1px solid var(--card-border);border-radius:8px;padding:4px 8px;font-size:12px;">
-    <span style="color:var(--shell-text-muted);font-weight:500;">Severity</span>
-    <span style="background:var(--ctrl-bg);border-radius:4px;padding:1px 6px;color:var(--shell-text);">Critical</span>
-    <button onclick="this.closest('div').remove()" style="background:none;border:none;cursor:pointer;color:var(--shell-text-muted);font-size:14px;padding:0 2px;line-height:1;">×</button>
+  <div class="ds-filter-chip">
+    <span class="ds-chip-key">Severity</span>
+    <span class="ds-chip-value">Critical</span>
+    <button class="ds-chip-close" onclick="this.closest('.ds-filter-chip').remove()">×</button>
   </div>
-  <div style="display:inline-flex;align-items:center;gap:4px;background:var(--shell-raised);border:1px solid var(--card-border);border-radius:8px;padding:4px 8px;font-size:12px;">
-    <span style="color:var(--shell-text-muted);font-weight:500;">Status</span>
-    <span style="background:var(--ctrl-bg);border-radius:4px;padding:1px 6px;color:var(--shell-text);">Open</span>
-    <button onclick="this.closest('div').remove()" style="background:none;border:none;cursor:pointer;color:var(--shell-text-muted);font-size:14px;padding:0 2px;line-height:1;">×</button>
+  <div class="ds-filter-chip">
+    <span class="ds-chip-key">Status</span>
+    <span class="ds-chip-value">Open</span>
+    <button class="ds-chip-close" onclick="this.closest('.ds-filter-chip').remove()">×</button>
   </div>
   <button style="background:none;border:none;cursor:pointer;color:#6360D8;font-size:12px;font-weight:500;font-family:inherit;padding:0;">Clear all</button>
 </div>
