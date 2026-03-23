@@ -26,6 +26,6 @@ sed -i '' "s/${CURRENT}/${NEW_VERSION}/g" "$FILE"
 
 echo "[pre-push] Version bumped: ${CURRENT} → ${NEW_VERSION}"
 
-# Stage and commit the bump
+# Amend the last commit to include the version bump (no extra commit left behind)
 git -C "$REPO_ROOT" add "$FILE"
-git -C "$REPO_ROOT" commit -m "chore: bump version to ${NEW_VERSION}"
+git -C "$REPO_ROOT" commit --amend --no-edit
