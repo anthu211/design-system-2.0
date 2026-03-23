@@ -1,14 +1,45 @@
 # Prevalent AI — Charts
 
-**Implementation rule:** All charts use inline SVG. Never use `<canvas>`, Chart.js, D3, or any external library.
+**Implementation rule:** All charts use inline SVG (except horizontal bar, which is CSS-flex). Never use `<canvas>`, Chart.js, D3, or any external library.
 
 Hosted at: `https://anthu211.github.io/design-system-2.0/`
+
+---
+
+## Required CSS Classes
+
+Add these to your page `<style>` block. Charts will not render correctly without them.
+
+```css
+/* Chart axis labels — used by SVG text elements */
+.chart-axis-label { font-size: 10px; fill: var(--shell-text-muted); font-family: inherit; }
+
+/* Bar chart SVG container */
+.chart-bar-svg { overflow: visible; display: block; }
+.chart-bar-svg rect.chart-bar { transition: opacity 150ms; cursor: pointer; }
+.chart-bar-svg rect.chart-bar:hover { opacity: 0.7; }
+.chart-bar-svg text { font-family: inherit; }
+
+/* Chart legend */
+.chart-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.chart-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--shell-text-2); }
+.chart-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* Horizontal bar chart (CSS-based) */
+.css-hbar-chart { display: flex; flex-direction: column; gap: 8px; }
+.css-hbar-row { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.css-hbar-label { width: 72px; font-size: 11px; color: var(--shell-text-muted); text-align: right; flex-shrink: 0; }
+.css-hbar { height: 22px; border-radius: 0 3px 3px 0; transition: opacity 150ms; }
+.css-hbar:hover { opacity: 0.78; }
+.css-hbar-val { font-size: 11px; color: var(--shell-text-muted); margin-left: 4px; flex-shrink: 0; }
+```
 
 ---
 
 ## Chart Wrapper
 
 Every chart lives inside a content card:
+
 ```html
 <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:20px 24px;">
   <div style="font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:2px;">Chart Title</div>
@@ -23,15 +54,122 @@ Every chart lives inside a content card:
 
 | Element | Value |
 |---------|-------|
-| Grid lines | `stroke: var(--shell-border)` · `stroke-width: 1` · `stroke-dasharray: 4 4` |
+| Grid lines | `stroke: var(--shell-border)` · `stroke-width: 1` · solid |
 | Axis lines | `stroke: var(--shell-border)` · `stroke-width: 1` · solid |
-| Axis labels | `font-size: 11px` · `fill: var(--shell-text-muted)` · `font-family: inherit` |
+| Axis labels | CSS class `chart-axis-label` → `font-size: 10px` · `fill: var(--shell-text-muted)` |
 | Y-axis label | `text-anchor: end` · 6px gap from axis |
 | X-axis label | `text-anchor: middle` · 6px below bottom axis |
 | Y-tick count | 4–5 ticks — never more than 6 |
-| Chart padding | `top: 16` · `right: 20` · `bottom: 36` · `left: 44` |
+| Chart padding | `top: 16` · `right: 16` · `bottom: 36` · `left: 44` |
 | Series colors | Critical `#D12329` · High `#D98B1D` · Accent/primary `#6760d8` · Success `#31A56D` |
 | Single-series | Always use accent `#6760d8` for line/bars |
+
+**Init timing:** Always call chart functions inside `setTimeout(initCharts, 60)` so elements have rendered width before SVG is drawn.
+
+```js
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(initCharts, 60);
+});
+function initCharts() {
+  // call buildVerticalBarChart, buildLineChart, buildDonutChart here
+}
+```
+
+---
+
+## Grouped Bar Chart
+
+```
+Bar shape:   rx="2" (slightly rounded top corners)
+Bar width:   auto — fit to group width, min 6px max 18px, gap 3px between bars
+Grid lines:  horizontal only, solid stroke
+Hover:       opacity 0.7 via CSS class chart-bar:hover
+```
+
+Series colors (in order): `#D12329` · `#D98B1D` · `#6760d8` · `#31A56D`
+
+```html
+<div id="vbar-chart" style="width:100%;"></div>
+
+<script>
+function buildVerticalBarChart(containerId, series, groups, colors) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W = el.offsetWidth || 700;
+  var H = 220;
+  var pad = { top: 16, right: 16, bottom: 36, left: 44 };
+  var innerW = W - pad.left - pad.right;
+  var innerH = H - pad.top - pad.bottom;
+
+  var allVals = [];
+  series.forEach(function(s) { s.values.forEach(function(v) { allVals.push(v); }); });
+  var maxVal = Math.max.apply(null, allVals);
+  var yMax = Math.ceil(maxVal / 5) * 5 || 10;
+
+  var numTicks = 5;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+  }
+
+  var groupW = innerW / groups.length;
+  var serCount = series.length;
+  var barW = Math.max(6, Math.min(18, (groupW * 0.72) / serCount - 3));
+  var barGap = 3;
+  var bars = '', xLabels = '';
+
+  groups.forEach(function(grp, gi) {
+    var groupCX = pad.left + gi * groupW + groupW / 2;
+    var totalBarsW = serCount * barW + (serCount - 1) * barGap;
+    var startX = groupCX - totalBarsW / 2;
+    series.forEach(function(s, si) {
+      var v = s.values[gi];
+      var bh = Math.max(2, (v / yMax) * innerH);
+      var bx = startX + si * (barW + barGap);
+      var by = pad.top + innerH - bh;
+      bars += '<rect x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh +
+        '" fill="' + (colors[si] || '#6760d8') + '" rx="2" class="chart-bar"' +
+        ' data-gi="' + gi + '" data-si="' + si + '"></rect>';
+    });
+    xLabels += '<text x="' + groupCX + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + grp + '</text>';
+  });
+
+  var axes =
+    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
+
+  el.innerHTML = '<svg class="chart-bar-svg" width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
+    gridLines + axes + bars + yLabels + xLabels + '</svg>';
+
+  el.querySelectorAll('.chart-bar').forEach(function(bar) {
+    bar.addEventListener('mouseover', function(e) {
+      var gi = parseInt(this.dataset.gi), si = parseInt(this.dataset.si);
+      var color = colors[si] || '#6760d8';
+      showChartTooltip(e, groups[gi], [
+        { label: series[si].label, value: series[si].values[gi].toLocaleString(), color: color, active: true }
+      ], color);
+    });
+    bar.addEventListener('mousemove', positionChartTooltip);
+    bar.addEventListener('mouseleave', hideChartTooltip);
+  });
+}
+
+// Usage — call inside setTimeout(initCharts, 60)
+buildVerticalBarChart('vbar-chart',
+  [
+    { label: 'Critical', values: [14, 11, 18, 9, 12, 6] },
+    { label: 'High',     values: [17, 18, 15, 13, 11, 10] },
+    { label: 'Medium',   values: [20, 16, 19, 14, 13, 11] },
+    { label: 'Low',      values: [8,  10, 12, 16, 18, 20] }
+  ],
+  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  ['#D12329', '#D98B1D', '#6760d8', '#31A56D']
+);
+</script>
+```
 
 ---
 
@@ -39,87 +177,104 @@ Every chart lives inside a content card:
 
 ```
 Line:       stroke:#6760d8  stroke-width:2  stroke-linecap:round  stroke-linejoin:round
-Area fill:  linearGradient  top stop-opacity:0.20  bottom stop-opacity:0
-Dots:       r:5  fill:#6760d8  stroke:#fff  stroke-width:1.5  pointer-events:none
-Hover area: r:16  fill:transparent  cursor:pointer  (sits on top of visible dot)
+Area fill:  linearGradient  top stop-opacity:0.25  bottom stop-opacity:0
+Dots:       r:5  fill:#6760d8  stroke:#fff (light) or #0E0E0E (dark)  stroke-width:1.5  pointer-events:none
+Hover area: r:16  fill:transparent  cursor:pointer  (sits on top of visible dot — Fitts's Law)
+Baseline:   always from 0 — do NOT use dynamic yMin
+Grid lines: solid (not dashed)
+Gradient ID: always use a unique ID per chart instance (Date.now() suffix) to avoid collision
 ```
 
 ```html
 <div id="line-chart" style="width:100%;"></div>
+
 <script>
-(function() {
-  var el = document.getElementById('line-chart');
-  var W = el.offsetWidth || 600, H = 200;
-  var pad = { top: 16, right: 20, bottom: 36, left: 44 };
-  var iW = W - pad.left - pad.right, iH = H - pad.top - pad.bottom;
+function buildLineChart(containerId, data, labels) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W = el.offsetWidth || 700;
+  var H = 170;
+  var pad = { top: 16, right: 20, bottom: 32, left: 44 };
+  var innerW = W - pad.left - pad.right;
+  var innerH = H - pad.top - pad.bottom;
+  var max = Math.max.apply(null, data);
+  var yMax = Math.ceil(max / 10) * 10 || 10;
+  var step = innerW / (data.length - 1);
 
-  var data   = [912, 888, 871, 854, 848, 831];
-  var labels = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
-
-  var yMax = Math.ceil(Math.max.apply(null, data) / 10) * 10;
-  var yMin = Math.floor(Math.min.apply(null, data) / 10) * 10;
-  var yRange = yMax - yMin || 10;
-  var step = iW / (data.length - 1);
-
-  function yPos(v) { return pad.top + iH - ((v - yMin) / yRange) * iH; }
-
-  var ticks = 4, grid = '', yLbls = '';
-  for (var t = 0; t <= ticks; t++) {
-    var v = yMin + (t / ticks) * yRange, gy = yPos(v);
-    grid  += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + iW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1" stroke-dasharray="4 4"/>';
-    yLbls += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" style="font-size:11px;fill:var(--shell-text-muted);font-family:inherit;">' + Math.round(v) + '</text>';
+  var numTicks = 4;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
   }
 
-  var coords = data.map(function(v, i) {
-    return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat(yPos(v).toFixed(1)) };
+  var pts = data.map(function(v, i) {
+    return (pad.left + i * step).toFixed(1) + ',' + (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
+  }).join(' ');
+
+  var areaFirst = pad.left + ',' + (pad.top + innerH);
+  var areaLast  = (pad.left + (data.length - 1) * step).toFixed(1) + ',' + (pad.top + innerH);
+  var areaPts   = areaFirst + ' ' + pts + ' ' + areaLast;
+
+  var xLabels = labels.map(function(l, i) {
+    var x = (pad.left + i * step).toFixed(1);
+    return '<text x="' + x + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + l + '</text>';
+  }).join('');
+
+  // Theme-aware dot stroke: white on light, dark on dark
+  var dotStroke = document.documentElement.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
+
+  var pointCoords = data.map(function(v, i) {
+    return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat((pad.top + innerH - (v / yMax) * innerH).toFixed(1)) };
   });
-  var linePts = coords.map(function(p) { return p.x + ',' + p.y; }).join(' ');
-  var areaPts = (pad.left + ',') + (pad.top + iH) + ' ' + linePts + ' ' + (pad.left + iW) + ',' + (pad.top + iH);
-  var xLbls = labels.map(function(l, i) {
-    return '<text x="' + coords[i].x + '" y="' + (H - 6) + '" text-anchor="middle" style="font-size:11px;fill:var(--shell-text-muted);font-family:inherit;">' + l + '</text>';
+  var visibleDots = pointCoords.map(function(p) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
+  }).join('');
+  // Large invisible hit area (r=16) for Fitts's Law compliance
+  var overlayDots = pointCoords.map(function(p, i) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="16" fill="transparent" style="cursor:pointer;" data-li="' + i + '"></circle>';
   }).join('');
 
-  var visDots = coords.map(function(p) {
-    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6760d8" stroke="#ffffff" stroke-width="1.5" pointer-events="none"/>';
-  }).join('');
-  var hitDots = coords.map(function(p, i) {
-    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="16" fill="transparent" style="cursor:pointer;" data-i="' + i + '"/>';
-  }).join('');
+  var axes =
+    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
 
+  // Unique gradient ID prevents collision when multiple line charts are on one page
   var uid = 'lg' + Date.now();
-  el.innerHTML =
-    '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
+  el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
     '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1">' +
-      '<stop offset="0%" stop-color="#6760d8" stop-opacity="0.20"/>' +
+      '<stop offset="0%" stop-color="#6760d8" stop-opacity="0.25"/>' +
       '<stop offset="100%" stop-color="#6760d8" stop-opacity="0"/>' +
     '</linearGradient></defs>' +
-    grid +
-    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + iH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    gridLines + axes +
     '<polygon points="' + areaPts + '" fill="url(#' + uid + ')"/>' +
-    '<polyline points="' + linePts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
-    visDots + xLbls + yLbls + hitDots +
-    '</svg>';
+    '<polyline points="' + pts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    visibleDots + xLabels + yLabels + overlayDots + '</svg>';
 
-  el.querySelectorAll('circle[data-i]').forEach(function(c) {
-    var i = parseInt(c.dataset.i);
-    c.addEventListener('mouseover', function() {
-      var svg = c.closest('svg'), r = svg.getBoundingClientRect();
-      var sx = r.width / W, sy = r.height / H;
-      showChartTooltip(
-        { clientX: r.left + coords[i].x * sx, clientY: r.top + coords[i].y * sy },
-        labels[i], [{ label: 'Risk Score', value: data[i].toLocaleString(), color: '#6760d8', active: true }], '#6760d8'
-      );
+  el.querySelectorAll('circle[data-li]').forEach(function(circle) {
+    var i = parseInt(circle.dataset.li);
+    circle.addEventListener('mouseover', function() {
+      var svgEl = circle.closest('svg');
+      var rect = svgEl.getBoundingClientRect();
+      var syntheticE = { clientX: rect.left + pointCoords[i].x * (rect.width / W), clientY: rect.top + pointCoords[i].y * (rect.height / H) };
+      showChartTooltip(syntheticE, labels[i], [
+        { label: 'Value', value: data[i].toLocaleString(), color: '#6760d8', active: true }
+      ], '#6760d8');
     });
-    c.addEventListener('mousemove', positionChartTooltip);
-    c.addEventListener('mouseleave', hideChartTooltip);
+    circle.addEventListener('mousemove', positionChartTooltip);
+    circle.addEventListener('mouseleave', hideChartTooltip);
   });
-})();
+}
+
+// Usage — call inside setTimeout(initCharts, 60)
+buildLineChart('line-chart',
+  [24, 38, 30, 52, 47, 61, 55, 73, 68, 82, 76, 90],
+  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+);
 </script>
 ```
-
-**Rules:**
-- `yMin` must be calculated from actual data — never hardcode 0 as baseline unless data starts near 0
-- Use `stroke-dasharray:"4 4"` on grid lines — not solid
 
 ---
 
@@ -128,16 +283,27 @@ Hover area: r:16  fill:transparent  cursor:pointer  (sits on top of visible dot)
 ```
 stroke-linecap="round"  (mandatory for rounded segment ends)
 8° gap between segments (subtract 8 from sweep angle)
-strokeWidth = outerRadius × 0.28
+strokeWidth = outerRadius × 0.12  (thin ring — NOT 0.28)
 Center label: total in font-size:22px font-weight:700, subtitle font-size:11px
 ```
 
+**Severity color order (always):** Critical `#D12329` → High `#D98B1D` → Medium `#6760d8` → Low `#31A56D`
+
 ```html
-<div style="position:relative;width:160px;height:160px;">
-  <svg id="my-donut" width="160" height="160" viewBox="0 0 160 160" style="overflow:visible;"></svg>
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
-    <span style="font-size:22px;font-weight:700;color:var(--shell-text);line-height:1;">332</span>
-    <span style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">total</span>
+<div style="display:inline-flex;align-items:center;gap:24px;">
+  <div style="position:relative;width:160px;height:160px;">
+    <svg id="my-donut" width="160" height="160" viewBox="0 0 160 160" style="overflow:visible;"></svg>
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+      <span style="font-size:22px;font-weight:700;color:var(--shell-text);line-height:1;" id="donut-total">332</span>
+      <span style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">total</span>
+    </div>
+  </div>
+  <!-- Legend -->
+  <div class="chart-legend" style="flex-direction:column;">
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#D12329;"></span>Critical</div>
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#D98B1D;"></span>High</div>
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#6760d8;"></span>Medium</div>
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#31A56D;"></span>Low</div>
   </div>
 </div>
 
@@ -153,75 +319,133 @@ function describeArc(cx, cy, r, startAngle, endAngle) {
   return 'M ' + s.x + ' ' + s.y + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 0 ' + e.x + ' ' + e.y;
 }
 
-var segments = [
-  { label: 'Critical', value: 24,  color: '#D12329' },
-  { label: 'High',     value: 90,  color: '#D98B1D' },
-  { label: 'Medium',   value: 143, color: '#6760d8' },
-  { label: 'Low',      value: 75,  color: '#31A56D' }
-];
-var size = 160, cx = 80, cy = 80;
-var outerR  = size / 2 - 4;
-var strokeW = outerR * 0.28;
-var r = outerR - strokeW / 2;
-var total = segments.reduce(function(s, d) { return s + d.value; }, 0);
-var startAngle = 0;
-var svgEl = document.getElementById('my-donut');
+function buildDonutChart(containerId, data, size) {
+  size = size || 160;
+  var cx = size / 2, cy = size / 2;
+  var outerR  = size / 2 - 2;
+  var strokeW = outerR * 0.12;     // thin ring — use 0.12, not 0.28
+  var r = outerR - strokeW / 2;
+  var total = data.reduce(function(s, d) { return s + d.value; }, 0);
+  var startAngle = 0;
+  var COLORS = ['#D12329', '#D98B1D', '#6760d8', '#31A56D'];
 
-svgEl.innerHTML = segments.map(function(d) {
-  var sweep    = (d.value / total) * 360;
-  var endAngle = startAngle + sweep - 8;
-  var path     = describeArc(cx, cy, r, startAngle, endAngle);
-  startAngle  += sweep;
-  return '<path d="' + path + '" fill="none" stroke="' + d.color + '" stroke-width="' + strokeW + '" stroke-linecap="round" style="cursor:pointer;" data-label="' + d.label + '" data-value="' + d.value + '" data-pct="' + Math.round(d.value/total*100) + '" data-color="' + d.color + '"></path>';
-}).join('');
+  var paths = data.map(function(d, i) {
+    var sweep    = (d.value / total) * 360;
+    var endAngle = startAngle + sweep - 8;
+    var path     = describeArc(cx, cy, r, startAngle, endAngle);
+    startAngle  += sweep;
+    return '<path d="' + path + '" fill="none" stroke="' + (COLORS[i % COLORS.length]) + '"' +
+      ' stroke-width="' + strokeW + '" stroke-linecap="round" style="cursor:pointer;"' +
+      ' data-label="' + d.label + '" data-value="' + d.value + '"' +
+      ' data-pct="' + Math.round(d.value / total * 100) + '"' +
+      ' data-color="' + COLORS[i % COLORS.length] + '"></path>';
+  }).join('');
 
-svgEl.querySelectorAll('path').forEach(function(path) {
-  path.addEventListener('mouseover', function(e) {
-    showChartTooltip(e, path.dataset.label, [
-      { label: 'Count', value: path.dataset.value, color: path.dataset.color, active: false },
-      { label: 'Share', value: path.dataset.pct + '%', color: path.dataset.color, active: true }
-    ], path.dataset.color);
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = paths;
+
+  el.querySelectorAll('path').forEach(function(path) {
+    path.addEventListener('mouseover', function(e) {
+      showChartTooltip(e, path.dataset.label, [
+        { label: 'Count', value: path.dataset.value, color: path.dataset.color, active: false },
+        { label: 'Share', value: path.dataset.pct + '%', color: path.dataset.color, active: true }
+      ], path.dataset.color);
+    });
+    path.addEventListener('mousemove', positionChartTooltip);
+    path.addEventListener('mouseleave', hideChartTooltip);
   });
-  path.addEventListener('mousemove', positionChartTooltip);
-  path.addEventListener('mouseleave', hideChartTooltip);
+}
+
+// Usage — call inside setTimeout(initCharts, 60)
+buildDonutChart('my-donut', [
+  { label: 'Critical', value: 24 },
+  { label: 'High',     value: 90 },
+  { label: 'Medium',   value: 143 },
+  { label: 'Low',      value: 75 }
+], 160);
+</script>
+```
+
+---
+
+## Horizontal Bar Chart (CSS-based)
+
+This chart uses CSS flex — no SVG. Width is set as a percentage of the container.
+
+```html
+<div class="css-hbar-chart">
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">Injection</span>
+    <div class="css-hbar" style="width:78%;background:#6760d8;"></div>
+    <span class="css-hbar-val">78</span>
+  </div>
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">Auth</span>
+    <div class="css-hbar" style="width:62%;background:#D98B1D;"></div>
+    <span class="css-hbar-val">62</span>
+  </div>
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">XSS</span>
+    <div class="css-hbar" style="width:55%;background:#31A56D;"></div>
+    <span class="css-hbar-val">55</span>
+  </div>
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">CSRF</span>
+    <div class="css-hbar" style="width:41%;background:#D98B1D;"></div>
+    <span class="css-hbar-val">41</span>
+  </div>
+</div>
+
+<script>
+// Wire tooltips to horizontal bar rows — call inside initCharts()
+document.querySelectorAll('.css-hbar-row').forEach(function(row) {
+  var bar    = row.querySelector('.css-hbar');
+  var labelEl = row.querySelector('.css-hbar-label');
+  var valEl   = row.querySelector('.css-hbar-val');
+  if (!bar || !labelEl || !valEl) return;
+  var color = bar.style.background;
+  var label = labelEl.textContent.trim();
+  var value = valEl.textContent.trim();
+  row.addEventListener('mouseover', function(e) {
+    showChartTooltip(e, label, [
+      { label: 'Count', value: value, color: color, active: true }
+    ], color);
+  });
+  row.addEventListener('mousemove', positionChartTooltip);
+  row.addEventListener('mouseleave', hideChartTooltip);
 });
 </script>
 ```
 
-**Severity color order (always):** Critical `#D12329` → High `#D98B1D` → Medium `#6760d8` → Low `#31A56D`
-
 ---
 
-## Grouped Bar Chart
+## Chart Legend
 
-```
-Bar shape:   rx:3 (slightly rounded top corners)
-Bar width:   auto — fit to group width, min 6px max 18px
-Bar gap:     3px between bars in the same group
-Grid lines:  horizontal only, dashed (stroke-dasharray:"4 4")
-Hover:       darken fill by 15% OR add stroke:same-color stroke-width:1.5
-```
+Use alongside any chart to explain series colors:
 
-Series colors (in order): `#D12329` · `#D98B1D` · `#6760d8` · `#31A56D`
-
----
-
-## Horizontal Bar Chart
-
-```
-Bar height:  16px
-Bar radius:  4px (right end only)
-Track:       full-width rect, fill:var(--shell-raised), height:16px, rx:4
-Label:       left-aligned, font-size:13px, min-width:120px
-Value:       right-aligned, font-size:12px, font-weight:600, color matches fill
-Row height:  40px (16px bar + 12px padding top/bottom)
+```html
+<div class="chart-legend">
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#D12329;"></span>Critical
+  </div>
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#D98B1D;"></span>High
+  </div>
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#6760d8;"></span>Medium
+  </div>
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#31A56D;"></span>Low
+  </div>
+</div>
 ```
 
 ---
 
 ## Chart Tooltip
 
-Place once at the end of `<body>`. Wire to every interactive chart element.
+Place **once** at the end of `<body>`. Wire to every interactive chart element.
 
 ```html
 <div id="chart-tooltip" style="position:fixed;z-index:1000;pointer-events:none;display:none;
@@ -260,19 +484,6 @@ function positionChartTooltip(e) {
 }
 function hideChartTooltip() { var el = _ct(); if (el) el.style.display = 'none'; }
 </script>
-```
-
-**Wire tooltip to any chart element:**
-```js
-element.addEventListener('mouseover', function(e) {
-  showChartTooltip(e,
-    'Group Label',
-    [{ label: 'Series A', value: '42', color: '#6360D8', active: true }],
-    '#6360D8'
-  );
-});
-element.addEventListener('mousemove', positionChartTooltip);
-element.addEventListener('mouseleave', hideChartTooltip);
 ```
 
 **Tooltip rules:**
