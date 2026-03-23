@@ -1657,9 +1657,12 @@ html.theme-light .ds-filter-chip { background:#f0f0f0; }
 
 /* ─── Usage Guide ─── */
 .ds-usage-guide {
-  padding: 32px 48px 44px;
-  border: none; background: transparent;
-  margin-bottom: 0; position: static; overflow: visible;
+  padding: 32px 40px 36px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: static; overflow: visible;
 }
 .ds-usage-guide::before { display: none; }
 
@@ -1718,6 +1721,99 @@ html.theme-light .ds-filter-chip { background:#f0f0f0; }
   font-size: 11px; color: var(--shell-text-muted);
   background: var(--shell-raised); border: 1px solid var(--card-border);
   border-radius: 20px; padding: 3px 10px;
+}
+
+/* ─── Claude Code Setup Section ─── */
+.ds-claude-setup {
+  padding: 28px 40px 36px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  margin-bottom: 40px;
+}
+.ds-claude-setup-hdr {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px; margin-bottom: 28px;
+}
+.ds-claude-logo {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(99,96,216,0.1); color: #6760d8;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ds-claude-title {
+  font-size: 15px; font-weight: 600; color: var(--shell-text); margin-bottom: 4px;
+}
+.ds-claude-sub {
+  font-size: 12px; color: var(--shell-text-muted); line-height: 1.5;
+}
+.ds-claude-sub code {
+  background: var(--shell-raised); border: 1px solid var(--card-border);
+  border-radius: 4px; padding: 1px 5px; font-size: 11px; font-family: 'SF Mono', 'Fira Code', monospace;
+  color: #6760d8;
+}
+.ds-claude-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;
+}
+.ds-claude-step {
+  background: var(--shell-raised); border: 1px solid var(--card-border);
+  border-radius: 10px; padding: 18px 16px; display: flex; flex-direction: column; gap: 10px;
+}
+.ds-claude-step-num {
+  font-size: 11px; font-weight: 700; color: #6760d8; letter-spacing: 0.06em;
+}
+.ds-claude-step-title {
+  font-size: 13px; font-weight: 600; color: var(--shell-text); margin-bottom: 6px;
+}
+.ds-claude-step-desc {
+  font-size: 12px; color: var(--shell-text-muted); line-height: 1.6;
+}
+.ds-claude-step-desc strong { color: var(--shell-text); font-weight: 600; }
+.ds-claude-step-desc code {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 3px; padding: 1px 4px; font-size: 11px; font-family: 'SF Mono', 'Fira Code', monospace;
+  color: var(--shell-text-2);
+}
+.ds-claude-code-block {
+  margin-top: 10px; background: #0e0e0e; color: #e2e8f0;
+  border-radius: 6px; padding: 9px 12px;
+  font-size: 11px; font-family: 'SF Mono', 'Fira Code', monospace; line-height: 1.5;
+}
+html.theme-light .ds-claude-code-block { background: #1a1a2e; }
+.ds-claude-cmd {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 6px; padding: 6px 10px;
+  font-size: 12px; font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.ds-claude-cmd-name { color: #6760d8; font-weight: 600; }
+.ds-claude-cmd-args { color: var(--shell-text-muted); }
+.ds-claude-personas {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding-top: 16px; border-top: 1px solid var(--card-border);
+}
+.ds-claude-persona-label {
+  font-size: 11px; color: var(--shell-text-muted); margin-right: 2px;
+}
+.ds-claude-persona-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 500; border-radius: 20px; padding: 3px 10px;
+  border: 1px solid;
+}
+.ds-claude-persona-chip::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0;
+}
+.ds-claude-persona-chip.analyst { color: #6760d8; border-color: rgba(99,96,216,.3); background: rgba(99,96,216,.08); }
+.ds-claude-persona-chip.ciso    { color: #D98B1D; border-color: rgba(217,139,29,.3); background: rgba(217,139,29,.08); }
+.ds-claude-persona-chip.itadmin { color: #31A56D; border-color: rgba(49,165,109,.3); background: rgba(49,165,109,.08); }
+
+@media (max-width: 1024px) {
+  .ds-claude-setup { padding: 24px 32px 28px; }
+  .ds-claude-steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .ds-claude-setup { padding: 20px 24px 24px; }
+  .ds-claude-setup-hdr { flex-direction: column; }
+  .ds-claude-steps { grid-template-columns: 1fr; }
 }
 
 .ds-home-section-title {

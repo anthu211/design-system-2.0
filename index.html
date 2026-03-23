@@ -270,10 +270,10 @@
 
     </div>
 
-    <div class="ds-intro-rule"></div>
+  </div><!-- /ds-home-intro -->
 
-    <!-- Usage Guide -->
-    <div class="ds-usage-guide">
+  <!-- Usage Guide -->
+  <div class="ds-usage-guide">
       <div class="ds-usage-guide-hdr">
         <div>
           <p class="ds-usage-label">How to use</p>
@@ -325,7 +325,75 @@
       </div>
     </div>
 
-  </div>
+    <!-- Claude Code Setup -->
+    <div class="ds-claude-setup">
+      <div class="ds-claude-setup-hdr">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="ds-claude-logo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div>
+            <div class="ds-claude-title">Claude Code Setup</div>
+            <div class="ds-claude-sub">Install CLAUDE.md to unlock <code>/new-component</code>, <code>/ux-review</code>, and <code>/persona-check</code> slash commands</div>
+          </div>
+        </div>
+        <button class="ds-btn t-outline sz-md" onclick="downloadClaudeMd()" id="claude-dl-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download CLAUDE.md
+        </button>
+      </div>
+
+      <div class="ds-claude-steps">
+
+        <div class="ds-claude-step">
+          <div class="ds-claude-step-num">01</div>
+          <div class="ds-claude-step-body">
+            <div class="ds-claude-step-title">Download the file</div>
+            <div class="ds-claude-step-desc">Click <strong>Download CLAUDE.md</strong> above. This file contains all project memory, mandatory UI rules, and slash command definitions for Claude Code.</div>
+          </div>
+        </div>
+
+        <div class="ds-claude-step">
+          <div class="ds-claude-step-num">02</div>
+          <div class="ds-claude-step-body">
+            <div class="ds-claude-step-title">Place it in your project root</div>
+            <div class="ds-claude-step-desc">Move the downloaded file to the root of your project folder — the same level as your <code>package.json</code> or <code>index.html</code>.</div>
+            <div class="ds-claude-code-block"><span style="color:#9ca3af;">mv</span> ~/Downloads/CLAUDE.md ./CLAUDE.md</div>
+          </div>
+        </div>
+
+        <div class="ds-claude-step">
+          <div class="ds-claude-step-num">03</div>
+          <div class="ds-claude-step-body">
+            <div class="ds-claude-step-title">Open Claude Code in your project</div>
+            <div class="ds-claude-step-desc">Launch Claude Code from your terminal inside the project folder. It automatically reads <code>CLAUDE.md</code> at the start of every session.</div>
+            <div class="ds-claude-code-block"><span style="color:#9ca3af;">cd</span> your-project &amp;&amp; <span style="color:#6760d8;">claude</span></div>
+          </div>
+        </div>
+
+        <div class="ds-claude-step">
+          <div class="ds-claude-step-num">04</div>
+          <div class="ds-claude-step-body">
+            <div class="ds-claude-step-title">Use the slash commands</div>
+            <div class="ds-claude-step-desc">Type any of these commands directly in Claude Code. The AI will fetch the spec, apply the right persona, and generate production-ready HTML.</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:10px;">
+              <div class="ds-claude-cmd"><span class="ds-claude-cmd-name">/new-component</span> <span class="ds-claude-cmd-args">AlertsTable analyst</span></div>
+              <div class="ds-claude-cmd"><span class="ds-claude-cmd-name">/new-component</span> <span class="ds-claude-cmd-args">RiskDashboard ciso</span></div>
+              <div class="ds-claude-cmd"><span class="ds-claude-cmd-name">/ux-review</span> <span class="ds-claude-cmd-args">[paste your HTML]</span></div>
+              <div class="ds-claude-cmd"><span class="ds-claude-cmd-name">/persona-check</span> <span class="ds-claude-cmd-args">bulk export feature</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="ds-claude-personas">
+        <span class="ds-claude-persona-label">Persona values:</span>
+        <span class="ds-claude-persona-chip analyst">analyst</span>
+        <span class="ds-claude-persona-chip ciso">ciso</span>
+        <span class="ds-claude-persona-chip itadmin">it-admin</span>
+      </div>
+    </div>
 
   <div class="ds-home-section-title">Foundation</div>
   <div class="ds-home-grid">

@@ -1762,6 +1762,35 @@ function resetFilterChips() {
 })();
 
 
+// ─── Download CLAUDE.md ───
+function downloadClaudeMd() {
+  var btn = document.getElementById('claude-dl-btn') || document.querySelector('[onclick="downloadClaudeMd()"]');
+  fetch('https://anthu211.github.io/design-system-2.0/CLAUDE.md')
+    .then(function(r) {
+      if (!r.ok) throw new Error('fetch failed');
+      return r.text();
+    })
+    .then(function(text) {
+      var blob = new Blob([text], { type: 'text/plain' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'CLAUDE.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      showToast('success', 'CLAUDE.md downloaded — place it in your project root and run: claude');
+      if (btn) {
+        var orig = btn.innerHTML;
+        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Downloaded!';
+        setTimeout(function() { btn.innerHTML = orig; }, 2500);
+      }
+    })
+    .catch(function() {
+      showToast('error', 'Download failed — try right-clicking and saving from: anthu211.github.io/design-system-2.0/CLAUDE.md');
+    });
+}
+
 // ─── Copy AI Prompt for Claude Code ───
 function copyAiPrompt() {
   var prompt = [
