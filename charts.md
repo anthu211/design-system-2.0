@@ -25,7 +25,7 @@ Add these to your page `<style>` block. Charts will not render correctly without
 .chart-bar-svg text { font-family: inherit; }
 
 /* Chart legend */
-.chart-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; justify-content: center; }
 .chart-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--shell-text-2); }
 .chart-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 

@@ -61,6 +61,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .ds-btn.t-primary[disabled] { background:rgba(99,96,216,0.2);color:rgba(240,240,252,0.4); }
     .ds-btn.t-special { background:transparent;border:1px solid #b1b8f5; }
     .ds-btn.t-special .btn-text { background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;background-clip:text;color:transparent; }
+    .ds-btn.t-special svg { stroke:url(#t-special-grad); }
     .ds-btn.t-special:hover { background:rgba(177,184,245,0.12); }
     .ds-btn.t-special:active { background:rgba(177,184,245,0.22);border-color:#7e8aee; }
     .ds-btn.t-secondary { background:rgba(99,96,216,0.15);color:#8F8DDE; }
@@ -97,6 +98,11 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .ds-kpi-delta.up-bad,.ds-kpi-delta.down-bad { color:#e15252; }
     .ds-kpi-delta.neutral { color:var(--shell-text-muted); }
     .ds-kpi-period { font-size:10px;color:var(--shell-text-muted); }
+
+    /* ── Chart Legend ── */
+    .chart-legend { display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;justify-content:center; }
+    .chart-legend-item { display:flex;align-items:center;gap:6px;font-size:12px;color:var(--shell-text-2); }
+    .chart-legend-dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
 
     /* ── Callout / Alert Banner ── */
     .ds-callout { display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6;flex-shrink:0; }
@@ -279,11 +285,12 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
       <!-- Nav header: blue accent bottom border -->
       <div class="nav-hdr" style="display:flex;align-items:flex-start;justify-content:space-between;padding:0 8px 8px 12px;border-bottom:1px solid #467fcd;margin-bottom:12px;flex-shrink:0;">
         <div class="nav-hdr-info">
+          <!-- DO NOT CHANGE: nav header is always fixed — only nav items change per page -->
           <div style="display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:#101010;">
-            Dashboard Name
+            Prevalent AI
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div style="font-size:12px;color:#6e6e6e;margin-top:2px;">Module / Product Area</div>
+          <div style="font-size:12px;color:#6e6e6e;margin-top:2px;">Exposure Management</div>
         </div>
         <!-- Collapse toggle button -->
         <button id="shell-nav-btn" onclick="shellNavToggle()" style="background:none;border:none;color:#6e6e6e;padding:0;display:flex;align-items:center;cursor:pointer;" title="Collapse sidebar">
@@ -416,6 +423,16 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
       if (btn) btn.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
     }
   </script>
+
+  <!-- SVG gradient definitions (used by t-special button icon) -->
+  <svg width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none;">
+    <defs>
+      <linearGradient id="t-special-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#467fcd"/>
+        <stop offset="100%" stop-color="#47adcb"/>
+      </linearGradient>
+    </defs>
+  </svg>
 
 </body>
 </html>
