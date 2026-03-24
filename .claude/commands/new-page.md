@@ -53,7 +53,7 @@ Use patterns from `components.md` and `charts.md`. Non-negotiable:
 4. Status/severity always visible — never tooltip-only
 5. Tables for list data · Destructive actions need confirmation modals
 6. Spacing 4px scale only: 4,8,12,16,20,24,32,48px
-7. Charts: inline SVG only — copy `buildLineChart` or `buildMultiLineChart` or `buildVerticalBarChart` from `charts.md` verbatim
+7. Charts: inline SVG only — copy `buildLineChart` or `buildMultiLineChart` or `buildVerticalBarChart` from `charts.md` verbatim. ALWAYS include the Chart Tooltip HTML + JS from the "Chart Tooltip" section of `charts.md` once at the end of `<body>` — without it all chart hovers will be broken.
 8. Action buttons min 32px height · Tables need checkbox col + pagination
 
 ### HARD NEGATIVE RULES — never do any of these:

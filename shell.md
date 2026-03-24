@@ -191,6 +191,42 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .ds-panel-body { flex:1;overflow-y:auto;padding:16px; }
     .ds-panel-footer { border-top:1px solid var(--card-border);padding:14px 16px;display:flex;gap:8px;flex-shrink:0; }
 
+    /* ── Nav hover states ── */
+    .nav-row { transition:background .12s,color .12s; }
+    .nav-row:hover { background:#f5f5f5 !important; }
+    .nav-row:hover .nav-lbl { color:#101010 !important; }
+    .nav-row:hover svg { stroke:#101010 !important; }
+    .nav-sub { transition:background .12s,color .12s; }
+    .nav-sub:hover { background:#f5f5f5 !important; }
+    .nav-sub:hover .nav-lbl { color:#6360d8 !important; }
+    .nav-sub:hover svg { stroke:#6360d8 !important; }
+
+    /* ── Icon button ── */
+    .ds-icon-btn { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;transition:background .12s,color .12s;flex-shrink:0; }
+    .ds-icon-btn:hover { background:var(--shell-hover);color:var(--shell-text); }
+
+    /* ── Tabs ── */
+    .ds-tabs-list { display:flex;border-bottom:1px solid var(--shell-border); }
+    .ds-tab { padding:10px 16px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:color 150ms,border-color 150ms;white-space:nowrap; }
+    .ds-tab:hover { color:var(--shell-text); }
+    .ds-tab.active { color:var(--shell-accent);border-bottom-color:var(--shell-accent);font-weight:600; }
+    .ds-tab-panel { display:none;padding:20px; }
+    .ds-tab-panel.active { display:block; }
+
+    /* ── Tooltip ── */
+    .ds-tooltip-wrap { position:relative;display:inline-flex; }
+    .ds-tooltip-wrap::after { content:attr(data-tip);position:absolute;z-index:150;pointer-events:none;background:#1a1a1a;color:#F9F9F9;border:1px solid #272727;border-radius:6px;padding:5px 10px;font-size:12px;max-width:220px;white-space:normal;opacity:0;transition:opacity 150ms,transform 150ms; }
+    html.theme-light .ds-tooltip-wrap::after { background:#1c1c1c;color:#f0f0f0; }
+    .ds-tooltip-wrap[data-pos="top"]::after    { bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px); }
+    .ds-tooltip-wrap[data-pos="bottom"]::after { top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px); }
+    .ds-tooltip-wrap[data-pos="right"]::after  { left:calc(100% + 8px);top:50%;transform:translateY(-50%) translateX(-4px); }
+    .ds-tooltip-wrap[data-pos="left"]::after   { right:calc(100% + 8px);top:50%;transform:translateY(-50%) translateX(4px); }
+    .ds-tooltip-wrap:hover::after { opacity:1; }
+    .ds-tooltip-wrap[data-pos="top"]:hover::after    { transform:translateX(-50%) translateY(0); }
+    .ds-tooltip-wrap[data-pos="bottom"]:hover::after { transform:translateX(-50%) translateY(0); }
+    .ds-tooltip-wrap[data-pos="right"]:hover::after  { transform:translateY(-50%) translateX(0); }
+    .ds-tooltip-wrap[data-pos="left"]:hover::after   { transform:translateY(-50%) translateX(0); }
+
     /* ── Nav Collapse ── */
     #shell-nav { transition:width 0.22s ease,padding 0.22s ease; }
     #shell-nav.nav-collapsed { width:52px !important;padding:16px 8px !important;overflow:hidden; }
@@ -252,32 +288,32 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
       <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
 
         <!-- Default nav item — icon + label left, chevron right -->
-        <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#fff;cursor:pointer;">
+        <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;cursor:pointer;color:#6e6e6e;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <span class="nav-lbl" style="display:flex;font-size:14px;color:#6e6e6e;font-weight:400;">Home</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Home</span>
           </div>
-          <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
 
         <!-- Expanded section — grey bg #f5f5f5, chevron up, grey text — only active child gets blue -->
         <div>
-          <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#f5f5f5;cursor:pointer;">
+          <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#6e6e6e;">
             <div style="display:flex;align-items:center;gap:8px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span class="nav-lbl" style="display:flex;font-size:14px;color:#6e6e6e;font-weight:400;">Section Name</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Section Name</span>
             </div>
-            <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+            <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
           </div>
           <!-- Active sub-item: indent 30px, #6360d8 + bg tint. In collapsed rail: ONLY this icon shows in accent color -->
-          <a href="#" class="nav-sub nav-active" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;background:rgba(99,96,216,0.08);border-radius:6px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6360d8" stroke-width="2"><rect x="2" y="3" width="9" height="9" rx="1"/><rect x="13" y="3" width="9" height="9" rx="1"/><rect x="2" y="14" width="9" height="9" rx="1"/></svg>
-            <span class="nav-lbl" style="display:flex;font-size:14px;color:#6360d8;font-weight:400;">Active Sub Item</span>
+          <a href="#" class="nav-sub nav-active" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;background:rgba(99,96,216,0.08);border-radius:6px;color:#6360d8;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="9" height="9" rx="1"/><rect x="13" y="3" width="9" height="9" rx="1"/><rect x="2" y="14" width="9" height="9" rx="1"/></svg>
+            <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Active Sub Item</span>
           </a>
           <!-- Default sub-item: hidden in collapsed rail -->
-          <a href="#" class="nav-sub" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6e6e6e" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
-            <span class="nav-lbl" style="display:flex;font-size:14px;color:#6e6e6e;font-weight:400;">Default Sub Item</span>
+          <a href="#" class="nav-sub" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;color:#6e6e6e;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
+            <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Default Sub Item</span>
           </a>
         </div>
 
