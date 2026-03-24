@@ -32,10 +32,19 @@ Edit the file in place — only add what's needed:
 Rules:
 - Match existing design tokens exactly
 - Buttons `border-radius:44px` · Accent `#6360D8` · Filter CTA `#504bb8`
-- 4px spacing scale only
+- 4px spacing scale only: 4,8,12,16,20,24,32,48px — never 3,5,7,10,11,14,15px
 - Modals: overlay → card → header → body → footer (Cancel left, Confirm right)
 - Status/severity always visible, never tooltip-only
 - Destructive confirm buttons red
+
+### NEVER do these:
+- **KPI cards**: no colored borders, no custom background — `<div class="ds-kpi-card">` only, no `style=""`
+- **Buttons**: only `t-primary/t-outline/t-secondary/t-tertiary/t-danger/t-special` — no custom colors, always `44px` radius
+- **Badges**: only `ds-badge success/warning/danger/info/neutral` — no inline color overrides
+- **Tables**: always `ds-table-wrap` + `ds-table` + `ds-th` + `ds-td` — no raw `<table>` with custom styles
+- **Cards**: `border-radius:4px` only — no `12px`, no `box-shadow`, no gradient backgrounds
+- **Callouts**: only `ds-callout ds-callout-warning/error/info/success` — never custom styled banners
+- **Charts**: copy from `charts.md` verbatim — never `<canvas>`, never write chart logic from scratch
 
 ## Step 4 — Confirm
 

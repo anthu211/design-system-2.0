@@ -51,8 +51,8 @@ Map spec tokens to Tailwind classes:
 
 ## Step 3 — Component rules (non-negotiable)
 
-1. All buttons `rounded-[44px]` — never `rounded-md` or `rounded-lg`
-2. Cards and table wrappers `rounded-[4px]`
+1. All buttons `rounded-[44px]` — never `rounded-md`, `rounded-lg`, or `rounded-full`
+2. Cards and table wrappers `rounded-[4px]` — never `rounded-xl`, `rounded-2xl`
 3. Status/severity always visible — never tooltip-only
 4. Use Radix primitives for: modals, dropdowns, selects, tooltips, checkboxes, radios, toggles
 5. Destructive actions must use a Radix `Dialog` with item name + consequence + red confirm button
@@ -61,6 +61,15 @@ Map spec tokens to Tailwind classes:
 8. Icons: Lucide React only — never emoji or text symbols
 9. TypeScript: proper interfaces for all props, no `any`
 10. Export: named export + default export both
+
+### NEVER do these:
+- **KPI cards**: no colored borders (`border-t-red-500` etc.), no custom bg — plain `bg-[var(--card-bg)] border rounded-[4px]` only. Trend color comes from text class only.
+- **Buttons**: never `bg-blue-500`, `bg-red-400` or any Tailwind color — only `bg-[#6760d8]`, `bg-[#504bb8]`, `bg-[#d12329]` from design tokens. Always `rounded-[44px]`.
+- **Badges**: never inline color `style` — use severity-mapped classes: critical=`bg-red-50 text-[#D12329]`, high=`bg-orange-50 text-[#D98B1D]`, medium=`bg-[#f0f0fc] text-[#6760d8]`, low=`bg-green-50 text-[#31A56D]`
+- **Cards**: `rounded-[4px]` only — never `rounded-xl`, no `shadow-lg`, no gradient backgrounds
+- **Tables**: always include checkbox column, row hover `group-hover`, pagination footer — never bare `<table>`
+- **Spacing**: 4px scale only — use `p-1 p-2 p-3 p-4 p-5 p-6 p-8` — never `p-2.5`, `p-3.5`, arbitrary values
+- **No decorative additions**: no hero sections, no illustration placeholders, no extra section headings beyond sub-header
 
 ## Step 4 — Structure
 
