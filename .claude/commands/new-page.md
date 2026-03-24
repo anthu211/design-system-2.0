@@ -27,13 +27,14 @@ Generate a complete HTML page and save it as a file in the current working direc
 
 ## Step 2 — Build the shell
 
-Copy the shell HTML from `shell.md` exactly. Only replace:
+Copy the COMPLETE shell HTML from `shell.md` verbatim — including the ENTIRE `<style>` block with all CSS tokens and component classes. Do NOT write any custom CSS. Do NOT replace or shorten the style block. Only replace:
 - Page title, nav header, module subtitle
 - Nav items with real SVG icons from the icon table
 - Breadcrumb segments and sub-header title
 - `<!-- Page content goes here -->` with actual content
 
 **No `<h1>` or extra heading below the sub-header. Content starts directly.**
+**CRITICAL: Never write inline styles for components. Always use ds-* class names from the style block.**
 
 ## Step 3 — Apply persona rules
 
