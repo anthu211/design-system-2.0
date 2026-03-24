@@ -1842,17 +1842,10 @@ function downloadClaudeSetup() {
 function copyAiPrompt() {
   var prompt = [
     'Build UI for Prevalent AI — B2B cybersecurity platform for enterprise security teams.',
-    'Persona: [ciso / grc / security-architect / security-engineer / soc-analyst]',
+    'From https://anthu211.github.io/design-system-2.0/ fetch: spec.md · shell.md · components.md · charts.md · ux-context.md · rules.md',
+    'Follow every rule in rules.md without exception. Output a complete self-contained HTML file.',
     '',
-    'Fetch ALL before writing any code:',
-    '1. https://anthu211.github.io/design-system-2.0/spec.md',
-    '2. https://anthu211.github.io/design-system-2.0/shell.md',
-    '3. https://anthu211.github.io/design-system-2.0/components.md',
-    '4. https://anthu211.github.io/design-system-2.0/charts.md',
-    '5. https://anthu211.github.io/design-system-2.0/ux-context.md',
-    '6. https://anthu211.github.io/design-system-2.0/rules.md',
-    '',
-    'rules.md contains all hard rules — read it fully and follow every rule without exception.',
+    'Persona: ciso',
     '',
     'Describe the screen you want to build:',
   ].join('\n');
