@@ -85,7 +85,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 
 ## Charts (HTML)
 
-- ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, or `buildDonutChart` from `charts.md` **verbatim**
+- ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, or `buildStackedBarChart` from `charts.md` **verbatim**
 - NEVER use `<canvas>`, Chart.js, D3, Recharts, ECharts, or any external chart library
 - ALWAYS include the Chart Tooltip HTML + JS from the "Chart Tooltip" section of `charts.md` once per page — chart hovers will be broken without it
 - Every multi-series chart MUST include a `<div class="chart-legend">` with one `chart-legend-dot` (circle, `border-radius:50%`) per series

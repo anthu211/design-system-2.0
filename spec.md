@@ -82,7 +82,7 @@ Prevalent AI is a **B2B cybersecurity exposure management platform** for enterpr
 9. **Tables before cards** for list data — analysts need density, not decoration.
 10. **Destructive actions need confirmation modals** — name the item, state the consequence, red confirm button.
 11. **No external CSS frameworks** — inline styles only, using the variables above.
-12. **⚠ Charts use inline SVG ONLY** — NEVER `<canvas>`, Chart.js, D3, or any external chart library. Copy the exact patterns from `charts.md`. If you write `<canvas>` you are violating this rule.
+12. **⚠ Charts use inline SVG ONLY** — NEVER `<canvas>`, Chart.js, D3, or any external chart library. Copy the exact patterns from `charts.md`. Available functions: `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart`. If you write `<canvas>` you are violating this rule.
 13. **Content body starts DIRECTLY with page content** — no extra `<h1>` or description paragraph below the sub-header.
 14. **KPI cards:** max 5 in a row · `border-radius:4px` · `gap:8px` between cards · `padding:8px 12px`.
 15. **Nav:** expanded parent stays grey (`#f5f5f5`) — only the active sub-item gets blue. One active item at a time.
