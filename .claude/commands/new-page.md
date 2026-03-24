@@ -5,6 +5,7 @@ Fetch ALL of these URLs fully before doing anything else:
 3. https://anthu211.github.io/design-system-2.0/components.md
 4. https://anthu211.github.io/design-system-2.0/charts.md
 5. https://anthu211.github.io/design-system-2.0/ux-context.md
+6. https://anthu211.github.io/design-system-2.0/rules.md
 
 ---
 
@@ -33,10 +34,7 @@ Copy the COMPLETE shell HTML from `shell.md` verbatim — including the ENTIRE `
 - Breadcrumb segments and sub-header title
 - `<!-- Page content goes here -->` with actual content
 
-**DO NOT change the nav header name or subtitle.** The nav header always reads "Prevalent AI" / "Exposure Management" — copy it verbatim from the shell. Only the nav items change per page.
-
-**No `<h1>` or extra heading below the sub-header. Content starts directly.**
-**CRITICAL: Never write inline styles for components. Always use ds-* class names from the style block.**
+**Nav header is ALWAYS "Prevalent AI" / "Exposure Management" — never change it.**
 
 ## Step 3 — Apply persona rules
 
@@ -48,60 +46,7 @@ Copy the COMPLETE shell HTML from `shell.md` verbatim — including the ENTIRE `
 
 ## Step 4 — Build content
 
-Use patterns from `components.md` and `charts.md`. Non-negotiable:
-1. Topbar `#131313` · Accent `#6360D8` · Filter CTA `#504bb8`
-2. All CTA buttons pill-shaped (`border-radius:44px`)
-3. Inter font · Light theme default (`<html class="theme-light">`)
-4. Status/severity always visible — never tooltip-only
-5. Tables for list data · Destructive actions need confirmation modals
-6. Spacing 4px scale only: 4,8,12,16,20,24,32,48px
-7. Charts: inline SVG only — copy `buildLineChart` or `buildMultiLineChart` or `buildVerticalBarChart` from `charts.md` verbatim. ALWAYS include the Chart Tooltip HTML + JS from the "Chart Tooltip" section of `charts.md` once at the end of `<body>` — without it all chart hovers will be broken.
-8. Action buttons min 32px height · Tables need checkbox col + pagination
-
-### HARD NEGATIVE RULES — never do any of these:
-
-**KPI cards**
-- NEVER add colored `border-top`, `border-left`, or any decorative border
-- NEVER add custom `background`, shadow, or icon decorations
-- Use ONLY `<div class="ds-kpi-card">` — no `style=""` attribute at all
-- Content = value + label + trend delta only. Nothing else inside the card.
-
-**Buttons**
-- NEVER use `border-radius` other than `44px` on any button
-- NEVER use custom background colors — use `t-primary`, `t-outline`, `t-secondary`, `t-danger`, `t-tertiary`, `t-special` classes only
-- NEVER make a button smaller than `sz-md` (32px) for clickable actions
-
-**Badges / Status**
-- NEVER use custom `background` or `color` inline — use `ds-badge success/warning/danger/info/neutral` classes only
-- NEVER hide severity in a tooltip — always visible in the default table column
-
-**Tables**
-- NEVER use `<table>` without wrapping in `<div class="ds-table-wrap">`
-- NEVER use custom `padding` on `<td>` — use `ds-td` class
-- NEVER omit the checkbox column (leftmost) and pagination footer
-- NEVER show more than 7 columns by default
-
-**Cards / Containers**
-- NEVER use `border-radius` other than `4px` on cards, table wrappers, or panels
-- NEVER add `box-shadow` unless it is a modal overlay
-- NEVER use gradient backgrounds on content cards
-
-**Callouts**
-- NEVER invent custom callout styling — use `ds-callout ds-callout-warning/error/info/success` only
-
-**Charts**
-- NEVER write a chart from scratch — copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, or `buildDonutChart` from `charts.md` verbatim
-- NEVER use `<canvas>`, Chart.js, D3, or any library
-- Chart wrappers use `border-radius:4px` only
-
-**Layout / Spacing**
-- NEVER use arbitrary pixel values like `3px`, `5px`, `7px`, `10px`, `11px`, `14px`, `15px`
-- NEVER add extra `<h1>`, `<h2>`, or section titles below the sub-header — content starts directly
-- NEVER add decorative dividers, hero sections, or illustration placeholders
-
-**Hover states**
-- NEVER omit `:hover` on any interactive element — buttons, tabs, nav rows, nav sub-items, pagination buttons, breadcrumb links, table row actions, modal close, filter buttons, chips, icon buttons
-- Use `var(--shell-hover)` for hover backgrounds, `var(--shell-text)` for text, `var(--shell-accent)` for accent interactions
+Use patterns from `components.md` and `charts.md`. Follow every rule in `rules.md` — they are non-negotiable.
 
 ## Step 5 — Save the file
 

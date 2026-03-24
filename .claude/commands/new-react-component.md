@@ -3,6 +3,7 @@ Fetch these URLs fully before doing anything:
 1. https://anthu211.github.io/design-system-2.0/spec.md
 2. https://anthu211.github.io/design-system-2.0/components.md
 3. https://anthu211.github.io/design-system-2.0/ux-context.md
+4. https://anthu211.github.io/design-system-2.0/rules.md
 
 ---
 
@@ -37,40 +38,23 @@ Generate a React component and save it as a `.tsx` file in the current directory
 
 ## Step 2 — Design system tokens (apply via Tailwind)
 
-Map spec tokens to Tailwind classes:
-
-| Token | Value | Tailwind approach |
-|-------|-------|-------------------|
+| Token | Value | Tailwind |
+|-------|-------|----------|
 | Accent | `#6360D8` | `bg-[#6360D8]` / `text-[#6360D8]` |
 | Filter CTA | `#504bb8` | `bg-[#504bb8]` |
 | Topbar | `#131313` | `bg-[#131313]` |
 | Button radius | 44px | `rounded-[44px]` |
 | Card radius | 4px | `rounded-[4px]` |
-| Font | Inter | `font-['Inter']` (assume loaded globally) |
-| Spacing | 4px scale | `p-2 p-3 p-4 p-5 p-6 p-8` only |
+| Spacing | 4px scale | `p-1 p-2 p-3 p-4 p-5 p-6 p-8` only |
 
-## Step 3 — Component rules (non-negotiable)
+## Step 3 — Build component
 
-1. All buttons `rounded-[44px]` — never `rounded-md`, `rounded-lg`, or `rounded-full`
-2. Cards and table wrappers `rounded-[4px]` — never `rounded-xl`, `rounded-2xl`
-3. Status/severity always visible — never tooltip-only
-4. Use Radix primitives for: modals, dropdowns, selects, tooltips, checkboxes, radios, toggles
-5. Destructive actions must use a Radix `Dialog` with item name + consequence + red confirm button
-6. Tables: checkbox col first, row hover actions, pagination footer
-7. Charts: Recharts only — `AreaChart`, `BarChart`, or `LineChart`
-8. Icons: Lucide React only — never emoji or text symbols
-9. TypeScript: proper interfaces for all props, no `any`
-10. Export: named export + default export both
-
-### NEVER do these:
-- **KPI cards**: no colored borders (`border-t-red-500` etc.), no custom bg — plain `bg-[var(--card-bg)] border rounded-[4px]` only. Trend color comes from text class only.
-- **Buttons**: never `bg-blue-500`, `bg-red-400` or any Tailwind color — only `bg-[#6760d8]`, `bg-[#504bb8]`, `bg-[#d12329]` from design tokens. Always `rounded-[44px]`.
-- **Badges**: never inline color `style` — use severity-mapped classes: critical=`bg-red-50 text-[#D12329]`, high=`bg-orange-50 text-[#D98B1D]`, medium=`bg-[#f0f0fc] text-[#6760d8]`, low=`bg-green-50 text-[#31A56D]`
-- **Cards**: `rounded-[4px]` only — never `rounded-xl`, no `shadow-lg`, no gradient backgrounds
-- **Tables**: always include checkbox column, row hover `group-hover`, pagination footer — never bare `<table>`
-- **Spacing**: 4px scale only — use `p-1 p-2 p-3 p-4 p-5 p-6 p-8` — never `p-2.5`, `p-3.5`, arbitrary values
-- **No decorative additions**: no hero sections, no illustration placeholders, no extra section headings beyond sub-header
-- **Hover states**: NEVER omit hover styles on any interactive element — use Tailwind `hover:` prefix on buttons, tabs, nav rows, pagination, table row actions, filter buttons, chips, icon buttons. Every clickable element must have a visible hover state.
+Follow every rule in `rules.md` (React-specific section applies). Key reminders:
+- All buttons `rounded-[44px]`
+- Radix primitives for modals, dropdowns, selects, tooltips, checkboxes, radios, toggles
+- Tables: checkbox col first, group-hover row actions, pagination footer
+- TypeScript: proper interfaces, no `any`
+- Named export + default export both
 
 ## Step 4 — Structure
 
@@ -78,7 +62,6 @@ Map spec tokens to Tailwind classes:
 import React from 'react'
 import { ... } from 'lucide-react'
 import { ... } from '@radix-ui/react-...'
-// other imports
 
 interface ComponentNameProps {
   // typed props

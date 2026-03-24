@@ -17,6 +17,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 | **charts.md** | `/charts.md` | SVG chart patterns (line, donut, bar) + tooltip |
 | **react.md** | `/react.md` | React + TypeScript + Tailwind component reference |
 | **ux-context.md** | `/ux-context.md` | Personas, UX laws, product principles |
+| **rules.md** | `/rules.md` | Hard negative rules — all components, layout, spacing, hover, React |
 
 ---
 
