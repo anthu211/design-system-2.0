@@ -569,6 +569,72 @@ function buildLineChart(containerId, data, labels) {
   });
 }
 
+function buildStackedBarChart(containerId, rows, xLabel) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W  = el.offsetWidth || 560;
+  var LW = 80;
+  var CW = W - LW;
+  var BH = 10;
+  var RH = 36;
+  var AH = 24;
+  var PT = 6;
+  var H  = PT + rows.length * RH + AH;
+  var COLORS = ['#d12329','#e15252','#d98b1d','#31a56d'];
+  var KEYS   = ['critical','high','medium','low'];
+  var out = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" overflow="visible">';
+  [0,20,40,60,80,100].forEach(function(p) {
+    var gx = LW + (p / 100) * CW;
+    out += '<line x1="' + gx + '" y1="' + PT + '" x2="' + gx + '" y2="' + (H - AH) + '" stroke="var(--card-border,#e6e6e6)" stroke-width="1"/>';
+    out += '<text x="' + gx + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + (p === 0 ? '0' : p + '%') + '</text>';
+  });
+  out += '<line x1="' + LW + '" y1="' + (H - AH) + '" x2="' + W + '" y2="' + (H - AH) + '" stroke="var(--card-border,#e6e6e6)" stroke-width="1"/>';
+  rows.forEach(function(row, ri) {
+    var by = PT + ri * RH + (RH - BH) / 2;
+    var cy = PT + ri * RH + RH / 2;
+    var lines = row.label.split('\n');
+    if (lines.length === 1) {
+      out += '<text x="' + (LW - 6) + '" y="' + (cy + 4) + '" text-anchor="end" class="chart-axis-label">' + row.label + '</text>';
+    } else {
+      var ly = cy - (lines.length - 1) * 7;
+      lines.forEach(function(line, li) {
+        out += '<text x="' + (LW - 6) + '" y="' + (ly + li * 13) + '" text-anchor="end" class="chart-axis-label">' + line + '</text>';
+      });
+    }
+    out += '<rect x="' + LW + '" y="' + by + '" width="' + CW + '" height="' + BH + '" fill="#f5f5f5" rx="3"/>';
+    var xo = 0;
+    KEYS.forEach(function(k, ki) {
+      var v = +row[k] || 0;
+      if (v <= 0) return;
+      var sw = (v / 100) * CW;
+      out += '<rect x="' + (LW + xo) + '" y="' + by + '" width="' + sw + '" height="' + BH + '" fill="' + COLORS[ki] + '" rx="2"/>';
+      if (xo > 0) out += '<rect x="' + (LW + xo) + '" y="' + by + '" width="3" height="' + BH + '" fill="' + COLORS[ki] + '"/>';
+      if (ki < KEYS.length - 1 && (+row[KEYS[ki + 1]] || 0) > 0)
+        out += '<rect x="' + (LW + xo + sw - 3) + '" y="' + by + '" width="3" height="' + BH + '" fill="' + COLORS[ki] + '"/>';
+      xo += sw;
+    });
+    out += '<rect x="' + LW + '" y="' + by + '" width="' + CW + '" height="' + BH + '" fill="transparent" style="cursor:pointer;"' +
+      ' data-label="' + row.label.replace('\n',' ') + '"' +
+      ' data-critical="' + (row.critical||0) + '" data-high="' + (row.high||0) + '"' +
+      ' data-medium="' + (row.medium||0) + '" data-low="' + (row.low||0) + '"/>';
+  });
+  if (xLabel) out += '<text x="' + ((LW + W) / 2) + '" y="' + (H + 4) + '" text-anchor="middle" class="chart-axis-label">' + xLabel + '</text>';
+  out += '</svg>';
+  el.innerHTML = out;
+  el.querySelectorAll('rect[data-label]').forEach(function(r) {
+    r.addEventListener('mouseover', function(e) {
+      showChartTooltip(e, r.dataset.label, [
+        { label: 'Critical', value: r.dataset.critical + '%', color: '#d12329', active: false },
+        { label: 'High',     value: r.dataset.high     + '%', color: '#e15252', active: false },
+        { label: 'Medium',   value: r.dataset.medium   + '%', color: '#d98b1d', active: false },
+        { label: 'Low',      value: r.dataset.low      + '%', color: '#31a56d', active: true  }
+      ], '#d12329');
+    });
+    r.addEventListener('mousemove', positionChartTooltip);
+    r.addEventListener('mouseleave', hideChartTooltip);
+  });
+}
+
 function initCharts() {
   buildVerticalBarChart('vbar-chart-1',
     [
@@ -590,6 +656,13 @@ function initCharts() {
     [24, 38, 30, 52, 47, 61, 55, 73, 68, 82, 76, 90],
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   );
+  buildStackedBarChart('stacked-bar-chart-1', [
+    { label: 'Device',    critical: 37, high: 6,  medium: 19, low: 38 },
+    { label: 'Cloud',     critical: 9,  high: 8,  medium: 47, low: 36 },
+    { label: 'Identity',  critical: 3,  high: 1,  medium: 2,  low: 94 },
+    { label: 'Network',   critical: 21, high: 14, medium: 33, low: 32 },
+    { label: 'App',       critical: 15, high: 28, medium: 41, low: 16 }
+  ], '% of Asset Count');
   // Horizontal bar chart hover
   document.querySelectorAll('.css-hbar-row').forEach(function(row) {
     var bar = row.querySelector('.css-hbar');
