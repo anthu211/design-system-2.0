@@ -53,8 +53,14 @@ Use patterns from `components.md` and `charts.md`. Non-negotiable:
 4. Status/severity always visible — never tooltip-only
 5. Tables for list data · Destructive actions need confirmation modals
 6. Spacing 4px scale only: 4,8,12,16,20,24,32,48px
-7. Charts: inline SVG only — never `<canvas>` or Chart.js
+7. Charts: inline SVG only — copy `buildLineChart` or `buildMultiLineChart` or `buildVerticalBarChart` from `charts.md` verbatim
 8. Action buttons min 32px height · Tables need checkbox col + pagination
+
+### HARD NEGATIVE RULES — never do these:
+- **KPI cards**: NEVER add `border-top`, `border-left`, or any colored border. NEVER set a custom background color. The ONLY color on a KPI card is the `ds-kpi-delta` trend value (green/red). Use exactly: `<div class="ds-kpi-card">` with no extra style attribute.
+- **Charts**: NEVER write a custom chart from scratch. ALWAYS copy `buildMultiLineChart` from `charts.md` for 2+ series. Chart wrappers use `border-radius:4px`.
+- **No inline styles on components**: Never use `style=""` on `ds-kpi-card`, `ds-badge`, `ds-callout`, `ds-table`, or `ds-btn` elements to override appearance.
+- **No decorative additions**: No gradient backgrounds on cards, no shadow-heavy containers, no extra icon decorations inside KPI cards beyond value+label+trend.
 
 ## Step 5 — Save the file
 
