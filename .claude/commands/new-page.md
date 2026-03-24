@@ -56,11 +56,46 @@ Use patterns from `components.md` and `charts.md`. Non-negotiable:
 7. Charts: inline SVG only — copy `buildLineChart` or `buildMultiLineChart` or `buildVerticalBarChart` from `charts.md` verbatim
 8. Action buttons min 32px height · Tables need checkbox col + pagination
 
-### HARD NEGATIVE RULES — never do these:
-- **KPI cards**: NEVER add `border-top`, `border-left`, or any colored border. NEVER set a custom background color. The ONLY color on a KPI card is the `ds-kpi-delta` trend value (green/red). Use exactly: `<div class="ds-kpi-card">` with no extra style attribute.
-- **Charts**: NEVER write a custom chart from scratch. ALWAYS copy `buildMultiLineChart` from `charts.md` for 2+ series. Chart wrappers use `border-radius:4px`.
-- **No inline styles on components**: Never use `style=""` on `ds-kpi-card`, `ds-badge`, `ds-callout`, `ds-table`, or `ds-btn` elements to override appearance.
-- **No decorative additions**: No gradient backgrounds on cards, no shadow-heavy containers, no extra icon decorations inside KPI cards beyond value+label+trend.
+### HARD NEGATIVE RULES — never do any of these:
+
+**KPI cards**
+- NEVER add colored `border-top`, `border-left`, or any decorative border
+- NEVER add custom `background`, shadow, or icon decorations
+- Use ONLY `<div class="ds-kpi-card">` — no `style=""` attribute at all
+- Content = value + label + trend delta only. Nothing else inside the card.
+
+**Buttons**
+- NEVER use `border-radius` other than `44px` on any button
+- NEVER use custom background colors — use `t-primary`, `t-outline`, `t-secondary`, `t-danger`, `t-tertiary`, `t-special` classes only
+- NEVER make a button smaller than `sz-md` (32px) for clickable actions
+
+**Badges / Status**
+- NEVER use custom `background` or `color` inline — use `ds-badge success/warning/danger/info/neutral` classes only
+- NEVER hide severity in a tooltip — always visible in the default table column
+
+**Tables**
+- NEVER use `<table>` without wrapping in `<div class="ds-table-wrap">`
+- NEVER use custom `padding` on `<td>` — use `ds-td` class
+- NEVER omit the checkbox column (leftmost) and pagination footer
+- NEVER show more than 7 columns by default
+
+**Cards / Containers**
+- NEVER use `border-radius` other than `4px` on cards, table wrappers, or panels
+- NEVER add `box-shadow` unless it is a modal overlay
+- NEVER use gradient backgrounds on content cards
+
+**Callouts**
+- NEVER invent custom callout styling — use `ds-callout ds-callout-warning/error/info/success` only
+
+**Charts**
+- NEVER write a chart from scratch — copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, or `buildDonutChart` from `charts.md` verbatim
+- NEVER use `<canvas>`, Chart.js, D3, or any library
+- Chart wrappers use `border-radius:4px` only
+
+**Layout / Spacing**
+- NEVER use arbitrary pixel values like `3px`, `5px`, `7px`, `10px`, `11px`, `14px`, `15px`
+- NEVER add extra `<h1>`, `<h2>`, or section titles below the sub-header — content starts directly
+- NEVER add decorative dividers, hero sections, or illustration placeholders
 
 ## Step 5 — Save the file
 
