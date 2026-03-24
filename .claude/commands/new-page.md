@@ -97,6 +97,10 @@ Use patterns from `components.md` and `charts.md`. Non-negotiable:
 - NEVER add extra `<h1>`, `<h2>`, or section titles below the sub-header — content starts directly
 - NEVER add decorative dividers, hero sections, or illustration placeholders
 
+**Hover states**
+- NEVER omit `:hover` on any interactive element — buttons, tabs, nav rows, nav sub-items, pagination buttons, breadcrumb links, table row actions, modal close, filter buttons, chips, icon buttons
+- Use `var(--shell-hover)` for hover backgrounds, `var(--shell-text)` for text, `var(--shell-accent)` for accent interactions
+
 ## Step 5 — Save the file
 
 Write the complete HTML to `[kebab-case-name].html` in the current directory.

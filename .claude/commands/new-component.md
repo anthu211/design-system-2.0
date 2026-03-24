@@ -45,6 +45,7 @@ Rules:
 - **Cards**: `border-radius:4px` only — no `12px`, no `box-shadow`, no gradient backgrounds
 - **Callouts**: only `ds-callout ds-callout-warning/error/info/success` — never custom styled banners
 - **Charts**: copy from `charts.md` verbatim — never `<canvas>`, never write chart logic from scratch
+- **Hover states**: NEVER omit `:hover` on any interactive element — buttons, tabs, nav rows, pagination, breadcrumb links, table row actions, modal close, filter buttons, chips, icon buttons. Use `var(--shell-hover)` for backgrounds.
 
 ## Step 4 — Confirm
 

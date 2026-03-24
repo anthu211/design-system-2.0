@@ -70,6 +70,7 @@ Map spec tokens to Tailwind classes:
 - **Tables**: always include checkbox column, row hover `group-hover`, pagination footer — never bare `<table>`
 - **Spacing**: 4px scale only — use `p-1 p-2 p-3 p-4 p-5 p-6 p-8` — never `p-2.5`, `p-3.5`, arbitrary values
 - **No decorative additions**: no hero sections, no illustration placeholders, no extra section headings beyond sub-header
+- **Hover states**: NEVER omit hover styles on any interactive element — use Tailwind `hover:` prefix on buttons, tabs, nav rows, pagination, table row actions, filter buttons, chips, icon buttons. Every clickable element must have a visible hover state.
 
 ## Step 4 — Structure
 

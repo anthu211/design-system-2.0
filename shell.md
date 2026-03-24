@@ -200,6 +200,13 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .nav-sub:hover { background:#f5f5f5 !important; }
     .nav-sub:hover .nav-lbl { color:#6360d8 !important; }
     .nav-sub:hover svg { stroke:#6360d8 !important; }
+    /* Dark theme nav hovers */
+    html:not(.theme-light) .nav-row:hover { background:rgba(255,255,255,0.06) !important; }
+    html:not(.theme-light) .nav-row:hover .nav-lbl { color:#F9F9F9 !important; }
+    html:not(.theme-light) .nav-row:hover svg { stroke:#F9F9F9 !important; }
+    html:not(.theme-light) .nav-sub:hover { background:rgba(255,255,255,0.06) !important; }
+    html:not(.theme-light) .nav-sub:hover .nav-lbl { color:#8F8DDE !important; }
+    html:not(.theme-light) .nav-sub:hover svg { stroke:#8F8DDE !important; }
 
     /* ── Icon button ── */
     .ds-icon-btn { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;transition:background .12s,color .12s;flex-shrink:0; }

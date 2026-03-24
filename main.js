@@ -1879,6 +1879,11 @@ function copyAiPrompt() {
     'No decorative additions: no gradient hero sections, no illustration placeholders,',
     '  no extra headings below the sub-header, no heavy drop shadows on content cards.',
     '',
+    'Hover states: NEVER omit :hover on any interactive element.',
+    '  Buttons, tabs, nav rows, pagination, breadcrumb links, table row actions,',
+    '  modal close, filter buttons, chips, icon buttons — ALL must have :hover styles.',
+    '  Use var(--shell-hover) for backgrounds, var(--shell-accent) for accent interactions.',
+    '',
     'Describe the screen you want to build:',
   ].join('\n');
 
