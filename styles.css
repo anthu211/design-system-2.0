@@ -506,9 +506,11 @@ html.theme-light .ds-btn.t-danger:active { background: #ffdbdc; color: #931b1f; 
 .ds-dual-toggle[data-disabled="true"] { opacity: .4; pointer-events: none; }
 
 html.theme-light .ds-dual-toggle { background: #f3f3f3; border-color: #e0e0e0; }
-html.theme-light .ds-dual-toggle .dt-indicator { background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+html.theme-light .ds-dual-toggle .dt-indicator { background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.18); }
 html.theme-light .ds-dual-toggle .dt-btn.active { color: #282828; }
 html.theme-light .ds-dual-toggle .dt-btn:not(.active) { color: #9f9f9f; }
+
+html.theme-dark .ds-dual-toggle .dt-indicator { background: #2E2E2E; box-shadow: 0 1px 5px rgba(0,0,0,.6); }
 
 /* ═══════════════════════════════════════════════════════════════════
    DROPDOWN
@@ -639,6 +641,7 @@ html.theme-dark .ds-ms-search-btn { background: var(--shell-elevated); color: va
   padding: 0; margin: 12px 12px 0; flex-shrink: 0;
 }
 html.theme-dark .ds-segmented-ctrl { background: var(--shell-raised); }
+html.theme-dark .ds-seg-item.active { background: #2E2E2E; border-color: rgba(255,255,255,.12); box-shadow: 0 1px 4px rgba(0,0,0,.4); }
 .ds-seg-item {
   flex: 1; display: flex; align-items: center; justify-content: center;
   height: 100%; font-size: 13px; font-weight: 500; color: var(--shell-text);
@@ -648,7 +651,7 @@ html.theme-dark .ds-segmented-ctrl { background: var(--shell-raised); }
 }
 .ds-seg-item.active {
   background: var(--card-bg); border: 1px solid rgba(0,0,45,.09);
-  border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,.1);
 }
 /* Checkbox list */
 .ds-ms-list {

@@ -141,7 +141,19 @@ document.querySelectorAll('.nav-item[data-page]').forEach(item => {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     item.classList.add('active');
-    document.getElementById('page-' + item.dataset.page).classList.add('active');
+    var page = document.getElementById('page-' + item.dataset.page);
+    page.classList.add('active');
+    // Re-init dual toggle indicators now that the page is visible
+    page.querySelectorAll('.ds-dual-toggle').forEach(function(dt) {
+      var indicator = dt.querySelector('.dt-indicator');
+      var active = dt.querySelector('.dt-btn.active');
+      if (indicator && active) {
+        var dtRect = dt.getBoundingClientRect();
+        var btnRect = active.getBoundingClientRect();
+        indicator.style.left = (btnRect.left - dtRect.left) + 'px';
+        indicator.style.width = btnRect.width + 'px';
+      }
+    });
   });
 });
 
