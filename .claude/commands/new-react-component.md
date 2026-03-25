@@ -4,6 +4,7 @@ Fetch these URLs fully before doing anything:
 2. https://anthu211.github.io/design-system-2.0/components.md
 3. https://anthu211.github.io/design-system-2.0/ux-context.md
 4. https://anthu211.github.io/design-system-2.0/rules.md
+5. https://anthu211.github.io/design-system-2.0/best-practices.md
 
 ---
 

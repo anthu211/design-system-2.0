@@ -6,6 +6,7 @@ Fetch ALL of these URLs fully before doing anything else:
 4. https://anthu211.github.io/design-system-2.0/charts.md
 5. https://anthu211.github.io/design-system-2.0/ux-context.md
 6. https://anthu211.github.io/design-system-2.0/rules.md
+7. https://anthu211.github.io/design-system-2.0/best-practices.md
 
 ---
 
@@ -46,7 +47,7 @@ Copy the COMPLETE shell HTML from `shell.md` verbatim — including the ENTIRE `
 
 ## Step 4 — Build content
 
-Use patterns from `components.md` and `charts.md`. Follow every rule in `rules.md` — they are non-negotiable.
+Use patterns from `components.md` and `charts.md`. Follow every rule in `rules.md` — they are non-negotiable. Apply per-component dos/don'ts and all error handling patterns from `best-practices.md`.
 
 ## Step 5 — Save the file
 

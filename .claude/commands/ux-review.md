@@ -2,6 +2,7 @@ Fetch these URLs fully before doing anything:
 
 1. https://anthu211.github.io/design-system-2.0/spec.md
 2. https://anthu211.github.io/design-system-2.0/ux-context.md
+3. https://anthu211.github.io/design-system-2.0/best-practices.md
 
 ---
 

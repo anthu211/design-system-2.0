@@ -14,8 +14,9 @@ Before writing any code, you have two sources of truth:
 |------|-----|------------------|
 | Design System Spec | https://anthu211.github.io/design-system-2.0/spec.md | Every token, component HTML pattern, shell structure, colour, spacing, and layout rule |
 | UX Context | https://anthu211.github.io/design-system-2.0/ux-context.md | Personas (Analyst, CISO, IT Admin), UX laws (Hick's, Fitts's, Miller's), product UX principles |
+| Best Practices | https://anthu211.github.io/design-system-2.0/best-practices.md | Per-component dos/don'ts, correct CSS class names, and all 5 error handling patterns |
 
-**Fetch both files at the start of every session. Never generate UI from memory — always read the spec first.**
+**Fetch all three files at the start of every session. Never generate UI from memory — always read the spec first.**
 
 ---
 
@@ -186,6 +187,7 @@ Live spec files: `https://anthu211.github.io/design-system-2.0/`
 ```
 Read our spec: https://anthu211.github.io/design-system-2.0/spec.md
 Read our UX context: https://anthu211.github.io/design-system-2.0/ux-context.md
+Read our best practices: https://anthu211.github.io/design-system-2.0/best-practices.md
 Build: [describe what you want]
 ```
 
