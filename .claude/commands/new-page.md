@@ -49,6 +49,8 @@ Copy the COMPLETE shell HTML from `shell.md` verbatim — including the ENTIRE `
 
 Use patterns from `components.md` and `charts.md`. Follow every rule in `rules.md` — they are non-negotiable. Apply per-component dos/don'ts and all error handling patterns from `best-practices.md`.
 
+**Critical constraint — NO inferred tabs**: Do NOT add a tab bar (Overview / Assets / Findings / etc.) unless the user's requirement explicitly describes tabs. If the user asked for one page, build one page's content. Left nav already handles section navigation.
+
 ## Step 5 — Save the file
 
 Write the complete HTML to `[kebab-case-name].html` in the current directory.

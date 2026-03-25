@@ -24,6 +24,23 @@ This file is the authoritative reference for per-component dos/don'ts and all er
 | Max chart series | 6–7 |
 | Toast auto-dismiss (success/info) | 3 seconds |
 | Toast persist (error/warning) | Until manually dismissed |
+| Page-level tabs | Only when explicitly requested — NEVER inferred |
+
+---
+
+## Page-Level Tabs — Do Not Infer
+
+**NEVER add a tab bar** (e.g. "Overview / Assets / Findings") unless the user's requirement explicitly describes a tabbed layout. This is one of the most common AI generation mistakes.
+
+### ❌ Don't
+- Infer tabs from a page name — "Attack Surface Overview" → do NOT add Overview / Assets / Findings / Exposure Map tabs
+- Add tabs to organize content you invented — if the user asked for one page, build one page
+- Duplicate left-nav structure as in-page tabs — the sidebar already handles section navigation
+
+### ✅ Do
+- If tabs are needed, the user will say so: "page with tabs for Overview, Assets, and Findings"
+- When explicitly asked, use `<div class="ds-tab-bar">` with `<button class="ds-tab active">` / `<button class="ds-tab">`
+- Keep tabs to ≤ 5 visible; more use a dropdown overflow
 
 ---
 

@@ -17,6 +17,15 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 
 ---
 
+## Tabs
+
+- **NEVER add page-level tabs unless the user explicitly asks for them** — do not infer tabs from page names like "Overview", "Assets", "Findings"
+- Tabs are only added when the user describes a multi-view or tabbed layout in their requirement
+- If the requirement describes a single page/screen, generate that page's content directly without tabs
+- Nav items in the left sidebar already provide page-level navigation — do not duplicate this with in-page tabs
+
+---
+
 ## Spacing
 
 - **4px scale only** — 4, 8, 12, 16, 20, 24, 32, 48px
