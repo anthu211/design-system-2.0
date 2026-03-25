@@ -569,6 +569,58 @@ function buildLineChart(containerId, data, labels) {
   });
 }
 
+function buildMultiLineChart(containerId, series, labels) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W = el.offsetWidth || 700;
+  var H = 220;
+  var pad = { top: 16, right: 20, bottom: 32, left: 44 };
+  var innerW = W - pad.left - pad.right;
+  var innerH = H - pad.top - pad.bottom;
+  var allVals = [];
+  series.forEach(function(s) { s.values.forEach(function(v) { allVals.push(v); }); });
+  var yMax = Math.ceil(Math.max.apply(null, allVals) / 10) * 10 || 10;
+  var step = innerW / (labels.length - 1);
+  var numTicks = 4;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+  }
+  var xLabels = labels.map(function(l, i) {
+    return '<text x="' + (pad.left + i * step).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + l + '</text>';
+  }).join('');
+  var axes =
+    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
+  var dotStroke = document.documentElement.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
+  var defs = '<defs>';
+  var seriesSvg = '';
+  series.forEach(function(s, si) {
+    var uid = 'mlg' + Date.now() + si;
+    var pts = s.values.map(function(v, i) {
+      return (pad.left + i * step).toFixed(1) + ',' + (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
+    }).join(' ');
+    if (si === 0) {
+      defs += '<linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + s.color + '" stop-opacity="0.15"/><stop offset="100%" stop-color="' + s.color + '" stop-opacity="0"/></linearGradient>';
+      var areaFirst = pad.left + ',' + (pad.top + innerH);
+      var areaLast = (pad.left + (s.values.length - 1) * step).toFixed(1) + ',' + (pad.top + innerH);
+      seriesSvg += '<polygon points="' + areaFirst + ' ' + pts + ' ' + areaLast + '" fill="url(#' + uid + ')"/>';
+    }
+    seriesSvg += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    seriesSvg += s.values.map(function(v, i) {
+      var cx = (pad.left + i * step).toFixed(1);
+      var cy = (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
+      return '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="' + s.color + '" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
+    }).join('');
+  });
+  defs += '</defs>';
+  el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
+    defs + gridLines + axes + seriesSvg + yLabels + xLabels + '</svg>';
+}
+
 function buildStackedBarChart(containerId, rows, xLabel) {
   var el = document.getElementById(containerId);
   if (!el) return;
@@ -1971,12 +2023,12 @@ function copyShellTemplate() {
     '    #shell-nav { transition: width 0.22s ease, padding 0.22s ease; }',
     '    #shell-nav.nav-collapsed { width: 52px !important; padding: 16px 8px !important; overflow: hidden; }',
     '    #shell-nav.nav-collapsed .nav-hdr-info { display: none; }',
-    '    #shell-nav.nav-collapsed .nav-hdr { flex-direction: column; align-items: center; border-bottom: none !important; padding-bottom: 6px; margin-bottom: 0; }',
+    '    #shell-nav.nav-collapsed .nav-hdr { flex-direction: column; align-items: center; border-bottom: none !important; padding-bottom: 4px; margin-bottom: 0; }',
     '    #shell-nav.nav-collapsed .nav-row { justify-content: center; }',
     '    #shell-nav.nav-collapsed .nav-lbl { display: none; }',
     '    #shell-nav.nav-collapsed .nav-chev { display: none; }',
     '    #shell-nav.nav-collapsed .nav-sub { display: none; }',
-    '    #shell-nav.nav-collapsed .nav-sub.nav-active { display: flex; justify-content: center; padding: 7px 8px !important; background: rgba(99,96,216,0.08); border-radius: 6px; }',
+    '    #shell-nav.nav-collapsed .nav-sub.nav-active { display: flex; justify-content: center; padding: 8px !important; background: rgba(99,96,216,0.08); border-radius: 6px; }',
     '    #shell-nav.nav-collapsed .nav-sub.nav-active .nav-lbl { display: none; }',
     '    #shell-nav.nav-collapsed:not(.click-collapsed):hover { width: 220px !important; padding: 16px !important; }',
     '    #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-hdr-info { display: block; }',
@@ -2000,7 +2052,7 @@ function copyShellTemplate() {
     '    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
     '    <span style="flex:1;"></span>',
     '    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>',
-    '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;">',
+    '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">',
     '      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
     '    </button>',
     '    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>',

@@ -542,7 +542,7 @@ export function Shell({ nav, subHeader, children }: ShellProps) {
         {/* Content area */}
         <div className="flex-1 overflow-y-auto flex flex-col">
           {/* Sticky sub-header */}
-          <div className="sticky top-0 z-50 bg-white border-b border-gray-200 rounded-b-lg px-4 py-2.5 flex items-center gap-2.5 flex-shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+          <div className="sticky top-0 z-50 bg-white border-b border-gray-200 px-4 py-2 flex items-center gap-2 flex-shrink-0">
             {subHeader}
           </div>
           {/* Page body */}

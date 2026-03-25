@@ -183,6 +183,13 @@
         Screen Shell
       </div>
     </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Guidelines</div>
+      <div class="nav-item" data-page="best-practices">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Best Practices
+      </div>
+    </div>
 
   </nav>
 
@@ -4001,6 +4008,821 @@
     </button>
   </div>
 </div>
+
+<!-- BEST PRACTICES PAGE -->
+<div class="page" id="page-best-practices">
+  <div class="page-sub-header">
+    <div class="page-sub-header-left">
+      <h1 class="page-title">Best Practices</h1>
+      <p class="page-subtitle">Component dos, don'ts, and error handling patterns — derived from design spec and Figma</p>
+    </div>
+  </div>
+  <div class="page-content">
+
+    <div class="bp-intro">
+      <h3>How to use this guide</h3>
+      <p>Every section shows the correct pattern alongside the incorrect one with live component demos. All values are exact spec tokens — copy the markup directly. Error handling patterns are derived from Figma and apply to every page in the product.</p>
+    </div>
+
+    <!-- ─── 1. Buttons ─── -->
+    <div class="bp-section">
+      <h2>Buttons</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo">
+            <button class="ds-btn t-primary sz-md">Primary</button>
+            <button class="ds-btn t-outline sz-md">Cancel</button>
+            <button class="ds-btn t-ghost sz-md">Learn more</button>
+            <button class="ds-icon-btn" title="Settings" style="width:32px;height:32px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+          </div>
+          <ul class="bp-list">
+            <li>All CTA and text buttons use <code>border-radius: 44px</code> (pill)</li>
+            <li>Icon-only buttons use <code>border-radius: 50%</code></li>
+            <li>Max 1 primary per view; secondary/ghost are visually quieter</li>
+            <li>Destructive primary uses <code>#dc2626</code> background</li>
+            <li>Disabled state: <code>opacity: 0.4</code>, cursor-not-allowed — never hidden</li>
+            <li>Icon-only buttons always need a <code>title</code> attribute (accessibility)</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="flex-direction:column;gap:8px;">
+            <div style="display:flex;gap:8px;">
+              <button style="background:#6360D8;border:none;color:#fff;font-size:13px;padding:8px 18px;border-radius:6px;font-family:inherit;cursor:default;">Primary</button>
+              <button style="background:#6360D8;border:none;color:#fff;font-size:13px;padding:8px 18px;border-radius:6px;font-family:inherit;cursor:default;">Also Primary</button>
+            </div>
+            <button style="background:#dc2626;border:none;color:#fff;font-size:13px;padding:8px 18px;border-radius:44px;font-family:inherit;cursor:default;opacity:0.15;">Disabled (hidden)</button>
+          </div>
+          <ul class="bp-list">
+            <li>Never use <code>border-radius: 6px</code> on buttons — always 44px pill</li>
+            <li>Never show two primary buttons in the same view</li>
+            <li>Never hide a disabled button — always keep it visible at 40% opacity</li>
+            <li>Never use icon-only buttons without an accessible <code>title</code></li>
+            <li>Never use the purple accent for destructive actions — use red</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 2. KPI Cards ─── -->
+    <div class="bp-section">
+      <h2>KPI Cards</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="align-items:stretch;gap:8px;padding:12px;">
+            <div class="ds-kpi" style="flex:1;min-width:0;">
+              <div class="kpi-label">Critical Findings</div>
+              <div class="kpi-value" style="color:#dc2626;">247</div>
+              <div class="kpi-trend trend-up">↑ 12 this week</div>
+            </div>
+            <div class="ds-kpi" style="flex:1;min-width:0;">
+              <div class="kpi-label">Risk Score</div>
+              <div class="kpi-value">8.4</div>
+              <div class="kpi-trend trend-down">↓ 0.3 vs last month</div>
+            </div>
+            <div class="ds-kpi" style="flex:1;min-width:0;">
+              <div class="kpi-label">Vendors</div>
+              <div class="kpi-value">132</div>
+              <div class="kpi-trend" style="color:var(--shell-text-muted);">No change</div>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Maximum 5 KPI cards in a single row (Miller's Law)</li>
+            <li>Always include a trend arrow + delta value (or "No change")</li>
+            <li>The metric value is always the most visually dominant element</li>
+            <li>Status colours match badge semantics — critical value = red</li>
+            <li>Card border-radius is always <code>4px</code>, never 8px</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="flex-wrap:wrap;gap:6px;padding:12px;align-items:flex-start;">
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;min-width:60px;text-align:center;background:#fff;">
+              <div style="font-size:10px;color:#9ca3af;">Critical</div>
+              <div style="font-size:20px;font-weight:700;color:#101010;">247</div>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;min-width:60px;text-align:center;background:#fff;">
+              <div style="font-size:10px;color:#9ca3af;">High</div>
+              <div style="font-size:20px;font-weight:700;color:#101010;">89</div>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;min-width:60px;text-align:center;background:#fff;">
+              <div style="font-size:10px;color:#9ca3af;">Medium</div>
+              <div style="font-size:20px;font-weight:700;color:#101010;">412</div>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;min-width:60px;text-align:center;background:#fff;">
+              <div style="font-size:10px;color:#9ca3af;">Low</div>
+              <div style="font-size:20px;font-weight:700;color:#101010;">1203</div>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;min-width:60px;text-align:center;background:#fff;">
+              <div style="font-size:10px;color:#9ca3af;">Info</div>
+              <div style="font-size:20px;font-weight:700;color:#101010;">67</div>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;min-width:60px;text-align:center;background:#fff;">
+              <div style="font-size:10px;color:#9ca3af;">Resolved</div>
+              <div style="font-size:20px;font-weight:700;color:#101010;">38</div>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Never show 6+ KPI cards in one row — violates Miller's Law</li>
+            <li>Never omit trend data — analysts need directional context</li>
+            <li>Never use <code>border-radius: 8px</code> on cards — always 4px</li>
+            <li>Never use neutral black for all values when severity is implied</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 3. Badges & Status ─── -->
+    <div class="bp-section">
+      <h2>Badges &amp; Status</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="gap:6px;flex-wrap:wrap;">
+            <span class="ds-badge sev-critical">Critical</span>
+            <span class="ds-badge sev-high">High</span>
+            <span class="ds-badge sev-medium">Medium</span>
+            <span class="ds-badge sev-low">Low</span>
+            <span class="ds-badge st-active">Active</span>
+            <span class="ds-badge st-resolved">Resolved</span>
+            <span class="ds-badge st-open">Open</span>
+          </div>
+          <ul class="bp-list">
+            <li>Status is always visible inline in the table row — never tooltip-only</li>
+            <li>Semantic colour pairs: critical=red, high=orange, medium=amber, low=green, info=purple</li>
+            <li>Badge <code>border-radius: 4px</code></li>
+            <li>Font: 11px, weight 600 — never 400</li>
+            <li>Background is a 12–15% opacity tint of the semantic colour</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="gap:8px;flex-wrap:wrap;flex-direction:column;align-items:flex-start;">
+            <div style="display:flex;gap:6px;">
+              <span style="background:#e5e7eb;color:#374151;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;">Critical</span>
+              <span style="background:#e5e7eb;color:#374151;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;">High</span>
+              <span style="background:#e5e7eb;color:#374151;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;">Low</span>
+            </div>
+            <span title="Status: Resolved — hover to see" style="cursor:help;font-size:12px;color:#6b7280;border-bottom:1px dashed #9ca3af;">Status (hover me)</span>
+          </div>
+          <ul class="bp-list">
+            <li>Never use uniform grey for all severity levels — colour carries meaning</li>
+            <li>Never put status in a tooltip only — must be visible inline always</li>
+            <li>Never use <code>border-radius: 12px</code> (pill) on badges — always 4px</li>
+            <li>Never write more than 2 words in a badge</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 4. Tables ─── -->
+    <div class="bp-section">
+      <h2>Tables</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="padding:0;align-items:stretch;flex-direction:column;">
+            <table class="ds-table" style="font-size:11px;width:100%;">
+              <thead>
+                <tr>
+                  <th class="ds-th">Finding</th>
+                  <th class="ds-th">Severity</th>
+                  <th class="ds-th">Status</th>
+                  <th class="ds-th">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="ds-tr">
+                  <td class="ds-td">CVE-2024-1234</td>
+                  <td class="ds-td"><span class="ds-badge sev-critical">Critical</span></td>
+                  <td class="ds-td"><span class="ds-badge st-open">Open</span></td>
+                  <td class="ds-td"><button class="ds-btn t-ghost sz-sm" style="font-size:10px;padding:3px 10px;">View</button></td>
+                </tr>
+                <tr class="ds-tr">
+                  <td class="ds-td">CVE-2024-5678</td>
+                  <td class="ds-td"><span class="ds-badge sev-high">High</span></td>
+                  <td class="ds-td"><span class="ds-badge st-resolved">Resolved</span></td>
+                  <td class="ds-td"><button class="ds-btn t-ghost sz-sm" style="font-size:10px;padding:3px 10px;">View</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul class="bp-list">
+            <li>Use tables (not cards) for all list-type operational data</li>
+            <li>Max 7 columns visible by default — extras via "Add Column" control</li>
+            <li>Severity/status badge always visible inline — never in tooltip</li>
+            <li>Row actions use ghost buttons, never primary</li>
+            <li>Always include pagination controls and row-count selector</li>
+            <li>Table header row remains visible even during empty or error states</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="gap:6px;align-items:stretch;flex-direction:column;padding:12px;">
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;font-size:11px;background:#fff;">
+              <span style="font-weight:500;">CVE-2024-1234</span>
+              <span title="Critical — hover to see severity" style="cursor:help;color:#6b7280;border-bottom:1px dashed;">severity ❓</span>
+            </div>
+            <div style="border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;font-size:11px;background:#fff;">
+              <span style="font-weight:500;">CVE-2024-5678</span>
+              <span title="High" style="cursor:help;color:#6b7280;border-bottom:1px dashed;">severity ❓</span>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Never use cards for list/operational data — use tables</li>
+            <li>Never hide severity or status in a tooltip</li>
+            <li>Never exceed 7 visible columns without an opt-in mechanism</li>
+            <li>Never omit pagination — always show row count and page controls</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 5. Charts ─── -->
+    <div class="bp-section">
+      <h2>Charts</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="flex-direction:column;gap:8px;">
+            <div style="font-size:12px;font-weight:500;color:var(--shell-text);">Exposure Trend by Severity</div>
+            <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+              <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--shell-text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:#dc2626;display:inline-block;flex-shrink:0;"></span>Critical</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--shell-text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:#f97316;display:inline-block;flex-shrink:0;"></span>High</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--shell-text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;display:inline-block;flex-shrink:0;"></span>Medium</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--shell-text-muted);"><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;flex-shrink:0;"></span>Low</span>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Legend is always centred below the chart (<code>justify-content: center</code>)</li>
+            <li>Legend dots use <code>border-radius: 50%</code>, size 8×8px</li>
+            <li>Always include a descriptive chart title and axis labels</li>
+            <li>Max 6–7 data series per chart (Miller's Law)</li>
+            <li>Tooltip shows exact values on hover — never hover-less charts</li>
+            <li>Severity colours match badge semantics exactly</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="flex-direction:column;gap:8px;align-items:flex-start;padding:12px;">
+            <div style="font-size:10px;color:#9ca3af;font-style:italic;">(No chart title)</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;width:100%;">
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#6360D8;display:inline-block;"></span>Critical</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#22c55e;display:inline-block;"></span>High</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#f59e0b;display:inline-block;"></span>Medium</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#94a3b8;display:inline-block;"></span>Low</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#c084fc;display:inline-block;"></span>Info</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#38bdf8;display:inline-block;"></span>Resolved</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#fb923c;display:inline-block;"></span>Closed</span>
+              <span style="display:flex;align-items:center;gap:4px;font-size:10px;color:#6b7280;"><span style="width:12px;height:3px;background:#e879f9;display:inline-block;"></span>Pending</span>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Never left-align the legend — must be centred</li>
+            <li>Never use rectangular dashes for legend markers — always circle dots</li>
+            <li>Never render 8+ series in one chart — split or group</li>
+            <li>Never omit chart title, axis labels, or hover tooltips</li>
+            <li>Never use random colours — always use semantic severity colours</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 6. Modals & Confirmations ─── -->
+    <div class="bp-section">
+      <h2>Modals &amp; Confirmations</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="padding:16px;">
+            <div style="border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff;max-width:300px;width:100%;box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+              <div style="padding:14px 16px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center;">
+                <span style="font-size:13px;font-weight:600;color:#101010;">Delete Vendor: Acme Corp</span>
+                <span style="color:#6b7280;font-size:16px;line-height:1;cursor:default;">×</span>
+              </div>
+              <div style="padding:14px 16px;">
+                <p style="font-size:12px;color:#374151;margin:0;line-height:1.5;">This will permanently delete <strong>Acme Corp</strong> and all associated findings. This action cannot be undone.</p>
+              </div>
+              <div style="padding:10px 16px;border-top:1px solid #e5e7eb;display:flex;gap:8px;justify-content:flex-end;">
+                <button style="background:none;border:1px solid #d1d5db;color:#374151;font-size:12px;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Cancel</button>
+                <button style="background:#dc2626;border:none;color:#fff;font-size:12px;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Delete Vendor</button>
+              </div>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Modal <code>border-radius: 12px</code></li>
+            <li>Title names the specific item ("Delete Vendor: Acme Corp")</li>
+            <li>Body states the consequence and irreversibility</li>
+            <li>Destructive confirm button uses <code>#dc2626</code> (red), not purple</li>
+            <li>Cancel uses outline/ghost — always less prominent than the action</li>
+            <li>Clicking the overlay closes the modal (cancel semantics)</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="padding:16px;">
+            <div style="border:1px solid #e5e7eb;border-radius:4px;overflow:hidden;background:#fff;max-width:260px;width:100%;">
+              <div style="padding:12px 16px;border-bottom:1px solid #e5e7eb;">
+                <span style="font-size:13px;font-weight:600;color:#101010;">Confirm Delete</span>
+              </div>
+              <div style="padding:12px 16px;">
+                <p style="font-size:12px;color:#374151;margin:0;">Are you sure?</p>
+              </div>
+              <div style="padding:10px 16px;border-top:1px solid #e5e7eb;display:flex;gap:8px;justify-content:flex-end;">
+                <button style="background:#6360D8;border:none;color:#fff;font-size:12px;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">OK</button>
+              </div>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Never use vague "Are you sure?" — name the item and the consequence</li>
+            <li>Never use accent purple for a destructive confirm — use red</li>
+            <li>Never label the action "OK" — use a specific verb ("Delete Vendor")</li>
+            <li>Never omit the Cancel path — every destructive modal needs an exit</li>
+            <li>Never use <code>border-radius: 4px</code> on modals — always 12px</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 7. Form Controls ─── -->
+    <div class="bp-section">
+      <h2>Form Controls</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="flex-direction:column;gap:12px;align-items:stretch;padding:16px;">
+            <div>
+              <label style="display:block;font-size:12px;font-weight:500;color:var(--shell-text);margin-bottom:4px;">Email address <span style="color:#dc2626;">*</span></label>
+              <input class="ds-input-field" style="width:100%;box-sizing:border-box;" placeholder="analyst@company.com" readonly>
+            </div>
+            <div>
+              <label style="display:block;font-size:12px;font-weight:500;color:var(--shell-text);margin-bottom:4px;">Max Retries</label>
+              <input class="ds-input-field" style="width:100%;box-sizing:border-box;border-color:#dc2626;border-width:1.5px;" value="-5" readonly>
+              <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span style="font-size:11px;color:#dc2626;">Must be a number between 0 and 10</span>
+              </div>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Input <code>border-radius: 8px</code></li>
+            <li>Error state: red border (1.5px) + icon + specific message text below</li>
+            <li>Required fields marked with <code>*</code> in red, after the label</li>
+            <li>Label always visible above the field — never placeholder-only</li>
+            <li>Validate on blur — not on every keystroke</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="flex-direction:column;gap:12px;align-items:stretch;padding:16px;">
+            <div>
+              <input style="width:100%;box-sizing:border-box;padding:8px 10px;border:1.5px solid #dc2626;border-radius:4px;font-size:13px;font-family:inherit;outline:none;background:#fff;" placeholder="Enter email (no label visible)…" readonly>
+              <!-- No label, no error message -->
+            </div>
+            <div style="font-size:11px;color:#dc2626;font-style:italic;">← no label, no error message shown</div>
+          </div>
+          <ul class="bp-list">
+            <li>Never show a red border without an error message — gives no actionable info</li>
+            <li>Never use <code>border-radius: 4px</code> on inputs — always 8px</li>
+            <li>Never use placeholder as the sole label — placeholder disappears on focus</li>
+            <li>Never validate on every keystroke — disruptive to users typing</li>
+            <li>Never clear the field value on error — preserve user input</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 8. Callouts & Toasts ─── -->
+    <div class="bp-section">
+      <h2>Callouts &amp; Toasts</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="flex-direction:column;gap:8px;align-items:stretch;">
+            <div class="ds-callout t-warning">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span style="font-size:12px;">Integration token expires in 3 days. <a href="#" style="color:inherit;font-weight:600;">Renew now →</a></span>
+            </div>
+            <div class="ds-callout t-error">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span style="font-size:12px;">AWS connector sync failed. Check credentials in Settings.</span>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Use callouts for persistent, in-page contextual messages</li>
+            <li>Callout: <code>border-radius: 4px</code>, <code>gap: 8px</code>, always icon + text</li>
+            <li>Link actions inline when possible (avoid a separate CTA button)</li>
+            <li>Toasts auto-dismiss after 3 seconds (success/info); error toasts persist</li>
+            <li>Use toast for transient feedback — saved, copied, deleted, exported</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="flex-direction:column;gap:8px;align-items:stretch;">
+            <div style="background:#fef3c7;border-left:4px solid #f59e0b;padding:10px 12px;border-radius:8px;font-size:12px;color:#92400e;">
+              Warning!
+            </div>
+            <div style="background:#fee2e2;border-left:4px solid #dc2626;padding:10px 12px;border-radius:8px;font-size:12px;color:#991b1b;">
+              Something went wrong.
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Never use left-border-only style — use the <code>.ds-callout</code> pattern</li>
+            <li>Never write vague "Warning!" or "Something went wrong." — always explain what</li>
+            <li>Never use <code>border-radius: 8px</code> on callouts — always 4px</li>
+            <li>Never use toast for critical errors requiring user decisions — use a modal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 9. Navigation ─── -->
+    <div class="bp-section">
+      <h2>Navigation</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="flex-direction:column;gap:2px;align-items:stretch;padding:8px;background:var(--shell-bg);">
+            <div style="font-size:9px;font-weight:700;color:#9ca3af;letter-spacing:0.08em;padding:4px 8px;text-transform:uppercase;">Exposure</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;background:#6360D8;color:#fff;font-size:12px;font-weight:500;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+              Overview <span style="font-size:10px;opacity:0.7;margin-left:auto;">← active</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;color:var(--shell-text-muted);font-size:12px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+              Findings
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Nav sections collapsed by default — reduces cognitive load (Hick's Law)</li>
+            <li>Active item: <code>#6360D8</code> background fill, white text, no border</li>
+            <li>Section labels: 9–10px, uppercase, letter-spaced, muted — not interactive</li>
+            <li>Topbar text is always "Prevalent AI" — never editable or localised</li>
+            <li>Topbar icon buttons always use <code>border-radius: 50%</code></li>
+            <li>Nav item icons are always 14×14px, stroke-width 2</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="flex-direction:column;gap:2px;align-items:stretch;padding:8px;background:var(--shell-bg);">
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;background:#e0e7ff;color:#4338ca;font-size:12px;border-left:3px solid #6360D8;">Overview</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;color:#374151;font-size:12px;border-left:3px solid transparent;">Findings</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;color:#374151;font-size:12px;border-left:3px solid transparent;">Alerts</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;color:#374151;font-size:12px;border-left:3px solid transparent;">Reports</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;color:#374151;font-size:12px;border-left:3px solid transparent;">Vendors</div>
+            <div style="display:flex;align-items:center;gap:8px;padding:8px;border-radius:4px;color:#374151;font-size:12px;border-left:3px solid transparent;">Integrations</div>
+          </div>
+          <ul class="bp-list">
+            <li>Never use left-border as the active indicator — use background fill</li>
+            <li>Never expand all nav sections by default — violates Hick's Law</li>
+            <li>Never show all items flat (no sections) — group into labelled sections</li>
+            <li>Never customise the topbar "Prevalent AI" branding</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 10. Spacing & Typography ─── -->
+    <div class="bp-section">
+      <h2>Spacing &amp; Typography</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <div class="bp-demo" style="flex-direction:column;gap:8px;align-items:flex-start;padding:16px;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:4px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">4</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:8px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">8</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:12px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">12</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:16px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">16</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:20px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">20</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:24px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">24</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:32px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">32</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:2px;">
+                <div style="width:48px;height:12px;background:var(--shell-accent);border-radius:1px;"></div>
+                <span style="font-size:9px;color:var(--shell-text-muted);">48</span>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--card-border);padding-top:8px;width:100%;">
+              <div style="font-size:18px;font-weight:700;color:var(--shell-text);font-family:Inter,sans-serif;line-height:1.2;">Page Heading — 18px / 700</div>
+              <div style="font-size:14px;font-weight:600;color:var(--shell-text);font-family:Inter,sans-serif;">Section Title — 14px / 600</div>
+              <div style="font-size:13px;color:var(--shell-text);font-family:Inter,sans-serif;">Body text — 13px / 400, line-height 1.5</div>
+              <div style="font-size:11px;color:var(--shell-text-muted);font-family:Inter,sans-serif;">Label / meta — 11px / 400</div>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Spacing scale (px only): 4, 8, 12, 16, 20, 24, 32, 48</li>
+            <li>Never use 3, 5, 6, 7, 10, 11, 14, 15px — not on scale</li>
+            <li>Font is always Inter (loaded via Google Fonts) — no substitutions</li>
+            <li>Type ramp: 18px h1 → 14px h2 → 13px body → 12px small → 11px label</li>
+            <li>Line-height: 1.5 for body text; 1.2 for headings</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <div class="bp-demo" style="flex-direction:column;gap:5px;align-items:flex-start;padding:15px;">
+            <div style="display:flex;align-items:center;gap:5px;">
+              <div style="width:7px;height:10px;background:#dc2626;border-radius:1px;"></div>
+              <span style="font-size:10px;color:#dc2626;">7px ✗</span>
+              <div style="width:10px;height:10px;background:#dc2626;border-radius:1px;"></div>
+              <span style="font-size:10px;color:#dc2626;">10px ✗</span>
+              <div style="width:14px;height:10px;background:#dc2626;border-radius:1px;"></div>
+              <span style="font-size:10px;color:#dc2626;">14px ✗</span>
+              <div style="width:15px;height:10px;background:#dc2626;border-radius:1px;"></div>
+              <span style="font-size:10px;color:#dc2626;">15px ✗</span>
+            </div>
+            <div style="border-top:1px solid #e5e7eb;padding-top:8px;width:100%;">
+              <div style="font-size:17px;font-weight:700;color:#101010;font-family:Arial,sans-serif;">Heading in Arial (wrong font)</div>
+              <div style="font-size:15px;color:#101010;font-family:Arial,sans-serif;">15px — off scale ✗</div>
+              <div style="font-size:10px;color:#6b7280;font-family:Arial,sans-serif;">10px body text (too small) ✗</div>
+            </div>
+          </div>
+          <ul class="bp-list">
+            <li>Never use off-scale spacing (5, 6, 7, 10, 11, 14, 15px etc.)</li>
+            <li>Never use any font other than Inter</li>
+            <li>Never use font sizes that fall outside the type ramp</li>
+            <li>Never mix rem and px — use px throughout</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 11. Error Handling ─── -->
+    <div class="bp-section">
+      <h2>Error Handling</h2>
+
+      <div class="bp-intro" style="margin-bottom:20px;">
+        <h3>5 error contexts — choose the right pattern for each</h3>
+        <p>The correct pattern depends on how much of the page is affected and whether the user can take recovery action. Full-page system errors use heavy visual treatment. Section errors contain the problem. Empty states are not errors — they guide the user's next step.</p>
+      </div>
+
+      <!-- Pattern 1: Full-Page Error -->
+      <div class="bp-error-card" style="margin-bottom:16px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--shell-text);">Pattern 1 — Full-Page System Error</div>
+            <div style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">When: entire page cannot render (server error, auth failure, network down)</div>
+          </div>
+          <span class="bp-tag" style="background:#fee2e2;color:#991b1b;">Full page</span>
+        </div>
+        <div class="bp-error-demo" style="min-height:200px;">
+          <div class="bp-error-watermark">ERROR</div>
+          <div style="text-align:center;position:relative;z-index:1;">
+            <div style="font-size:40px;margin-bottom:12px;line-height:1;">🚧</div>
+            <div style="font-size:18px;font-weight:600;color:var(--shell-text);margin-bottom:8px;">Oops! That Wasn't Supposed to Happen</div>
+            <div style="font-size:13px;color:var(--shell-text-muted);margin-bottom:20px;max-width:380px;">Well, this is awkward.. Something broke on our end. We're fixing it ASAP!</div>
+            <button style="background:#6360d8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 16px;border-radius:4px;font-family:inherit;cursor:default;display:inline-flex;align-items:center;gap:6px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-top:1px solid var(--card-border);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">✅ Rules</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>"ERROR" watermark: 90px+, weight 800, opacity 8%, <code>#a3a5af</code>, centred behind content</li>
+                <li>🚧 construction emoji, 40px, centred — signals active incident</li>
+                <li>Heading: friendly, non-technical, SemiBold 18px, <code>#101010</code></li>
+                <li>Subtext: conversational, 13px, <code>#a3a5af</code> — not a stack trace</li>
+                <li>Refresh button: <code>#6360d8</code>, <code>border-radius: 4px</code>, height 32px</li>
+                <li>Shell (topbar + nav) remains fully visible — users need an escape route</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">❌ Never</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>Never expose raw stack traces, HTTP codes, or error IDs to the user</li>
+                <li>Never use "500 Internal Server Error" as the visible heading</li>
+                <li>Never remove the navigation shell — the user needs to navigate away</li>
+                <li>Never use 🚦 (traffic light) for system errors — that's for empty states</li>
+                <li>Never auto-redirect without first displaying this state</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pattern 2: Section Error -->
+      <div class="bp-error-card" style="margin-bottom:16px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--shell-text);">Pattern 2 — Section / Data Retrieval Error</div>
+            <div style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">When: one widget or section fails to load; the rest of the page works</div>
+          </div>
+          <span class="bp-tag" style="background:#fef3c7;color:#92400e;">Section</span>
+        </div>
+        <div class="bp-error-demo" style="min-height:140px;">
+          <div style="text-align:center;">
+            <div style="font-size:30px;margin-bottom:10px;line-height:1;">🚧</div>
+            <div style="font-size:15px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">Data Retrieval Failed</div>
+            <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:16px;max-width:320px;">We're having trouble loading this data. Try refreshing or check back later.</div>
+            <button style="background:#6360d8;border:none;color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:4px;font-family:inherit;cursor:default;display:inline-flex;align-items:center;gap:5px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-top:1px solid var(--card-border);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">✅ Rules</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>No "ERROR" watermark — this is a contained section failure</li>
+                <li>🚧 emoji, smaller (30px) — same signal, lower visual weight</li>
+                <li>Heading names the data that failed ("Data Retrieval Failed")</li>
+                <li>Include a Refresh button — section data can be retried independently</li>
+                <li>All other page sections remain fully functional</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">❌ Never</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>Never redirect the entire page because one section failed</li>
+                <li>Never use the full-page "ERROR" watermark treatment here</li>
+                <li>Never omit the Refresh button — section errors are usually retryable</li>
+                <li>Never collapse or hide the widget container — keep it visible</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pattern 3: Table Empty State -->
+      <div class="bp-error-card" style="margin-bottom:16px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--shell-text);">Pattern 3 — Table Empty State (No Data)</div>
+            <div style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">When: query returns 0 rows — filters too restrictive, or data not yet ingested</div>
+          </div>
+          <span class="bp-tag" style="background:#f0fdf4;color:#166534;">Empty state</span>
+        </div>
+        <div class="bp-error-demo" style="min-height:120px;flex-direction:column;">
+          <div style="text-align:center;">
+            <div style="font-size:28px;margin-bottom:8px;line-height:1;">🚦</div>
+            <div style="font-size:14px;font-weight:600;color:var(--shell-text);margin-bottom:4px;">No Data… For Now!</div>
+            <div style="font-size:12px;color:var(--shell-text-muted);">Try adjusting your filters or check back later.</div>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-top:1px solid var(--card-border);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">✅ Rules</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>🚦 traffic light emoji — signals "wait, not broken"</li>
+                <li>"No Data… For Now!" — friendly, reassuring, not alarming</li>
+                <li>Subtext guides next user action ("adjust filters")</li>
+                <li>No Refresh button — this is a user-driven state</li>
+                <li>Table header row and pagination remain visible</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">❌ Never</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>Never show bare "No records found." with no guidance</li>
+                <li>Never use 🚧 for empty state — that signals a system error</li>
+                <li>Never hide the table header when in empty state</li>
+                <li>Never show a Refresh button for filter-driven empty state</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pattern 4: Inline Field Error -->
+      <div class="bp-error-card" style="margin-bottom:16px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--shell-text);">Pattern 4 — Inline Field Validation Error</div>
+            <div style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">When: a form field fails validation on blur or on submit</div>
+          </div>
+          <span class="bp-tag" style="background:#ede9fe;color:#5b21b6;">Form</span>
+        </div>
+        <div style="padding:20px 24px;background:var(--shell-bg);display:flex;gap:24px;flex-wrap:wrap;">
+          <div style="flex:1;min-width:160px;">
+            <label style="display:block;font-size:12px;font-weight:500;color:var(--shell-text);margin-bottom:4px;">API Key <span style="color:#dc2626;">*</span></label>
+            <input class="ds-input-field" style="width:100%;box-sizing:border-box;border-color:#dc2626;border-width:1.5px;" value="" placeholder="sk-…" readonly>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span style="font-size:11px;color:#dc2626;">API key is required</span>
+            </div>
+          </div>
+          <div style="flex:1;min-width:160px;">
+            <label style="display:block;font-size:12px;font-weight:500;color:var(--shell-text);margin-bottom:4px;">Max Retries</label>
+            <input class="ds-input-field" style="width:100%;box-sizing:border-box;border-color:#dc2626;border-width:1.5px;" value="-5" readonly>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span style="font-size:11px;color:#dc2626;">Must be a number between 0 and 10</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-top:1px solid var(--card-border);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">✅ Rules</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>Red border <code>#dc2626</code>, 1.5px + inline ⓘ icon + message text</li>
+                <li>Error message: specific and actionable (not "Invalid input")</li>
+                <li>Validate on blur (not every keystroke) to avoid disrupting flow</li>
+                <li>On submit, scroll to and focus the first invalid field</li>
+                <li>Keep the user's entered value — never clear on error</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">❌ Never</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>Never show a red border alone — always pair with an error message</li>
+                <li>Never write "Invalid" or "Error" without explaining what to fix</li>
+                <li>Never validate on every keystroke — only on blur and submit</li>
+                <li>Never clear the field value on an error state</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pattern 5: Toast Notifications -->
+      <div class="bp-error-card">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--shell-text);">Pattern 5 — Toast Notifications</div>
+            <div style="font-size:11px;color:var(--shell-text-muted);margin-top:2px;">Transient feedback — auto-dismiss after 3s for success; error toasts persist</div>
+          </div>
+          <span class="bp-tag" style="background:#f0fdf4;color:#166534;">Transient</span>
+        </div>
+        <div style="padding:16px 20px;background:var(--shell-bg);display:flex;flex-direction:column;gap:8px;">
+          <div class="ds-toast t-success" style="position:relative;transform:none;max-width:340px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Integration synced successfully — 1,240 records imported.</span>
+            <button class="ds-toast-close">×</button>
+          </div>
+          <div class="ds-toast t-error" style="position:relative;transform:none;max-width:340px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Export failed. Check your permissions and try again.</span>
+            <button class="ds-toast-close">×</button>
+          </div>
+          <div class="ds-toast t-warning" style="position:relative;transform:none;max-width:340px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span>Session expires in 5 minutes. Save your work.</span>
+            <button class="ds-toast-close">×</button>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-top:1px solid var(--card-border);">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">✅ Rules</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>Success and info toasts: auto-dismiss after 3 seconds</li>
+                <li>Error and warning toasts: persist until manually dismissed</li>
+                <li>Always position bottom-right of the viewport</li>
+                <li>Stack up to 3 toasts max — queue any additional</li>
+                <li>Always include a ✕ close button</li>
+                <li>Message is specific — "1,240 records imported", not "Done"</li>
+              </ul>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">❌ Never</div>
+              <ul class="bp-list" style="padding:0;">
+                <li>Never use toast for critical errors requiring a user decision — use modal</li>
+                <li>Never auto-dismiss error toasts — user must acknowledge</li>
+                <li>Never stack more than 3 toasts at once</li>
+                <li>Never position toasts top-left or top-centre</li>
+                <li>Never use vague messages like "Done" or "Error occurred"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /error handling section -->
+
+  </div><!-- /page-content -->
+</div><!-- /page-best-practices -->
 
   </main>
 

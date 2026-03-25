@@ -105,7 +105,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .chart-legend-dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
 
     /* ── Callout / Alert Banner ── */
-    .ds-callout { display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6;flex-shrink:0; }
+    .ds-callout { display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:4px;font-size:13px;line-height:1.6;flex-shrink:0; }
     .ds-callout svg { flex-shrink:0; }
     .ds-callout-error   { background:#F9EEEE;color:#D12329;border:1px solid rgba(209,35,41,0.2); }
     .ds-callout-success { background:#EFF7ED;color:#1A7D4D;border:1px solid rgba(49,165,109,0.2); }
@@ -134,8 +134,8 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     /* ── Table ── */
     .ds-table-wrap { width:100%;overflow-x:auto; }
     .ds-table { width:100%;border-collapse:collapse;font-size:13px; }
-    .ds-th,.ds-table th { padding:10px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-text-muted);background:var(--table-th-bg);border-bottom:1px solid var(--shell-border);white-space:nowrap; }
-    .ds-td,.ds-table td { padding:11px 16px;border-bottom:1px solid var(--table-border);color:var(--shell-text-2);vertical-align:middle; }
+    .ds-th,.ds-table th { padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-text-muted);background:var(--table-th-bg);border-bottom:1px solid var(--shell-border);white-space:nowrap; }
+    .ds-td,.ds-table td { padding:12px 16px;border-bottom:1px solid var(--table-border);color:var(--shell-text-2);vertical-align:middle; }
     .ds-table tbody tr:last-child .ds-td,.ds-table tbody tr:last-child td { border-bottom:none; }
     .ds-table tbody tr:hover .ds-td,.ds-table tbody tr:hover td { background:var(--shell-hover); }
     .ds-table-action { background:none;border:none;cursor:pointer;color:var(--shell-text-muted);padding:4px;border-radius:4px; }
@@ -143,13 +143,13 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 
     /* ── Pagination ── */
     .ds-pagination { display:flex;align-items:center;gap:4px;flex-wrap:wrap; }
-    .ds-page-btn { min-width:32px;height:32px;border-radius:6px;border:1px solid var(--shell-border);background:var(--card-bg);color:var(--shell-text-2);cursor:pointer;font-size:13px;font-family:inherit;padding:0 6px;display:flex;align-items:center;justify-content:center;transition:all 120ms; }
+    .ds-page-btn { min-width:32px;height:32px;border-radius:44px;border:1px solid var(--shell-border);background:var(--card-bg);color:var(--shell-text-2);cursor:pointer;font-size:13px;font-family:inherit;padding:0 6px;display:flex;align-items:center;justify-content:center;transition:all 120ms; }
     .ds-page-btn:hover { background:var(--shell-hover);color:var(--shell-text); }
     .ds-page-btn.active { background:var(--shell-accent);color:#fff;border-color:var(--shell-accent);font-weight:600; }
     .ds-page-btn:disabled { opacity:.3;cursor:not-allowed;pointer-events:none; }
 
     /* ── Breadcrumb ── */
-    .ds-breadcrumb { display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px; }
+    .ds-breadcrumb { display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px; }
     .ds-breadcrumb a { color:var(--shell-text-muted);text-decoration:none; }
     .ds-breadcrumb a:hover { color:var(--shell-accent); }
     .ds-breadcrumb-sep { color:var(--shell-text-faint);font-size:14px; }
@@ -176,11 +176,11 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .ds-filter-btn:hover { background:#d4d2f5; }
     .ds-filter-btn.active { background:var(--shell-accent);color:#fff; }
     .ds-active-filters-wrap { position:relative; }
-    .ds-active-filters-popover { display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:250;background:var(--card-bg);border:1px solid var(--shell-border);border-radius:10px;padding:14px;min-width:340px;box-shadow:0 8px 28px rgba(0,0,0,.22); }
+    .ds-active-filters-popover { display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:250;background:var(--card-bg);border:1px solid var(--shell-border);border-radius:4px;padding:14px;min-width:340px;box-shadow:0 8px 28px rgba(0,0,0,.22); }
     .ds-active-filters-wrap:hover .ds-active-filters-popover { display:block; }
     .ds-active-filters-popover-title { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:10px; }
     .ds-filter-chips { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
-    .ds-filter-chip { display:flex;align-items:center;gap:6px;background:#f4f4f5;border-radius:8px;padding:4px 8px;font-size:12px; }
+    .ds-filter-chip { display:flex;align-items:center;gap:4px;background:#f4f4f5;border-radius:4px;padding:4px 8px;font-size:12px; }
     html.theme-light .ds-filter-chip { background:#f0f0f0; }
     .ds-chip-key { color:#5f5f6e;font-weight:500;white-space:nowrap; }
     .ds-chip-value { background:var(--ctrl-bg);border-radius:4px;padding:3px 8px;color:var(--shell-text);white-space:nowrap; }
@@ -190,7 +190,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     /* ── Side Drawer Panel ── */
     .ds-panel-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:300; }
     .ds-panel-overlay.open { display:block; }
-    .ds-panel { position:fixed;top:0;right:0;bottom:0;width:360px;background:var(--card-bg);border-left:1px solid var(--card-border);border-radius:8px 0 0 8px;display:flex;flex-direction:column;z-index:301;transform:translateX(100%);transition:transform .25s ease; }
+    .ds-panel { position:fixed;top:0;right:0;bottom:0;width:360px;background:var(--card-bg);border-left:1px solid var(--card-border);border-radius:4px 0 0 4px;display:flex;flex-direction:column;z-index:301;transform:translateX(100%);transition:transform .25s ease; }
     .ds-panel.open { transform:translateX(0); }
     .ds-panel-header { display:flex;align-items:center;gap:8px;padding:14px 16px 13px;flex-shrink:0;border-bottom:1px solid var(--card-border); }
     .ds-panel-title { flex:1;font-size:14px;font-weight:600;color:var(--shell-text); }
@@ -215,12 +215,12 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     html:not(.theme-light) .nav-sub:hover svg { stroke:#8F8DDE !important; }
 
     /* ── Icon button ── */
-    .ds-icon-btn { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;transition:background .12s,color .12s;flex-shrink:0; }
+    .ds-icon-btn { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;transition:background .12s,color .12s;flex-shrink:0; }
     .ds-icon-btn:hover { background:var(--shell-hover);color:var(--shell-text); }
 
     /* ── Tabs ── */
     .ds-tabs-list { display:flex;border-bottom:1px solid var(--shell-border); }
-    .ds-tab { padding:10px 16px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:color 150ms,border-color 150ms;white-space:nowrap; }
+    .ds-tab { padding:8px 16px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:color 150ms,border-color 150ms;white-space:nowrap; }
     .ds-tab:hover { color:var(--shell-text); }
     .ds-tab.active { color:var(--shell-accent);border-bottom-color:var(--shell-accent);font-weight:600; }
     .ds-tab-panel { display:none;padding:20px; }
@@ -228,7 +228,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 
     /* ── Tooltip ── */
     .ds-tooltip-wrap { position:relative;display:inline-flex; }
-    .ds-tooltip-wrap::after { content:attr(data-tip);position:absolute;z-index:150;pointer-events:none;background:#1a1a1a;color:#F9F9F9;border:1px solid #272727;border-radius:6px;padding:5px 10px;font-size:12px;max-width:220px;white-space:normal;opacity:0;transition:opacity 150ms,transform 150ms; }
+    .ds-tooltip-wrap::after { content:attr(data-tip);position:absolute;z-index:150;pointer-events:none;background:#1a1a1a;color:#F9F9F9;border:1px solid #272727;border-radius:4px;padding:4px 8px;font-size:12px;max-width:220px;white-space:normal;opacity:0;transition:opacity 150ms,transform 150ms; }
     html.theme-light .ds-tooltip-wrap::after { background:#1c1c1c;color:#f0f0f0; }
     .ds-tooltip-wrap[data-pos="top"]::after    { bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px); }
     .ds-tooltip-wrap[data-pos="bottom"]::after { top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px); }
@@ -244,12 +244,12 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     #shell-nav { transition:width 0.22s ease,padding 0.22s ease; }
     #shell-nav.nav-collapsed { width:52px !important;padding:16px 8px !important;overflow:hidden; }
     #shell-nav.nav-collapsed .nav-hdr-info { display:none; }
-    #shell-nav.nav-collapsed .nav-hdr { flex-direction:column;align-items:center;border-bottom:none !important;padding-bottom:6px;margin-bottom:0; }
+    #shell-nav.nav-collapsed .nav-hdr { flex-direction:column;align-items:center;border-bottom:none !important;padding-bottom:4px;margin-bottom:0; }
     #shell-nav.nav-collapsed .nav-row { justify-content:center; }
     #shell-nav.nav-collapsed .nav-lbl { display:none; }
     #shell-nav.nav-collapsed .nav-chev { display:none; }
     #shell-nav.nav-collapsed .nav-sub { display:none; }
-    #shell-nav.nav-collapsed .nav-sub.nav-active { display:flex;justify-content:center;padding:7px 8px !important;background:rgba(99,96,216,0.08);border-radius:6px; }
+    #shell-nav.nav-collapsed .nav-sub.nav-active { display:flex;justify-content:center;padding:8px !important;background:rgba(99,96,216,0.08);border-radius:6px; }
     #shell-nav.nav-collapsed .nav-sub.nav-active .nav-lbl { display:none; }
     #shell-nav.nav-collapsed:not(.click-collapsed):hover { width:220px !important;padding:16px !important; }
     #shell-nav.nav-collapsed:not(.click-collapsed):hover .nav-hdr-info { display:block; }
@@ -269,7 +269,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">
     <span style="flex:1;"></span>
     <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>
-    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;" aria-label="Notifications">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
     </button>
     <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>

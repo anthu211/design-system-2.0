@@ -127,6 +127,55 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 
 ---
 
+## Error Handling States
+
+**Choose the right pattern based on scope:**
+
+| State | Emoji | Heading | Refresh Button? | Watermark? |
+|-------|-------|---------|-----------------|------------|
+| Full-page system error | 🚧 | "Oops! That Wasn't Supposed to Happen" | ✅ Yes | ✅ Yes — "ERROR", opacity 8% |
+| Section data error | 🚧 | "Data Retrieval Failed" | ✅ Yes | ❌ No |
+| Table empty state | 🚦 | "No Data… For Now!" | ❌ No | ❌ No |
+| Inline field error | — | error message below field | — | — |
+| Toast | — | short action feedback | — | — |
+
+**Full-page system error** (`background: var(--shell-bg)`, shell remains visible):
+- Watermark: `font-size:90px; font-weight:800; opacity:0.08; color:#a3a5af; position:absolute; letter-spacing:14px`
+- 🚧 emoji, 40px centred
+- Heading 18px/600, `#101010`: "Oops! That Wasn't Supposed to Happen"
+- Subtext 13px, `#a3a5af`: "Well, this is awkward.. Something broke on our end. We're fixing it ASAP!"
+- Refresh button: `background:#6360d8; border-radius:4px; height:32px; padding:6px 16px`
+- NEVER: expose stack trace, remove nav, use 🚦 here, auto-redirect
+
+**Section data error** (inside a widget/section container):
+- No watermark — lower visual weight than full-page
+- 🚧 emoji, 30px
+- Heading 15px/600: "Data Retrieval Failed"
+- Subtext 12px: "We're having trouble loading this data. Try refreshing or check back later."
+- Refresh button (same style)
+- NEVER: redirect entire page, collapse the container, omit Refresh
+
+**Table empty state** (inside `<td colspan="n">`):
+- 🚦 emoji, 28px — signals "wait, not broken"
+- Heading 14px/600: "No Data… For Now!"
+- Subtext 12px: "Try adjusting your filters or check back later."
+- NO Refresh button — this is a user-driven state
+- Table header row and pagination MUST remain visible
+- NEVER: use 🚧 here, hide the header row, show Refresh
+
+**Inline field error**:
+- `border: 1.5px solid #dc2626` on the input
+- Below: ⓘ icon (11px, `#dc2626`) + specific message text (11px, `#dc2626`)
+- Validate on blur only (not every keystroke)
+- NEVER: red border alone, vague messages ("Invalid"), clear field value on error
+
+**Toast**:
+- Success/Info: auto-dismiss 3s | Error/Warning: persist until dismissed
+- Position: bottom-right | Max 3 stacked
+- NEVER: use for errors requiring decisions (use modal), auto-dismiss errors
+
+---
+
 ## React-Specific
 
 - **Styling**: Tailwind CSS only — no inline styles, no CSS modules

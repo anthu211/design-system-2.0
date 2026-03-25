@@ -106,7 +106,7 @@ html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
 
 /* ── Dropdown (CSS-class version) ── */
 .ds-dropdown { position:relative;display:inline-flex;flex-direction:column;gap:4px;font-family:inherit;min-width:180px; }
-.ds-dropdown-trigger { display:flex;align-items:center;gap:6px;padding:0 12px;height:36px;border:1px solid var(--ctrl-border);border-radius:6px;background:var(--ctrl-bg);cursor:pointer;transition:border-color 150ms,box-shadow 150ms;font-size:14px;user-select:none;color:var(--ctrl-text); }
+.ds-dropdown-trigger { display:flex;align-items:center;gap:6px;padding:0 12px;height:36px;border:1px solid var(--ctrl-border);border-radius:8px;background:var(--ctrl-bg);cursor:pointer;transition:border-color 150ms,box-shadow 150ms;font-size:14px;user-select:none;color:var(--ctrl-text); }
 .ds-dropdown[data-open="true"] .ds-dropdown-trigger { border-color:#6760d8;box-shadow:0 0 0 3px var(--ctrl-focus); }
 .ds-dropdown.has-error .ds-dropdown-trigger { border-color:#d12329; }
 .ds-dropdown-trigger-text { flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
@@ -126,7 +126,7 @@ html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
 .ds-select:hover,.ds-select.open { border-color:var(--shell-accent); }
 
 /* ── Callout / Alert Banner ── */
-.ds-callout { display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:8px;font-size:13px;line-height:1.6;flex-shrink:0; }
+.ds-callout { display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:4px;font-size:13px;line-height:1.6;flex-shrink:0; }
 .ds-callout svg { flex-shrink:0; }
 .ds-callout-error   { background:#F9EEEE;color:#D12329;border:1px solid rgba(209,35,41,0.2); }
 .ds-callout-success { background:#EFF7ED;color:#1A7D4D;border:1px solid rgba(49,165,109,0.2); }
@@ -156,7 +156,7 @@ html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
 
 /* ── Tabs ── */
 .ds-tabs-list { display:flex;border-bottom:1px solid var(--shell-border);background:var(--shell-raised);padding:0 4px; }
-.ds-tab { padding:10px 16px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:color 150ms,border-color 150ms;white-space:nowrap; }
+.ds-tab { padding:8px 16px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:color 150ms,border-color 150ms;white-space:nowrap; }
 .ds-tab:hover { color:var(--shell-text); }
 .ds-tab.active { color:var(--shell-accent);border-bottom-color:var(--shell-accent);font-weight:600; }
 .ds-tab-panel { display:none;padding:20px; }
@@ -189,7 +189,7 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 
 /* ── Toast ── */
 .ds-toast-container { position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:300; }
-.ds-toast { display:flex;align-items:center;gap:10px;min-width:280px;max-width:360px;padding:12px 16px;border-radius:8px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:ds-toast-in 250ms ease; }
+.ds-toast { display:flex;align-items:center;gap:8px;min-width:280px;max-width:360px;padding:12px 16px;border-radius:4px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:ds-toast-in 250ms ease; }
 @keyframes ds-toast-in { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:none} }
 .ds-toast.success { background:rgba(49,165,109,0.18);color:#31A56D;border:1px solid rgba(49,165,109,0.3); }
 .ds-toast.error   { background:rgba(209,35,41,0.18);color:#D12329;border:1px solid rgba(209,35,41,0.3); }
@@ -213,7 +213,7 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 .ds-tooltip-wrap[data-pos="left"]:hover::after { transform:translateY(-50%) translateX(0); }
 
 /* ── Accordion ── */
-.ds-accordion { border:1px solid var(--shell-border);border-radius:10px;overflow:hidden; }
+.ds-accordion { border:1px solid var(--shell-border);border-radius:4px;overflow:hidden; }
 .ds-accordion-item { border-bottom:1px solid var(--shell-border); }
 .ds-accordion-item:last-child { border-bottom:none; }
 .ds-accordion-trigger { width:100%;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;font-size:13px;font-weight:500;color:var(--shell-text);background:var(--card-bg);border:none;cursor:pointer;font-family:inherit;text-align:left;transition:background 150ms; }
@@ -240,7 +240,7 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 .ds-page-ellipsis { color:var(--shell-text-muted);padding:0 4px;font-size:13px; }
 
 /* ── Breadcrumb ── */
-.ds-breadcrumb { display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:13px; }
+.ds-breadcrumb { display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px; }
 .ds-breadcrumb a { color:var(--shell-text-muted);text-decoration:none; }
 .ds-breadcrumb a:hover { color:var(--shell-accent);text-decoration:underline; }
 .ds-breadcrumb-sep { color:var(--shell-text-faint);font-size:14px; }
@@ -298,8 +298,8 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 .ds-toggle-label { font-size:13px;color:var(--shell-text-2); }
 
 /* ── Custom Radio Group ── */
-.ds-radio-group { display:inline-flex;flex-direction:column;gap:6px;font-family:inherit; }
-.ds-radio-options { display:flex;flex-direction:column;gap:10px; }
+.ds-radio-group { display:inline-flex;flex-direction:column;gap:4px;font-family:inherit; }
+.ds-radio-options { display:flex;flex-direction:column;gap:8px; }
 .ds-radio-item { display:inline-flex;align-items:flex-start;gap:8px;cursor:pointer;user-select:none; }
 .ds-radio-item.disabled { opacity:.5;pointer-events:none; }
 .ds-radio-dot { flex-shrink:0;margin-top:1px;border-radius:50%;background:var(--ctrl-bg);border:2px solid var(--ctrl-border);display:flex;align-items:center;justify-content:center;transition:border-color 150ms;cursor:pointer; }
@@ -336,13 +336,13 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 
 /* ── Active Filters popover ── */
 .ds-active-filters-wrap { position:relative; }
-.ds-active-filters-popover { display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:250;background:var(--card-bg);border:1px solid var(--shell-border);border-radius:10px;padding:14px;min-width:340px;box-shadow:0 8px 28px rgba(0,0,0,.22); }
+.ds-active-filters-popover { display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:250;background:var(--card-bg);border:1px solid var(--shell-border);border-radius:4px;padding:14px;min-width:340px;box-shadow:0 8px 28px rgba(0,0,0,.22); }
 .ds-active-filters-wrap:hover .ds-active-filters-popover { display:block; }
 .ds-active-filters-popover-title { font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:10px; }
 
 /* ── Filter Chips ── */
 .ds-filter-chips { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
-.ds-filter-chip { display:flex;align-items:center;gap:6px;background:var(--shell-raised);border-radius:8px;padding:4px 8px;font-size:12px;border:1px solid var(--card-border); }
+.ds-filter-chip { display:flex;align-items:center;gap:4px;background:var(--shell-raised);border-radius:4px;padding:4px 8px;font-size:12px;border:1px solid var(--card-border); }
 .ds-chip-key { color:var(--shell-text-muted);font-weight:500;white-space:nowrap; }
 .ds-chip-value { background:var(--ctrl-bg);border-radius:4px;padding:3px 8px;color:var(--shell-text);white-space:nowrap; }
 .ds-chip-close { background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:10px;width:18px;height:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:var(--shell-text-muted);line-height:1;padding:0;transition:color .1s; }
@@ -363,7 +363,7 @@ html.theme-dark .ds-form-section-label { color:var(--shell-text-2); }
 /* ── Side Panel / Drawer ── */
 .ds-panel-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:300; }
 .ds-panel-overlay.open { display:block; }
-.ds-panel { position:fixed;top:0;right:0;bottom:0;width:360px;background:var(--card-bg);border-left:1px solid var(--card-border);border-radius:8px 0 0 8px;display:flex;flex-direction:column;z-index:301;transform:translateX(100%);transition:transform .25s ease;box-shadow:-4px 0 24px rgba(0,0,0,.15); }
+.ds-panel { position:fixed;top:0;right:0;bottom:0;width:360px;background:var(--card-bg);border-left:1px solid var(--card-border);border-radius:4px 0 0 4px;display:flex;flex-direction:column;z-index:301;transform:translateX(100%);transition:transform .25s ease;box-shadow:-4px 0 24px rgba(0,0,0,.15); }
 .ds-panel.open { transform:translateX(0); }
 .ds-panel-header { display:flex;align-items:center;gap:8px;padding:14px 16px 13px;flex-shrink:0;border-bottom:1px solid var(--card-border); }
 .ds-panel-title { flex:1;font-size:14px;font-weight:600;color:var(--shell-text); }
@@ -1341,3 +1341,80 @@ Overline:      font-size:10px; font-weight:600; letter-spacing:.07em; text-trans
 | Caution  | `#F7F6EB`  | `#CDB900`  | `rgba(205,185,0,0.14)`       | `#CDB900`  |
 | Info     | `rgba(99,96,216,0.08)` | `#6360D8` | `rgba(99,96,216,0.14)` | `#8F8DDE` |
 | Neutral  | `#F0F0F0`  | `#6E6E6E`  | `rgba(255,255,255,0.07)`     | `var(--shell-text-muted)` |
+
+---
+
+## Error & Empty State Patterns
+
+### When to Use Each Pattern
+
+| Situation | Pattern | Emoji | Heading | Has Refresh? |
+|-----------|---------|-------|---------|--------------|
+| Entire page cannot render | Full-page error | 🚧 | "Oops! That Wasn't Supposed to Happen" | Yes |
+| One section/widget failed | Section error | 🚧 | "Data Retrieval Failed" | Yes |
+| Query returned 0 rows | Table empty state | 🚦 | "No Data… For Now!" | No |
+| Form field invalid | Inline field error | — | Error message below field | — |
+| Action completed feedback | Toast | — | Short message | — |
+
+### Full-Page System Error HTML
+```html
+<!-- Place inside content area; shell (topbar + nav) stays visible -->
+<div style="position:relative;display:flex;align-items:center;justify-content:center;min-height:400px;">
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;font-weight:800;letter-spacing:14px;color:#a3a5af;opacity:0.08;pointer-events:none;overflow:hidden;">ERROR</div>
+  <div style="text-align:center;position:relative;z-index:1;">
+    <div style="font-size:40px;margin-bottom:12px;">🚧</div>
+    <h2 style="font-size:18px;font-weight:600;color:var(--shell-text);margin:0 0 8px;">Oops! That Wasn't Supposed to Happen</h2>
+    <p style="font-size:13px;color:var(--shell-text-muted);margin:0 0 20px;">Well, this is awkward.. Something broke on our end. We're fixing it ASAP!</p>
+    <button onclick="location.reload()" style="background:#6360d8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 16px;border-radius:4px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
+      <!-- refresh icon svg --> Refresh
+    </button>
+  </div>
+</div>
+```
+
+### Section / Data Retrieval Error HTML
+```html
+<!-- Inside the failing widget's container -->
+<div style="display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:200px;gap:8px;text-align:center;padding:24px;">
+  <div style="font-size:30px;">🚧</div>
+  <div style="font-size:15px;font-weight:600;color:var(--shell-text);">Data Retrieval Failed</div>
+  <div style="font-size:12px;color:var(--shell-text-muted);">We're having trouble loading this data. Try refreshing or check back later.</div>
+  <button onclick="retryLoad()" style="margin-top:8px;background:#6360d8;border:none;color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:4px;font-family:inherit;cursor:pointer;">Refresh</button>
+</div>
+```
+
+### Table Empty State HTML
+```html
+<!-- Inside <tbody>, spans all columns -->
+<tr>
+  <td colspan="7">
+    <div style="display:flex;align-items:center;justify-content:center;flex-direction:column;padding:48px 24px;gap:8px;text-align:center;">
+      <div style="font-size:28px;">🚦</div>
+      <div style="font-size:14px;font-weight:600;color:var(--shell-text);">No Data… For Now!</div>
+      <div style="font-size:12px;color:var(--shell-text-muted);">Try adjusting your filters or check back later.</div>
+    </div>
+  </td>
+</tr>
+```
+
+### Inline Field Error HTML
+```html
+<div>
+  <label style="display:block;font-size:12px;font-weight:500;color:var(--shell-text);margin-bottom:4px;">
+    Field Label <span style="color:#dc2626;">*</span>
+  </label>
+  <input class="ds-input-field" style="border-color:#dc2626;border-width:1.5px;" value="…">
+  <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span style="font-size:11px;color:#dc2626;">Specific, actionable error message</span>
+  </div>
+</div>
+```
+
+### Toast Usage
+```javascript
+showToast('success', 'Integration synced — 1,240 records imported.');  // auto-dismiss 3s
+showToast('error',   'Export failed. Check your permissions.');          // persists
+showToast('warning', 'Session expires in 5 minutes.');                   // persists
+showToast('info',    'Processing in background…');                       // auto-dismiss 3s
+```
