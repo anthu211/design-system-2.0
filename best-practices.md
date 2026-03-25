@@ -83,10 +83,27 @@ This file is the authoritative reference for per-component dos/don'ts and all er
 
 ### HTML Pattern
 ```html
-<div class="ds-kpi">
-  <div class="kpi-label">Critical Findings</div>
-  <div class="kpi-value" style="color:#dc2626;">247</div>
-  <div class="kpi-trend trend-up">↑ 12 this week</div>
+<div class="ds-kpi-row">
+  <div class="ds-kpi-card">
+    <div>
+      <div class="ds-kpi-value" style="color:#D12329;">247</div>
+      <div class="ds-kpi-label">Critical Findings</div>
+    </div>
+    <div class="ds-kpi-trend">
+      <span class="ds-kpi-delta up-bad">↑ 12</span>
+      <span class="ds-kpi-period">this week</span>
+    </div>
+  </div>
+  <div class="ds-kpi-card">
+    <div>
+      <div class="ds-kpi-value">8.4</div>
+      <div class="ds-kpi-label">Risk Score</div>
+    </div>
+    <div class="ds-kpi-trend">
+      <span class="ds-kpi-delta down-good">↓ 0.3</span>
+      <span class="ds-kpi-period">vs last month</span>
+    </div>
+  </div>
 </div>
 ```
 
@@ -96,14 +113,15 @@ This file is the authoritative reference for per-component dos/don'ts and all er
 
 ### ✅ Do
 - Status badges are **always visible inline** in table rows — never tooltip-only.
-- Semantic colour pairs:
-  - Critical → red (`#dc2626` text, `rgba(220,38,38,0.12)` bg)
-  - High → orange (`#ea580c`)
-  - Medium → amber (`#d97706`)
-  - Low → green (`#16a34a`)
-  - Info/General → purple (`#7c3aed`)
-  - Active → green
-  - Resolved → grey-green
+- CSS class pattern: `<span class="ds-badge [variant]">Label</span>`
+- Variant → class mapping:
+  - Critical → `danger` (red: `#D12329`)
+  - High → `warning` (orange: `#D98B1D`)
+  - Medium → `caution` (amber: `#CDB900`)
+  - Low / Active / Healthy → `success` (green: `#31A56D`)
+  - Info / Open → `info` (purple: `#8F8DDE`)
+  - Resolved / Inactive / Neutral → `neutral` (grey)
+  - Add `.dot` modifier for status with indicator dot: `ds-badge success dot`
 - `border-radius: 4px` on all badges.
 - Font: 11px, weight 600.
 
@@ -247,7 +265,7 @@ buildStackedBarChart(containerId, rows, xLabel)
 - `border-radius: 4px`, `gap: 8px`.
 - Always: icon + meaningful message text.
 - Link recovery action inline when possible.
-- Variants: `t-info`, `t-success`, `t-warning`, `t-error`.
+- Class pattern: `<div class="ds-callout ds-callout-[variant]">` — variants: `ds-callout-warning`, `ds-callout-error`, `ds-callout-success`, `ds-callout-info` (light); `ds-callout-warning-dark`, `ds-callout-error-dark`, `ds-callout-success-dark` (dark theme).
 
 **Toasts** (transient feedback):
 - Success/Info: auto-dismiss after 3 seconds.
@@ -451,7 +469,7 @@ buildStackedBarChart(containerId, rows, xLabel)
 
 **When to use**: Transient feedback after user actions (saved, deleted, exported, synced). Not for errors requiring decisions.
 
-**Variants**: `t-success`, `t-error`, `t-warning`, `t-info`
+**Class pattern**: `<div class="ds-toast [variant]">` — variants: `success`, `error`, `warning`, `info` (no `t-` prefix). Close button uses class `ds-toast-dismiss`, not `ds-toast-close`.
 
 **Rules**:
 - ✅ Success / Info: auto-dismiss after 3 seconds
