@@ -64,6 +64,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .ds-btn.t-special svg { stroke:url(#t-special-grad); }
     .ds-btn.t-special:hover { background:rgba(177,184,245,0.12); }
     .ds-btn.t-special:active { background:rgba(177,184,245,0.22);border-color:#7e8aee; }
+    .ds-btn.t-special .ds-spinner { border-color:#467fcd;border-top-color:transparent; }
     .ds-btn.t-secondary { background:rgba(99,96,216,0.15);color:#8F8DDE; }
     .ds-btn.t-secondary:hover { background:rgba(99,96,216,0.22);color:#a8a6e8; }
     html.theme-light .ds-btn.t-secondary { background:#f0f0fc;color:#6760d8; }

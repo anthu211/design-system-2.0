@@ -33,6 +33,7 @@ html.theme-light .ds-btn.t-outline { border-color:#c1c1c1;color:#282828; }
 .ds-btn.t-special { background:transparent;border:1px solid #b1b8f5; }
 .ds-btn.t-special .btn-text { background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;background-clip:text;color:transparent; }
 .ds-btn.t-special:hover { background:rgba(177,184,245,0.12); }
+.ds-btn.t-special .ds-spinner { border-color:#467fcd;border-top-color:transparent; }
 .ds-btn.t-danger { background:rgba(105,31,31,0.25);color:#e87c7c; }
 .ds-btn.t-danger:hover { background:rgba(105,31,31,0.35); }
 html.theme-light .ds-btn.t-danger { background:#feebec;color:#d12329; }
