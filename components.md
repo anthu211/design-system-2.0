@@ -14,13 +14,12 @@ Add to your page `<style>` block. Required for interactive states (hover, focus,
 /* ── Buttons ── */
 .ds-btn { display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;border-radius:44px;font-family:inherit;transition:background 150ms,color 150ms,border-color 150ms,box-shadow 150ms;white-space:nowrap;user-select:none;line-height:1;text-decoration:none; }
 .ds-btn:focus-visible { outline:2px solid #6760d8;outline-offset:2px; }
-.ds-btn[disabled] { cursor:not-allowed;pointer-events:none; }
+.ds-btn[disabled] { cursor:not-allowed;pointer-events:none;opacity:0.4; }
 .ds-btn.sz-sm { height:24px;padding:0 12px;font-size:12px;font-weight:500; }
 .ds-btn.sz-md { height:32px;padding:0 12px;font-size:14px;font-weight:500; }
 .ds-btn.sz-lg { height:40px;padding:0 16px;font-size:16px;font-weight:600; }
 .ds-btn.t-primary { background:#6760d8;color:#f0f0fc; }
 .ds-btn.t-primary:hover { background:#5754c2; }
-.ds-btn.t-primary[disabled] { background:rgba(99,96,216,0.2);color:rgba(240,240,252,0.4); }
 .ds-btn.t-secondary { background:rgba(99,96,216,0.15);color:#8F8DDE; }
 .ds-btn.t-secondary:hover { background:rgba(99,96,216,0.22); }
 html.theme-light .ds-btn.t-secondary { background:#f0f0fc;color:#6760d8; }
