@@ -173,7 +173,7 @@ html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
 .ds-modal { background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 48px rgba(0,0,0,.5);animation:ds-modal-in 150ms ease; }
 @keyframes ds-modal-in { from{opacity:0;transform:scale(.96) translateY(8px)} to{opacity:1;transform:none} }
 .ds-modal-header { display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--shell-border); }
-.ds-modal-title { font-size:15px;font-weight:600;color:var(--shell-text); }
+.ds-modal-title { font-size:14px;font-weight:600;color:var(--shell-text); }
 .ds-modal-close { width:28px;height:28px;border-radius:6px;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center; }
 .ds-modal-close:hover { background:var(--shell-hover);color:var(--shell-text); }
 .ds-modal-body { padding:20px; }
@@ -1377,7 +1377,7 @@ Overline:      font-size:10px; font-weight:600; letter-spacing:.07em; text-trans
 <!-- Inside the failing widget's container -->
 <div style="display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:200px;gap:8px;text-align:center;padding:24px;">
   <div style="font-size:30px;">🚧</div>
-  <div style="font-size:15px;font-weight:600;color:var(--shell-text);">Data Retrieval Failed</div>
+  <div style="font-size:14px;font-weight:600;color:var(--shell-text);">Data Retrieval Failed</div>
   <div style="font-size:12px;color:var(--shell-text-muted);">We're having trouble loading this data. Try refreshing or check back later.</div>
   <button onclick="retryLoad()" style="margin-top:8px;background:#6360d8;border:none;color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:4px;font-family:inherit;cursor:pointer;">Refresh</button>
 </div>

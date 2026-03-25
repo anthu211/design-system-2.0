@@ -311,14 +311,14 @@ buildStackedBarChart(containerId, rows, xLabel)
 - **Font**: Inter, loaded via Google Fonts. Always use `font-family: 'Inter', sans-serif`.
 - **Type ramp**:
   - Page heading: 18px / 700
-  - Section title: 14–16px / 600
-  - Body: 13px / 400, line-height 1.5
-  - Small / meta: 12px / 400
+  - heading-md (card/modal titles): 14px / 600
+  - body-md (body text): 12px / 400, line-height 1.5
+  - body-sm / meta: 11px / 400
   - Label / badge: 11px / 500–600
 - **Line-height**: 1.5 for body; 1.2 for headings.
 
 ### ❌ Don't
-- Off-scale values: 3, 5, 6, 7, 10, 11, 14, 15px.
+- Off-scale values: 3, 5, 6, 7, 10, 11, 13, 15px.
 - Any font other than Inter.
 - Font sizes outside the type ramp.
 - Mix rem and px — use px throughout.
@@ -335,7 +335,7 @@ buildStackedBarChart(containerId, rows, xLabel)
 - Large "ERROR" watermark: `font-size: 90px+`, `font-weight: 800`, `opacity: 0.08`, `color: #a3a5af`, centred behind content
 - 🚧 construction emoji: 40px, centred
 - Heading: "Oops! That Wasn't Supposed to Happen" — friendly, non-technical, 18px SemiBold, `#101010`
-- Subtext: "Well, this is awkward.. Something broke on our end. We're fixing it ASAP!" — 13px, `#a3a5af`
+- Subtext: "Well, this is awkward.. Something broke on our end. We're fixing it ASAP!" — 12px, `#a3a5af`
 - Refresh button: `background: #6360d8`, `border-radius: 4px`, `height: 32px`, `padding: 6px 16px`
 - Standard shell (topbar + nav) remains fully visible
 
@@ -356,7 +356,7 @@ buildStackedBarChart(containerId, rows, xLabel)
   <div style="text-align:center;position:relative;z-index:1;">
     <div style="font-size:40px;margin-bottom:12px;">🚧</div>
     <h2 style="font-size:18px;font-weight:600;color:#101010;margin:0 0 8px;">Oops! That Wasn't Supposed to Happen</h2>
-    <p style="font-size:13px;color:#a3a5af;margin:0 0 20px;">Well, this is awkward.. Something broke on our end. We're fixing it ASAP!</p>
+    <p style="font-size:12px;color:#a3a5af;margin:0 0 20px;">Well, this is awkward.. Something broke on our end. We're fixing it ASAP!</p>
     <button onclick="location.reload()" style="background:#6360d8;border:none;color:#fff;font-size:12px;font-weight:500;padding:6px 16px;border-radius:4px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:6px;">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
       Refresh
@@ -389,7 +389,7 @@ buildStackedBarChart(containerId, rows, xLabel)
 ```html
 <div style="display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:200px;gap:8px;text-align:center;padding:24px;">
   <div style="font-size:30px;">🚧</div>
-  <div style="font-size:15px;font-weight:600;color:var(--shell-text);">Data Retrieval Failed</div>
+  <div style="font-size:14px;font-weight:600;color:var(--shell-text);">Data Retrieval Failed</div>
   <div style="font-size:12px;color:var(--shell-text-muted);">We're having trouble loading this data. Try refreshing or check back later.</div>
   <button onclick="retryLoad()" style="margin-top:8px;background:#6360d8;border:none;color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:4px;font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:5px;">
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>

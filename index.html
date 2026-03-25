@@ -636,7 +636,7 @@
     <div class="page" id="page-typography">
       <div class="page-header">
         <h1>Typography</h1>
-        <p>Inter is the primary typeface across all Prevalent AI interfaces. Weights 400, 500, 600, and 700 are used. Base size is 13px.</p>
+        <p>Inter is the primary typeface across all Prevalent AI interfaces. Weights 400, 500, 600, and 700 are used. Base size is 12px.</p>
       </div>
 
       <div class="section-title">Typeface</div>
@@ -656,9 +656,9 @@
           <tbody>
             <tr><td><code>heading-xl</code></td><td>24px</td><td>600</td><td>32px</td><td style="font-size:24px;font-weight:600;color:var(--shell-text);">Page Title</td></tr>
             <tr><td><code>heading-lg</code></td><td>18px</td><td>600</td><td>24px</td><td style="font-size:18px;font-weight:600;color:var(--shell-text);">Section Heading</td></tr>
-            <tr><td><code>heading-md</code></td><td>15px</td><td>600</td><td>20px</td><td style="font-size:15px;font-weight:600;color:var(--shell-text);">Card Title</td></tr>
-            <tr><td><code>body-md</code></td><td>13px</td><td>400</td><td>20px</td><td>Body text, paragraphs, descriptions</td></tr>
-            <tr><td><code>body-sm</code></td><td>12px</td><td>400</td><td>18px</td><td style="font-size:12px;color:var(--shell-text-2);">Captions, metadata, helper text</td></tr>
+            <tr><td><code>heading-md</code></td><td>14px</td><td>600</td><td>20px</td><td style="font-size:14px;font-weight:600;color:var(--shell-text);">Card Title</td></tr>
+            <tr><td><code>body-md</code></td><td>12px</td><td>400</td><td>20px</td><td>Body text, paragraphs, descriptions</td></tr>
+            <tr><td><code>body-sm</code></td><td>11px</td><td>400</td><td>18px</td><td style="font-size:11px;color:var(--shell-text-2);">Captions, metadata, helper text</td></tr>
             <tr><td><code>label</code></td><td>11px</td><td>500</td><td>16px</td><td style="font-size:11px;font-weight:500;color:var(--shell-text-muted);text-transform:uppercase;letter-spacing:.06em;">TABLE HEADER</td></tr>
             <tr><td><code>mono</code></td><td>11px</td><td>400</td><td>16px</td><td style="font-size:11px;color:#8F8DDE;font-family:'SF Mono','Fira Code',monospace;">--token · #6360D8</td></tr>
           </tbody>
@@ -4549,16 +4549,16 @@
             </div>
             <div style="border-top:1px solid var(--card-border);padding-top:8px;width:100%;">
               <div style="font-size:18px;font-weight:700;color:var(--shell-text);font-family:Inter,sans-serif;line-height:1.2;">Page Heading — 18px / 700</div>
-              <div style="font-size:14px;font-weight:600;color:var(--shell-text);font-family:Inter,sans-serif;">Section Title — 14px / 600</div>
-              <div style="font-size:13px;color:var(--shell-text);font-family:Inter,sans-serif;">Body text — 13px / 400, line-height 1.5</div>
+              <div style="font-size:14px;font-weight:600;color:var(--shell-text);font-family:Inter,sans-serif;">Card Title — 14px / 600</div>
+              <div style="font-size:12px;color:var(--shell-text);font-family:Inter,sans-serif;">Body text — 12px / 400, line-height 1.5</div>
               <div style="font-size:11px;color:var(--shell-text-muted);font-family:Inter,sans-serif;">Label / meta — 11px / 400</div>
             </div>
           </div>
           <ul class="bp-list">
             <li>Spacing scale (px only): 4, 8, 12, 16, 20, 24, 32, 48</li>
-            <li>Never use 3, 5, 6, 7, 10, 11, 14, 15px — not on scale</li>
+            <li>Never use 3, 5, 6, 7, 10, 13, 15px — not on scale</li>
             <li>Font is always Inter (loaded via Google Fonts) — no substitutions</li>
-            <li>Type ramp: 18px h1 → 14px h2 → 13px body → 12px small → 11px label</li>
+            <li>Type ramp: 18px h1 → 14px h2 → 12px body → 11px small/label</li>
             <li>Line-height: 1.5 for body text; 1.2 for headings</li>
           </ul>
         </div>
@@ -4570,19 +4570,19 @@
               <span style="font-size:10px;color:#dc2626;">7px ✗</span>
               <div style="width:10px;height:10px;background:#dc2626;border-radius:1px;"></div>
               <span style="font-size:10px;color:#dc2626;">10px ✗</span>
-              <div style="width:14px;height:10px;background:#dc2626;border-radius:1px;"></div>
-              <span style="font-size:10px;color:#dc2626;">14px ✗</span>
+              <div style="width:13px;height:10px;background:#dc2626;border-radius:1px;"></div>
+              <span style="font-size:10px;color:#dc2626;">13px ✗</span>
               <div style="width:15px;height:10px;background:#dc2626;border-radius:1px;"></div>
               <span style="font-size:10px;color:#dc2626;">15px ✗</span>
             </div>
             <div style="border-top:1px solid #e5e7eb;padding-top:8px;width:100%;">
               <div style="font-size:17px;font-weight:700;color:#101010;font-family:Arial,sans-serif;">Heading in Arial (wrong font)</div>
-              <div style="font-size:15px;color:#101010;font-family:Arial,sans-serif;">15px — off scale ✗</div>
+              <div style="font-size:13px;color:#101010;font-family:Arial,sans-serif;">13px — off scale ✗</div>
               <div style="font-size:10px;color:#6b7280;font-family:Arial,sans-serif;">10px body text (too small) ✗</div>
             </div>
           </div>
           <ul class="bp-list">
-            <li>Never use off-scale spacing (5, 6, 7, 10, 11, 14, 15px etc.)</li>
+            <li>Never use off-scale spacing (5, 6, 7, 10, 11, 13, 15px etc.)</li>
             <li>Never use any font other than Inter</li>
             <li>Never use font sizes that fall outside the type ramp</li>
             <li>Never mix rem and px — use px throughout</li>
@@ -4660,7 +4660,7 @@
         <div class="bp-error-demo" style="min-height:140px;">
           <div style="text-align:center;">
             <div style="font-size:30px;margin-bottom:10px;line-height:1;">🚧</div>
-            <div style="font-size:15px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">Data Retrieval Failed</div>
+            <div style="font-size:14px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">Data Retrieval Failed</div>
             <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:16px;max-width:320px;">We're having trouble loading this data. Try refreshing or check back later.</div>
             <button style="background:#6360d8;border:none;color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:4px;font-family:inherit;cursor:default;display:inline-flex;align-items:center;gap:5px;">
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>

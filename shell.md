@@ -46,7 +46,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     }
 
     /* ── Body ── */
-    body { font-family:'Inter',sans-serif; background:var(--shell-bg); color:var(--shell-text); display:flex; flex-direction:column; height:100vh; overflow:hidden; font-size:13px; line-height:1.5; }
+    body { font-family:'Inter',sans-serif; background:var(--shell-bg); color:var(--shell-text); display:flex; flex-direction:column; height:100vh; overflow:hidden; font-size:12px; line-height:1.5; }
 
     /* ── Buttons ── */
     .ds-btn { display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;border-radius:44px;font-family:inherit;transition:background 150ms,color 150ms,border-color 150ms;white-space:nowrap;user-select:none;line-height:1;text-decoration:none; }
@@ -161,7 +161,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .ds-modal { background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 48px rgba(0,0,0,.5);animation:ds-modal-in 150ms ease; }
     @keyframes ds-modal-in { from{opacity:0;transform:scale(.96) translateY(8px)} to{opacity:1;transform:none} }
     .ds-modal-header { display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--shell-border); }
-    .ds-modal-title { font-size:15px;font-weight:600;color:var(--shell-text); }
+    .ds-modal-title { font-size:14px;font-weight:600;color:var(--shell-text); }
     .ds-modal-close { width:28px;height:28px;border-radius:6px;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center; }
     .ds-modal-close:hover { background:var(--shell-hover);color:var(--shell-text); }
     .ds-modal-body { padding:20px; }

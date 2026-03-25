@@ -20,7 +20,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 ## Spacing
 
 - **4px scale only** — 4, 8, 12, 16, 20, 24, 32, 48px
-- NEVER use 3, 5, 6, 7, 10, 11, 14, 15px
+- NEVER use 3, 5, 6, 7, 10, 11, 13, 15px
 
 ---
 
@@ -143,14 +143,14 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 - Watermark: `font-size:90px; font-weight:800; opacity:0.08; color:#a3a5af; position:absolute; letter-spacing:14px`
 - 🚧 emoji, 40px centred
 - Heading 18px/600, `#101010`: "Oops! That Wasn't Supposed to Happen"
-- Subtext 13px, `#a3a5af`: "Well, this is awkward.. Something broke on our end. We're fixing it ASAP!"
+- Subtext 12px, `#a3a5af`: "Well, this is awkward.. Something broke on our end. We're fixing it ASAP!"
 - Refresh button: `background:#6360d8; border-radius:4px; height:32px; padding:6px 16px`
 - NEVER: expose stack trace, remove nav, use 🚦 here, auto-redirect
 
 **Section data error** (inside a widget/section container):
 - No watermark — lower visual weight than full-page
 - 🚧 emoji, 30px
-- Heading 15px/600: "Data Retrieval Failed"
+- Heading 14px/600: "Data Retrieval Failed"
 - Subtext 12px: "We're having trouble loading this data. Try refreshing or check back later."
 - Refresh button (same style)
 - NEVER: redirect entire page, collapse the container, omit Refresh
