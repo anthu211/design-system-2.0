@@ -2,8 +2,7 @@ Fetch these URLs before doing anything else:
 
 1. https://anthu211.github.io/design-system-2.0/ds-core.md
 2. https://anthu211.github.io/design-system-2.0/shell.md
-
-If the requirement mentions charts, also fetch: https://anthu211.github.io/design-system-2.0/charts.md
+3. https://anthu211.github.io/design-system-2.0/charts.md
 
 ---
 

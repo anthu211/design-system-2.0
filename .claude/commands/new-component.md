@@ -1,8 +1,7 @@
-Fetch this URL before doing anything:
+Fetch these URLs before doing anything:
 
-https://anthu211.github.io/design-system-2.0/ds-core.md
-
-If adding a chart, also fetch: https://anthu211.github.io/design-system-2.0/charts.md
+1. https://anthu211.github.io/design-system-2.0/ds-core.md
+2. https://anthu211.github.io/design-system-2.0/charts.md
 
 ---
 
