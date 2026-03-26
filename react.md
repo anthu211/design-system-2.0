@@ -399,7 +399,7 @@ export default SubHeader
 Full page shell — topbar + collapsible left nav + sticky sub-header + content body.
 
 **Topbar structure (left → right):** PAI logo image → flex spacer → "Last Updated" text → bell button → avatar circle → Navigator gradient button.
-**"Prevalent AI / Exposure Management" is in the LEFT NAV HEADER — NOT in the topbar.**
+**Nav header shows workspace/context name (e.g. "EM Dashboard") + "Exposure Management" subtitle. NEVER "Prevalent AI" — that is the topbar logo only.**
 **The topbar is always `#131313` — never theme-switched.**
 
 Left nav collapses to 52px icon-only on toggle; hovers back to 220px when collapsed.
@@ -420,7 +420,7 @@ interface ShellProps {
   navItems: NavItemDef[]
   subHeader: ReactNode
   children: ReactNode
-  orgLabel?: string       // nav header org name — default 'Prevalent AI'
+  orgLabel?: string       // nav header workspace/context name — default 'EM Dashboard', NOT 'Prevalent AI'
   orgSub?: string         // nav header subtitle — default 'Exposure Management'
   userInitials?: string   // avatar initials — default 'A'
   lastUpdated?: string    // topbar timestamp — default 'Just now'
@@ -430,7 +430,7 @@ export function Shell({
   navItems,
   subHeader,
   children,
-  orgLabel = 'Prevalent AI',
+  orgLabel = 'EM Dashboard',
   orgSub = 'Exposure Management',
   userInitials = 'A',
   lastUpdated = 'Just now',
@@ -902,8 +902,8 @@ export function Tabs({ tabs, defaultValue, className }: TabsProps) {
 1. **All CTA/text buttons use `rounded-[44px]` (pill)** — never `rounded-md`, `rounded-lg`, `rounded-full` on a button.
 2. **Accent is `#6360D8`**. Filter / Active Filters CTA is `#504bb8`. Never use other purples.
 3. **Topbar is always `#131313`** — never theme-switched, never any other colour.
-4. **Topbar content (left → right):** PAI logo `<img>` → flex spacer → "Last Updated" text → bell → avatar → Navigator gradient button. NO "Prevalent AI / Exposure Management" text in the topbar.
-5. **"Prevalent AI / Exposure Management" belongs in the LEFT NAV HEADER** — rendered by `<Shell>`, never in the topbar.
+4. **Topbar content (left → right):** PAI logo `<img>` → flex spacer → "Last Updated" text → bell → avatar → Navigator gradient button. NO text branding in the topbar other than the logo image.
+5. **Nav header shows the workspace/context name** (e.g. `"EM Dashboard"`) with dropdown chevron + `"Exposure Management"` subtitle. NEVER "Prevalent AI" — that is only the logo in the topbar. Use `orgLabel` prop on `<Shell>` (default `'EM Dashboard'`).
 6. **Left nav is collapsible** — collapses to 52px icon-only on toggle, hovers back to 220px. Use `<Shell>` with `navItems` array; it manages collapse state internally.
 7. **Nav items always have icons** — pass `icon={<SomeLucideIcon size={16}/>}` to every `NavItem`. Never a nav item without an icon.
 8. **Sub-header always uses `<SubHeader>`** — never freeform the sticky header. It handles breadcrumb, Add button, ActiveFilters popover, and Filter button.
