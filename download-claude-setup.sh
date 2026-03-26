@@ -17,6 +17,7 @@ rm -f claude-setup.zip
 zip -r claude-setup.zip \
   .claude/commands/new-page.md \
   .claude/commands/new-component.md \
+  .claude/commands/new-react-component.md \
   .claude/commands/ux-review.md \
   .claude/commands/persona-check.md \
   CLAUDE.md
