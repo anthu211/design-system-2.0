@@ -1,6 +1,6 @@
 Fetch this URL before doing anything:
 
-https://anthu211.github.io/design-system-2.0/rules.md
+https://anthu211.github.io/design-system-2.0/ds-core.md
 
 If adding a chart, also fetch: https://anthu211.github.io/design-system-2.0/charts.md
 
@@ -26,18 +26,18 @@ Read the full HTML file before making any changes. Match its existing tokens and
 
 Edit the file in place — only add what's needed:
 - HTML in the right DOM location
-- CSS added to the existing `<style>` block
-- JS added to the existing `<script>` block
+- Any new CSS into the existing `<style>` block
+- Any new JS into the existing `<script>` block
 
-Follow every rule in `rules.md`. Key reminders:
+Use the component patterns and hard rules from `ds-core.md`. Key reminders:
 - Buttons `border-radius:44px` · Accent `#6360D8` · Filter CTA `#504bb8`
-- Tables: `[checkbox] → [data cols] → [status] → [actions]` column order
-- Row actions in dedicated last `<td class="col-actions">` — never mixed with status
-- Row actions hidden by default via CSS — NEVER `style="display:flex"` inline
+- Tables: `[checkbox] → [data cols] → [status] → [actions]` — empty `<th>` for actions column
+- Row actions in dedicated `col-actions` cell — NEVER mixed with status badge
+- Row actions hidden by default via CSS only — NEVER `style="display:flex"` inline
 - Modals: overlay → card → header → body → footer (Cancel left, Confirm right)
-- Status/severity always visible in table, never tooltip-only
+- Status/severity always visible in table column, never tooltip-only
 - KPI cards: value + label + trend only — no icons, no colored borders
-- NO page-level tabs unless explicitly requested
+- NEVER add page-level tabs unless explicitly requested
 
 ## Step 4 — Confirm
 
