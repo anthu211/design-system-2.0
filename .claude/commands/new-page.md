@@ -1,6 +1,6 @@
 Fetch these URLs before doing anything else:
 
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
+1. https://anthu211.github.io/design-system-2.0/page-spec.md
 2. https://anthu211.github.io/design-system-2.0/charts.md
 
 ---
@@ -14,12 +14,12 @@ Generate a complete HTML page and save it as a file in the current working direc
 ## Step 1 — Parse the requirement
 
 - **Screen/feature**: what is being built
-- **Persona**: infer from persona table in `ds-core.md`
+- **Persona**: infer from persona table in `page-spec.md`
 - **Filename**: kebab-case (e.g. `alerts-dashboard.html`)
 
 ## Step 2 — Build the shell
 
-Copy the Shell HTML Template from `ds-core.md` verbatim — full `<style>` block, full JS. Do NOT shorten or rewrite. Only replace:
+Copy the Shell HTML Template from `page-spec.md` verbatim — full `<style>` block, full JS. Do NOT shorten or rewrite. Only replace:
 - Page `<title>`
 - Nav items with real SVG icons matching the page
 - Breadcrumb text and sub-header page title
@@ -35,7 +35,7 @@ Copy the Shell HTML Template from `ds-core.md` verbatim — full `<style>` block
 
 ## Step 4 — Build content
 
-Use component patterns from `ds-core.md`. Follow every hard rule and hard don't.
+Use component patterns from `page-spec.md`. Follow every hard rule and hard don't.
 Use chart functions from `charts.md` verbatim — NEVER canvas or external chart libraries.
 
 ## Step 5 — Save the file
