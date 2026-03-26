@@ -55,11 +55,17 @@
       "Bash(wc -c .claude/commands/*.md)",
       "Bash(ls \"/Users/ananthusunil/PAI Edits/design-system/\"*.md)",
       "Bash(ls \"/Users/ananthusunil/PAI Edits/design-system/\"*.htm)",
-      "Bash(ls \"/Users/ananthusunil/PAI Edits/design-system/index\"*)"
+      "Bash(ls \"/Users/ananthusunil/PAI Edits/design-system/index\"*)",
+      "Read(//tmp/**)",
+      "Bash(ls -la \"/Users/ananthusunil/PAI Edits/design-system/\"*.md)",
+      "Bash(ls -la \"/Users/ananthusunil/PAI Edits/design-system/public/\"*.md)",
+      "Bash(rm best-practices.md rules.md spec.md ux-context.md shell.md components.md)",
+      "Bash(ls *.md)"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
-      "/Users/ananthusunil/PAI Edits/design-system/.claude/commands"
+      "/Users/ananthusunil/PAI Edits/design-system/.claude/commands",
+      "/private/tmp"
     ]
   }
 }

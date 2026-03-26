@@ -29,7 +29,7 @@ The design system spec lives at: `https://anthu211.github.io/design-system-2.0/d
 Use these to build UI. Each command fetches only what it needs from the design system.
 
 ### `/new-page [describe the screen]`
-Creates a complete HTML page. Fetches `ds-core.md` + `shell.md` + `charts.md`.
+Creates a complete HTML page. Fetches `page-spec.md` + `charts.md`.
 ```
 /new-page alerts dashboard for the SOC analyst team
 /new-page executive risk summary with KPI cards
