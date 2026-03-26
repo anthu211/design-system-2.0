@@ -1,8 +1,7 @@
 Fetch these URLs before doing anything else:
 
 1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/shell.md
-3. https://anthu211.github.io/design-system-2.0/charts.md
+2. https://anthu211.github.io/design-system-2.0/charts.md
 
 ---
 
@@ -20,10 +19,10 @@ Generate a complete HTML page and save it as a file in the current working direc
 
 ## Step 2 — Build the shell
 
-Copy the COMPLETE shell HTML from `shell.md` verbatim — full `<style>` block, full JS. Do NOT shorten or rewrite. Only replace:
+Copy the Shell HTML Template from `ds-core.md` verbatim — full `<style>` block, full JS. Do NOT shorten or rewrite. Only replace:
 - Page `<title>`
-- Nav items with real SVG icons
-- Breadcrumb and sub-header title
+- Nav items with real SVG icons matching the page
+- Breadcrumb text and sub-header page title
 - `<!-- Page content goes here -->` with actual content
 
 ## Step 3 — Apply persona rules
