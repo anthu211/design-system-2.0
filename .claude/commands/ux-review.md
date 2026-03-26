@@ -1,11 +1,3 @@
-Fetch these URLs fully before doing anything:
-
-1. https://anthu211.github.io/design-system-2.0/spec.md
-2. https://anthu211.github.io/design-system-2.0/ux-context.md
-3. https://anthu211.github.io/design-system-2.0/best-practices.md
-
----
-
 Review this screen against the Prevalent AI design system and UX laws:
 
 $ARGUMENTS
@@ -15,28 +7,36 @@ $ARGUMENTS
 Return a `✅ PASS` / `❌ FAIL` checklist. For every FAIL, give the exact fix (value, property, or pattern name).
 
 ## Shell & Structure
-- [ ] Topbar + left nav + sub-header + content body present
-- [ ] Topbar is `#131313`
-- [ ] Sub-header is sticky with title + breadcrumb
+- [ ] Topbar is `#131313` with PAI logo image (no "Prevalent AI" text in topbar)
+- [ ] Nav header shows workspace name — not "Prevalent AI"
+- [ ] Left nav + sub-header + content body present
+- [ ] Sub-header: title 12px/500, breadcrumb 11px, ActiveFilters popover, Filter button
 
 ## Tokens & Styling
-- [ ] Accent `#6360D8` · Filter CTA `#504bb8`
-- [ ] All buttons `border-radius:44px` (pill)
+- [ ] Accent `#6360D8` · Filter/ActiveFilters CTA `#504bb8`
+- [ ] All CTA/text buttons `border-radius:44px` (pill)
+- [ ] Cards, table wrappers `border-radius:4px` only
 - [ ] Inter font · `<html class="theme-light">`
-- [ ] Spacing on 4px scale only
+- [ ] Spacing on 4px scale only (never 3, 5, 6, 10, 13, 15px)
+
+## Tables
+- [ ] Column order: checkbox → data cols → status → actions (last, empty `<th>`)
+- [ ] Row actions in own `col-actions` cell — never mixed with status badge
+- [ ] Row actions hidden by default, CSS-revealed on `tr:hover`
+- [ ] Status/severity visible in table — not tooltip-only
+- [ ] Pagination footer present
 
 ## Components
-- [ ] Status/severity visible in table — not tooltip-only
-- [ ] List data in tables, not cards
-- [ ] KPI cards ≤ 5 in a row
+- [ ] List data in tables not cards
+- [ ] KPI cards ≤ 5 in a row, no icons, no colored borders
 - [ ] Table columns ≤ 7 default
-- [ ] Destructive actions have confirmation modal
-- [ ] Error states have text message, not just red border
+- [ ] Destructive actions have confirmation modal (item name + consequence + red confirm)
+- [ ] No page-level tabs unless explicitly requested
 
 ## UX Laws
-- [ ] Hick's: 1 primary CTA per section · nav collapsed by default
-- [ ] Fitts's: row actions on hover · CTAs min 32px · controls in sub-header
-- [ ] Miller's: ≤5 KPIs · ≤7 nav items · ≤7 table columns
+- [ ] Hick's: 1 primary CTA per section · nav collapsed default for dense screens
+- [ ] Fitts's: row actions on hover · CTAs min 32px height
+- [ ] Miller's: ≤5 KPIs · ≤7 table columns
 - [ ] Jakob's: checkboxes leftmost · Cancel left of Confirm · pagination bottom-right
 
 ## Persona

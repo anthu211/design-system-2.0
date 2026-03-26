@@ -1,12 +1,9 @@
-Fetch ALL of these URLs fully before doing anything else:
+Fetch these two URLs before doing anything else:
 
-1. https://anthu211.github.io/design-system-2.0/spec.md
-2. https://anthu211.github.io/design-system-2.0/shell.md
-3. https://anthu211.github.io/design-system-2.0/components.md
-4. https://anthu211.github.io/design-system-2.0/charts.md
-5. https://anthu211.github.io/design-system-2.0/ux-context.md
-6. https://anthu211.github.io/design-system-2.0/rules.md
-7. https://anthu211.github.io/design-system-2.0/best-practices.md
+1. https://anthu211.github.io/design-system-2.0/shell.md
+2. https://anthu211.github.io/design-system-2.0/rules.md
+
+If the requirement mentions charts, also fetch: https://anthu211.github.io/design-system-2.0/charts.md
 
 ---
 
@@ -31,11 +28,12 @@ Generate a complete HTML page and save it as a file in the current working direc
 
 Copy the COMPLETE shell HTML from `shell.md` verbatim — including the ENTIRE `<style>` block with all CSS tokens and component classes. Do NOT write any custom CSS. Do NOT replace or shorten the style block. Only replace:
 - Page `<title>` tag
-- Nav items with real SVG icons from the icon table
+- Nav items with real SVG icons
 - Breadcrumb segments and sub-header title
 - `<!-- Page content goes here -->` with actual content
 
-**Nav header is ALWAYS "Prevalent AI" / "Exposure Management" — never change it.**
+**Topbar: PAI logo + last-updated + bell + avatar + Navigator button. Never add text to the topbar.**
+**Nav header: workspace name (e.g. "EM Dashboard") + "Exposure Management" subtitle. Never "Prevalent AI".**
 
 ## Step 3 — Apply persona rules
 
@@ -47,9 +45,14 @@ Copy the COMPLETE shell HTML from `shell.md` verbatim — including the ENTIRE `
 
 ## Step 4 — Build content
 
-Use patterns from `components.md` and `charts.md`. Follow every rule in `rules.md` — they are non-negotiable. Apply per-component dos/don'ts and all error handling patterns from `best-practices.md`.
-
-**Critical constraint — NO inferred tabs**: Do NOT add a tab bar (Overview / Assets / Findings / etc.) unless the user's requirement explicitly describes tabs. If the user asked for one page, build one page's content. Left nav already handles section navigation.
+Follow every rule in `rules.md` — they are non-negotiable. Key reminders:
+- Buttons `border-radius:44px` · Accent `#6360D8` · Filter CTA `#504bb8`
+- Tables: checkbox col first, status col, actions col last (empty `<th>`) — NEVER mix status + actions
+- Row actions hidden by default, revealed on `tr:hover` via CSS only (never `style="display:flex"`)
+- KPI cards: value + label + trend only — no icons, no colored borders
+- NO page-level tabs unless explicitly requested
+- Nav labels: `white-space:nowrap; overflow:hidden; text-overflow:ellipsis`
+- Charts: copy `buildLineChart` / `buildDonutChart` etc. from charts.md verbatim if needed
 
 ## Step 5 — Save the file
 

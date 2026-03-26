@@ -1,7 +1,6 @@
-Fetch these URLs fully before doing anything:
+Fetch this URL before doing anything:
 
-1. https://anthu211.github.io/design-system-2.0/ux-context.md
-2. https://anthu211.github.io/design-system-2.0/spec.md
+https://anthu211.github.io/design-system-2.0/ux-context.md
 
 ---
 
