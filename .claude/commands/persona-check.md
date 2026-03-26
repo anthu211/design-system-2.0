@@ -1,6 +1,6 @@
-Fetch this URL before doing anything:
+Read this local file from the current working directory before doing anything:
 
-https://anthu211.github.io/design-system-2.0/ds-core.md
+1. `ds-core.md`
 
 ---
 

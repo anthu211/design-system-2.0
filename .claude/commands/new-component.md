@@ -1,7 +1,7 @@
-Fetch these URLs before doing anything:
+Read these local files from the current working directory before doing anything:
 
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/charts.md
+1. `ds-core.md`
+2. `charts.md`
 
 ---
 
@@ -37,6 +37,7 @@ Use the component patterns and hard rules from `ds-core.md`. Key reminders:
 - Status/severity always visible in table column, never tooltip-only
 - KPI cards: value + label + trend only — no icons, no colored borders
 - NEVER add page-level tabs unless explicitly requested
+- Charts: use functions from `charts.md` verbatim — NEVER canvas or external libraries
 
 ## Step 4 — Confirm
 

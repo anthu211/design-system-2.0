@@ -1,6 +1,6 @@
-Fetch this URL before doing anything:
+Read this local file from the current working directory before doing anything:
 
-https://anthu211.github.io/design-system-2.0/ds-core.md
+1. `ds-core.md`
 
 ---
 
@@ -34,11 +34,12 @@ Return a `✅ PASS` / `❌ FAIL` checklist using `ds-core.md` as the source of t
 
 ## Components
 - [ ] List data in tables, not cards
-- [ ] KPI cards ≤ 5 per row, no icons, no colored borders
+- [ ] KPI cards ≤ 5 per row, no icons, no colored borders, delta uses up-good/down-good/up-bad/down-bad classes
 - [ ] Table columns ≤ 7 default
 - [ ] Destructive actions have confirmation modal (item name + consequence + red confirm)
 - [ ] No page-level tabs unless explicitly requested
-- [ ] Error/empty states follow correct pattern from ds-core.md
+- [ ] Error/empty states follow correct pattern from ds-core.md (🚦 for empty, 🚧 for errors)
+- [ ] Charts use ds chart functions — no canvas/Chart.js/D3
 
 ## UX Laws
 - [ ] Hick's: 1 primary CTA per section

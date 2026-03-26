@@ -1,8 +1,8 @@
-Fetch these URLs before doing anything else:
+Read these local files from the current working directory before doing anything else:
 
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/shell.md
-3. https://anthu211.github.io/design-system-2.0/charts.md
+1. `ds-core.md`
+2. `shell.md`
+3. `charts.md`
 
 ---
 
@@ -39,6 +39,7 @@ Follow the shell structure rules in `ds-core.md` exactly.
 ## Step 4 — Build content
 
 Use component patterns from `ds-core.md`. Follow every hard rule and hard don't listed there.
+Use chart functions from `charts.md` verbatim — NEVER canvas or external chart libraries.
 
 ## Step 5 — Save the file
 
