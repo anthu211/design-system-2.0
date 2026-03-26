@@ -1,16 +1,10 @@
-Read this local file from the current working directory before doing anything:
-
-1. `ds-core.md`
-
----
+The full design system rules and personas are already loaded from CLAUDE.md.
 
 Analyse this feature against the Prevalent AI personas:
 
 $ARGUMENTS
 
 ---
-
-Using the personas and UX laws from `ds-core.md`:
 
 **Primary Persona** — which of ciso / grc / security-architect / security-engineer / soc-analyst, and why in one sentence.
 
@@ -21,6 +15,6 @@ Using the personas and UX laws from `ds-core.md`:
 **UI Implications** — for each UI implication for this persona:
 - Respected / Violated (explain) / Unknown (what's missing)
 
-**Adjustments** — if issues found: 1–3 specific changes, referencing the rule or UX law. If none: "No adjustments needed."
+**Adjustments** — if issues found: 1–3 specific changes referencing the rule or UX law. If none: "No adjustments needed."
 
 **Secondary Persona** — if another persona uses this too: who, helped or harmed, one fix if harmed.

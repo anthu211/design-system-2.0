@@ -1,12 +1,6 @@
-Read these local files from the current working directory before doing anything else:
-
-1. `ds-core.md`
-2. `shell.md`
-3. `charts.md`
-
----
-
 The user's requirement is: $ARGUMENTS
+
+The full design system rules are already loaded from CLAUDE.md. If `shell.md` exists in the working directory, read it and copy the shell HTML verbatim. If `charts.md` exists, read it and use chart functions verbatim. Otherwise generate from the rules in CLAUDE.md.
 
 Generate a complete HTML page and save it as a file in the current working directory.
 
@@ -15,34 +9,30 @@ Generate a complete HTML page and save it as a file in the current working direc
 ## Step 1 — Parse the requirement
 
 - **Screen/feature**: what is being built
-- **Persona** (infer from `ds-core.md` persona table if not stated)
+- **Persona**: infer from persona table in CLAUDE.md
 - **Filename**: kebab-case (e.g. `alerts-dashboard.html`)
 
 ## Step 2 — Build the shell
 
-Copy the COMPLETE shell HTML from `shell.md` verbatim — full `<style>` block, full JS. Do NOT shorten or rewrite. Only replace:
-- Page `<title>`
-- Nav items with real SVG icons
-- Breadcrumb and sub-header title
-- `<!-- Page content goes here -->` with actual content
+If `shell.md` is available: copy the COMPLETE shell HTML verbatim — full `<style>` block, full JS. Only replace title, nav items, breadcrumb, sub-header title, and `<!-- Page content goes here -->`.
 
-Follow the shell structure rules in `ds-core.md` exactly.
+If not available: build the shell from CLAUDE.md shell structure rules — topbar + collapsible left nav + sticky sub-header + content body.
 
-## Step 3 — Apply persona rules (from ds-core.md)
+## Step 3 — Apply persona rules
 
-- **ciso**: KPI cards first (max 5), trend visible, one dominant CTA
-- **grc**: Compliance tables, control status always visible, export button
-- **security-architect**: Technical detail visible, CVSSv3 scores, asset context
+- **ciso**: KPI cards first (max 5), trend charts, one dominant CTA
+- **grc**: Compliance tables, control status visible, export button
+- **security-architect**: CVSSv3 scores, technical detail, asset context
 - **security-engineer**: Dense CVE table, bulk toolbar, SLA column, pagination
-- **soc-analyst**: Alert queue first, severity always visible, quick row actions
+- **soc-analyst**: Alert queue first, severity sorted, row quick-actions on hover
 
 ## Step 4 — Build content
 
-Use component patterns from `ds-core.md`. Follow every hard rule and hard don't listed there.
-Use chart functions from `charts.md` verbatim — NEVER canvas or external chart libraries.
+Use component patterns from CLAUDE.md. Follow every hard rule and hard don't.
+Charts: use `charts.md` functions verbatim if available, otherwise build SVG charts per CLAUDE.md chart rules.
 
 ## Step 5 — Save the file
 
-Write the complete HTML to `[kebab-case-name].html` in the current directory.
+Write complete HTML to `[kebab-case-name].html` in current directory.
 
 Report: filename · persona applied · 2–3 key design decisions
