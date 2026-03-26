@@ -1,6 +1,12 @@
-The user's requirement is: $ARGUMENTS
+Fetch these URLs before doing anything else:
 
-The full design system rules are already loaded from CLAUDE.md. If `shell.md` exists in the working directory, read it and copy the shell HTML verbatim. If `charts.md` exists, read it and use chart functions verbatim. Otherwise generate from the rules in CLAUDE.md.
+1. https://anthu211.github.io/design-system-2.0/ds-core.md
+2. https://anthu211.github.io/design-system-2.0/shell.md
+3. https://anthu211.github.io/design-system-2.0/charts.md
+
+---
+
+The user's requirement is: $ARGUMENTS
 
 Generate a complete HTML page and save it as a file in the current working directory.
 
@@ -9,14 +15,16 @@ Generate a complete HTML page and save it as a file in the current working direc
 ## Step 1 — Parse the requirement
 
 - **Screen/feature**: what is being built
-- **Persona**: infer from persona table in CLAUDE.md
+- **Persona**: infer from persona table in `ds-core.md`
 - **Filename**: kebab-case (e.g. `alerts-dashboard.html`)
 
 ## Step 2 — Build the shell
 
-If `shell.md` is available: copy the COMPLETE shell HTML verbatim — full `<style>` block, full JS. Only replace title, nav items, breadcrumb, sub-header title, and `<!-- Page content goes here -->`.
-
-If not available: build the shell from CLAUDE.md shell structure rules — topbar + collapsible left nav + sticky sub-header + content body.
+Copy the COMPLETE shell HTML from `shell.md` verbatim — full `<style>` block, full JS. Do NOT shorten or rewrite. Only replace:
+- Page `<title>`
+- Nav items with real SVG icons
+- Breadcrumb and sub-header title
+- `<!-- Page content goes here -->` with actual content
 
 ## Step 3 — Apply persona rules
 
@@ -28,11 +36,11 @@ If not available: build the shell from CLAUDE.md shell structure rules — topba
 
 ## Step 4 — Build content
 
-Use component patterns from CLAUDE.md. Follow every hard rule and hard don't.
-Charts: use `charts.md` functions verbatim if available, otherwise build SVG charts per CLAUDE.md chart rules.
+Use component patterns from `ds-core.md`. Follow every hard rule and hard don't.
+Use chart functions from `charts.md` verbatim — NEVER canvas or external chart libraries.
 
 ## Step 5 — Save the file
 
-Write complete HTML to `[kebab-case-name].html` in current directory.
+Write complete HTML to `[kebab-case-name].html` in the current directory.
 
 Report: filename · persona applied · 2–3 key design decisions

@@ -1,6 +1,11 @@
-The user's request is: $ARGUMENTS
+Fetch these URLs before doing anything:
 
-The full design system rules are already loaded from CLAUDE.md. If `charts.md` exists in the working directory, read it and use chart functions verbatim when adding charts.
+1. https://anthu211.github.io/design-system-2.0/ds-core.md
+2. https://anthu211.github.io/design-system-2.0/charts.md
+
+---
+
+The user's request is: $ARGUMENTS
 
 Add a component to an existing HTML page in the current working directory.
 
@@ -23,7 +28,7 @@ Edit the file in place — only add what's needed:
 - Any new CSS into the existing `<style>` block
 - Any new JS into the existing `<script>` block
 
-Apply all component patterns and hard rules from CLAUDE.md:
+Use component patterns and hard rules from `ds-core.md`:
 - Buttons `border-radius:44px` · Accent `#6360D8` · Filter CTA `#504bb8`
 - Tables: `[checkbox] → [data cols] → [status] → [actions]` — empty `<th>` for actions
 - Row actions in dedicated `col-actions` cell — NEVER mixed with status badge
@@ -32,7 +37,7 @@ Apply all component patterns and hard rules from CLAUDE.md:
 - Status/severity always visible in table column, never tooltip-only
 - KPI cards: value + label + delta only — no icons, no colored borders
 - NEVER add page-level tabs unless explicitly requested
-- Charts: use `charts.md` functions if available, otherwise SVG per CLAUDE.md rules
+- Charts: use functions from `charts.md` verbatim — NEVER canvas or external libraries
 
 ## Step 4 — Confirm
 

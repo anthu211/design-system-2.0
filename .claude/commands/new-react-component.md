@@ -1,6 +1,11 @@
-The user's requirement is: $ARGUMENTS
+Fetch these URLs before doing anything:
 
-The full design system rules are already loaded from CLAUDE.md. If `react.md` exists in the working directory, read it for Shell/NavItem/SubHeader verbatim component code.
+1. https://anthu211.github.io/design-system-2.0/ds-core.md
+2. https://anthu211.github.io/design-system-2.0/react.md
+
+---
+
+The user's requirement is: $ARGUMENTS
 
 Generate a React component and save it as a `.tsx` file in the current directory.
 
@@ -17,22 +22,22 @@ Generate a React component and save it as a `.tsx` file in the current directory
 
 ## Step 1 — Parse the requirement
 - **Component**: what is being built
-- **Persona**: infer from CLAUDE.md persona table
+- **Persona**: infer from persona table in `ds-core.md`
 - **Filename**: PascalCase (e.g. `AlertsTable.tsx`)
 
 ## Step 2 — Apply design system rules
 
-All rules are in CLAUDE.md. If building a full page/dashboard and `react.md` is available, use Shell/NavItem/SubHeader from it verbatim.
+Use exact component patterns from `react.md`. Apply all rules from `ds-core.md`.
 
+If building a full page/dashboard:
+- Use `Shell`, `NavItem`, `SubHeader` exactly as shown in `react.md`
 - Topbar: PAI logo `<img>` only — NO "Prevalent AI" text
 - Nav header: workspace name (e.g. "EM Dashboard") — NOT "Prevalent AI"
 - SubHeader title: `text-[12px] font-medium` — never `<h1>` or 18px
-- Buttons: `rounded-[44px]` — never `rounded-md/lg/full`
-- Cards: `rounded-[4px]` — never `rounded-xl/2xl`
 
 ## Step 3 — Build component
 
-Follow all React rules from CLAUDE.md. Named + default export both.
+Follow all React rules in `ds-core.md` and `react.md`. Named + default export both.
 
 ## Step 4 — Save the file
 

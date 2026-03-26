@@ -1,4 +1,8 @@
-The full design system rules are already loaded from CLAUDE.md.
+Fetch this URL before doing anything:
+
+1. https://anthu211.github.io/design-system-2.0/ds-core.md
+
+---
 
 Review this screen against the Prevalent AI design system and UX laws:
 
@@ -6,7 +10,7 @@ $ARGUMENTS
 
 ---
 
-Return a `✅ PASS` / `❌ FAIL` checklist using CLAUDE.md as the source of truth. For every FAIL, give the exact fix.
+Return a `✅ PASS` / `❌ FAIL` checklist using `ds-core.md` as the source of truth. For every FAIL, give the exact fix.
 
 ## Shell & Structure
 - [ ] Topbar `#131313` with PAI logo image — no "Prevalent AI" text

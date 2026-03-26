@@ -1,10 +1,16 @@
-The full design system rules and personas are already loaded from CLAUDE.md.
+Fetch this URL before doing anything:
+
+1. https://anthu211.github.io/design-system-2.0/ds-core.md
+
+---
 
 Analyse this feature against the Prevalent AI personas:
 
 $ARGUMENTS
 
 ---
+
+Using the personas and UX laws from `ds-core.md`:
 
 **Primary Persona** — which of ciso / grc / security-architect / security-engineer / soc-analyst, and why in one sentence.
 
