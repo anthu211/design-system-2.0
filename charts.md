@@ -1,12 +1,6 @@
 # Prevalent AI — Charts
 
-> **⚠ HARD RULE — NO EXCEPTIONS:**
-> All charts use **inline SVG** (or CSS-flex for horizontal bar).
-> **NEVER use `<canvas>`, Chart.js, D3, Recharts, ECharts, or any external chart library.**
-> If you write `<canvas>` anywhere on the page you are breaking the spec.
-> Copy the exact code patterns below — do not invent your own chart implementation.
-
-Hosted at: `https://anthu211.github.io/design-system-2.0/`
+**HARD RULE:** All charts use inline SVG (or CSS-flex for horizontal bar). NEVER `<canvas>`, Chart.js, D3, Recharts, ECharts. Copy patterns below verbatim — do not invent chart implementations.
 
 ---
 

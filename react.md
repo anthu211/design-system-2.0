@@ -1,8 +1,6 @@
 # Prevalent AI — React / Developer Reference
 
-> Stack: React + TypeScript + Tailwind CSS + Radix UI
-> Read spec.md, shell.md, components.md, and ux-context.md before using these patterns.
-> Hosted at: https://anthu211.github.io/design-system-2.0/
+Stack: React 18 + TypeScript + Tailwind CSS + Radix UI + Lucide React + Recharts. Read `ds-core.md` alongside this file for tokens, rules, and personas.
 
 ---
 
