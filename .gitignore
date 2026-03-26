@@ -22,8 +22,9 @@ Thumbs.db
 .vscode/
 .idea/
 
-# AI assistant
-.claude/
+# AI assistant (local settings ignored, commands tracked)
+.claude/settings.local.json
+.claude/projects/
 
 # Logs
 *.log
