@@ -211,7 +211,7 @@ export function KPICard({ label, value, trend, className }: KPICardProps) {
 
 ### NavItem
 
-Left nav items — always include an SVG icon. Active item gets accent color + left border.
+Left nav items — always include an SVG icon. Active item gets accent color. Supports `collapsed` prop (icon-only mode when sidebar is collapsed).
 
 ```tsx
 // src/components/shell/NavItem.tsx
@@ -222,134 +222,353 @@ interface NavItemProps {
   label: string
   icon: ReactNode
   active?: boolean
+  collapsed?: boolean   // true when sidebar is collapsed — renders icon only
   onClick?: () => void
 }
 
-export function NavItem({ label, icon, active, onClick }: NavItemProps) {
+export function NavItem({ label, icon, active, collapsed, onClick }: NavItemProps) {
   return (
     <button
       onClick={onClick}
+      title={collapsed ? label : undefined}
       className={cn(
-        'w-full flex items-center gap-2 px-3 py-2 rounded-[6px] text-[13px] font-medium transition-colors text-left',
-        'border-l-2',
+        'w-full flex items-center gap-2 rounded-[6px] text-[12px] font-medium transition-colors text-left border-none cursor-pointer',
+        collapsed ? 'justify-center p-2' : 'px-3 py-2',
         active
-          ? 'bg-accent/8 text-accent border-accent'
-          : 'text-gray-500 border-transparent hover:bg-gray-100 hover:text-gray-800'
+          ? 'bg-[rgba(99,96,216,0.08)] text-[#6360D8]'
+          : 'bg-transparent text-[#6e6e6e] hover:bg-[rgba(0,0,0,0.04)] hover:text-[#101010]'
       )}
     >
-      <span className={cn('flex-shrink-0 w-4 h-4', active ? 'text-accent' : 'text-gray-400')}>
+      <span className={cn('flex-shrink-0 w-4 h-4', active ? 'text-[#6360D8]' : 'text-[#9ca3af]')}>
         {icon}
       </span>
-      <span className="truncate">{label}</span>
+      {!collapsed && <span className="truncate">{label}</span>}
     </button>
   )
 }
+export default NavItem
 ```
 
 ---
 
 ### SubHeader
 
-Sticky content sub-header — sits below topbar, above page body. Contains breadcrumb on the left and primary CTAs on the right.
+Sticky content sub-header — sits directly below the topbar. Left: page title (12px) + breadcrumb (11px). Right: Explore In button → spacer → Add (+) circle → Active Filters popover → divider → Filter button.
+**NEVER use an `<h1>` or 18px title here — the title is 12px/500.**
 
 ```tsx
 // src/components/shell/SubHeader.tsx
-import { ReactNode } from 'react'
+import { useState, ReactNode } from 'react'
+import { cn } from '@/lib/utils'
 
-interface SubHeaderProps {
-  breadcrumb: { label: string; href?: string }[]  // e.g. [{label:'Exposure Management'},{label:'Attack Surface'}]
-  title: string
-  actions?: ReactNode
+interface ActiveFilter {
+  id: string
+  label: string       // e.g. "Severity"
+  values: string[]    // e.g. ["Critical", "High"]
 }
 
-export function SubHeader({ breadcrumb, title, actions }: SubHeaderProps) {
+interface SubHeaderProps {
+  title: string
+  breadcrumb: { label: string }[]   // [{label:'Dashboard'},{label:'Attack Surface'}]
+  activeFilters?: ActiveFilter[]
+  onRemoveFilter?: (id: string) => void
+  onClearFilters?: () => void
+  onFilterClick?: () => void
+  onAddClick?: () => void
+  exploreLabel?: string
+}
+
+export function SubHeader({
+  title,
+  breadcrumb,
+  activeFilters = [],
+  onRemoveFilter,
+  onClearFilters,
+  onFilterClick,
+  onAddClick,
+  exploreLabel = 'Explore in',
+}: SubHeaderProps) {
+  const [showFilters, setShowFilters] = useState(false)
+
   return (
-    <div className="sticky top-0 z-50 bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between gap-4 flex-shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-      <div>
-        {/* Breadcrumb */}
-        <div className="flex items-center gap-1.5 text-[11px] text-gray-400 mb-0.5">
+    <div className="sticky top-0 z-50 bg-white border-b border-[#e6e6e6] rounded-b-[8px] px-4 py-3 flex items-center gap-2.5 flex-shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+
+      {/* Left: title + breadcrumb */}
+      <div className="min-w-0">
+        <div className="text-[12px] font-medium text-[#101010] whitespace-nowrap overflow-hidden text-ellipsis leading-tight">
+          {title}
+        </div>
+        <div className="flex items-center gap-1 text-[11px] text-[#9ca3af] whitespace-nowrap mt-0.5">
           {breadcrumb.map((crumb, i) => (
-            <span key={i} className="flex items-center gap-1.5">
-              {i > 0 && <span className="text-gray-300">›</span>}
-              <span className={i === breadcrumb.length - 1 ? 'text-gray-600 font-medium' : ''}>{crumb.label}</span>
+            <span key={i} className="flex items-center gap-1">
+              {i > 0 && <span className="text-[#d1d5db]">›</span>}
+              <span className={i === breadcrumb.length - 1 ? 'text-[#6360D8]' : ''}>
+                {crumb.label}
+              </span>
             </span>
           ))}
         </div>
-        {/* Page title */}
-        <h1 className="text-[18px] font-semibold text-gray-900 leading-tight">{title}</h1>
       </div>
-      {actions && (
-        <div className="flex items-center gap-2 flex-shrink-0">{actions}</div>
+
+      {/* Explore in */}
+      <button className="border border-[#e6e6e6] rounded-[44px] text-[#6e6e6e] text-[12px] px-3.5 py-[7px] flex items-center gap-1.5 whitespace-nowrap flex-shrink-0 bg-transparent cursor-pointer hover:bg-gray-50 transition-colors">
+        {exploreLabel}
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+
+      <span className="flex-1" />
+
+      {/* Add button — circle accent */}
+      <button
+        onClick={onAddClick}
+        className="w-8 h-8 rounded-full bg-[#6360D8] border-none text-white flex items-center justify-center flex-shrink-0 cursor-pointer hover:bg-[#504bb8] transition-colors"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+
+      {/* Active Filters pill + hover popover */}
+      {activeFilters.length > 0 && (
+        <div
+          className="relative flex-shrink-0"
+          onMouseEnter={() => setShowFilters(true)}
+          onMouseLeave={() => setShowFilters(false)}
+        >
+          <button className="border border-[#504bb8] rounded-[44px] text-[#504bb8] text-[12px] font-medium px-3.5 py-[7px] flex items-center gap-1.5 whitespace-nowrap bg-transparent cursor-pointer">
+            Active Filters
+            <span className="bg-[#504bb8] text-white text-[10px] font-semibold min-w-[16px] h-4 rounded-[44px] flex items-center justify-center px-1">
+              {activeFilters.length}
+            </span>
+          </button>
+
+          {showFilters && (
+            <div className="absolute top-[calc(100%+8px)] left-0 z-[250] bg-white border border-[#e6e6e6] rounded-[8px] p-3.5 min-w-[300px] shadow-[0_8px_28px_rgba(0,0,0,0.14)]">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-[#6e6e6e] mb-2.5">
+                Active Filters
+              </div>
+              <div className="flex flex-col gap-1.5">
+                {activeFilters.map(f => (
+                  <div key={f.id} className="inline-flex items-center gap-1.5 bg-[#f5f5f5] rounded-[8px] px-2 py-1 text-[12px] border border-[#e6e6e6]">
+                    <span className="text-[#6e6e6e] font-medium">{f.label}</span>
+                    {f.values.map((v, i) => (
+                      <span key={i} className="bg-white rounded-[4px] px-1.5 py-px text-[#101010]">{v}</span>
+                    ))}
+                    <button
+                      onClick={() => onRemoveFilter?.(f.id)}
+                      className="text-[#9ca3af] text-[13px] leading-none hover:text-[#6e6e6e] ml-0.5 bg-transparent border-none cursor-pointer"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={onClearFilters}
+                className="mt-2.5 text-[12px] font-medium text-[#6360D8] cursor-pointer bg-transparent border-none p-0 font-[inherit] hover:underline"
+              >
+                Clear all filters
+              </button>
+            </div>
+          )}
+        </div>
       )}
+
+      {/* Divider */}
+      <div className="w-px h-5 bg-[#e6e6e6] flex-shrink-0" />
+
+      {/* Filter button */}
+      <button
+        onClick={onFilterClick}
+        className="bg-[#e0dff7] border-none rounded-[44px] text-[#504bb8] text-[12px] font-medium px-3.5 py-[7px] flex-shrink-0 cursor-pointer hover:bg-[#d4d2f2] transition-colors"
+      >
+        Filter
+      </button>
     </div>
   )
 }
+export default SubHeader
 ```
 
 ---
 
 ### Shell Layout
 
-Full page shell — topbar + left nav + sticky sub-header + content body.
-**The topbar is always `bg-topbar` (`#131313`) — it NEVER changes with theme.**
+Full page shell — topbar + collapsible left nav + sticky sub-header + content body.
+
+**Topbar structure (left → right):** PAI logo image → flex spacer → "Last Updated" text → bell button → avatar circle → Navigator gradient button.
+**"Prevalent AI / Exposure Management" is in the LEFT NAV HEADER — NOT in the topbar.**
+**The topbar is always `#131313` — never theme-switched.**
+
+Left nav collapses to 52px icon-only on toggle; hovers back to 220px when collapsed.
 
 ```tsx
 // src/components/shell/Shell.tsx
-import { ReactNode } from 'react'
+import { useState, ReactNode } from 'react'
+import { NavItem } from './NavItem'
 
-interface ShellProps {
-  navItems: ReactNode      // use <NavItem> components
-  subHeader: ReactNode     // use <SubHeader> component
-  children: ReactNode      // page body content
-  orgName?: string         // top-right org display name
-  userInitials?: string    // avatar initials, default 'U'
+interface NavItemDef {
+  label: string
+  icon: ReactNode
+  active?: boolean
+  onClick?: () => void
 }
 
-export function Shell({ navItems, subHeader, children, orgName = 'Org', userInitials = 'U' }: ShellProps) {
+interface ShellProps {
+  navItems: NavItemDef[]
+  subHeader: ReactNode
+  children: ReactNode
+  orgLabel?: string       // nav header org name — default 'Prevalent AI'
+  orgSub?: string         // nav header subtitle — default 'Exposure Management'
+  userInitials?: string   // avatar initials — default 'A'
+  lastUpdated?: string    // topbar timestamp — default 'Just now'
+}
+
+export function Shell({
+  navItems,
+  subHeader,
+  children,
+  orgLabel = 'Prevalent AI',
+  orgSub = 'Exposure Management',
+  userInitials = 'A',
+  lastUpdated = 'Just now',
+}: ShellProps) {
+  const [collapsed, setCollapsed] = useState(false)
+  const [hovered, setHovered] = useState(false)
+
+  // Expanded when: not collapsed, OR collapsed but hovering
+  const isExpanded = !collapsed || hovered
+
+  const handleCollapseToggle = () => {
+    setCollapsed(c => !c)
+    setHovered(false)
+  }
+
   return (
     <div className="flex flex-col h-screen overflow-hidden font-sans bg-[#F7F9FC]">
 
-      {/* ── Topbar: always #131313, never theme-switched ── */}
-      <header className="h-[52px] bg-topbar border-b border-[#272727] flex items-center px-4 gap-3 flex-shrink-0 z-[100]">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-accent rounded flex items-center justify-center flex-shrink-0">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <span className="text-white text-[14px] font-semibold">Prevalent AI</span>
-          <span className="text-[#444] mx-1">/</span>
-          <span className="text-[#888] text-[13px]">Exposure Management</span>
-        </div>
+      {/* ── Topbar: always #131313 ── */}
+      <header
+        className="h-[52px] flex-shrink-0 z-[100] flex items-center px-4 gap-3"
+        style={{ background: '#131313', borderBottom: '1px solid #272727' }}
+      >
+        {/* PAI logo — use actual SVG asset, never a placeholder box */}
+        <img
+          src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg"
+          height={26}
+          alt="Prevalent AI"
+        />
         <span className="flex-1" />
+        {/* Last updated timestamp */}
+        <span className="text-[12px] text-[#9ca3af]">Last Updated: {lastUpdated}</span>
         {/* Notification bell */}
-        <button className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-white/10 transition-colors relative">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <button className="w-8 h-8 rounded-full flex items-center justify-center text-[#9ca3af] hover:bg-white/10 transition-colors border-none bg-transparent cursor-pointer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
         </button>
-        {/* Avatar */}
-        <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-[12px] font-semibold text-white flex-shrink-0">
+        {/* Avatar circle */}
+        <div className="w-8 h-8 rounded-full bg-[#6360D8] flex items-center justify-center text-[12px] font-semibold text-white flex-shrink-0 select-none">
           {userInitials}
         </div>
+        {/* Navigator gradient button */}
+        <button className="inline-flex items-center justify-center h-6 px-3 rounded-[44px] text-[12px] font-medium border border-[#b1b8f5] bg-transparent hover:bg-[rgba(177,184,245,0.12)] transition-colors cursor-pointer">
+          <span style={{
+            background: 'linear-gradient(to right,#467fcd,#47adcb)',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'transparent',
+          }}>
+            Navigator
+          </span>
+        </button>
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* ── Left nav: white bg, 220px wide ── */}
-        <nav className="w-[220px] bg-white border-r border-gray-200 overflow-y-auto flex-shrink-0 flex flex-col py-4 px-3 gap-1">
-          {navItems}
+
+        {/* ── Left nav: white, collapsible ── */}
+        <nav
+          onMouseEnter={() => collapsed && setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          style={{
+            width: isExpanded ? '220px' : '52px',
+            padding: isExpanded ? '16px' : '8px',
+            transition: 'width 0.22s ease, padding 0.22s ease',
+            flexShrink: 0,
+            background: '#ffffff',
+            borderRight: '0.5px solid #d8d9dd',
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0,
+          }}
+        >
+          {/* Nav header: org name + collapse toggle */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            padding: isExpanded ? '0 8px 8px 12px' : '0 0 8px',
+            borderBottom: isExpanded ? '1px solid #467fcd' : 'none',
+            marginBottom: isExpanded ? '12px' : '8px',
+            flexShrink: 0,
+          }}>
+            {isExpanded && (
+              <div>
+                <div className="flex items-center gap-1 text-[14px] font-medium text-[#101010]">
+                  {orgLabel}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </div>
+                <div className="text-[12px] text-[#6e6e6e] mt-0.5">{orgSub}</div>
+              </div>
+            )}
+            {/* Collapse / expand toggle */}
+            <button
+              onClick={handleCollapseToggle}
+              className="flex items-center justify-center text-[#6e6e6e] hover:text-[#101010] transition-colors bg-transparent border-none cursor-pointer p-0"
+              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <line x1="9" y1="3" x2="9" y2="21"/>
+                {!isExpanded
+                  ? <polyline points="11 8 15 12 11 16"/>
+                  : <polyline points="15 8 11 12 15 16"/>
+                }
+              </svg>
+            </button>
+          </div>
+
+          {/* Nav items */}
+          <div className="flex flex-col gap-0.5 flex-1">
+            {navItems.map((item, i) => (
+              <NavItem
+                key={i}
+                label={item.label}
+                icon={item.icon}
+                active={item.active}
+                collapsed={!isExpanded}
+                onClick={item.onClick}
+              />
+            ))}
+          </div>
         </nav>
 
         {/* ── Content area ── */}
         <div className="flex-1 overflow-y-auto flex flex-col min-w-0">
-          {/* Sticky sub-header */}
           {subHeader}
-          {/* Page body */}
-          <div className="flex-1 p-6">
-            {children}
-          </div>
+          <div className="flex-1 p-6">{children}</div>
         </div>
       </div>
     </div>
   )
 }
+export default Shell
 ```
 
 ---
@@ -680,32 +899,37 @@ export function Tabs({ tabs, defaultValue, className }: TabsProps) {
 
 ### React Rules (apply without being asked)
 
-1. **All CTA/text buttons use `rounded-pill` (44px)** — never `rounded-md`, `rounded-lg`, `rounded-full` on a button.
-2. **Accent is always `bg-accent` / `text-accent` (`#6360D8`)**. Filter CTA uses `accent-dark` (`#504bb8`).
-3. **Topbar is always `bg-topbar` (`#131313`)** — never theme-switched, never any other colour.
-4. **Inter font** — set in `tailwind.config.ts` `fontFamily.sans` and load via Google Fonts link.
-5. **Status is never tooltip-only** — `SeverityBadge` / `StatusBadge` must be visible in default table columns.
-6. **Tables over cards** for list data — `DataTable` for items, `KPICard` only for aggregate metrics.
-7. **Row actions always in a dedicated last column** — never mixed with status badge or any other cell content. Empty `<th>` header.
-8. **KPI cards never have icons** — content = value + label + trend only. No icon prop, no decorative borders, no box-shadow.
-9. **Destructive confirm** — wrap delete actions in a `Dialog` with item name, consequence text, and `variant="danger"` confirm button. Cancel is left of Confirm.
-10. **KPI rows: max 5 cards** (Miller's Law).
-11. **Table columns: 5–7 visible by default** — extras opt-in via Add Column.
-12. **Never infer tabs** — only add `<Tabs>` when the user explicitly asks for a tabbed layout.
-13. **Nav items always have icons** — use `<NavItem icon={...} label="..." active={...} />` for every left nav item.
-14. **Sub-header always uses `<SubHeader>`** — never freeform the sticky header.
-15. **Radix package names:**
+1. **All CTA/text buttons use `rounded-[44px]` (pill)** — never `rounded-md`, `rounded-lg`, `rounded-full` on a button.
+2. **Accent is `#6360D8`**. Filter / Active Filters CTA is `#504bb8`. Never use other purples.
+3. **Topbar is always `#131313`** — never theme-switched, never any other colour.
+4. **Topbar content (left → right):** PAI logo `<img>` → flex spacer → "Last Updated" text → bell → avatar → Navigator gradient button. NO "Prevalent AI / Exposure Management" text in the topbar.
+5. **"Prevalent AI / Exposure Management" belongs in the LEFT NAV HEADER** — rendered by `<Shell>`, never in the topbar.
+6. **Left nav is collapsible** — collapses to 52px icon-only on toggle, hovers back to 220px. Use `<Shell>` with `navItems` array; it manages collapse state internally.
+7. **Nav items always have icons** — pass `icon={<SomeLucideIcon size={16}/>}` to every `NavItem`. Never a nav item without an icon.
+8. **Sub-header always uses `<SubHeader>`** — never freeform the sticky header. It handles breadcrumb, Add button, ActiveFilters popover, and Filter button.
+9. **SubHeader title is 12px/500** — never an `<h1>`, never 18px or larger for the sub-header title.
+10. **ActiveFilters popover** — pass `activeFilters` array to `<SubHeader>`; the component renders the hover popover automatically.
+11. **KPI cards never have icons** — content = value + label + trend only. No icon prop, no decorative borders, no box-shadow.
+12. **KPI rows: max 5 cards** (Miller's Law).
+13. **Tables over cards** for list data — `DataTable` for items, `KPICard` only for aggregate metrics.
+14. **Table column order:** `[checkbox] → [data cols] → [status] → [actions]`. Max 7 columns.
+15. **Row actions always in a dedicated last column** — never mixed with status badge or any other cell content. Empty `<th>` header. Hidden by default, `group-hover:opacity-100`.
+16. **Status is never tooltip-only** — `SeverityBadge` / `StatusBadge` must be visible in default table columns.
+17. **Never infer tabs** — only add `<Tabs>` when the user explicitly asks for a tabbed layout.
+18. **Destructive confirm** — wrap delete actions in a `Dialog` with item name, consequence text, and `variant="danger"` confirm button. Cancel is left of Confirm.
+19. **Inter font** — set in `tailwind.config.ts` `fontFamily.sans` and load via Google Fonts link.
+20. **Border radius:**
+    - Buttons → `rounded-[44px]`
+    - Cards / table wrappers / panels → `rounded-[4px]`
+    - Modals / drawers → `rounded-[12px]`
+    - Inputs / selects → `rounded-[8px]`
+    - Badges / tags → `rounded-[3px]`
+21. **Spacing:** `p-1 p-2 p-3 p-4 p-5 p-6 p-8` only — never `p-2.5`, `p-3.5`, `p-7`, or arbitrary values.
+22. **Radix package names:**
     - Dialog → `@radix-ui/react-dialog`
     - Select → `@radix-ui/react-select`
     - Checkbox → `@radix-ui/react-checkbox`
     - Tabs → `@radix-ui/react-tabs`
     - DropdownMenu → `@radix-ui/react-dropdown-menu`
     - Popover → `@radix-ui/react-popover`
-16. **Border radius:**
-    - Buttons → `rounded-pill` (44px)
-    - Cards / table wrappers / panels → `rounded-card` (4px)
-    - Modals / drawers → `rounded-modal` (12px)
-    - Inputs / selects → `rounded-[8px]`
-    - Badges / tags → `rounded-[3px]`
-17. **No inline styles** except the Navigator gradient text.
-18. **Output individual component files** — one component per file, named exactly as shown, placed in `src/components/ui/` or `src/components/shell/`.
+23. **Output individual component files** — one component per file, named exactly as shown, placed in `src/components/ui/` or `src/components/shell/`. Always export both named and default.
