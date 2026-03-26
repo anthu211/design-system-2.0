@@ -144,9 +144,12 @@ html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
 .ds-table td { padding:12px 16px;border-bottom:1px solid var(--table-border);color:var(--shell-text-2);vertical-align:middle; }
 .ds-table tbody tr:last-child td { border-bottom:none; }
 .ds-table tbody tr:hover td { background:var(--shell-hover); }
-/* Row hover actions — hidden by default, revealed on row hover */
+/* Row hover actions — hidden by default, revealed on row hover.
+   CRITICAL: row-actions go in their OWN last <td> with no header text.
+   NEVER put action icons in the same cell as a status badge or any other content. */
 .ds-table tbody tr .row-actions { display:none; }
 .ds-table tbody tr:hover .row-actions { display:inline-flex;gap:4px; }
+.ds-table td.col-actions { width:80px; text-align:right; padding:8px 12px; }
 .ds-table-action { background:none;border:none;cursor:pointer;color:var(--shell-text-muted);padding:4px;border-radius:4px; }
 .ds-table-action:hover { color:var(--shell-text);background:var(--shell-hover); }
 /* Checkbox column */
@@ -831,7 +834,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
 ### Data Table
 
-Every table must have: **(1) checkbox col 1, (2) row hover actions, (3) pagination footer with row count.**
+Every table must have: **(1) checkbox col 1, (2) row hover actions in a dedicated last column, (3) pagination footer with row count.**
+
+**CRITICAL table column rules:**
+- Column order: `[checkbox] [data cols…] [status] [actions]`
+- The **actions column** has an **empty `<th>`** — no header label, `class="col-actions"`
+- **NEVER** put action icons and a status badge in the same `<td>`
+- The status column contains ONLY a `ds-badge` — no icons, no buttons
+- Row actions are hidden by default and revealed on `tr:hover` via CSS — do not add `style="display:flex"` to `.row-actions`
 
 ```html
 <div style="border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
@@ -844,7 +854,7 @@ Every table must have: **(1) checkbox col 1, (2) row hover actions, (3) paginati
           <th>Severity</th>
           <th>Asset</th>
           <th>Status</th>
-          <th style="width:40px;"></th>
+          <th class="col-actions"></th><!-- empty header — row actions column -->
         </tr>
       </thead>
       <tbody>
@@ -853,9 +863,9 @@ Every table must have: **(1) checkbox col 1, (2) row hover actions, (3) paginati
           <td style="color:var(--shell-text);font-weight:500;">SQL Injection in /api/login</td>
           <td><span class="ds-badge danger">Critical</span></td>
           <td style="color:var(--shell-text-muted);">prod-api-01</td>
-          <td><span class="ds-badge warning dot">Open</span></td>
-          <td>
-            <!-- Row hover actions: hidden by default, shown on tr:hover via CSS -->
+          <td><span class="ds-badge warning dot">Open</span></td><!-- status badge only — no icons here -->
+          <td class="col-actions">
+            <!-- row-actions: hidden by default, CSS shows on tr:hover. Do NOT mix with status column. -->
             <div class="row-actions">
               <button class="ds-table-action" title="View">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -872,7 +882,7 @@ Every table must have: **(1) checkbox col 1, (2) row hover actions, (3) paginati
           <td><span class="ds-badge danger">Critical</span></td>
           <td style="color:var(--shell-text-muted);">prod-api-02</td>
           <td><span class="ds-badge warning dot">Open</span></td>
-          <td>
+          <td class="col-actions">
             <div class="row-actions">
               <button class="ds-table-action" title="View"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
               <button class="ds-table-action" title="Export"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>

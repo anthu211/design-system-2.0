@@ -73,6 +73,14 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
 - Max 7 columns by default
 - **React:** always include checkbox column, `group-hover` row actions, pagination footer
 
+### Row Actions — Column Structure
+
+- Row actions go in a **dedicated last `<td class="col-actions">`** with an **empty `<th>`** (no header label)
+- **NEVER** put action icons in the same cell as a status badge or any other content
+- The status column contains **only** a `ds-badge` — no buttons, no icons
+- `.row-actions` is `display:none` by default — CSS reveals it on `tr:hover`; NEVER add `style="display:flex"` to it inline
+- Column order: `[checkbox] → [data columns] → [status] → [actions]`
+
 ---
 
 ## Cards & Containers

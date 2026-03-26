@@ -1251,6 +1251,9 @@ html.theme-light .ds-tooltip-wrap::after { background: #1c1c1c; color: #f0f0f0; 
 .ds-table tbody tr:last-child td { border-bottom: none; }
 .ds-table tbody tr:hover .ds-td,
 .ds-table tbody tr:hover td { background: var(--shell-hover); }
+.ds-table tbody tr .row-actions { display: none; }
+.ds-table tbody tr:hover .row-actions { display: inline-flex; gap: 4px; }
+.ds-table td.col-actions { width: 80px; text-align: right; padding: 8px 12px; }
 .ds-table-action { background: none; border: none; cursor: pointer; color: var(--shell-text-muted); padding: 4px; border-radius: 4px; }
 .ds-table-action:hover { color: var(--shell-text); background: var(--shell-hover); }
 

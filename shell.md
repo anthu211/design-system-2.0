@@ -241,6 +241,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
     .ds-tooltip-wrap[data-pos="left"]:hover::after   { transform:translateY(-50%) translateX(0); }
 
     /* ── Nav Collapse ── */
+    .nav-lbl { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:140px; }
     #shell-nav { transition:width 0.22s ease,padding 0.22s ease; }
     #shell-nav.nav-collapsed { width:52px !important;padding:16px 8px !important;overflow:hidden; }
     #shell-nav.nav-collapsed .nav-hdr-info { display:none; }
@@ -305,7 +306,7 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
         <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;cursor:pointer;color:#6e6e6e;">
           <div style="display:flex;align-items:center;gap:8px;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Home</span>
+            <span class="nav-lbl" style="font-size:14px;font-weight:400;">Home</span>
           </div>
           <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
@@ -315,19 +316,19 @@ Hosted at: `https://anthu211.github.io/design-system-2.0/`
           <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#6e6e6e;">
             <div style="display:flex;align-items:center;gap:8px;">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Section Name</span>
+              <span class="nav-lbl" style="font-size:14px;font-weight:400;">Section Name</span>
             </div>
             <svg class="nav-chev" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
           </div>
           <!-- Active sub-item: indent 30px, #6360d8 + bg tint. In collapsed rail: ONLY this icon shows in accent color -->
           <a href="#" class="nav-sub nav-active" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;background:rgba(99,96,216,0.08);border-radius:6px;color:#6360d8;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="9" height="9" rx="1"/><rect x="13" y="3" width="9" height="9" rx="1"/><rect x="2" y="14" width="9" height="9" rx="1"/></svg>
-            <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Active Sub Item</span>
+            <span class="nav-lbl" style="font-size:14px;font-weight:400;">Active Sub Item</span>
           </a>
           <!-- Default sub-item: hidden in collapsed rail -->
           <a href="#" class="nav-sub" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;color:#6e6e6e;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
-            <span class="nav-lbl" style="display:flex;font-size:14px;font-weight:400;">Default Sub Item</span>
+            <span class="nav-lbl" style="font-size:14px;font-weight:400;">Default Sub Item</span>
           </a>
         </div>
 
