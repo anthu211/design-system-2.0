@@ -1978,11 +1978,11 @@ function downloadClaudeSetup() {
 // ─── Copy AI Prompt for Claude Code ───
 function copyAiPrompt() {
   var prompt = [
-    'Build UI for Prevalent AI — B2B cybersecurity platform for enterprise security teams.',
-    'Fetch this file before writing a single line: https://anthu211.github.io/design-system-2.0/ds-core.md',
-    'This file is the single source of truth — all tokens, components, shell structure, personas, and hard rules are in it. Follow it exactly.',
+    'Read these design system files fully before responding:',
+    'https://anthu211.github.io/design-system-2.0/page-spec.md',
+    'https://anthu211.github.io/design-system-2.0/charts.md',
     '',
-    'Persona (keep one, remove the rest): ciso · grc · security-architect · security-engineer · soc-analyst',
+    'Persona (keep one, delete the rest): ciso · grc · security-architect · security-engineer · soc-analyst',
     '',
     'Describe the screen you want to build:',
   ].join('\n');
