@@ -62,14 +62,6 @@ Identifies primary persona and flags design conflicts. Fetches `ds-core.md`.
 
 ## Copy-paste prompt (no Claude Code)
 
-For any AI tool (Claude.ai, ChatGPT, Cursor, v0, Copilot) — copy this block, paste it, fill in the last line:
+For any AI tool (Lovable, Bolt, Replit, v0, Claude.ai, ChatGPT, Cursor) — the prompt on the website embeds all rules inline. No URLs, no file fetching required. Works everywhere.
 
-```
-Read these design system files fully before responding:
-https://anthu211.github.io/design-system-2.0/page-spec.md
-https://anthu211.github.io/design-system-2.0/charts.md
-
-Persona (keep one, delete the rest): ciso · grc · security-architect · security-engineer · soc-analyst
-
-Describe the screen you want to build:
-```
+Get it from the website: `https://anthu211.github.io/design-system-2.0/`
