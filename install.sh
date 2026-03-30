@@ -1,28 +1,25 @@
 #!/bin/bash
 # Prevalent AI — Claude Code Setup Installer
-# Run this from your project root: bash install.sh
+# Run this from your project root: bash claude-setup/install.sh
 
 set -e
 
-echo "Installing Prevalent AI Claude Code setup..."
+BASE="https://anthu211.github.io/design-system-2.0"
 
-# Create .claude/commands directory if it doesn't exist
+echo "Installing Prevalent AI Claude Code setup..."
+echo "Fetching latest command files from $BASE"
+echo ""
+
 mkdir -p .claude/commands
 
-# Get the directory where this script lives
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# Always pull from GitHub — never from local copies (prevents stale installs)
+curl -fsSL "$BASE/commands/new-page.md"            -o .claude/commands/new-page.md
+curl -fsSL "$BASE/commands/new-component.md"       -o .claude/commands/new-component.md
+curl -fsSL "$BASE/commands/new-react-component.md" -o .claude/commands/new-react-component.md
+curl -fsSL "$BASE/commands/ux-review.md"           -o .claude/commands/ux-review.md
+curl -fsSL "$BASE/commands/persona-check.md"       -o .claude/commands/persona-check.md
+curl -fsSL "$BASE/CLAUDE.md"                       -o CLAUDE.md
 
-# Copy command files
-cp "$SCRIPT_DIR/.claude/commands/new-page.md"            .claude/commands/new-page.md
-cp "$SCRIPT_DIR/.claude/commands/new-component.md"       .claude/commands/new-component.md
-cp "$SCRIPT_DIR/.claude/commands/new-react-component.md" .claude/commands/new-react-component.md
-cp "$SCRIPT_DIR/.claude/commands/ux-review.md"           .claude/commands/ux-review.md
-cp "$SCRIPT_DIR/.claude/commands/persona-check.md"       .claude/commands/persona-check.md
-
-# Copy CLAUDE.md to project root
-cp "$SCRIPT_DIR/CLAUDE.md" ./CLAUDE.md
-
-echo ""
 echo "✓ Done! Files installed:"
 echo "  .claude/commands/new-page.md"
 echo "  .claude/commands/new-component.md"
