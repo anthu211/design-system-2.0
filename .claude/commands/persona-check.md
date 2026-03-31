@@ -1,6 +1,8 @@
-Fetch this URL before doing anything:
+Fetch ALL of these URLs fully before doing anything:
+1. https://anthu211.github.io/design-system-2.0/ds/rules.json
+2. https://anthu211.github.io/design-system-2.0/ds-core.txt
 
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
+Do not proceed until every URL above is fully fetched and read.
 
 ---
 
@@ -10,7 +12,7 @@ $ARGUMENTS
 
 ---
 
-Using the personas and UX laws from `ds-core.md`:
+Using the personas and UX laws from ds-core.txt:
 
 **Primary Persona** — which of ciso / grc / security-architect / security-engineer / soc-analyst, and why in one sentence.
 
