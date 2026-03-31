@@ -84,12 +84,29 @@
       "Bash(touch ds/patterns/shells.json ds/patterns/navigation.json)",
       "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/new-page.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/new-page.md\")",
       "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/new-component.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/new-component.md\")",
-      "Bash(wc -l \"/Users/ananthusunil/PAI Edits/design-system/ds/components/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/tokens/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/patterns/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/rules.json\")"
+      "Bash(wc -l \"/Users/ananthusunil/PAI Edits/design-system/ds/components/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/tokens/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/patterns/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/rules.json\")",
+      "Bash(brew list:*)",
+      "Bash(curl -sI https://anthu211.github.io/design-system-2.0/ds-core.md)",
+      "Bash(curl -sI https://anthu211.github.io/design-system-2.0/page-spec.md)",
+      "Bash(curl -sI https://anthu211.github.io/design-system-2.0/charts.md)",
+      "Bash(cp page-spec.md page-spec.txt)",
+      "Bash(cp charts.md charts.txt)",
+      "Bash(cp ds-core.md ds-core.txt)",
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//Users/ananthusunil/PAI Edits/design-system/ds/**)",
+      "Bash(done)",
+      "Bash(cp .claude/commands/new-page.md commands/new-page.md)",
+      "Bash(cp .claude/commands/new-component.md commands/new-component.md)",
+      "Bash(cp .claude/commands/new-react-component.md commands/new-react-component.md)",
+      "Bash(cp .claude/commands/ux-review.md commands/ux-review.md)",
+      "Bash(cp .claude/commands/persona-check.md commands/persona-check.md)"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
       "/Users/ananthusunil/PAI Edits/design-system/.claude/commands",
-      "/private/tmp"
+      "/private/tmp",
+      "/Users/ananthusunil/PAI Edits/design-system"
     ]
   }
 }
