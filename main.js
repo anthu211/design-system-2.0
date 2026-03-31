@@ -1978,12 +1978,27 @@ function downloadClaudeSetup() {
 // ─── Copy AI Prompt for Claude Code ───
 function copyAiPrompt() {
   var prompt = [
+    'Build UI for Prevalent AI — B2B cybersecurity platform for enterprise security teams.',
+    '',
     'Read these design system files fully before responding:',
-    'https://anthu211.github.io/design-system-2.0/ds-core.md',
     'https://anthu211.github.io/design-system-2.0/page-spec.md',
     'https://anthu211.github.io/design-system-2.0/charts.md',
     '',
-    'Persona (keep one, delete the rest): ciso · grc · security-architect · security-engineer · soc-analyst',
+    'REQUIRED — copy these verbatim, never rewrite or shorten:',
+    '• Shell HTML template from page-spec.md — full <style> block, full <script> block',
+    '• shellNavToggle() JS — left nav collapse/expand (id="shell-nav", id="shell-nav-btn" required)',
+    '• Chart JS from charts.md — buildVerticalBarChart / buildLineChart / buildMultiLineChart / buildDonutChart / buildStackedBarChart',
+    '• Tooltip JS — showChartTooltip / positionChartTooltip / hideChartTooltip + <div id="chart-tooltip"> at end of <body>',
+    '• Init charts: document.addEventListener("DOMContentLoaded", function() { setTimeout(initCharts, 60); })',
+    '',
+    'REQUIRED interactions — all must work:',
+    '• Left nav collapses and expands via shellNavToggle()',
+    '• Every chart shows hover tooltip (segment, bar, dot, row)',
+    '• Table row actions visible on tr:hover via CSS only — never style="display:flex" inline',
+    '• Filter chips use .ds-filter-chip > .ds-chip-key + .ds-chip-value + .ds-chip-close',
+    '• Toasts: success/info auto-dismiss 3s, error/warning persist until dismissed',
+    '',
+    'Persona (keep one, delete rest): ciso · grc · security-architect · security-engineer · soc-analyst',
     '',
     'Describe the screen you want to build:',
   ].join('\n');
@@ -2699,3 +2714,26 @@ if (document.querySelector('#page-buttons.active')) {
     _dsMsSync(listId, countId);
   });
 })();
+
+// ─── AI Setup page: copy prompt ───
+function copyPrompt(cardId, btn) {
+  var card = document.getElementById(cardId);
+  if (!card) return;
+  var pre = card.querySelector('.ai-prompt-body');
+  if (!pre) return;
+  // Decode HTML entities before copying
+  var ta = document.createElement('textarea');
+  ta.value = pre.textContent;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  btn.classList.add('copied');
+  btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+  setTimeout(function() {
+    btn.classList.remove('copied');
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+  }, 2000);
+}

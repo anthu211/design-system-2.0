@@ -1,0 +1,34 @@
+{
+  "module": "typography",
+  "font_family": {
+    "sans": ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
+    "mono": ["SF Mono", "Fira Code", "monospace"],
+    "load": "Google Fonts — https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+  },
+  "base_size": "12px",
+  "html_class": "theme-light",
+  "scale": {
+    "page-title":     { "size": "18px", "weight": 700, "usage": "Full-page error state only — never in sub-header" },
+    "heading-md":     { "size": "14px", "weight": 600, "usage": "Section headings, modal titles" },
+    "subheader-title":{ "size": "12px", "weight": 500, "usage": "Sub-header page title — line 1 only, never <h1>" },
+    "body-md":        { "size": "12px", "weight": 400, "usage": "Default body text, table cells, labels" },
+    "body-sm":        { "size": "11px", "weight": 400, "usage": "Breadcrumbs, meta info, secondary labels" }
+  },
+  "tailwind_scale": {
+    "2xs": { "size": "10px", "line-height": "14px" },
+    "xs":  { "size": "11px", "line-height": "15px" },
+    "sm":  { "size": "12px", "line-height": "16px" },
+    "base":{ "size": "13px", "line-height": "19px" },
+    "md":  { "size": "14px", "line-height": "20px" },
+    "lg":  { "size": "16px", "line-height": "22px" },
+    "xl":  { "size": "18px", "line-height": "24px" }
+  },
+  "rules": [
+    "Never use <h1> inside the content body — sub-header title is 12px/500 only.",
+    "Never use 18px font size except in full-page error states.",
+    "Sub-header has TWO lines: title (12px/500) on line 1, breadcrumb (11px) on line 2 — never merged.",
+    "Last breadcrumb crumb always color:#6360D8.",
+    "Table header text: 11px uppercase — never larger.",
+    "Badge/tag text: 11px, uppercase, font-weight 600."
+  ]
+}

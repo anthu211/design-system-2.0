@@ -1,0 +1,64 @@
+{
+  "component": "tables",
+  "classes": {
+    "wrap":    "ds-table-wrap",
+    "table":   "ds-table",
+    "th":      "ds-th",
+    "td":      "ds-td",
+    "actions": "col-actions",
+    "row_actions": "row-actions"
+  },
+  "column_order": "[checkbox] → [data columns] → [status] → [actions]",
+  "max_columns": 7,
+  "tokens": {
+    "header_bg":    "var(--table-th-bg)",
+    "border":       "1px solid var(--table-border)",
+    "row_hover_bg": "var(--shell-hover)",
+    "font_size":    "12px"
+  },
+  "row_actions": {
+    "visibility": "hidden by default via CSS — reveal on tr:hover",
+    "rule": "Never set style='display:flex' inline on .row-actions",
+    "css": ".row-actions { display:none; } tr:hover .row-actions { display:flex; gap:4px; }"
+  },
+  "pagination": {
+    "classes": "ds-pagination > ds-page-btn [active] [disabled]",
+    "position": "bottom of table, right-aligned",
+    "row_count": "Always show 'Showing X–Y of Z' left of pagination",
+    "required": true
+  },
+  "empty_state": {
+    "emoji": "🚦",
+    "heading": "No Data… For Now!",
+    "subtext": "No records match your current filters. Try adjusting your search.",
+    "rule": "Keep <thead> and pagination visible. No Refresh button. Never use 🚧 here.",
+    "example_html": "<tbody><tr><td colspan=\"100%\" style=\"text-align:center;padding:48px 24px;\"><div style=\"font-size:28px;margin-bottom:12px;\">🚦</div><div style=\"font-size:14px;font-weight:600;color:var(--shell-text);margin-bottom:8px;\">No Data… For Now!</div><div style=\"font-size:12px;color:#a3a5af;\">No records match your current filters.</div></td></tr></tbody>"
+  },
+  "bulk_toolbar": {
+    "trigger": "Appears when ≥1 row checked",
+    "position": "Above table, replaces or overlays filter bar",
+    "contents": "Selected count + bulk action buttons (Delete, Export, etc.)",
+    "use_for": ["security-engineer persona", "any list page with bulk operations"]
+  },
+  "do": [
+    "Always follow column order: checkbox → data → status → actions.",
+    "Keep actions in their own col-actions cell — never share with status.",
+    "Always include pagination + row count.",
+    "Keep thead visible in empty and error states.",
+    "Use .row-actions hidden by CSS, revealed on tr:hover."
+  ],
+  "dont": [
+    "Never put action icons in the same <td> as the status badge.",
+    "Never inline style='display:flex' on .row-actions.",
+    "Never hide thead in empty state.",
+    "Never use 🚧 in table empty state — always 🚦.",
+    "Never add a Refresh button in the empty state.",
+    "Never exceed 7 columns."
+  ],
+  "example_html": "<div class=\"ds-table-wrap\">\n  <table class=\"ds-table\">\n    <thead><tr>\n      <th class=\"ds-th\" style=\"width:40px;\"><input type=\"checkbox\"></th>\n      <th class=\"ds-th\">Name</th>\n      <th class=\"ds-th\">Status</th>\n      <th class=\"ds-th\"></th>\n    </tr></thead>\n    <tbody><tr>\n      <td class=\"ds-td\"><input type=\"checkbox\"></td>\n      <td class=\"ds-td\">Finding name</td>\n      <td class=\"ds-td\"><span class=\"ds-badge warning\">Open</span></td>\n      <td class=\"ds-td col-actions\">\n        <div class=\"row-actions\">\n          <button class=\"ds-icon-btn\" title=\"View\"><!-- SVG --></button>\n        </div>\n      </td>\n    </tr></tbody>\n  </table>\n  <div style=\"display:flex;align-items:center;justify-content:space-between;padding:8px 16px;font-size:11px;color:var(--shell-text-muted);border-top:1px solid var(--table-border);\">\n    <span>Showing 1–25 of 148</span>\n    <div style=\"display:flex;gap:4px;\"><!-- pagination --></div>\n  </div>\n</div>",
+  "react": {
+    "row_actions_class": "opacity-0 group-hover:opacity-100 transition-opacity",
+    "row_class": "group",
+    "note": "Add 'group' class to <tr>, use group-hover:opacity-100 on action cell"
+  }
+}

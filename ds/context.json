@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "product": "Prevalent AI — Cybersecurity Risk & Exposure Management Platform",
+  "base_url": "https://anthu211.github.io/design-system-2.0/ds/",
+  "standard_plan_note": "Keep total fetched JSON under 15KB per session. Fetch only the modules listed in routing[] for your task type.",
+  "implementation_files": {
+    "note": "JSON modules describe rules and tokens. These MD files contain the actual verbatim HTML/CSS/JS to copy — always fetch them for build tasks.",
+    "shell_template": "https://anthu211.github.io/design-system-2.0/page-spec.md",
+    "chart_functions": "https://anthu211.github.io/design-system-2.0/charts.md",
+    "component_patterns": "https://anthu211.github.io/design-system-2.0/ds-core.md",
+    "must_copy_verbatim": [
+      "Shell HTML template — full <style> block, full <script> block including shellNavToggle()",
+      "Chart JS functions — buildVerticalBarChart, buildLineChart, buildMultiLineChart, buildDonutChart, buildStackedBarChart",
+      "Tooltip JS — showChartTooltip, positionChartTooltip, hideChartTooltip + <div id='chart-tooltip'>"
+    ]
+  },
+  "rules": [
+    "Use CSS variables only — never hardcode hex or px values inline.",
+    "Spacing: 4pt grid only — 4, 8, 12, 16, 20, 24, 32, 48px. Off-scale values are bugs.",
+    "Every interactive element needs hover, active, focus, and disabled states.",
+    "Never modify the navigation pattern without design approval.",
+    "Always use a defined shell — never invent new page layouts.",
+    "Every new component file must be registered in context.json modules."
+  ],
+  "routing": {
+    "new page":      ["tokens/colors", "tokens/spacing", "tokens/typography", "patterns/shells", "patterns/navigation", "components/buttons", "rules"],
+    "new component": ["tokens/colors", "tokens/spacing", "components/[name]", "rules"],
+    "new chart":     ["tokens/colors", "tokens/spacing", "components/charts"],
+    "ux review":     ["rules", "tokens/colors", "tokens/spacing", "tokens/typography"],
+    "table":         ["tokens/colors", "tokens/spacing", "components/tables", "components/badges"],
+    "modal":         ["tokens/colors", "tokens/spacing", "components/modals", "components/buttons"],
+    "form":          ["tokens/colors", "tokens/spacing", "components/inputs", "components/buttons", "components/feedback"]
+  },
+  "modules": {
+    "rules":                   "rules.json",
+    "tokens/colors":           "tokens/colors.json",
+    "tokens/typography":       "tokens/typography.json",
+    "tokens/spacing":          "tokens/spacing.json",
+    "components/buttons":      "components/buttons.json",
+    "components/cards":        "components/cards.json",
+    "components/inputs":       "components/inputs.json",
+    "components/tables":       "components/tables.json",
+    "components/modals":       "components/modals.json",
+    "components/badges":       "components/badges.json",
+    "components/feedback":     "components/feedback.json",
+    "components/charts":       "components/charts.json",
+    "patterns/shells":         "patterns/shells.json",
+    "patterns/navigation":     "patterns/navigation.json"
+  }
+}

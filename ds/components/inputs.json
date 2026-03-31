@@ -1,0 +1,96 @@
+{
+  "component": "inputs",
+  "variants": ["text", "textarea", "checkbox", "radio", "toggle", "dropdown", "filter-bar"],
+  "tokens": {
+    "border_radius": "8px",
+    "background":    "var(--ctrl-bg)",
+    "border":        "1px solid var(--ctrl-border)",
+    "placeholder":   "var(--ctrl-placeholder)",
+    "focus_border":  "#6360D8",
+    "focus_ring":    "rgba(99,96,216,0.2)",
+    "error_border":  "1.5px solid #dc2626",
+    "error_color":   "#dc2626",
+    "font_size":     "12px"
+  },
+  "validation": {
+    "trigger": "blur only — never per-keystroke",
+    "on_error": "red border + ⓘ icon + message below field",
+    "preserve_value": true,
+    "required_marker": "<span style='color:#dc2626'>*</span> after label text"
+  },
+  "variants_detail": {
+    "text": {
+      "wrap_class": "ds-input-wrap",
+      "label_class": "ds-input-label",
+      "field_class": "ds-input-field",
+      "example_html": "<div class=\"ds-input-wrap\">\n  <label class=\"ds-input-label\">API Key <span style=\"color:#dc2626\">*</span></label>\n  <input type=\"text\" class=\"ds-input-field\" placeholder=\"Enter value\">\n</div>",
+      "error_html": "<div class=\"ds-input-wrap\">\n  <label class=\"ds-input-label\">Email</label>\n  <input type=\"email\" class=\"ds-input-field\" style=\"border:1.5px solid #dc2626;\">\n  <span class=\"ds-field-error\"><!-- ⓘ SVG --> Enter a valid email address</span>\n</div>"
+    },
+    "textarea": {
+      "field_class": "ds-textarea-field",
+      "min_rows": 3,
+      "example_html": "<div class=\"ds-input-wrap\">\n  <label class=\"ds-input-label\">Description</label>\n  <textarea class=\"ds-textarea-field\" rows=\"3\" placeholder=\"Enter description\"></textarea>\n</div>"
+    },
+    "checkbox": {
+      "wrap_class": "ds-checkbox-wrap",
+      "input_class": "ds-checkbox-input",
+      "box_class": "ds-checkbox-box",
+      "label_class": "ds-checkbox-label",
+      "example_html": "<label class=\"ds-checkbox-wrap\">\n  <input type=\"checkbox\" class=\"ds-checkbox-input\">\n  <span class=\"ds-checkbox-box\"></span>\n  <span class=\"ds-checkbox-label\">Enable notifications</span>\n</label>"
+    },
+    "radio": {
+      "wrap_class": "ds-radio-wrap",
+      "structure": "ds-radio-wrap > ds-radio-input + ds-radio-dot + ds-radio-label",
+      "example_html": "<label class=\"ds-radio-wrap\">\n  <input type=\"radio\" class=\"ds-radio-input\" name=\"group\">\n  <span class=\"ds-radio-dot\"></span>\n  <span class=\"ds-radio-label\">Option A</span>\n</label>"
+    },
+    "toggle": {
+      "wrap_class": "ds-toggle-wrap",
+      "structure": "ds-toggle-wrap > ds-toggle-input + ds-toggle-track > ds-toggle-thumb + ds-toggle-label",
+      "dual_toggle": "ds-dual-toggle > dual-label + ds-toggle-wrap + dual-label",
+      "example_html": "<label class=\"ds-toggle-wrap\">\n  <input type=\"checkbox\" class=\"ds-toggle-input\">\n  <span class=\"ds-toggle-track\"><span class=\"ds-toggle-thumb\"></span></span>\n  <span class=\"ds-toggle-label\">Enable feature</span>\n</label>"
+    },
+    "dropdown": {
+      "wrap_class": "ds-dropdown",
+      "trigger_class": "ds-dropdown-trigger ds-btn sz-md t-outline",
+      "panel_class": "ds-dropdown-panel",
+      "option_class": "ds-dropdown-option",
+      "selected_class": "ds-dropdown-option selected",
+      "search_threshold": "Add search input inside panel when 10+ options (Hick's Law)",
+      "example_html": "<div class=\"ds-dropdown\">\n  <button class=\"ds-dropdown-trigger ds-btn sz-md t-outline\">\n    <span>Select option</span><svg><!-- chevron --></svg>\n  </button>\n  <div class=\"ds-dropdown-panel\" style=\"display:none;\">\n    <div class=\"ds-dropdown-option selected\">Option A</div>\n    <div class=\"ds-dropdown-option\">Option B</div>\n  </div>\n</div>"
+    },
+    "filter-bar": {
+      "bar_class": "ds-filter-bar",
+      "btn_class": "ds-filter-btn",
+      "chip_class": "ds-filter-chip",
+      "chip_key_class": "ds-chip-key",
+      "chip_value_class": "ds-chip-value",
+      "chip_close_class": "ds-chip-close",
+      "filter_button_style": "background:#e0dff7; color:#504bb8; border-radius:44px",
+      "example_html": "<div class=\"ds-filter-bar\">\n  <button class=\"ds-filter-btn\"><svg><!-- icon --></svg> Filter</button>\n  <span class=\"ds-filter-chip\">\n    <span class=\"ds-chip-key\">Severity</span>\n    <span class=\"ds-chip-value\">Critical</span>\n    <button class=\"ds-chip-close\">×</button>\n  </span>\n</div>"
+    }
+  },
+  "do": [
+    "Validate on blur only — never per-keystroke.",
+    "Always pair red border with a specific error message and ⓘ icon below the field.",
+    "Preserve the entered value on error — never clear the field.",
+    "Add search input inside dropdown panels with 10+ options.",
+    "Use ds-input-wrap > ds-input-label + ds-input-field structure always."
+  ],
+  "dont": [
+    "Never validate per-keystroke.",
+    "Never show a red border without an error message below it.",
+    "Never clear field value when showing a validation error.",
+    "Never use native <select> — use ds-dropdown instead.",
+    "Never use border-radius other than 8px on inputs and dropdowns."
+  ],
+  "react": {
+    "library": "Radix UI",
+    "components": {
+      "checkbox": "Radix Checkbox",
+      "toggle":   "Radix Switch",
+      "dropdown": "Radix Select or DropdownMenu",
+      "radio":    "Radix RadioGroup"
+    },
+    "input_class": "rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm focus:ring-1 focus:ring-accent/30"
+  }
+}

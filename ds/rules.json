@@ -1,0 +1,50 @@
+{
+  "module": "rules",
+  "principles": [
+    "Every screen is built for enterprise security professionals — density, clarity, and speed over decoration.",
+    "Shell structure is non-negotiable: topbar + left nav + sub-header + content body on every page.",
+    "Components communicate status through position and color semantics, never through tooltips alone.",
+    "Spacing, radius, and type size follow a strict scale — off-scale values are bugs, not style choices.",
+    "One dominant CTA per section; navigation and hierarchy do the rest of the work."
+  ],
+  "always": [
+    "Use topbar background:#131313 with PAI logo image only — never 'Prevalent AI' text.",
+    "Use border-radius:44px on all CTA/text buttons, 4px on cards and table wrappers, 8px on inputs.",
+    "Use spacing from 4px scale only: 4, 8, 12, 16, 20, 24, 32, 48px.",
+    "Show severity and status in a visible table column — never tooltip-only.",
+    "Use tables for list data, not cards.",
+    "Require confirmation modal for every destructive action — name the item, state the consequence.",
+    "Sub-header must have two lines: page title (12px/500) on line 1, breadcrumb on line 2.",
+    "Left nav workspace label must be the workspace name — never 'Prevalent AI'.",
+    "Validate form fields on blur only and preserve the entered value on error.",
+    "Always make sure left nav workspace have collapsible option and inside menu should also have collapsible option",
+    "Include pagination and row count on every table."
+  ],
+  "never": [
+    "Never use <canvas> or external chart libraries (Chart.js, D3, ECharts).",
+    "Never apply custom background-color or color to a button — use variant classes only.",
+    "Never add page-level tabs unless explicitly requested.",
+    "Never use style='display:flex' inline on .row-actions — CSS only.",
+    "Never place action icons in the same <td> as the status badge.",
+    "Never use <h1> below the sub-header or an 18px title in the sub-header.",
+    "Never add icons, colored borders, or box-shadow to KPI cards.",
+    "Never use off-scale spacing values: 3, 5, 6, 7, 10, 11, 13, 15px.",
+    "Never auto-dismiss error or warning toasts.",
+    "Never use 🚧 in table empty states — use 🚦 only."
+  ],
+  "by_context": {
+    "mobile": [],
+    "forms": [
+      "Validate on blur, never per keystroke.",
+      "Always pair red border with a specific error message below the field.",
+      "Preserve entered value on error — never clear the field.",
+      "Required fields marked with red asterisk: <span style='color:#dc2626'>*</span>."
+    ],
+    "empty_states": [
+      "Full-page error: 🚧 emoji, 'Oops!' heading, Refresh button, keep topbar/nav visible.",
+      "Section error: 🚧 emoji, 'Data Retrieval Failed', Refresh button, no page redirect.",
+      "Table empty: 🚦 emoji, 'No Data… For Now!', no Refresh button, keep thead and pagination visible.",
+      "Inline field error: red border 1.5px + ⓘ icon + message below, validate on blur only."
+    ]
+  }
+}

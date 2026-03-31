@@ -1,0 +1,43 @@
+{
+  "component": "badges",
+  "variants": ["danger", "warning", "caution", "info", "success", "neutral"],
+  "base_class": "ds-badge",
+  "dot_modifier": "dot",
+  "tokens": {
+    "border_radius": "4px",
+    "font_size":     "11px",
+    "font_weight":   600,
+    "padding":       "2px 6px",
+    "text_transform": "none"
+  },
+  "severity_map": {
+    "critical":    { "class": "ds-badge danger",  "bg": "#F9EEEE", "color": "#D12329", "tailwind": "bg-[#F9EEEE] text-[#D12329]" },
+    "high":        { "class": "ds-badge warning", "bg": "#FEF3C7", "color": "#D98B1D", "tailwind": "bg-[#FEF3C7] text-[#D98B1D]" },
+    "medium-high": { "class": "ds-badge caution", "bg": "#FFF3E0", "color": "#E57B1D", "tailwind": "bg-[#FFF3E0] text-[#E57B1D]" },
+    "medium":      { "class": "ds-badge info",    "bg": "#f0f0fc", "color": "#6360D8", "tailwind": "bg-[#f0f0fc] text-[#6360D8]" },
+    "low":         { "class": "ds-badge neutral", "bg": "#EFF7ED", "color": "#31A56D", "tailwind": "bg-[#EFF7ED] text-[#31A56D]" },
+    "active":      { "class": "ds-badge success", "bg": "#EFF7ED", "color": "#31A56D", "tailwind": "bg-[#EFF7ED] text-[#31A56D]" }
+  },
+  "dot_variant": {
+    "description": "Adds a colored indicator circle before badge text — for status, not severity.",
+    "example_html": "<span class=\"ds-badge success dot\">Running</span>"
+  },
+  "do": [
+    "Use severity_map to pick the correct badge class for each severity level.",
+    "Always show severity in a visible table column — never tooltip-only.",
+    "Use dot modifier for operational status (running, stopped, pending)."
+  ],
+  "dont": [
+    "Never apply inline background or color to a badge — use variant classes only.",
+    "Never show severity only in a tooltip.",
+    "Never invent a new badge color outside the 6 variants."
+  ],
+  "example_html": {
+    "critical": "<span class=\"ds-badge danger\">Critical</span>",
+    "high":     "<span class=\"ds-badge warning\">High</span>",
+    "medium":   "<span class=\"ds-badge info\">Medium</span>",
+    "low":      "<span class=\"ds-badge neutral\">Low</span>",
+    "success":  "<span class=\"ds-badge success\">Active</span>",
+    "dot":      "<span class=\"ds-badge success dot\">Running</span>"
+  }
+}

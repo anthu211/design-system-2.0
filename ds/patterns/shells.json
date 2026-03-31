@@ -1,0 +1,131 @@
+{
+  "module": "shells",
+  "rule": "Use only these shells. Never invent new layouts.",
+  "shells": [
+    {
+      "name": "standard-app-shell",
+      "description": "Primary shell for all authenticated PAI product pages. Topbar + collapsible left nav + sticky sub-header + scrollable content body.",
+      "structure": {
+        "topbar": {
+          "role": "Global chrome — logo, user, nav actions",
+          "position": "fixed top, full width",
+          "height": "48px",
+          "z_index": 50,
+          "css_vars": {
+            "background": "#131313",
+            "border_bottom": "none"
+          }
+        },
+        "left-nav": {
+          "role": "Section navigation — collapsible",
+          "position": "fixed left, below topbar",
+          "width_open": "220px",
+          "width_collapsed": "52px",
+          "css_vars": {
+            "background": "var(--shell-bg)",
+            "border_right": "1px solid var(--shell-border)"
+          },
+          "toggle": "shellNavToggle() — id='shell-nav', button id='shell-nav-btn'"
+        },
+        "sub-header": {
+          "role": "Page title + breadcrumb + page-level CTAs",
+          "position": "sticky top:48px, spans content width",
+          "height": "48px",
+          "z_index": 40,
+          "css_vars": {
+            "background": "var(--shell-bg)",
+            "border_bottom": "1px solid var(--shell-border)"
+          },
+          "lines": {
+            "line_1": "Page title — 12px/500, color: var(--shell-text)",
+            "line_2": "Breadcrumb — 11px, last crumb color:#6360D8"
+          },
+          "right_actions": "Explore In → spacer → Add(+) → Active Filters pill → divider → Filter button"
+        },
+        "content-body": {
+          "role": "Main page content",
+          "position": "below sub-header, scrollable",
+          "padding": "24px",
+          "css_vars": {
+            "background": "var(--shell-bg)"
+          }
+        }
+      },
+      "use_for": [
+        "All authenticated product pages",
+        "Dashboards, list views, detail views, settings pages",
+        "Any page that needs left nav section switching"
+      ],
+      "dont_use_for": [
+        "Login / authentication flows",
+        "Full-screen error pages (keep topbar+nav, drop sub-header)",
+        "Modal or drawer content"
+      ],
+      "mobile_behaviour": "Left nav collapses to 52px (icon-only) by default on narrow viewports. Sub-header right actions stack vertically below 640px. Content body padding reduces to 16px."
+    },
+    {
+      "name": "three-panel-shell",
+      "description": "Standard shell extended with a filter/context sidebar between left-nav and content. Used for list-heavy pages with faceted filtering.",
+      "structure": {
+        "topbar": { "inherits": "standard-app-shell.topbar" },
+        "left-nav": { "inherits": "standard-app-shell.left-nav" },
+        "filter-sidebar": {
+          "role": "Faceted filters, search, sort — content-specific",
+          "position": "fixed, between left-nav and content",
+          "width": "220px",
+          "css_vars": {
+            "background": "var(--shell-bg)",
+            "border_right": "1px solid var(--shell-border)"
+          },
+          "collapsible": true
+        },
+        "sub-header": { "inherits": "standard-app-shell.sub-header" },
+        "content-body": { "inherits": "standard-app-shell.content-body" }
+      },
+      "use_for": [
+        "Component library browsers",
+        "Asset inventory with category/tag filters",
+        "Any list page with 3+ filter dimensions"
+      ],
+      "dont_use_for": [
+        "Simple list pages with ≤2 filters — use standard-app-shell with a filter bar instead",
+        "Dashboard/overview pages",
+        "Detail/single-item pages"
+      ],
+      "mobile_behaviour": "Filter sidebar collapses to a drawer triggered by a Filter button in the sub-header. Left nav collapses to icon-only."
+    },
+    {
+      "name": "auth-shell",
+      "description": "Full-screen standalone layout for login and authentication flows. No topbar, no nav.",
+      "structure": {
+        "page": {
+          "role": "Full viewport, centered card",
+          "css_vars": {
+            "background": "var(--shell-bg)",
+            "display": "flex flex-col items-center justify-center min-h-screen"
+          }
+        },
+        "auth-card": {
+          "role": "Form container — centered",
+          "width": "360px max",
+          "css_vars": {
+            "background": "var(--card-bg)",
+            "border": "1px solid var(--card-border)",
+            "border_radius": "12px",
+            "padding": "32px"
+          }
+        }
+      },
+      "use_for": [
+        "Login page",
+        "Password reset flow",
+        "Email verification"
+      ],
+      "dont_use_for": [
+        "Any authenticated page",
+        "Error pages accessible to logged-in users"
+      ],
+      "mobile_behaviour": "Auth card fills full width with 16px side padding on viewports < 420px."
+    }
+  ]
+}
