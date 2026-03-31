@@ -76,7 +76,15 @@
       "Bash(unzip -p \"/Users/ananthusunil/PAI Edits/design-system/claude-setup.zip\" \"claude-setup/.claude/commands/new-page.md\")",
       "Bash(unzip -p \"/Users/ananthusunil/PAI Edits/design-system/claude-setup.zip\" \"claude-setup/CLAUDE.md\")",
       "Bash(zip -r claude-setup.zip claude-setup/)",
-      "Bash(unzip -p claude-setup.zip \"claude-setup/.claude/commands/ux-review.md\")"
+      "Bash(unzip -p claude-setup.zip \"claude-setup/.claude/commands/ux-review.md\")",
+      "Bash(mkdir -p ds/tokens ds/components ds/patterns)",
+      "Bash(touch ds/context.json ds/rules.json)",
+      "Bash(touch ds/tokens/colors.json ds/tokens/typography.json ds/tokens/spacing.json)",
+      "Bash(touch ds/components/buttons.json ds/components/inputs.json ds/components/cards.json ds/components/charts.json)",
+      "Bash(touch ds/patterns/shells.json ds/patterns/navigation.json)",
+      "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/new-page.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/new-page.md\")",
+      "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/new-component.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/new-component.md\")",
+      "Bash(wc -l \"/Users/ananthusunil/PAI Edits/design-system/ds/components/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/tokens/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/patterns/\"*.json \"/Users/ananthusunil/PAI Edits/design-system/ds/rules.json\")"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",

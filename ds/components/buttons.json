@@ -1,0 +1,68 @@
+{
+  "component": "buttons",
+  "base_class": "ds-btn",
+  "sizes": {
+    "sz-sm": { "height": "24px", "padding": "0 8px",  "font_size": "11px", "use": "Count badges, labels, Navigator button only" },
+    "sz-md": { "height": "32px", "padding": "0 12px", "font_size": "12px", "use": "Default for all clickable actions" },
+    "sz-lg": { "height": "40px", "padding": "0 16px", "font_size": "13px", "use": "Hero CTAs, empty-state actions" }
+  },
+  "variants": {
+    "t-primary":   { "bg": "#6360D8",   "color": "#ffffff", "hover_bg": "#504bb8", "use": "Primary action — max 1 per section" },
+    "t-outline":   { "bg": "transparent","color": "var(--shell-text)", "border": "1px solid var(--ctrl-border)", "use": "Secondary/cancel actions" },
+    "t-secondary": { "bg": "var(--shell-raised)", "color": "var(--shell-text)", "use": "Tertiary actions, toolbar items" },
+    "t-tertiary":  { "bg": "transparent","color": "var(--shell-text-muted)", "use": "Low-emphasis actions" },
+    "t-danger":    { "bg": "#dc2626",   "color": "#ffffff", "hover_bg": "#b91c1c", "use": "Destructive confirm — only inside modal footer" },
+    "t-success":   { "bg": "#31A56D",   "color": "#ffffff", "use": "Positive confirmation actions" },
+    "t-special":   { "bg": "transparent","color": "var(--shell-text)", "use": "Navigator button in topbar only" }
+  },
+  "icon_button": {
+    "class": "ds-icon-btn",
+    "size": "24px",
+    "border_radius": "50%",
+    "icon_size": "14x14 SVG",
+    "use": "Row actions, toolbar icon-only actions"
+  },
+  "tokens": {
+    "border_radius": "44px",
+    "disabled_opacity": 0.4,
+    "disabled_cursor": "not-allowed",
+    "transition": "all 150ms"
+  },
+  "states": {
+    "default":  "variant styles apply",
+    "hover":    "hover_bg or opacity shift — never change shape",
+    "disabled": "opacity:0.4; cursor:not-allowed — always via class, not inline style",
+    "active":   "scale(0.97) or bg darkens — variant-dependent"
+  },
+  "do": [
+    "Always use ds-btn + size class + variant class — three classes minimum.",
+    "Use sz-md as the minimum size for any interactive action.",
+    "Place Cancel (t-outline) left, Confirm right in modal footers.",
+    "Max 1 t-primary button per section."
+  ],
+  "dont": [
+    "Never apply custom background-color or color — variant classes only.",
+    "Never use border-radius other than 44px on any CTA/text button.",
+    "Never use rounded-md, rounded-lg, rounded-full on buttons in React.",
+    "Never place two primary buttons in one section.",
+    "Never use t-danger outside a modal confirmation footer."
+  ],
+  "example_html": {
+    "primary":   "<button class=\"ds-btn sz-md t-primary\">Save</button>",
+    "outline":   "<button class=\"ds-btn sz-md t-outline\">Cancel</button>",
+    "danger":    "<button class=\"ds-btn sz-md t-danger\">Delete</button>",
+    "special":   "<button class=\"ds-btn sz-sm t-special\"><span class=\"btn-text\">Navigator</span></button>",
+    "icon":      "<button class=\"ds-icon-btn\" title=\"Edit\"><!-- 14×14 SVG --></button>",
+    "disabled":  "<button class=\"ds-btn sz-md t-primary\" disabled style=\"opacity:0.4;cursor:not-allowed;\">Save</button>"
+  },
+  "react": {
+    "border_radius": "rounded-[44px]",
+    "forbidden":     ["rounded-md", "rounded-lg", "rounded-full", "rounded-xl"],
+    "variants": {
+      "primary": "bg-accent text-white hover:bg-accent-dark rounded-[44px]",
+      "outline":  "border border-gray-200 bg-white text-gray-600 hover:bg-gray-50 rounded-[44px]",
+      "danger":   "bg-[#dc2626] text-white hover:bg-red-700 rounded-[44px]",
+      "filter":   "bg-[#e0dff7] text-[#504bb8] hover:bg-[#d4d2f2] rounded-[44px]"
+    }
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "component": "feedback",
+  "variants": ["toast", "callout", "empty-state", "error-state"],
+  "sub_components": {
+    "toast": {
+      "base_class": "ds-toast",
+      "variants": ["success", "error", "warning", "info"],
+      "syntax": "class='ds-toast success' — space-separated, NOT 'ds-toast-success'",
+      "position": "bottom-right, fixed, z-index:1000",
+      "max_stacked": 3,
+      "dismiss_class": "ds-toast-dismiss",
+      "behaviour": {
+        "success": "auto-dismiss after 3s",
+        "info":    "auto-dismiss after 3s",
+        "warning": "persist until manually dismissed",
+        "error":   "persist until manually dismissed"
+      },
+      "do": [
+        "Use for transient operation feedback (saved, deleted, failed).",
+        "Persist error and warning toasts — never auto-dismiss them."
+      ],
+      "dont": [
+        "Never use toasts for decisions or destructive confirmations — use modals.",
+        "Never auto-dismiss error or warning toasts.",
+        "Never stack more than 3 toasts."
+      ],
+      "example_html": {
+        "success": "<div class=\"ds-toast success\"><span>Saved.</span><button class=\"ds-toast-dismiss\">×</button></div>",
+        "error":   "<div class=\"ds-toast error\"><span>Failed — check API key.</span><button class=\"ds-toast-dismiss\">×</button></div>"
+      }
+    },
+    "callout": {
+      "base_class": "ds-callout",
+      "variants": ["ds-callout-info", "ds-callout-warning", "ds-callout-error", "ds-callout-success"],
+      "dark_variants": ["ds-callout-error-dark", "ds-callout-success-dark", "ds-callout-warning-dark"],
+      "border_radius": "4px",
+      "rule": "Never custom-style an alert/banner — use callout classes only. Include icon + message.",
+      "example_html": {
+        "info":    "<div class=\"ds-callout ds-callout-info\">Info message.</div>",
+        "warning": "<div class=\"ds-callout ds-callout-warning\">Warning message.</div>",
+        "error":   "<div class=\"ds-callout ds-callout-error\">Error message.</div>",
+        "success": "<div class=\"ds-callout ds-callout-success\">Success message.</div>"
+      }
+    },
+    "empty-state": {
+      "patterns": {
+        "full-page-error": {
+          "emoji": "🚧",
+          "heading": "Oops! That Wasn't Supposed to Happen",
+          "subtext": "We ran into an unexpected issue. Try refreshing — it usually helps.",
+          "cta": "Refresh Page button (ds-btn sz-md t-primary, onclick=location.reload())",
+          "watermark": "Background 'ERROR' text — font-size:90px, opacity:0.08",
+          "keep_visible": ["topbar", "left-nav"],
+          "dont": ["No stack traces", "No auto-redirect", "Never 🚦 here"]
+        },
+        "section-error": {
+          "emoji": "🚧",
+          "heading": "Data Retrieval Failed",
+          "subtext": "We couldn't load this section. Other parts of the page are still functional.",
+          "cta": "Refresh button (ds-btn sz-md t-primary, onclick=retrySection())",
+          "dont": ["No ERROR watermark", "Never redirect entire page for section failure"]
+        },
+        "table-empty": {
+          "emoji": "🚦",
+          "heading": "No Data… For Now!",
+          "subtext": "No records match your current filters. Try adjusting your search.",
+          "cta": "None — no Refresh button",
+          "keep_visible": ["thead", "pagination"],
+          "dont": ["Never 🚧 in table empty state", "Never hide thead", "No Refresh button"]
+        },
+        "field-error": {
+          "trigger": "Blur on invalid field",
+          "border": "1.5px solid #dc2626",
+          "message": "ⓘ icon + specific message below field, font-size:11px, color:#dc2626",
+          "dont": ["Never per-keystroke validation", "Never red border without a message", "Never clear field value"]
+        }
+      }
+    }
+  },
+  "selection_guide": {
+    "toast":        "Transient feedback after an action (save, delete, export).",
+    "callout":      "Persistent inline message within a form or section.",
+    "full-page-error": "When the entire page cannot render.",
+    "section-error":   "When one section/widget fails but page is otherwise usable.",
+    "table-empty":     "When a query returns 0 rows."
+  }
+}

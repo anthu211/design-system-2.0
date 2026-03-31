@@ -1,0 +1,72 @@
+{
+  "component": "cards",
+  "variants": ["content-card", "kpi-card", "stat-card"],
+  "tokens": {
+    "border_radius": "4px",
+    "background":    "var(--card-bg)",
+    "border":        "1px solid var(--card-border)",
+    "forbidden_radius": ["8px", "10px", "12px", "16px", "rounded-xl", "rounded-2xl"],
+    "forbidden_decoration": ["box-shadow", "colored left-border", "background gradients"]
+  },
+  "variants_detail": {
+    "content-card": {
+      "description": "Standard wrapper for any section of content — charts, tables, forms.",
+      "padding": "20px 24px",
+      "border_radius": "4px",
+      "example_html": "<div style=\"background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:20px 24px;\"><!-- content --></div>"
+    },
+    "kpi-card": {
+      "description": "Metric display card. Value + label + delta only. Max 5 in a row.",
+      "class": "ds-kpi-card",
+      "row_class": "ds-kpi-row",
+      "padding": "8px 12px",
+      "gap": "8px",
+      "border_radius": "4px",
+      "slots": {
+        "kpi-value": "Primary metric number — largest text in card",
+        "kpi-label": "Short descriptor — 11px",
+        "kpi-delta": "Trend vs previous period — always required"
+      },
+      "delta_classes": {
+        "up-good":   "Increase is positive (e.g. uptime up)",
+        "down-good": "Decrease is positive (e.g. vulnerabilities down)",
+        "up-bad":    "Increase is negative (e.g. critical findings up)",
+        "down-bad":  "Decrease is negative (e.g. score down)"
+      },
+      "max_cards": 5,
+      "do": [
+        "Always include delta — never omit.",
+        "Use correct delta direction class to convey meaning.",
+        "Max 5 KPI cards per row."
+      ],
+      "dont": [
+        "Never add icons inside a KPI card.",
+        "Never add colored borders or box-shadow to KPI cards.",
+        "Never use a custom background color on KPI cards.",
+        "Never omit the delta value."
+      ],
+      "example_html": "<div class=\"ds-kpi-row\">\n  <div class=\"ds-kpi-card\">\n    <div class=\"kpi-value\">1,284</div>\n    <div class=\"kpi-label\">Total Assets</div>\n    <div class=\"kpi-delta up-good\">↑ 12% vs last month</div>\n  </div>\n</div>"
+    },
+    "stat-card": {
+      "description": "Simpler single-metric tile used inside section cards. No delta required.",
+      "padding": "16px",
+      "border_radius": "4px",
+      "use": "Supporting metrics inside a content-card, not as standalone page-level KPIs"
+    }
+  },
+  "do": [
+    "Use border-radius:4px on all cards, table wrappers, panels, and chart wrappers.",
+    "Use var(--card-bg) and var(--card-border) for consistent theming.",
+    "Group related content inside a single card."
+  ],
+  "dont": [
+    "Never use border-radius other than 4px on cards.",
+    "Never add box-shadow, colored borders, or background gradients to cards.",
+    "Never use cards for list data — use tables instead.",
+    "Never nest cards more than one level deep."
+  ],
+  "react": {
+    "border_radius": "rounded-[4px]",
+    "forbidden": ["rounded-xl", "rounded-2xl", "rounded-lg", "shadow-lg", "shadow-xl"]
+  }
+}

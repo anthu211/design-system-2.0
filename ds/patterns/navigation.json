@@ -1,0 +1,148 @@
+{
+  "module": "navigation",
+  "rule": "Do not modify. Requires design approval.",
+  "components": {
+    "topbar": {
+      "description": "Global fixed header. Present on every authenticated page. Never removed, never theme-switched.",
+      "height": "48px",
+      "position": "fixed top, full width, z-index:50",
+      "background": "#131313",
+      "border_bottom": "none",
+      "padding": "0 16px",
+      "slots": {
+        "left":   "PAI logo <img> only — height:26px. NEVER 'Prevalent AI' text.",
+        "center": "flex-1 spacer",
+        "right":  "Last Updated label → bell icon → avatar → Navigator button (t-special, sz-sm)"
+      },
+      "navigator_button": {
+        "class": "ds-btn sz-sm t-special",
+        "inner": "<span class='btn-text'>Navigator</span>",
+        "logo_src": "https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg"
+      },
+      "rules": [
+        "Background is always #131313 — never changes with light/dark theme.",
+        "Only PAI logo image — never display 'Prevalent AI' as text.",
+        "Navigator button always uses t-special variant — never primary or outline."
+      ]
+    },
+    "left-nav": {
+      "description": "Primary section navigation. Collapsible. Present on every authenticated page.",
+      "width_open": "220px",
+      "width_collapsed": "52px",
+      "background": "var(--shell-bg)",
+      "border_right": "1px solid var(--shell-border)",
+      "padding": "12px 0",
+      "header": {
+        "workspace_name": "Workspace name (e.g. 'EM Dashboard') — NEVER 'Prevalent AI'",
+        "subtitle": "'Exposure Management' or relevant module name",
+        "font_size": "12px / 11px"
+      },
+      "toggle": {
+        "js_function": "shellNavToggle()",
+        "nav_id": "shell-nav",
+        "button_id": "shell-nav-btn",
+        "rule": "Never remove this function or the toggle button — collapser is mandatory."
+      },
+      "item_states": {
+        "default": {
+          "color": "var(--shell-text-muted)",
+          "background": "transparent",
+          "font_size": "12px",
+          "font_weight": 400,
+          "padding": "6px 12px",
+          "border_radius": "6px"
+        },
+        "hover": {
+          "color": "var(--shell-text)",
+          "background": "var(--shell-hover)"
+        },
+        "active-parent": {
+          "color": "var(--shell-text)",
+          "background": "var(--shell-raised)",
+          "font_weight": 500,
+          "note": "Parent item stays grey when child is active — accent color is child-only."
+        },
+        "active-child": {
+          "color": "#6360D8",
+          "background": "rgba(99,96,216,0.08)",
+          "border_radius": "6px",
+          "font_weight": 500,
+          "padding_left": "30px",
+          "note": "Only the active leaf-level item gets accent color."
+        },
+        "disabled": {
+          "opacity": 0.4,
+          "cursor": "not-allowed",
+          "pointer_events": "none"
+        }
+      },
+      "section_label": {
+        "font_size": "10px",
+        "font_weight": 600,
+        "letter_spacing": "0.08em",
+        "text_transform": "uppercase",
+        "color": "var(--shell-text-muted)",
+        "padding": "8px 16px 4px"
+      },
+      "sub_items": {
+        "padding_left": "30px",
+        "font_size": "12px"
+      },
+      "max_items": 7,
+      "rules": [
+        "Workspace label is the workspace name — never 'Prevalent AI'.",
+        "Active sub-item gets accent color #6360D8 and rgba(99,96,216,0.08) background.",
+        "Parent of active child stays grey (#f5f5f5 background) — no accent.",
+        "Max 7 nav items total — Miller's Law.",
+        "shellNavToggle() must always be present — never omit the collapse button."
+      ]
+    },
+    "sub-header": {
+      "description": "Sticky page-level bar below topbar. Two lines: title + breadcrumb. CTAs on right.",
+      "height": "48px",
+      "position": "sticky top:48px, z-index:40",
+      "background": "var(--shell-bg)",
+      "border_bottom": "1px solid var(--shell-border)",
+      "padding": "0 24px",
+      "layout": "flex, align-items:center, justify-content:space-between",
+      "left_zone": {
+        "line_1": {
+          "content": "Page title",
+          "font_size": "12px",
+          "font_weight": 500,
+          "color": "var(--shell-text)",
+          "element": "div — NEVER <h1>"
+        },
+        "line_2": {
+          "content": "Breadcrumb path",
+          "font_size": "11px",
+          "color": "var(--shell-text-muted)",
+          "separator": "›",
+          "last_crumb_color": "#6360D8",
+          "element": "div with flex + gap:4px"
+        },
+        "rule": "ALWAYS two separate lines. Never merge into one line. Never use <h1>."
+      },
+      "right_zone": {
+        "order": ["Explore In button", "spacer", "Add (+) button", "Active Filters pill", "divider", "Filter button"],
+        "filter_button": {
+          "background": "#e0dff7",
+          "color": "#504bb8",
+          "border_radius": "44px",
+          "active_background": "#504bb8",
+          "active_color": "#ffffff"
+        },
+        "add_button": {
+          "class": "ds-btn sz-sm t-primary",
+          "icon": "14×14 plus SVG"
+        }
+      },
+      "rules": [
+        "Always two lines — title on line 1, breadcrumb on line 2. Never merged.",
+        "Never use <h1> — page title is a <div> at 12px/500.",
+        "Filter button background:#e0dff7 default, #504bb8 when active.",
+        "Sub-header CTAs are right-aligned — left zone is title+breadcrumb only."
+      ]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "module": "spacing",
+  "scale": [4, 8, 12, 16, 20, 24, 32, 48],
+  "forbidden": [3, 5, 6, 7, 10, 11, 13, 15],
+  "rule": "4px scale only. Any value not in scale[] is a bug.",
+  "named": {
+    "xs":  4,
+    "sm":  8,
+    "md":  12,
+    "lg":  16,
+    "xl":  20,
+    "2xl": 24,
+    "3xl": 32,
+    "4xl": 48
+  },
+  "tailwind_map": {
+    "p-1": "4px",
+    "p-2": "8px",
+    "p-3": "12px",
+    "p-4": "16px",
+    "p-5": "20px",
+    "p-6": "24px",
+    "p-8": "32px",
+    "p-12": "48px"
+  },
+  "component_defaults": {
+    "content-body-padding": 24,
+    "card-padding": "8px 12px",
+    "table-cell-padding": "8px 16px",
+    "modal-body-padding": 16,
+    "sub-header-height": 48,
+    "topbar-height": 48,
+    "nav-width-open": 220,
+    "nav-width-collapsed": 52,
+    "kpi-card-gap": 8,
+    "section-gap": 24
+  },
+  "border_radius": {
+    "button-cta":       "44px",
+    "button-icon-only": "50%",
+    "card":             "4px",
+    "table-wrapper":    "4px",
+    "badge":            "4px",
+    "callout":          "4px",
+    "nav-active-item":  "6px",
+    "input":            "8px",
+    "dropdown":         "8px",
+    "modal":            "12px",
+    "drawer":           "12px"
+  }
+}

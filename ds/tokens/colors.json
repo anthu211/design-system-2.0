@@ -1,0 +1,120 @@
+{
+  "module": "colors",
+  "primitives": {
+    "purple-500":  "#6360D8",
+    "purple-600":  "#504bb8",
+    "purple-50":   "#f0f0fc",
+    "purple-100":  "#e0dff7",
+    "red-600":     "#dc2626",
+    "red-700":     "#D12329",
+    "red-50":      "#F9EEEE",
+    "amber-600":   "#D98B1D",
+    "amber-50":    "#FEF3C7",
+    "orange-600":  "#E57B1D",
+    "orange-50":   "#FFF3E0",
+    "green-500":   "#31A56D",
+    "green-50":    "#EFF7ED",
+    "gray-900":    "#101010",
+    "gray-800":    "#282828",
+    "gray-700":    "#131313",
+    "gray-500":    "#6E6E6E",
+    "gray-400":    "#9CA3AF",
+    "gray-300":    "#CFCFCF",
+    "gray-200":    "#E6E6E6",
+    "gray-100":    "#F5F5F5",
+    "white":       "#FFFFFF",
+    "bg-light":    "#F7F9FC"
+  },
+  "semantic": {
+    "color-accent": {
+      "value": "var(--shell-accent)", "raw": "#6360D8",
+      "css_var": "--shell-accent",
+      "tailwind": "accent / bg-accent",
+      "usage": ["cta-primary", "active-nav", "links", "focus-ring"],
+      "do": "Use for the single primary action per section and active nav state.",
+      "dont": "Never use on destructive actions or as a secondary button color."
+    },
+    "color-accent-filter": {
+      "value": "var(--accent-dark)", "raw": "#504bb8",
+      "css_var": "--accent-dark",
+      "tailwind": "accent-dark",
+      "usage": ["filter-button", "active-filter-pill", "hover-on-accent"],
+      "do": "Use exclusively for the Filter CTA and Active Filters pill.",
+      "dont": "Never use as a primary CTA color."
+    },
+    "color-topbar": {
+      "value": "#131313", "raw": "#131313",
+      "usage": ["topbar-background"],
+      "do": "Always fixed at #131313 — never changes with light/dark theme.",
+      "dont": "Never override with theme variables or transparency."
+    },
+    "color-destructive": {
+      "value": "#dc2626", "raw": "#dc2626",
+      "usage": ["danger-button", "error-border", "error-text", "delete-confirm"],
+      "do": "Use for destructive buttons, error borders, and inline field error text.",
+      "dont": "Never use for warnings or non-destructive states."
+    },
+    "color-severity-critical": {
+      "raw": "#D12329", "bg": "#F9EEEE",
+      "badge_class": "ds-badge danger",
+      "tailwind": "text-[#D12329] bg-[#F9EEEE]",
+      "usage": ["severity-badge", "chart-series"]
+    },
+    "color-severity-high": {
+      "raw": "#D98B1D", "bg": "#FEF3C7",
+      "badge_class": "ds-badge warning",
+      "tailwind": "text-[#D98B1D] bg-[#FEF3C7]",
+      "usage": ["severity-badge", "chart-series"]
+    },
+    "color-severity-medium": {
+      "raw": "#6360D8", "bg": "#f0f0fc",
+      "badge_class": "ds-badge info",
+      "tailwind": "text-[#6360D8] bg-[#f0f0fc]",
+      "usage": ["severity-badge", "chart-series"]
+    },
+    "color-severity-low": {
+      "raw": "#31A56D", "bg": "#EFF7ED",
+      "badge_class": "ds-badge neutral",
+      "tailwind": "text-[#31A56D] bg-[#EFF7ED]",
+      "usage": ["severity-badge", "chart-series"]
+    }
+  },
+  "themes": {
+    "light": {
+      "--shell-bg":           "#F7F9FC",
+      "--shell-border":       "#E6E6E6",
+      "--shell-text":         "#101010",
+      "--shell-text-2":       "#282828",
+      "--shell-text-muted":   "#6E6E6E",
+      "--shell-accent":       "#6360D8",
+      "--shell-hover":        "rgba(0,0,0,0.04)",
+      "--shell-active":       "rgba(99,96,216,0.08)",
+      "--shell-raised":       "#F5F5F5",
+      "--ctrl-bg":            "#FFFFFF",
+      "--ctrl-border":        "#CFCFCF",
+      "--ctrl-placeholder":   "#9CA3AF",
+      "--card-bg":            "#FFFFFF",
+      "--card-border":        "#E6E6E6",
+      "--table-th-bg":        "#F5F5F5",
+      "--table-border":       "#E6E6E6"
+    },
+    "dark": {
+      "--shell-bg":           "#0E0E0E",
+      "--shell-border":       "#272727",
+      "--shell-text":         "#F9F9F9",
+      "--shell-text-2":       "#D1D1D1",
+      "--shell-text-muted":   "#696969",
+      "--shell-accent":       "#6360D8",
+      "--shell-hover":        "rgba(255,255,255,0.04)",
+      "--shell-active":       "rgba(99,96,216,0.12)",
+      "--shell-raised":       "#1a1a1a",
+      "--ctrl-bg":            "#1a1a1a",
+      "--ctrl-border":        "#3B3A3A",
+      "--ctrl-placeholder":   "#696969",
+      "--card-bg":            "#131313",
+      "--card-border":        "#272727",
+      "--table-th-bg":        "#131313",
+      "--table-border":       "#1F1F1F"
+    }
+  }
+}

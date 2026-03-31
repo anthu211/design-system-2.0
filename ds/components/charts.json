@@ -1,0 +1,103 @@
+{
+  "component": "charts",
+  "note": "JS function bodies live in charts.md — copy verbatim. This file documents rules, tokens, and usage only.",
+  "variants": ["bar-vertical", "line", "line-multi", "donut", "bar-horizontal-css", "bar-stacked"],
+  "functions": {
+    "bar-vertical":      "buildVerticalBarChart(containerId, series, groups, colors)",
+    "line":              "buildLineChart(containerId, data, labels)",
+    "line-multi":        "buildMultiLineChart(containerId, series, labels)",
+    "donut":             "buildDonutChart(containerId, data, size)",
+    "bar-stacked":       "buildStackedBarChart(containerId, rows, xLabel)",
+    "bar-horizontal-css": "CSS-only — no JS function, wire tooltip manually"
+  },
+  "tokens": {
+    "severity_colors": {
+      "critical": "#D12329",
+      "high":     "#D98B1D",
+      "medium":   "#6760d8",
+      "low":      "#31A56D"
+    },
+    "single_series_color": "#6760d8",
+    "grid_stroke":         "var(--shell-border)",
+    "grid_stroke_width":   1,
+    "axis_label_class":    "chart-axis-label",
+    "axis_label_size":     "10px",
+    "axis_label_fill":     "var(--shell-text-muted)",
+    "padding":             { "top": 16, "right": 16, "bottom": 36, "left": 44 },
+    "y_tick_count":        "4–5, never more than 6",
+    "bar": {
+      "rx":              2,
+      "min_width":       6,
+      "max_width":       18,
+      "gap_between":     3,
+      "hover_opacity":   0.7,
+      "hover_class":     "chart-bar:hover"
+    },
+    "line": {
+      "stroke_width":    2,
+      "stroke_linecap":  "round",
+      "stroke_linejoin": "round",
+      "dot_r":           5,
+      "dot_hit_r":       16,
+      "area_opacity_0":  0.25,
+      "area_opacity_100": 0,
+      "gradient_uid":    "Date.now() suffix — required per instance to prevent collision"
+    },
+    "donut": {
+      "stroke_linecap":  "round",
+      "segment_gap_deg": 8,
+      "stroke_width_formula": "outerRadius * 0.12",
+      "center_value_size": "22px/700",
+      "center_label_size": "11px"
+    },
+    "stacked_bar": {
+      "bar_height":      10,
+      "row_height":      36,
+      "label_width":     80,
+      "grid_ticks":      [0, 20, 40, 60, 80, 100]
+    }
+  },
+  "states": {
+    "hover": "Show chart-tooltip via showChartTooltip(e, title, rows, borderColor) — border color matches hovered series.",
+    "empty": "Render empty SVG container with no data message — never hide the chart wrapper card."
+  },
+  "init": "Always call chart functions inside setTimeout(initCharts, 60) inside DOMContentLoaded — elements need rendered width before SVG is sized.",
+  "css_required": [
+    ".chart-axis-label { font-size:10px; fill:var(--shell-text-muted); font-family:inherit; }",
+    ".chart-bar-svg { overflow:visible; display:block; }",
+    ".chart-bar-svg rect.chart-bar { transition:opacity 150ms; cursor:pointer; }",
+    ".chart-bar-svg rect.chart-bar:hover { opacity:0.7; }",
+    ".chart-legend { display:flex; flex-wrap:wrap; gap:12px; margin-top:12px; justify-content:center; }",
+    ".chart-legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--shell-text-2); }",
+    ".chart-legend-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }",
+    ".css-hbar-chart { display:flex; flex-direction:column; gap:8px; }",
+    ".css-hbar-row { display:flex; align-items:center; gap:10px; cursor:pointer; }",
+    ".css-hbar-label { width:72px; font-size:11px; color:var(--shell-text-muted); text-align:right; flex-shrink:0; }",
+    ".css-hbar { height:22px; border-radius:0 3px 3px 0; transition:opacity 150ms; }",
+    ".css-hbar:hover { opacity:0.78; }",
+    ".css-hbar-val { font-size:11px; color:var(--shell-text-muted); margin-left:4px; flex-shrink:0; }"
+  ],
+  "do": [
+    "Copy JS function bodies from charts.md verbatim — never rewrite or shorten.",
+    "Use a unique gradient ID per line chart instance (Date.now() suffix) to prevent SVG collision.",
+    "Always include chart-tooltip HTML + showChartTooltip/positionChartTooltip/hideChartTooltip JS — hovers break without it.",
+    "Add chart-legend below every multi-series chart with chart-legend-dot per series (border-radius:50%).",
+    "Wrap every chart in a card: card-bg, card-border, border-radius:4px, padding:20px 24px.",
+    "Set y baseline always from 0 — never dynamic yMin."
+  ],
+  "dont": [
+    "Never use <canvas> or any external library: Chart.js, D3, Recharts, ECharts.",
+    "Never invent a custom chart implementation — use only the 5 named functions from charts.md.",
+    "Never call chart functions directly — always wrap in setTimeout(initCharts, 60).",
+    "Never use more than 6 y-axis ticks.",
+    "Never omit the tooltip HTML — place it once at end of <body>."
+  ],
+  "example_html": {
+    "bar-vertical":      "<div id=\"vbar-chart\" style=\"width:100%;\"></div>\n<!-- call: buildVerticalBarChart('vbar-chart', series, groups, colors) -->",
+    "line":              "<div id=\"line-chart\" style=\"width:100%;\"></div>\n<!-- call: buildLineChart('line-chart', data, labels) -->",
+    "line-multi":        "<div id=\"multi-line-chart\" style=\"width:100%;\"></div>\n<!-- call: buildMultiLineChart('multi-line-chart', series, labels) -->",
+    "donut":             "<svg id=\"my-donut\" width=\"160\" height=\"160\" viewBox=\"0 0 160 160\" style=\"overflow:visible;\"></svg>\n<!-- call: buildDonutChart('my-donut', data, 160) -->",
+    "bar-horizontal-css":"<div class=\"css-hbar-chart\"><div class=\"css-hbar-row\"><span class=\"css-hbar-label\">Label</span><div class=\"css-hbar\" style=\"width:78%;background:#6760d8;\"></div><span class=\"css-hbar-val\">78</span></div></div>",
+    "wrapper":           "<div style=\"background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:20px 24px;\"><div style=\"font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:2px;\">Title</div><div style=\"font-size:11px;color:var(--shell-text-muted);margin-bottom:16px;\">Subtitle</div><div id=\"my-chart\" style=\"width:100%;\"></div></div>"
+  }
+}

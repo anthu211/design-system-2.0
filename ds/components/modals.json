@@ -1,0 +1,63 @@
+{
+  "component": "modals",
+  "variants": ["confirmation", "form", "side-panel"],
+  "tokens": {
+    "overlay_bg":    "rgba(0,0,0,0.45)",
+    "card_bg":       "var(--card-bg)",
+    "card_border":   "var(--card-border)",
+    "border_radius": "12px",
+    "max_width":     "480px",
+    "padding_body":  "16px",
+    "z_index":       1000
+  },
+  "structure": "ds-modal-overlay > ds-modal > ds-modal-header + ds-modal-body + ds-modal-footer",
+  "footer_order": "Cancel (left, t-outline) → Confirm (right, t-primary or t-danger)",
+  "variants_detail": {
+    "confirmation": {
+      "use": "Destructive actions — delete, remove, revoke. Required before any destructive operation.",
+      "title_pattern": "Delete \"[item name]\"?",
+      "body_pattern": "State the consequence explicitly — what will be permanently removed.",
+      "confirm_variant": "t-danger (red) — NEVER purple for destructive confirm",
+      "example_html": "<div class=\"ds-modal-overlay\">\n  <div class=\"ds-modal\">\n    <div class=\"ds-modal-header\">\n      <span class=\"ds-modal-title\">Delete \"CVE-2024-1234\"?</span>\n      <button class=\"ds-modal-close\">×</button>\n    </div>\n    <div class=\"ds-modal-body\">This will permanently remove the finding and all associated notes.</div>\n    <div class=\"ds-modal-footer\">\n      <button class=\"ds-btn sz-md t-outline\">Cancel</button>\n      <button class=\"ds-btn sz-md t-danger\">Delete</button>\n    </div>\n  </div>\n</div>"
+    },
+    "form": {
+      "use": "Create or edit flows that don't warrant a full page.",
+      "body_structure": "ds-modal-body > ds-form-section > ds-input-wrap items",
+      "confirm_variant": "t-primary",
+      "example_html": "<div class=\"ds-modal-overlay\">\n  <div class=\"ds-modal\">\n    <div class=\"ds-modal-header\"><span class=\"ds-modal-title\">Add Integration</span><button class=\"ds-modal-close\">×</button></div>\n    <div class=\"ds-modal-body\">\n      <div class=\"ds-form-section\">\n        <div class=\"ds-input-wrap\"><!-- fields --></div>\n      </div>\n    </div>\n    <div class=\"ds-modal-footer\">\n      <button class=\"ds-btn sz-md t-outline\">Cancel</button>\n      <button class=\"ds-btn sz-md t-primary\">Save</button>\n    </div>\n  </div>\n</div>"
+    },
+    "side-panel": {
+      "description": "Drawer that slides in from the right. Used for detail views without leaving context.",
+      "classes": {
+        "overlay": "ds-panel-overlay",
+        "panel":   "ds-panel",
+        "header":  "ds-panel-header",
+        "title":   "ds-panel-title",
+        "body":    "ds-panel-body",
+        "footer":  "ds-panel-footer"
+      },
+      "open_state": "Add .open class to both overlay and panel",
+      "border_radius": "12px 0 0 12px (left side only)",
+      "example_html": "<div class=\"ds-panel-overlay\"></div>\n<div class=\"ds-panel\">\n  <div class=\"ds-panel-header\">\n    <span class=\"ds-panel-title\">Asset Details</span>\n    <button class=\"ds-modal-close\">×</button>\n  </div>\n  <div class=\"ds-panel-body\"><!-- content --></div>\n  <div class=\"ds-panel-footer\">\n    <button class=\"ds-btn sz-md t-outline\">Cancel</button>\n    <button class=\"ds-btn sz-md t-primary\">Save</button>\n  </div>\n</div>"
+    }
+  },
+  "do": [
+    "Always use a modal for destructive actions — name the item and state the consequence.",
+    "Cancel is always left, Confirm is always right in modal footer.",
+    "Use t-danger (red) for destructive confirms — never t-primary (purple).",
+    "Close button (×) always in modal header top-right.",
+    "Trap focus inside modal while open."
+  ],
+  "dont": [
+    "Never auto-close a destructive confirmation modal.",
+    "Never put two primary buttons in a modal footer.",
+    "Never skip the confirmation modal for delete/remove/revoke actions.",
+    "Never use t-primary for a destructive confirm — always t-danger.",
+    "Never open a modal inside another modal."
+  ],
+  "react": {
+    "library": "Radix UI Dialog",
+    "border_radius": "rounded-[12px]",
+    "note": "Use Radix Dialog for modals — handles focus trap, escape key, and accessibility automatically."
+  }
+}
