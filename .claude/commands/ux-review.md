@@ -1,6 +1,15 @@
-Fetch this URL before doing anything:
+Fetch ALL of these URLs fully before doing anything:
+1. https://anthu211.github.io/design-system-2.0/ds/rules.json
+2. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
+3. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
+4. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
+5. https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
+6. https://anthu211.github.io/design-system-2.0/ds/components/tables.json
+7. https://anthu211.github.io/design-system-2.0/ds/components/badges.json
+8. https://anthu211.github.io/design-system-2.0/ds/components/modals.json
+9. https://anthu211.github.io/design-system-2.0/ds-core.txt
 
-1. https://anthu211.github.io/design-system-2.0/ds-core.txt
+Do not proceed until every URL above is fully fetched and read.
 
 ---
 
@@ -10,7 +19,7 @@ $ARGUMENTS
 
 ---
 
-Return a `✅ PASS` / `❌ FAIL` checklist using `ds-core.md` as the source of truth. For every FAIL, give the exact fix.
+Return a `✅ PASS` / `❌ FAIL` checklist using the fetched files as the source of truth. For every FAIL, give the exact fix referencing the specific rule or token.
 
 ## Shell & Structure
 - [ ] Topbar `#131313` with PAI logo image — no "Prevalent AI" text
@@ -23,7 +32,7 @@ Return a `✅ PASS` / `❌ FAIL` checklist using `ds-core.md` as the source of t
 - [ ] All CTA/text buttons `border-radius:44px`
 - [ ] Cards, table wrappers `border-radius:4px` only
 - [ ] Inter font · `<html class="theme-light">`
-- [ ] Spacing 4px scale only
+- [ ] Spacing 4px scale only — flag any off-scale value
 
 ## Tables
 - [ ] Column order: checkbox → data → status → actions (empty `<th>`)
@@ -37,7 +46,7 @@ Return a `✅ PASS` / `❌ FAIL` checklist using `ds-core.md` as the source of t
 - [ ] Table columns ≤ 7
 - [ ] Destructive actions have confirmation modal (item name + consequence + red confirm)
 - [ ] No page-level tabs unless explicitly requested
-- [ ] Error/empty states: 🚦 for empty table, 🚧 for errors, no Refresh on empty
+- [ ] Error/empty states present where needed
 
 ## UX Laws
 - [ ] Hick's: 1 primary CTA per section
@@ -47,7 +56,7 @@ Return a `✅ PASS` / `❌ FAIL` checklist using `ds-core.md` as the source of t
 
 ## Persona
 - [ ] Layout matches primary persona (state which one)
-- [ ] No frustration triggers
+- [ ] No frustration triggers for that persona
 
 ---
 
