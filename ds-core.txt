@@ -144,7 +144,7 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
 </div>
 ```
 - NEVER put action icons in same `<td>` as status badge
-- `.row-actions` hidden by default — CSS reveals on `tr:hover`; NEVER `style="display:flex"` inline
+- `.row-actions` uses `visibility:hidden` by default, `visibility:visible` on `tr:hover` — space always reserved, no row height jump; NEVER `display:none` or `style="display:flex"` inline
 - Sort indicators on sortable columns · pagination + row-count always present
 - Keep table header visible in empty and error states
 

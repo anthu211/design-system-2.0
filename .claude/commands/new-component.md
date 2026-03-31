@@ -44,7 +44,7 @@ BUILD CHECKLIST — complete every item in order:
 
 [ ] 7. HARD RULES — verify from ds-core.txt and component JSONs:
        - Buttons border-radius:44px · Cards/table-wrappers 4px · Inputs 8px
-       - .row-actions: CSS-hidden, revealed on tr:hover — never style="display:flex" inline
+       - .row-actions: visibility:hidden by default, visibility:visible on tr:hover — NEVER display:none (causes jumping)
        - Actions and status badge in separate <td> — never same cell
        - Severity always visible in table column — never tooltip-only
        - Modals: Cancel left (t-outline), Confirm right (t-primary or t-danger for destructive)
