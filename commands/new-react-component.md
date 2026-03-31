@@ -1,7 +1,7 @@
 Fetch these URLs before doing anything:
 
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/react.md
+1. https://anthu211.github.io/design-system-2.0/ds-core.txt
+2. https://anthu211.github.io/design-system-2.0/react.txt
 
 ---
 

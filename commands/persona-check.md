@@ -1,6 +1,6 @@
 Fetch this URL before doing anything:
 
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
+1. https://anthu211.github.io/design-system-2.0/ds-core.txt
 
 ---
 

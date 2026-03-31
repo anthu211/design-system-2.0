@@ -1,7 +1,7 @@
 Fetch ALL of these URLs fully before doing anything:
 1. https://anthu211.github.io/design-system-2.0/ds/context.json
-2. https://anthu211.github.io/design-system-2.0/ds-core.md
-3. https://anthu211.github.io/design-system-2.0/charts.md
+2. https://anthu211.github.io/design-system-2.0/ds-core.txt
+3. https://anthu211.github.io/design-system-2.0/charts.txt
 
 The user's request is: $ARGUMENTS
 
