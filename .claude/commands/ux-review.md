@@ -32,7 +32,7 @@ Return a `✅ PASS` / `❌ FAIL` checklist using the fetched files as the source
 - [ ] All CTA/text buttons `border-radius:44px`
 - [ ] Cards, table wrappers `border-radius:4px` only
 - [ ] Inter font · `<html class="theme-light">`
-- [ ] Spacing 4px scale only — flag any off-scale value
+- [ ] Spacing 4px scale only for margin, padding, gap — flag off-scale values there only. border-radius is NOT spacing and is not restricted to the 4pt grid.
 
 ## Tables
 - [ ] Column order: checkbox → data → status → actions (empty `<th>`)

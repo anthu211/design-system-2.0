@@ -28,7 +28,7 @@
     "Never place action icons in the same <td> as the status badge.",
     "Never use <h1> below the sub-header or an 18px title in the sub-header.",
     "Never add icons, colored borders, or box-shadow to KPI cards.",
-    "Never use off-scale spacing values: 3, 5, 6, 7, 10, 11, 13, 15px.",
+    "Never use off-scale spacing values for margin, padding, or gap: 3, 5, 6, 7, 10, 11, 13, 15px. Note: border-radius is NOT spacing — progress bars, pills, tags, and decorative elements may use any border-radius that fits their shape.",
     "Never auto-dismiss error or warning toasts.",
     "Never use 🚧 in table empty states — use 🚦 only."
   ],
