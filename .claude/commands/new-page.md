@@ -66,8 +66,10 @@ BUILD CHECKLIST — complete every item in order:
        Inputs: exact patterns from components/inputs.json.
        Modals: Cancel left (t-outline), Confirm right (t-primary or t-danger) from components/modals.json.
 
-[ ] 9. TABLE INTERACTIONS — .row-actions hidden by default via CSS:
-       tr .row-actions { display:none; }  tr:hover .row-actions { display:flex; gap:4px; }
+[ ] 9. TABLE INTERACTIONS — use visibility, not display, to hide row actions:
+       .row-actions { display:flex; visibility:hidden; gap:4px; }
+       tr:hover .row-actions { visibility:visible; }
+       NEVER display:none on .row-actions — it causes row height to jump on hover.
        NEVER style="display:flex" inline. Status badge and actions in separate <td> always.
        Severity always visible in table column — never tooltip-only.
 

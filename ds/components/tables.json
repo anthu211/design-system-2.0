@@ -17,9 +17,9 @@
     "font_size":    "12px"
   },
   "row_actions": {
-    "visibility": "hidden by default via CSS — reveal on tr:hover",
-    "rule": "Never set style='display:flex' inline on .row-actions",
-    "css": ".row-actions { display:none; } tr:hover .row-actions { display:flex; gap:4px; }"
+    "visibility": "visibility:hidden by default — visibility:visible on tr:hover. Space always reserved so row height never jumps.",
+    "rule": "Never use display:none on .row-actions — causes row height jump on hover. Use visibility:hidden instead.",
+    "css": ".row-actions { display:flex; visibility:hidden; gap:4px; } tr:hover .row-actions { visibility:visible; }"
   },
   "pagination": {
     "classes": "ds-pagination > ds-page-btn [active] [disabled]",
@@ -45,11 +45,11 @@
     "Keep actions in their own col-actions cell — never share with status.",
     "Always include pagination + row count.",
     "Keep thead visible in empty and error states.",
-    "Use .row-actions hidden by CSS, revealed on tr:hover."
+    "Use visibility:hidden on .row-actions, visibility:visible on tr:hover — never display:none."
   ],
   "dont": [
     "Never put action icons in the same <td> as the status badge.",
-    "Never inline style='display:flex' on .row-actions.",
+    "Never use display:none on .row-actions — causes jumping. Never inline style='display:flex'.",
     "Never hide thead in empty state.",
     "Never use 🚧 in table empty state — always 🚦.",
     "Never add a Refresh button in the empty state.",
