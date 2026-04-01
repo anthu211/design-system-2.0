@@ -104,7 +104,12 @@
       "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/commands/ux-review.md\")",
       "Bash(curl -sI \"https://anthu211.github.io/design-system-2.0/.claude/CLAUDE.md\")",
       "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/.claude/CLAUDE.md\")",
-      "WebSearch"
+      "WebSearch",
+      "Bash(curl -sI \"https://anthu211.github.io/design-system-2.0/page-spec.txt\")",
+      "Bash(curl -sI \"https://anthu211.github.io/design-system-2.0/charts.txt\")",
+      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/page-spec.txt\")",
+      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/react.txt\")",
+      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/charts.txt\")"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
