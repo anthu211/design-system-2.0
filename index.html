@@ -4824,7 +4824,11 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Download claude-setup.zip
           </button>
-          <div class="ds-claude-dl-meta">
+          <div style="margin-top:10px;">
+            <div style="font-size:10px;color:var(--shell-text-muted);margin-bottom:5px;">After downloading, run in your project root:</div>
+            <div class="ds-claude-code-block" style="font-size:10px;line-height:1.5;"><span style="color:#9ca3af;">cd</span> /path/to/your-project<br><span style="color:#9ca3af;">unzip</span> -o ~/Downloads/claude-setup.zip -d /tmp/cs <span style="color:#6b7280;">&amp;&amp;</span> <span style="color:#9ca3af;">bash</span> /tmp/cs/claude-setup/install.sh</div>
+          </div>
+          <div class="ds-claude-dl-meta" style="margin-top:8px;">
             <span>Or use the curl command →</span>
             <span class="ds-claude-dl-dot">·</span>
             <span>Always installs the latest version</span>
