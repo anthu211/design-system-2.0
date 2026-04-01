@@ -100,7 +100,11 @@
       "Bash(cp .claude/commands/new-component.md commands/new-component.md)",
       "Bash(cp .claude/commands/new-react-component.md commands/new-react-component.md)",
       "Bash(cp .claude/commands/ux-review.md commands/ux-review.md)",
-      "Bash(cp .claude/commands/persona-check.md commands/persona-check.md)"
+      "Bash(cp .claude/commands/persona-check.md commands/persona-check.md)",
+      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/commands/ux-review.md\")",
+      "Bash(curl -sI \"https://anthu211.github.io/design-system-2.0/.claude/CLAUDE.md\")",
+      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/.claude/CLAUDE.md\")",
+      "WebSearch"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
