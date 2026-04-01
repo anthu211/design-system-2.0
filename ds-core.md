@@ -1,9 +1,7 @@
 # Prevalent AI — Design System Core Reference
-
 Single-file reference for all commands. Contains: tokens, every component HTML pattern + CSS class, form controls, error states, chart rules, React rules, personas, UX laws.
 
 ---
-
 ## Tokens
 
 **Font:** Inter — load via Google Fonts. Base size 12px.
@@ -48,7 +46,6 @@ Single-file reference for all commands. Contains: tokens, every component HTML p
 `page-title` 18px/700 (full-page error only) · `heading-md` 14px/600 (sections, modal titles) · `body-md` 12px/400 (default) · `body-sm` 11px/400 (breadcrumbs, meta) · Sub-header title: `12px/500` — NEVER `<h1>` or 18px.
 
 ---
-
 ## Shell Structure
 
 Every HTML page uses the full shell from `page-spec.md` — copy verbatim, only replace title/nav/breadcrumb/content.
@@ -58,7 +55,6 @@ Every HTML page uses the full shell from `page-spec.md` — copy verbatim, only 
 - **Content body:** `padding:24px`. Content starts directly — no decorative dividers.
 
 ---
-
 ## Component Patterns
 
 ### Buttons
@@ -144,7 +140,7 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
 </div>
 ```
 - NEVER put action icons in same `<td>` as status badge
-- `.row-actions` hidden by default — CSS reveals on `tr:hover`; NEVER `style="display:flex"` inline
+- `.row-actions` uses `visibility:hidden` by default, `visibility:visible` on `tr:hover` — space always reserved, no row height jump; NEVER `display:none` or `style="display:flex"` inline
 - Sort indicators on sortable columns · pagination + row-count always present
 - Keep table header visible in empty and error states
 
@@ -279,7 +275,6 @@ NEVER custom alert/banner styling. Include icon + message. Border-radius: `4px`.
 Panel slides in from right. Open state: add `.open` class to overlay + panel.
 
 ---
-
 ## Charts
 
 HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart` from `charts.md` **verbatim**. NEVER `<canvas>`, Chart.js, D3, ECharts.
@@ -289,7 +284,6 @@ HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChar
 - React: Recharts only — `AreaChart`, `BarChart`, `LineChart`
 
 ---
-
 ## Error & Empty State Patterns
 
 - Entire page fails → Pattern 1 · Section fails → Pattern 2 · 0 rows returned → Pattern 3 · Field invalid → Pattern 4 · Transient feedback → Pattern 5
@@ -348,7 +342,6 @@ Always pair red border with a specific message. Validate on blur. Preserve enter
 Success/Info auto-dismiss 3s. Error/Warning persist. Max 3 stacked. NEVER for decisions.
 
 ---
-
 ## Status Color Reference
 
 | Status | Badge class | Light bg | Light text |
@@ -361,7 +354,6 @@ Success/Info auto-dismiss 3s. Error/Warning persist. Max 3 stacked. NEVER for de
 | Active/Good | `ds-badge success` | #EFF7ED | #31A56D |
 
 ---
-
 ## React Quick Rules
 
 Full React components in `react.md`. Rules for all React output:
@@ -380,7 +372,6 @@ Full React components in `react.md`. Rules for all React output:
 - TypeScript: proper interfaces, no `any`. Named + default export both.
 
 ---
-
 ## Personas (quick reference)
 
 | Persona | Trigger words | Lead with | Key rule |
@@ -391,14 +382,7 @@ Full React components in `react.md`. Rules for all React output:
 | **security-engineer** | vulnerability, CVE, patch, asset, scan | Dense CVE table | Bulk toolbar, SLA column, pagination |
 | **soc-analyst** | alert, incident, triage, threat, SOC | Alert queue, severity sorted | Row quick-actions on hover |
 
-- **ciso**: KPI cards first (max 5), trend visible, one dominant CTA
-- **grc**: Compliance tables, control status always visible, export button
-- **security-architect**: Technical detail visible, CVSSv3 scores, asset context
-- **security-engineer**: Dense CVE table, bulk toolbar, SLA column, pagination
-- **soc-analyst**: Alert queue first, severity always visible, quick row actions
-
 ---
-
 ## UX Laws
 
 - **Hick's:** 1 primary CTA per section. Nav collapsed by default. 10+ item dropdowns need search.
@@ -407,7 +391,6 @@ Full React components in `react.md`. Rules for all React output:
 - **Jakob's:** Checkboxes leftmost column. Pagination bottom-right. Cancel left of Confirm. Destructive = red.
 
 ---
-
 ## Hard Don'ts (violations = bugs)
 
 - ❌ `<canvas>` or any external chart library (Chart.js, D3, ECharts)

@@ -6,10 +6,9 @@ Paste into `.cursor/rules/prevalent-ai.mdc` or use as a system prompt in Cursor 
 
 ```
 Fetch ALL of these URLs fully before writing any code:
-1. https://anthu211.github.io/design-system-2.0/ds/context.json
-2. https://anthu211.github.io/design-system-2.0/ds-core.md
-3. https://anthu211.github.io/design-system-2.0/page-spec.md
-4. https://anthu211.github.io/design-system-2.0/charts.md
+1. https://anthu211.github.io/design-system-2.0/ds-core.md
+2. https://anthu211.github.io/design-system-2.0/page-spec.md
+3. https://anthu211.github.io/design-system-2.0/charts.md
 
 ---
 

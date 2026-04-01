@@ -1,3 +1,43 @@
+// ─── Splash Screen ───
+(function() {
+  var splash  = document.getElementById('ds-splash');
+  var counter = document.getElementById('ds-splash-counter');
+  var reveal  = document.getElementById('ds-splash-logo-reveal');
+  if (!splash || !counter || !reveal) return;
+
+  var start    = performance.now();
+  var duration = 2400; // ms to count 0→100
+  var pct      = 0;
+
+  function ease(t) {
+    // ease-in-out: slow start, fast middle, slow at 100
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  }
+
+  function tick(now) {
+    var elapsed = now - start;
+    var raw     = Math.min(elapsed / duration, 1);
+    pct         = Math.round(ease(raw) * 100);
+
+    counter.textContent = pct + '%';
+    reveal.style.width  = pct + '%';
+
+    if (raw < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      // Reached 100 — short pause then fade out
+      setTimeout(function() {
+        splash.classList.add('ds-splash-out');
+        setTimeout(function() {
+          splash.classList.add('ds-splash-done');
+        }, 520);
+      }, 180);
+    }
+  }
+
+  requestAnimationFrame(tick);
+})();
+
 // ─── Top nav view switching ───
 var dsLayout = document.querySelector('.ds-layout');
 document.querySelectorAll('.ds-topnav-item').forEach(function(btn) {

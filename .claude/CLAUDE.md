@@ -15,8 +15,8 @@ Context: https://anthu211.github.io/design-system-2.0/ds/context.json
 - No page-level tabs unless explicitly requested.
 
 ## On every task
-1. Fetch context.json first — read routing[] to know which modules to load next.
-2. Fetch only the modules your task type needs (keep total JSON under 15KB).
+1. If using a slash command (`/new-page`, `/new-component`, `/new-react-component`, `/ux-review`, `/persona-check`) — the command handles its own fetching. Do NOT also fetch context.json.
+2. For ad-hoc tasks (no slash command): fetch context.json first, then only the modules your task type needs (keep total JSON under 15KB).
 3. Update ALL affected files — not just the main one.
 4. Confirm filename · persona applied · key decisions when done.
 

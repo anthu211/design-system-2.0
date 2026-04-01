@@ -32,7 +32,7 @@ Return a `✅ PASS` / `❌ FAIL` checklist using the fetched files as the source
 - [ ] All CTA/text buttons `border-radius:44px`
 - [ ] Cards, table wrappers `border-radius:4px` only
 - [ ] Inter font · `<html class="theme-light">`
-- [ ] Spacing 4px scale only — flag any off-scale value
+- [ ] Spacing 4px scale only for margin, padding, gap — flag off-scale values there only. border-radius is NOT spacing and is not restricted to the 4pt grid.
 
 ## Tables
 - [ ] Column order: checkbox → data → status → actions (empty `<th>`)
@@ -57,6 +57,52 @@ Return a `✅ PASS` / `❌ FAIL` checklist using the fetched files as the source
 ## Persona
 - [ ] Layout matches primary persona (state which one)
 - [ ] No frustration triggers for that persona
+
+## Accessibility
+- [ ] All interactive elements have visible focus states (outline, not just color change)
+- [ ] Color contrast AA minimum: body text 4.5:1, large text/UI components 3:1
+- [ ] No color as sole conveyor of meaning (status badges have text/icon, not color only)
+- [ ] All images/icons have `alt` text or `aria-label`; decorative icons use `aria-hidden="true"`
+- [ ] Form inputs have associated `<label>` or `aria-labelledby` — no placeholder-only labels
+- [ ] Modal traps focus and restores it on close; `role="dialog"` + `aria-modal="true"` present
+
+## Motion & Feedback
+- [ ] Loading states present for every async action (skeleton or spinner — not blank)
+- [ ] Inline success/error feedback on form submission — no silent failures
+- [ ] Destructive / irreversible actions have visible undo or a 3–5s delay toast
+- [ ] Transitions ≤ 200ms for micro-interactions; no animation on data tables or large repaints
+- [ ] `prefers-reduced-motion` respected — animations disabled or simplified when set
+
+## Content & Copywriting
+- [ ] All empty states have a headline + 1-line explanation + primary action (no naked "No data")
+- [ ] CTA labels are verb-first and specific ("Export Report" not "Submit" or "Click here")
+- [ ] Truncated text has full value accessible via tooltip (`title` attr or `aria-describedby`)
+- [ ] Error messages state what went wrong + how to fix it — no raw API errors exposed
+- [ ] Confirmation modal copy names the item being acted on (not "Are you sure?")
+
+## Responsive & Density
+- [ ] Layout tested at 1280px, 1440px, 1920px — no overflow or orphaned elements
+- [ ] Table has horizontal scroll container on viewports < 1024px — no column collapse
+- [ ] Touch targets ≥ 44×44px on any component that appears in a mobile/tablet view
+- [ ] Dense mode (if applicable) uses tighter padding from the 4px scale — no custom one-offs
+
+## Information Architecture
+- [ ] Page has exactly one `<h1>`; heading hierarchy is sequential (no skipped levels)
+- [ ] Active nav item is visually indicated (not just bold — use accent or indicator bar)
+- [ ] Breadcrumb reflects actual drill-down path — last crumb is current page, non-linked
+- [ ] Filters/search state is reflected in URL params or persists on back-navigation
+
+## Data Integrity & Edge Cases
+- [ ] Tables handle 0 rows, 1 row, and 1000+ rows without layout breakage
+- [ ] Long string values (names, URLs) don't break cell layout — truncate with ellipsis
+- [ ] KPI delta shows "—" or "N/A" when prior period data is unavailable — not 0% or blank
+- [ ] Pagination controls disabled (not hidden) when on first/last page
+
+## Governance & Handoff
+- [ ] Every new component maps to a named token — no hardcoded hex outside the token sheet
+- [ ] No `!important` in component styles — specificity handled by class structure
+- [ ] Z-index values use defined scale (e.g. 100/200/300 tier) — no arbitrary numbers like `z-index: 9999`
+- [ ] Component variants are named to match the design file (e.g. `btn--primary` not `btn-blue`)
 
 ---
 

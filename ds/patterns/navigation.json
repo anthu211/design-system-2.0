@@ -11,6 +11,7 @@
       "padding": "0 16px",
       "slots": {
         "left":   "PAI logo <img> only — height:26px. NEVER 'Prevalent AI' text.",
+        "left_logo_src": "https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg",
         "center": "flex-1 spacer",
         "right":  "Last Updated label → bell icon → avatar → Navigator button (t-special, sz-sm)"
       },

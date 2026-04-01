@@ -23,7 +23,7 @@ cp .claude/commands/new-component.md       "$STAGE/.claude/commands/new-componen
 cp .claude/commands/new-react-component.md "$STAGE/.claude/commands/new-react-component.md"
 cp .claude/commands/ux-review.md           "$STAGE/.claude/commands/ux-review.md"
 cp .claude/commands/persona-check.md       "$STAGE/.claude/commands/persona-check.md"
-cp CLAUDE.md                               "$STAGE/CLAUDE.md"
+cp .claude/CLAUDE.md                       "$STAGE/CLAUDE.md"
 cp install.sh                              "$STAGE/install.sh"
 
 # Build zip from inside staging parent so paths start with "claude-setup/"
