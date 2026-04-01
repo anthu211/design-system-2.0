@@ -1,20 +1,19 @@
-Fetch ALL of these URLs fully before doing anything:
-1. https://anthu211.github.io/design-system-2.0/ds/rules.json
-2. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
-3. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
-4. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
-5. https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
-6. https://anthu211.github.io/design-system-2.0/ds/components/cards.json
-7. https://anthu211.github.io/design-system-2.0/ds/components/tables.json
-8. https://anthu211.github.io/design-system-2.0/ds/components/badges.json
-9. https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
-10. https://anthu211.github.io/design-system-2.0/ds/components/modals.json
-11. https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
-12. https://anthu211.github.io/design-system-2.0/ds/components/charts.json
-13. https://anthu211.github.io/design-system-2.0/ds-core.txt
-14. https://anthu211.github.io/design-system-2.0/charts.txt
+Fetch these core files first:
+1. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
+2. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
+3. https://anthu211.github.io/design-system-2.0/ds-core.txt
 
-Do not proceed until every URL above is fully fetched and read. Use exact token values, class names, and HTML patterns from these files — do not guess or invent any values.
+Then read $ARGUMENTS and fetch only the component JSON(s) needed:
+- Table/list → https://anthu211.github.io/design-system-2.0/ds/components/tables.json + badges.json
+- Form/input → https://anthu211.github.io/design-system-2.0/ds/components/inputs.json + modals.json
+- Button/action → https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
+- Card/KPI → https://anthu211.github.io/design-system-2.0/ds/components/cards.json
+- Chart → https://anthu211.github.io/design-system-2.0/ds/components/charts.json AND https://anthu211.github.io/design-system-2.0/charts.txt
+- Modal/dialog → https://anthu211.github.io/design-system-2.0/ds/components/modals.json
+- Badge/status → https://anthu211.github.io/design-system-2.0/ds/components/badges.json
+- Toast/alert → https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
+
+Do not fetch files for components not in the request.
 
 The user's request is: $ARGUMENTS
 
@@ -36,7 +35,7 @@ BUILD CHECKLIST — complete every item in order:
 
 [ ] 5. ALL STATES — verify every interactive element has: hover, active, focus, disabled.
 
-[ ] 6. CHARTS (if adding a chart):
+[ ] 6. CHARTS (only if adding a chart):
        Copy the required function from charts.txt VERBATIM — never rewrite.
        Ensure <div id="chart-tooltip"> exists in <body>. If missing, add it.
        Ensure showChartTooltip, positionChartTooltip, hideChartTooltip are present. If missing, add from charts.txt.

@@ -1,22 +1,22 @@
-Fetch ALL of these URLs fully before doing anything:
-1. https://anthu211.github.io/design-system-2.0/ds/rules.json
-2. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
-3. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
-4. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
-5. https://anthu211.github.io/design-system-2.0/ds/patterns/shells.json
-6. https://anthu211.github.io/design-system-2.0/ds/patterns/navigation.json
-7. https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
-8. https://anthu211.github.io/design-system-2.0/ds/components/cards.json
-9. https://anthu211.github.io/design-system-2.0/ds/components/tables.json
-10. https://anthu211.github.io/design-system-2.0/ds/components/badges.json
-11. https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
-12. https://anthu211.github.io/design-system-2.0/ds/components/modals.json
-13. https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
-14. https://anthu211.github.io/design-system-2.0/ds/components/charts.json
-15. https://anthu211.github.io/design-system-2.0/ds-core.txt
-16. https://anthu211.github.io/design-system-2.0/react.txt
+Fetch these core files first:
+1. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
+2. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
+3. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
+4. https://anthu211.github.io/design-system-2.0/ds-core.txt
+5. https://anthu211.github.io/design-system-2.0/react.txt
 
-Do not proceed until every URL above is fully fetched and read. Use exact token values, class names, and Tailwind patterns from these files — do not guess or invent any values.
+Then read $ARGUMENTS and fetch only the component JSON(s) the request needs:
+- Table/list → https://anthu211.github.io/design-system-2.0/ds/components/tables.json + badges.json
+- Form/input → https://anthu211.github.io/design-system-2.0/ds/components/inputs.json + modals.json
+- Button/action → https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
+- Card/KPI → https://anthu211.github.io/design-system-2.0/ds/components/cards.json
+- Chart → https://anthu211.github.io/design-system-2.0/ds/components/charts.json
+- Modal/dialog → https://anthu211.github.io/design-system-2.0/ds/components/modals.json
+- Badge/status → https://anthu211.github.io/design-system-2.0/ds/components/badges.json
+- Toast/alert → https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
+- Full page/dashboard → fetch shells.json + navigation.json too
+
+Do not fetch JSONs for component types not present in the request.
 
 The user's requirement is: $ARGUMENTS
 
