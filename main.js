@@ -1,3 +1,32 @@
+// ─── Top nav view switching ───
+var dsLayout = document.querySelector('.ds-layout');
+document.querySelectorAll('.ds-topnav-item').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var targetPage = btn.dataset.page;
+    // Mark active tab
+    document.querySelectorAll('.ds-topnav-item').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    // Switch to view-ds
+    document.querySelectorAll('.ds-view').forEach(function(v) { v.classList.remove('active'); });
+    document.getElementById('view-ds').classList.add('active');
+    // Sidebar only for Design System tab
+    if (targetPage === 'home') {
+      dsLayout.classList.remove('no-sidebar');
+    } else {
+      dsLayout.classList.add('no-sidebar');
+    }
+    // Navigate to the target page
+    var navItem = document.querySelector('.nav-item[data-page="' + targetPage + '"]');
+    if (navItem) {
+      navItem.click();
+    } else {
+      document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+      var page = document.getElementById('page-' + targetPage);
+      if (page) page.classList.add('active');
+    }
+  });
+});
+
 // ─── Global theme ───
 function updateLogo() {
   // Logo is always white (topbar is always black)
@@ -135,12 +164,49 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
   });
 });
 
+// Nav accordion
+function navAccOpen(acc) {
+  if (!acc) return;
+  acc.classList.add('open');
+}
+function navAccClose(acc) {
+  if (!acc) return;
+  acc.classList.remove('open');
+}
+function navAccToggle(acc) {
+  acc.classList.toggle('open');
+}
+// Restore accordion state from localStorage
+(function() {
+  var saved = JSON.parse(localStorage.getItem('ds-acc') || '{}');
+  document.querySelectorAll('.nav-accordion').forEach(function(acc) {
+    var key = acc.dataset.acc;
+    // Default open: foundation and components
+    var isOpen = key in saved ? saved[key] : (key === 'foundation' || key === 'components');
+    if (isOpen) navAccOpen(acc);
+  });
+})();
+document.querySelectorAll('.nav-acc-toggle').forEach(function(toggle) {
+  toggle.addEventListener('click', function() {
+    var key = toggle.dataset.target;
+    var acc = document.querySelector('.nav-accordion[data-acc="' + key + '"]');
+    navAccToggle(acc);
+    // Persist state
+    var saved = JSON.parse(localStorage.getItem('ds-acc') || '{}');
+    saved[key] = acc.classList.contains('open');
+    localStorage.setItem('ds-acc', JSON.stringify(saved));
+  });
+});
+
 // Page nav
 document.querySelectorAll('.nav-item[data-page]').forEach(item => {
   item.addEventListener('click', () => {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     item.classList.add('active');
+    // Auto-open accordion that contains this item
+    var parentAcc = item.closest('.nav-accordion');
+    if (parentAcc) navAccOpen(parentAcc);
     var page = document.getElementById('page-' + item.dataset.page);
     page.classList.add('active');
     // Re-init dual toggle indicators now that the page is visible
