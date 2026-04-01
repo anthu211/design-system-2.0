@@ -109,7 +109,11 @@
       "Bash(curl -sI \"https://anthu211.github.io/design-system-2.0/charts.txt\")",
       "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/page-spec.txt\")",
       "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/react.txt\")",
-      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/charts.txt\")"
+      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/charts.txt\")",
+      "Bash(sort echo:*)",
+      "Bash(/dev/null ls:*)",
+      "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/new-react-component.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/new-react-component.md\")",
+      "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/ux-review.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/ux-review.md\")"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",

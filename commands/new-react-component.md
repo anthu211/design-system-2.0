@@ -12,6 +12,8 @@ Then read $ARGUMENTS and fetch only what the component needs:
 - Modal/dialog → modals.json
 - Badge/status → badges.json
 - Toast/alert → feedback.json
+- Tabs → tabs.json
+- Tooltip/accordion/progress/steps/avatar/skeleton → utilities.json
 - Full page/dashboard → ALSO fetch https://anthu211.github.io/design-system-2.0/react.txt
 
 All JSON base URL: https://anthu211.github.io/design-system-2.0/ds/components/
@@ -34,13 +36,18 @@ Generate a React component and save it as a `.tsx` file in the current directory
 ## Design Rules (apply without fetching ds-core.txt)
 - Colors: CSS variables only — never hardcode hex (use values from colors.json)
 - Spacing: 4pt grid only — 4, 8, 12, 16, 20, 24, 32, 48px. Any other value is a bug.
-- Buttons: `rounded-[44px]` always. Cards/wrappers: `rounded-[4px]` only.
-- Topbar: PAI logo `<img>` only — never "Prevalent AI" text
+- Buttons: `rounded-[44px]` always. Cards/wrappers: `rounded-[4px]` only. Never `rounded-md`, `rounded-lg`, `rounded-xl`, `rounded-full`, `shadow-lg`.
+- Topbar: PAI logo `<img>` only — never "Prevalent AI" text. Topbar bg always `#131313`.
+- Nav header label: workspace name — NOT "Prevalent AI"
 - Sub-header title: `text-[12px] font-medium` — never `<h1>` or 18px
-- Row actions: `visibility: hidden` by default, `visibility: visible` on row hover — NEVER `display: none`
-- Status/severity: always visible in column — never tooltip-only
+- Row actions: `opacity-0 group-hover:opacity-100` (space always reserved) — NEVER `hidden` or conditional render
+- Status/severity: always visible in table column — never tooltip-only
 - Destructive actions: require confirmation modal naming the item and stating the consequence
-- Modals: Cancel left, Confirm right; destructive confirm uses danger variant
+- Modals: Cancel left, Confirm right; destructive confirm uses red/danger variant, never purple
+- KPI cards: value + label + delta only — no icons, no colored borders, no shadow, no custom bg. Max 5.
+- Badges (Tailwind): critical=`bg-[#F9EEEE] text-[#D12329]` · high=`bg-[#FEF3C7] text-[#D98B1D]` · medium=`bg-[#f0f0fc] text-[#6360D8]` · low=`bg-[#EFF7ED] text-[#31A56D]`
+- Table column order: checkbox → data columns → status → actions. Max 7 columns.
+- No page-level tabs unless explicitly requested.
 
 ## Persona Table
 - ciso → KPI cards first (max 5), trend chart, 1 dominant CTA
