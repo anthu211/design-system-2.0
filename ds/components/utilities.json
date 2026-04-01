@@ -1,0 +1,63 @@
+{
+  "module": "utilities",
+  "components": {
+    "tooltip": {
+      "structure": "ds-tooltip-wrap > ds-icon-btn + ds-tooltip",
+      "rule": "CSS-only — no JS. Never use tooltip-only for severity or status.",
+      "example_html": "<span class=\"ds-tooltip-wrap\">\n  <button class=\"ds-icon-btn\"><!-- SVG --></button>\n  <span class=\"ds-tooltip\">Tooltip text</span>\n</span>"
+    },
+    "accordion": {
+      "structure": "ds-accordion > ds-accordion-item > ds-accordion-trigger + ds-accordion-content",
+      "example_html": "<div class=\"ds-accordion\">\n  <div class=\"ds-accordion-item\">\n    <button class=\"ds-accordion-trigger\">Section title</button>\n    <div class=\"ds-accordion-content\"><!-- content --></div>\n  </div>\n</div>"
+    },
+    "progress": {
+      "base_class": "ds-progress",
+      "bar_class": "ds-progress-bar",
+      "modifiers": ["danger", "indeterminate"],
+      "border_radius": "44px",
+      "example_html": "<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar\" style=\"width:60%\"></div>\n</div>\n<!-- danger: -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar danger\" style=\"width:80%\"></div>\n</div>\n<!-- indeterminate: -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar indeterminate\"></div>\n</div>"
+    },
+    "pagination": {
+      "structure": "ds-pagination > ds-page-btn [active] [disabled]",
+      "position": "bottom of table, right-aligned",
+      "row_count_position": "left of pagination — always 'Showing X–Y of Z'",
+      "disabled_rule": "Disable prev/next at boundaries — never hide them",
+      "example_html": "<div style=\"display:flex;align-items:center;justify-content:space-between;padding:8px 16px;font-size:11px;color:var(--shell-text-muted);border-top:1px solid var(--table-border);\">\n  <span>Showing 1–25 of 148</span>\n  <div class=\"ds-pagination\">\n    <button class=\"ds-page-btn disabled\">‹</button>\n    <button class=\"ds-page-btn active\">1</button>\n    <button class=\"ds-page-btn\">2</button>\n    <button class=\"ds-page-btn\">3</button>\n    <button class=\"ds-page-btn\">›</button>\n  </div>\n</div>"
+    },
+    "breadcrumb": {
+      "structure": "ds-breadcrumb > a + ds-bc-sep + ds-bc-current",
+      "last_crumb_color": "#6360D8",
+      "last_crumb_rule": "Non-linked — represents current page",
+      "separator": "›",
+      "example_html": "<nav class=\"ds-breadcrumb\">\n  <a href=\"#\">Dashboard</a>\n  <span class=\"ds-bc-sep\">›</span>\n  <a href=\"#\">Assets</a>\n  <span class=\"ds-bc-sep\">›</span>\n  <span class=\"ds-bc-current\" style=\"color:#6360D8\">Finding Detail</span>\n</nav>"
+    },
+    "steps": {
+      "structure": "ds-steps > ds-step [completed] [active] > ds-step-icon + ds-step-label",
+      "example_html": "<div class=\"ds-steps\">\n  <div class=\"ds-step completed\">\n    <span class=\"ds-step-icon\">✓</span>\n    <span class=\"ds-step-label\">Connect</span>\n  </div>\n  <div class=\"ds-step active\">\n    <span class=\"ds-step-icon\">2</span>\n    <span class=\"ds-step-label\">Configure</span>\n  </div>\n  <div class=\"ds-step\">\n    <span class=\"ds-step-icon\">3</span>\n    <span class=\"ds-step-label\">Review</span>\n  </div>\n</div>"
+    },
+    "avatar": {
+      "base_class": "ds-avatar",
+      "size_variants": { "default": "ds-avatar", "sm": "ds-avatar ds-avatar-sm", "lg": "ds-avatar ds-avatar-lg" },
+      "group_class": "ds-avatar-group",
+      "example_html": "<span class=\"ds-avatar\">AB</span>\n<span class=\"ds-avatar ds-avatar-sm\">CD</span>\n<div class=\"ds-avatar-group\">\n  <span class=\"ds-avatar\">AB</span>\n  <span class=\"ds-avatar\">CD</span>\n  <span class=\"ds-avatar\">EF</span>\n</div>"
+    },
+    "skeleton": {
+      "class": "ds-skeleton",
+      "border_radius": "4px",
+      "rule": "Always use for async loading states — never show blank space or 0-height containers.",
+      "example_html": "<div class=\"ds-skeleton\" style=\"width:100%;height:16px;border-radius:4px;\"></div>\n<div class=\"ds-skeleton\" style=\"width:60%;height:12px;border-radius:4px;margin-top:8px;\"></div>\n<!-- Card skeleton: -->\n<div class=\"ds-skeleton\" style=\"width:100%;height:80px;border-radius:4px;\"></div>"
+    }
+  },
+  "do": [
+    "Use ds-skeleton for every async loading state — never show blank space.",
+    "Disable (not hide) pagination prev/next at first/last page.",
+    "Breadcrumb last crumb: color:#6360D8 and non-linked.",
+    "Tooltip is CSS-only — no JS needed."
+  ],
+  "dont": [
+    "Never use tooltip-only for severity or status — must always be visible in column.",
+    "Never hide pagination buttons at boundaries — disable them.",
+    "Never link the last breadcrumb crumb.",
+    "Never use JavaScript to show/hide tooltips — CSS :hover only."
+  ]
+}

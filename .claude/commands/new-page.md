@@ -3,19 +3,21 @@ Fetch these URLs before doing anything else:
 2. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
 3. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
 4. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
-5. https://anthu211.github.io/design-system-2.0/ds/patterns/shells.json
-6. https://anthu211.github.io/design-system-2.0/ds/patterns/navigation.json
-7. https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
-8. https://anthu211.github.io/design-system-2.0/ds/components/tables.json
-9. https://anthu211.github.io/design-system-2.0/ds/components/badges.json
-10. https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
-11. https://anthu211.github.io/design-system-2.0/ds/components/modals.json
-12. https://anthu211.github.io/design-system-2.0/page-spec.txt
+5. https://anthu211.github.io/design-system-2.0/ds/patterns/navigation.json
+6. https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
+7. https://anthu211.github.io/design-system-2.0/ds/components/tables.json
+8. https://anthu211.github.io/design-system-2.0/ds/components/badges.json
+9. https://anthu211.github.io/design-system-2.0/ds/components/modals.json
+10. https://anthu211.github.io/design-system-2.0/page-spec.txt
 
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
 - Cards on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/cards.json
 - Charts on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/charts.json AND https://anthu211.github.io/design-system-2.0/charts.txt
-- Toasts/feedback on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
+- Forms / inputs / dropdowns / toggles on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
+- Three-panel layout or auth shell → fetch https://anthu211.github.io/design-system-2.0/ds/patterns/shells.json
+- Toasts / callouts / error states on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
+- Tabs on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/tabs.json
+- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/utilities.json
 
 Do not fetch files for components the page does not need.
 

@@ -1,0 +1,39 @@
+{
+  "component": "tabs",
+  "rule": "Never add page-level tabs unless explicitly requested. Left nav handles section navigation.",
+  "max_visible": 5,
+  "classes": {
+    "list":         "ds-tabs-list",
+    "tab":          "ds-tab",
+    "tab_active":   "ds-tab active",
+    "panel":        "ds-tab-panel",
+    "panel_active": "ds-tab-panel active"
+  },
+  "tokens": {
+    "active_color":          "#6360D8",
+    "active_indicator":      "2px solid #6360D8",
+    "inactive_color":        "var(--shell-text-muted)",
+    "font_size":             "12px",
+    "font_weight_active":    500,
+    "font_weight_inactive":  400,
+    "tab_padding":           "8px 12px",
+    "border_radius":         "0"
+  },
+  "example_html": "<div class=\"ds-tabs-list\">\n  <button class=\"ds-tab active\">Overview</button>\n  <button class=\"ds-tab\">Details</button>\n  <button class=\"ds-tab\">History</button>\n</div>\n<div class=\"ds-tab-panel active\"><!-- overview content --></div>\n<div class=\"ds-tab-panel\"><!-- details content --></div>\n<div class=\"ds-tab-panel\"><!-- history content --></div>",
+  "do": [
+    "Use tabs only within a page section or detail panel — never at page level unless explicitly requested.",
+    "Max 5 visible tabs — add an overflow menu for more.",
+    "Active tab: color:#6360D8 with 2px bottom indicator.",
+    "Show only one ds-tab-panel at a time — toggle 'active' class via JS."
+  ],
+  "dont": [
+    "Never add page-level tabs without an explicit user request.",
+    "Never use tabs to replace left nav section switching.",
+    "Never exceed 5 visible tabs without an overflow mechanism.",
+    "Never use border-radius on tab buttons — indicator is bottom-border only."
+  ],
+  "react": {
+    "library": "Radix UI Tabs",
+    "note": "Use Radix Tabs — handles keyboard navigation and ARIA roles automatically."
+  }
+}
