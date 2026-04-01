@@ -86,12 +86,25 @@
     "Set y baseline always from 0 — never dynamic yMin."
   ],
   "dont": [
-    "Never use <canvas> or any external library: Chart.js, D3, Recharts, ECharts.",
+    "Never use <canvas> or any external library: Chart.js, D3, ECharts.",
+    "HTML only: never use Recharts — use the 5 named SVG functions from charts.md verbatim.",
     "Never invent a custom chart implementation — use only the 5 named functions from charts.md.",
     "Never call chart functions directly — always wrap in setTimeout(initCharts, 60).",
     "Never use more than 6 y-axis ticks.",
     "Never omit the tooltip HTML — place it once at end of <body>."
   ],
+  "react": {
+    "library": "Recharts",
+    "allowed": ["AreaChart", "BarChart", "LineChart"],
+    "never": ["canvas", "Chart.js", "D3", "ECharts", "custom SVG functions"],
+    "severity_colors": {
+      "critical": "#D12329",
+      "high":     "#D98B1D",
+      "medium":   "#6360D8",
+      "low":      "#31A56D"
+    },
+    "note": "React uses Recharts only. The SVG function bodies in charts.md are for HTML pages — do not copy them into React components."
+  },
   "example_html": {
     "bar-vertical":      "<div id=\"vbar-chart\" style=\"width:100%;\"></div>\n<!-- call: buildVerticalBarChart('vbar-chart', series, groups, colors) -->",
     "line":              "<div id=\"line-chart\" style=\"width:100%;\"></div>\n<!-- call: buildLineChart('line-chart', data, labels) -->",
