@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -54,148 +54,275 @@
   </div>
 </div>
 
+<!-- Splash Screen -->
+<div id="ds-splash">
+  <div class="ds-splash-orb ds-splash-orb-1"></div>
+  <div class="ds-splash-orb ds-splash-orb-2"></div>
+  <!-- Logo with white fill sweep -->
+  <div class="ds-splash-logo-wrap">
+    <img src="icons/pai-logo.svg" alt="Prevalent AI" class="ds-splash-logo-dim">
+    <div class="ds-splash-logo-reveal" id="ds-splash-logo-reveal">
+      <img src="icons/pai-logo.svg" alt="" class="ds-splash-logo-bright">
+    </div>
+  </div>
+  <!-- Big counter bottom-right -->
+  <div class="ds-splash-counter" id="ds-splash-counter">0%</div>
+</div>
+
 <!-- Top Bar -->
 <header class="ds-topbar">
-  <img id="topbar-logo" src="icons/pai-logo.svg" alt="PAI" width="166" height="26" style="border-radius:6px;flex-shrink:0;">
+  <img id="topbar-logo" src="icons/pai-logo.svg" alt="PAI" width="166" height="26" style="border-radius:6px;flex-shrink:0;cursor:pointer;" onclick="document.querySelectorAll('.ds-view').forEach(v=>v.classList.remove('active'));document.getElementById('view-landing').classList.add('active');document.querySelectorAll('.ds-topnav-item').forEach(b=>b.classList.remove('active'));" title="Home">
   <span class="divider"></span>
-  <span class="ds-label">Design System</span>
-  <span class="version">v2.1.80</span>
-  <button class="cmd-trigger" id="cmd-trigger" title="Search (Ctrl+K)">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <span>Search…</span>
-    <kbd class="cmd-kbd">⌘K</kbd>
-  </button>
-  <div class="theme-toggle-global">
-    <button class="theme-btn-global active" data-global-theme="dark" title="Dark mode">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <nav class="ds-topnav">
+    <button class="ds-topnav-item" data-page="overview">Overview</button>
+    <button class="ds-topnav-item" data-page="home">Design System</button>
+    <button class="ds-topnav-item" data-page="whats-new">What's New</button>
+    <button class="ds-topnav-item" data-page="docs">Documentation</button>
+    <button class="ds-topnav-item" data-page="ai-setup">Vibe Coding</button>
+  </nav>
+  <div class="ds-topbar-right">
+    <button class="ds-topnav-item ds-topnav-cta" data-page="claude-setup">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2 L13.5 8.5 L20 7 L15.5 12 L20 17 L13.5 15.5 L12 22 L10.5 15.5 L4 17 L8.5 12 L4 7 L10.5 8.5 Z" fill="url(#claude-grad2)"/>
+        <defs>
+          <linearGradient id="claude-grad2" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#467fcd"/>
+            <stop offset="100%" stop-color="#47adcb"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="cta-text">Claude Setup</span>
     </button>
-    <button class="theme-btn-global" data-global-theme="light" title="Light mode">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <button class="cmd-trigger" id="cmd-trigger" title="Search (Ctrl+K)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>Search…</span>
+      <kbd class="cmd-kbd">⌘K</kbd>
     </button>
+    <div class="theme-toggle-global">
+      <button class="theme-btn-global active" data-global-theme="dark" title="Dark mode">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="theme-btn-global" data-global-theme="light" title="Light mode">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
+<!-- View: Landing (full-screen hero, no sidebar) -->
+<div id="view-landing" class="ds-view active">
+  <div class="ds-home-intro" id="ds-home-hero">
+    <div class="ds-hero-orb ds-hero-orb-1"></div>
+    <div class="ds-hero-orb ds-hero-orb-2"></div>
+    <div class="ds-hero-orb ds-hero-orb-3"></div>
+    <div class="ds-hero-orb ds-hero-orb-4"></div>
+    <div class="ds-hero-full">
+      <div class="ds-hero-chip ds-hc-ciso">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Table
+        </span>
+      </div>
+      <div class="ds-hero-chip ds-hc-you">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+          Modal
+        </span>
+      </div>
+      <div class="ds-hero-chip ds-hc-soc">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Chart
+        </span>
+      </div>
+      <div class="ds-hero-chip ds-hc-grc">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+          Badge
+        </span>
+      </div>
+      <div class="ds-hero-chip ds-hc-eng">
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Button
+        </span>
+      </div>
+      <div class="ds-hero-content">
+        <div class="ds-home-badge">
+          <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
+          Prevalent AI · Design System
+        </div>
+        <h1 class="ds-home-title">
+          <span class="ds-ht-line ds-ht-l1">The foundation</span>
+          <span class="ds-ht-line ds-ht-l2">every <span class="accent-word">screen</span> is built on.</span>
+        </h1>
+        <p class="ds-home-subtitle">Tokens, components, and patterns — documented, live, and built for the people who ship Prevalent AI.</p>
+
+        <div class="ds-hero-actions">
+          <button class="ds-hero-glass-cta ds-topnav-item" data-page="claude-setup">
+            <span class="ds-hero-glass-cta-inner">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2 L13.5 8.5 L20 7 L15.5 12 L20 17 L13.5 15.5 L12 22 L10.5 15.5 L4 17 L8.5 12 L4 7 L10.5 8.5 Z" fill="url(#claude-hero-grad)"/>
+                <defs>
+                  <linearGradient id="claude-hero-grad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#6fa8e8"/>
+                    <stop offset="100%" stop-color="#52c8dc"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+              <span class="ds-hero-glass-cta-label">Claude Setup</span>
+              <svg class="ds-hero-glass-cta-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </button>
+        </div>
+
+        <div class="ds-hero-foot">
+          <div class="ds-home-stats">
+            <div class="ds-home-stat"><span class="ds-home-stat-num">25+</span><span class="ds-home-stat-label">Components</span></div>
+            <div class="ds-home-stat-divider"></div>
+            <div class="ds-home-stat"><span class="ds-home-stat-num">30+</span><span class="ds-home-stat-label">Tokens</span></div>
+            <div class="ds-home-stat-divider"></div>
+            <div class="ds-home-stat"><span class="ds-home-stat-num">5</span><span class="ds-home-stat-label">Personas</span></div>
+            <div class="ds-home-stat-divider"></div>
+            <div class="ds-home-stat"><span class="ds-home-stat-num">2</span><span class="ds-home-stat-label">Themes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View: Design System (sidebar + pages) -->
+<div id="view-ds" class="ds-view">
 <div class="ds-layout">
 
   <!-- Sidebar -->
   <nav class="ds-sidebar">
-    <div class="nav-section">
-      <div class="nav-item active" data-page="home">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Overview
+    <div class="nav-section nav-accordion" data-acc="foundation">
+      <div class="nav-section-label nav-acc-toggle" data-target="foundation">
+        Foundation
+        <svg class="nav-acc-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <div class="nav-item" data-page="ai-setup">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73A2 2 0 0 1 10 4a2 2 0 0 1 2-2z"/><circle cx="9" cy="13" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="13" r="1" fill="currentColor" stroke="none"/></svg>
-        Copy Prompts
-      </div>
-      <div class="nav-item" data-page="claude-setup">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Claude Setup
-      </div>
-    </div>
-    <div class="nav-section">
-      <div class="nav-section-label">Foundation</div>
-
-      <div class="nav-item" data-page="colors">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5S7 9.76 7 7a5 5 0 0 1 5-5z"/></svg>
-        Colors
-      </div>
-
-      <div class="nav-item" data-page="resolutions">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        Resolutions
-      </div>
-
-      <div class="nav-item" data-page="spacing">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
-        Spacing &amp; Grid
-      </div>
-
-      <div class="nav-item" data-page="typography">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-        Typography
+      <div class="nav-acc-body" id="acc-foundation">
+        <div class="nav-item" data-page="colors">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5S7 9.76 7 7a5 5 0 0 1 5-5z"/></svg>
+          Colors
+        </div>
+        <div class="nav-item" data-page="resolutions">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Resolutions
+        </div>
+        <div class="nav-item" data-page="spacing">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+          Spacing &amp; Grid
+        </div>
+        <div class="nav-item" data-page="typography">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          Typography
+        </div>
       </div>
     </div>
 
-    <div class="nav-section">
-      <div class="nav-section-label">Components</div>
-      <div class="nav-item" data-page="avatars">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Avatar &amp; Skeleton
+    <div class="nav-section nav-accordion" data-acc="components">
+      <div class="nav-section-label nav-acc-toggle" data-target="components">
+        Components
+        <svg class="nav-acc-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <div class="nav-item" data-page="badges">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Badge &amp; Status
-      </div>
-      <div class="nav-item" data-page="breadnav">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        Breadcrumb &amp; Pagination
-      </div>
-      <div class="nav-item" data-page="buttons">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
-        Buttons &amp; Toggles
-      </div>
-      <div class="nav-item" data-page="callout">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Callout
-      </div>
-      <div class="nav-item" data-page="charts">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        Charts
-      </div>
-      <div class="nav-item" data-page="forms">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Form Controls
-      </div>
-      <div class="nav-item" data-page="icons">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        Icons &amp; Logos
-      </div>
-      <div class="nav-item" data-page="kpi">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="9" height="9" rx="2"/><rect x="13" y="3" width="9" height="9" rx="2"/><rect x="2" y="14" width="9" height="9" rx="2"/><rect x="13" y="14" width="9" height="9" rx="2"/></svg>
-        KPI Cards
-      </div>
-      <div class="nav-item" data-page="overlays">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        Modal, Toast &amp; Tooltip
-      </div>
-      <div class="nav-item" data-page="navmenu">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="13" y1="8" x2="18" y2="8"/><line x1="13" y1="12" x2="18" y2="12"/><line x1="13" y1="16" x2="18" y2="16"/></svg>
-        Navigation
-      </div>
-      <div class="nav-item" data-page="panels">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-        Panels &amp; Filters
-      </div>
-      <div class="nav-item" data-page="progress">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"/><path d="M12 2l0 20"/></svg>
-        Progress &amp; Slider
-      </div>
-      <div class="nav-item" data-page="table">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
-        Table
-      </div>
-      <div class="nav-item" data-page="tabs">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        Tabs &amp; Accordion
-      </div>
-      <div class="nav-item" data-page="toggleselect">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="8" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
-        Toggle &amp; Select
+      <div class="nav-acc-body" id="acc-components">
+        <div class="nav-item" data-page="avatars">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Avatar &amp; Skeleton
+        </div>
+        <div class="nav-item" data-page="badges">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Badge &amp; Status
+        </div>
+        <div class="nav-item" data-page="breadnav">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          Breadcrumb &amp; Pagination
+        </div>
+        <div class="nav-item" data-page="buttons">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
+          Buttons &amp; Toggles
+        </div>
+        <div class="nav-item" data-page="callout">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Callout
+        </div>
+        <div class="nav-item" data-page="charts">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Charts
+        </div>
+        <div class="nav-item" data-page="forms">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Form Controls
+        </div>
+        <div class="nav-item" data-page="icons">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Icons &amp; Logos
+        </div>
+        <div class="nav-item" data-page="kpi">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="9" height="9" rx="2"/><rect x="13" y="3" width="9" height="9" rx="2"/><rect x="2" y="14" width="9" height="9" rx="2"/><rect x="13" y="14" width="9" height="9" rx="2"/></svg>
+          KPI Cards
+        </div>
+        <div class="nav-item" data-page="overlays">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Modal
+        </div>
+        <div class="nav-item" data-page="tooltip">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Tooltip
+        </div>
+        <div class="nav-item" data-page="navmenu">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="13" y1="8" x2="18" y2="8"/><line x1="13" y1="12" x2="18" y2="12"/><line x1="13" y1="16" x2="18" y2="16"/></svg>
+          Navigation
+        </div>
+        <div class="nav-item" data-page="panels">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+          Panels &amp; Filters
+        </div>
+        <div class="nav-item" data-page="progress">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"/><path d="M12 2l0 20"/></svg>
+          Progress &amp; Slider
+        </div>
+        <div class="nav-item" data-page="table">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+          Table
+        </div>
+        <div class="nav-item" data-page="tabs">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Tabs &amp; Accordion
+        </div>
+        <div class="nav-item" data-page="toggleselect">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="8" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
+          Toggle &amp; Select
+        </div>
       </div>
     </div>
-    <div class="nav-section">
-      <div class="nav-section-label">Templates</div>
-      <div class="nav-item" data-page="screenshell">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
-        Screen Shell
+
+    <div class="nav-section nav-accordion" data-acc="templates">
+      <div class="nav-section-label nav-acc-toggle" data-target="templates">
+        Templates
+        <svg class="nav-acc-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="nav-acc-body" id="acc-templates">
+        <div class="nav-item" data-page="screenshell">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+          Screen Shell
+        </div>
       </div>
     </div>
-    <div class="nav-section">
-      <div class="nav-section-label">Guidelines</div>
-      <div class="nav-item" data-page="best-practices">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Best Practices
+
+    <div class="nav-section nav-accordion" data-acc="guidelines">
+      <div class="nav-section-label nav-acc-toggle" data-target="guidelines">
+        Guidelines
+        <svg class="nav-acc-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="nav-acc-body" id="acc-guidelines">
+        <div class="nav-item" data-page="best-practices">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Best Practices
+        </div>
       </div>
     </div>
 
@@ -204,88 +331,64 @@
   <!-- Main Content -->
   <main class="ds-content">
 
-    <!-- HOME PAGE -->
-<div class="page active" id="page-home">
-  <div class="ds-home-intro" id="ds-home-hero">
-
-    <!-- Hero: two-column -->
-    <div class="ds-home-hero">
-
-      <!-- Left: text + stats -->
-      <div class="ds-hero-left">
-        <div class="ds-home-badge">
-          <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
-          Prevalent AI · Design System
-        </div>
-        <h1 class="ds-home-title">Build <span class="accent-word">consistent</span> UI.<br>Ship faster.</h1>
-        <p class="ds-home-subtitle">The single source of truth for all UI patterns, tokens, and components at Prevalent AI. Every decision documented. Every component live.</p>
-        <div class="ds-home-stats">
-          <div class="ds-home-stat"><span class="ds-home-stat-num">25+</span><span class="ds-home-stat-label">Components</span></div>
-          <div class="ds-home-stat-divider"></div>
-          <div class="ds-home-stat"><span class="ds-home-stat-num">30+</span><span class="ds-home-stat-label">Design Tokens</span></div>
-          <div class="ds-home-stat-divider"></div>
-          <div class="ds-home-stat"><span class="ds-home-stat-num">2</span><span class="ds-home-stat-label">Theme Modes</span></div>
-          <div class="ds-home-stat-divider"></div>
-          <div class="ds-home-stat"><span class="ds-home-stat-num">1024px+</span><span class="ds-home-stat-label">Responsive</span></div>
-        </div>
-      </div>
-
-      <!-- Right: live component preview -->
-      <div class="ds-hero-right">
-        <div class="ds-hero-preview">
-          <div class="ds-hp-label">Components</div>
-          <!-- Buttons -->
-          <div class="ds-hp-row">
-            <button style="background:#6360D8;border:none;color:#fff;font-size:11px;font-weight:500;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Primary</button>
-            <button style="background:none;border:1px solid #cfcfcf;color:#6e6e6e;font-size:11px;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Outline</button>
-            <button style="background:rgba(99,96,216,0.08);border:none;color:#6360D8;font-size:11px;padding:5px 14px;border-radius:44px;font-family:inherit;cursor:default;">Ghost</button>
-          </div>
-          <!-- Badges -->
-          <div class="ds-hp-row">
-            <span style="background:#d1fae5;color:#065f46;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Active</span>
-            <span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Warning</span>
-            <span style="background:#fee2e2;color:#991b1b;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Critical</span>
-            <span style="background:#ede9fe;color:#5b21b6;font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px;">Info</span>
-          </div>
-          <!-- KPI cards -->
-          <div class="ds-hp-row" style="gap:8px;align-items:stretch;">
-            <div style="flex:1;background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:10px 12px;">
-              <div style="font-size:10px;color:var(--shell-text-muted);margin-bottom:5px;">Total Assets</div>
-              <div style="font-size:17px;font-weight:700;color:var(--shell-text);line-height:1;">12,480</div>
-              <div style="font-size:10px;color:#31a56d;margin-top:5px;display:flex;align-items:center;gap:3px;">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg> 4.2%
-              </div>
-            </div>
-            <div style="flex:1;background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:10px 12px;">
-              <div style="font-size:10px;color:var(--shell-text-muted);margin-bottom:5px;">Critical CVEs</div>
-              <div style="font-size:17px;font-weight:700;color:#e15252;line-height:1;">247</div>
-              <div style="font-size:10px;color:#e15252;margin-top:5px;display:flex;align-items:center;gap:3px;">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg> 12.1%
-              </div>
-            </div>
-          </div>
-          <!-- Mini table -->
-          <div style="border:1px solid var(--card-border);border-radius:8px;overflow:hidden;">
-            <div style="display:grid;grid-template-columns:1fr 64px 64px;padding:6px 10px;background:var(--shell-raised);font-size:9px;font-weight:700;color:var(--shell-text-muted);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--card-border);">
-              <span>Asset</span><span>Risk</span><span>Status</span>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 64px 64px;padding:7px 10px;font-size:10px;color:var(--shell-text);background:var(--card-bg);">
-              <span style="color:var(--shell-text-muted);">192.168.1.1</span>
-              <span style="color:#e15252;font-weight:500;">Critical</span>
-              <span style="color:#31a56d;font-weight:500;">Active</span>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 64px 64px;padding:7px 10px;font-size:10px;color:var(--shell-text);border-top:1px solid var(--card-border);background:var(--card-bg);">
-              <span style="color:var(--shell-text-muted);">api.prod.io</span>
-              <span style="color:#f97316;font-weight:500;">High</span>
-              <span style="color:var(--shell-text-muted);">Resolved</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <!-- OVERVIEW PAGE -->
+<div class="page" id="page-overview">
+  <div class="page-sub-header">
+    <div class="page-sub-header-left">
+      <h1 class="page-title">Overview</h1>
+      <p class="page-subtitle">Everything you need to design and build Prevalent AI products.</p>
     </div>
+  </div>
+  <div class="bp-section">
+    <div class="bp-section-title">What's inside</div>
+    <div class="ds-home-grid">
+      <div class="ds-home-card" onclick="document.querySelector('[data-page=home]').click()">
+        <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="ds-home-card-title">Design System</div>
+        <div class="ds-home-card-desc">Tokens, components, templates, and guidelines for building consistent UI.</div>
+      </div>
+      <div class="ds-home-card" onclick="document.querySelector('[data-page=whats-new]').click()">
+        <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div class="ds-home-card-title">What's New</div>
+        <div class="ds-home-card-desc">Latest updates, component additions, and changes to the design system.</div>
+      </div>
+      <div class="ds-home-card" onclick="document.querySelector('[data-page=docs]').click()">
+        <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="ds-home-card-title">Documentation</div>
+        <div class="ds-home-card-desc">Dos and don'ts, usage rules, and design principles.</div>
+      </div>
+      <div class="ds-home-card" onclick="document.querySelector('[data-page=ai-setup]').click()">
+        <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="ds-home-card-title">Vibe Coding</div>
+        <div class="ds-home-card-desc">AI-assisted page and component generation using the design system.</div>
+      </div>
+      <div class="ds-home-card" onclick="document.querySelector('.ds-topnav-cta').click()">
+        <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="ds-home-card-title">Claude Setup</div>
+        <div class="ds-home-card-desc">Copy prompts and configuration for working with Claude on PAI products.</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  </div><!-- /ds-home-intro -->
+    <!-- HOME PAGE -->
+<div class="page" id="page-home">
+  <div class="page-sub-header">
+    <div class="page-sub-header-left">
+      <h1 class="page-title">Design System</h1>
+      <p class="page-subtitle">Components, tokens, and patterns for Prevalent AI.</p>
+    </div>
+  </div>
 
   <div class="ds-home-section-title">Foundation</div>
   <div class="ds-home-grid">
@@ -360,8 +463,8 @@
       <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       </div>
-      <div class="ds-home-card-title">Modal &amp; Toast</div>
-      <div class="ds-home-card-desc">Confirmation dialogs, notification toasts, tooltips.</div>
+      <div class="ds-home-card-title">Modal</div>
+      <div class="ds-home-card-desc">Confirmation dialogs, destructive actions, and form overlays.</div>
     </div>
     <div class="ds-home-card" onclick="document.querySelector('[data-page=tabs]').click()">
       <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
@@ -1691,6 +1794,37 @@
           </div>
         </div>
       </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Toast Notifications</div>
+        <div class="comp-card">
+          <div class="comp-row">
+            <button class="ds-btn t-success sz-md" onclick="showToast('success','Changes saved successfully!')">Success Toast</button>
+            <button class="ds-btn t-danger sz-md" onclick="showToast('error','Connection failed. Please try again.')">Error Toast</button>
+            <button class="ds-btn t-outline sz-md" onclick="showToast('warning','This action cannot be undone.')">Warning Toast</button>
+            <button class="ds-btn t-secondary sz-md" onclick="showToast('info','Your session will expire in 5 minutes.')">Info Toast</button>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--shell-border);">
+            <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">STATIC PREVIEW</div>
+            <div style="display:flex;flex-direction:column;gap:8px;max-width:360px;">
+              <div class="ds-toast-preview success"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Changes saved successfully!</span></div>
+              <div class="ds-toast-preview error"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span>Connection failed. Please retry.</span></div>
+              <div class="ds-toast-preview warning"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>This action cannot be undone.</span></div>
+              <div class="ds-toast-preview info"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Session expiring in 5 minutes.</span></div>
+            </div>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--shell-border);">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:8px;">Rules</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;padding:0;">
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Success and info toasts auto-dismiss after 3 seconds</li>
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Error toasts persist until manually dismissed</li>
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Always positioned bottom-right — never block primary content</li>
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Use callout for inline feedback, toast for system-level events</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- BADGE & STATUS PAGE -->
@@ -1781,8 +1915,8 @@
     <!-- MODAL & TOAST PAGE -->
     <div class="page" id="page-overlays">
       <div class="page-header">
-        <h1>Modal &amp; Toast</h1>
-        <p>Overlay patterns for focused interactions and contextual feedback. Fully interactive — click buttons to trigger states.</p>
+        <h1>Modal</h1>
+        <p>Overlay patterns for focused interactions. Fully interactive — click buttons to trigger states.</p>
       </div>
 
       <!-- Toast container -->
@@ -1971,34 +2105,73 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- TOOLTIP PAGE -->
+    <div class="page" id="page-tooltip">
+      <div class="page-header">
+        <h1>Tooltip</h1>
+        <p>Contextual labels that appear on hover. Two distinct types: UI tooltips for interface elements, and chart tooltips for data visualisation.</p>
+      </div>
+
       <div class="comp-section">
-        <div class="comp-section-title">Toast Notifications</div>
+        <div class="comp-section-title">UI Tooltip — Positions</div>
         <div class="comp-card">
-          <div class="comp-row">
-            <button class="ds-btn t-success sz-md" onclick="showToast('success','Changes saved successfully!')">Success Toast</button>
-            <button class="ds-btn t-danger sz-md" onclick="showToast('error','Connection failed. Please try again.')">Error Toast</button>
-            <button class="ds-btn t-outline sz-md" onclick="showToast('warning','This action cannot be undone.')">Warning Toast</button>
-            <button class="ds-btn t-secondary sz-md" onclick="showToast('info','Your session will expire in 5 minutes.')">Info Toast</button>
-          </div>
-          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--shell-border);">
-            <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">STATIC PREVIEW</div>
-            <div style="display:flex;flex-direction:column;gap:8px;max-width:360px;">
-              <div class="ds-toast-preview success"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Changes saved successfully!</span></div>
-              <div class="ds-toast-preview error"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span>Connection failed. Please retry.</span></div>
-              <div class="ds-toast-preview warning"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>This action cannot be undone.</span></div>
-              <div class="ds-toast-preview info"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Session expiring in 5 minutes.</span></div>
+          <div class="comp-row" style="gap:24px;flex-wrap:wrap;">
+            <div class="ds-tooltip-wrap" data-tip="Top tooltip" data-pos="top">
+              <button class="ds-btn t-outline sz-md">Top</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="Bottom tooltip" data-pos="bottom">
+              <button class="ds-btn t-outline sz-md">Bottom</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="Left tooltip" data-pos="left">
+              <button class="ds-btn t-outline sz-md">Left</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="Right tooltip" data-pos="right">
+              <button class="ds-btn t-outline sz-md">Right</button>
             </div>
           </div>
         </div>
       </div>
+      <div class="page-divider"></div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">UI Tooltip — Content Variants</div>
+        <div class="comp-card">
+          <div class="comp-row" style="gap:24px;flex-wrap:wrap;">
+            <div class="ds-tooltip-wrap" data-tip="Short label" data-pos="top">
+              <button class="ds-btn t-secondary sz-md">Short</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="This is a longer tooltip that wraps across multiple lines when content exceeds the max width." data-pos="top">
+              <button class="ds-btn t-secondary sz-md">Long / wrapping</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="Cmd + K" data-pos="top">
+              <button class="ds-btn t-outline sz-md">Keyboard shortcut</button>
+            </div>
+            <div class="ds-tooltip-wrap" data-tip="Delete this asset permanently" data-pos="top">
+              <button class="ds-btn t-danger sz-sm">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--shell-border);">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:8px;">Rules</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;padding:0;">
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Always use for icon-only buttons — never leave them without a label</li>
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Max width 240px — text wraps, never truncates</li>
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Never place actionable content (buttons, links) inside a tooltip</li>
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Prefer top position — use bottom/left/right only when top is clipped</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
 
       <div class="comp-section">
         <div class="comp-section-title">Chart Tooltip</div>
         <div class="comp-card">
-          <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:16px;">Appears on hover over any chart element. Border and dot color matches the hovered series. Hovered row is bold. All series values for the group are shown.</div>
-          <!-- Static preview -->
+          <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:16px;">Appears on hover over any chart element. Border and dot color matches the hovered series. Hovered row is bold.</div>
           <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
-            <!-- Bar chart group tooltip preview -->
             <div style="position:relative;display:inline-block;">
               <div style="background:var(--card-bg);border:1px solid #D12329;border-radius:8px;padding:12px 13px;min-width:180px;box-shadow:0 4px 16px rgba(0,0,0,0.12);">
                 <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #D12329;"></div>
@@ -2012,7 +2185,6 @@
               </div>
               <div style="text-align:center;font-size:11px;color:var(--shell-text-muted);margin-top:10px;">Bar chart — grouped hover</div>
             </div>
-            <!-- Donut segment tooltip preview -->
             <div style="position:relative;display:inline-block;">
               <div style="background:var(--card-bg);border:1px solid #6760d8;border-radius:8px;padding:12px 13px;min-width:140px;box-shadow:0 4px 16px rgba(0,0,0,0.12);">
                 <div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #6760d8;"></div>
@@ -2042,27 +2214,7 @@
           </div>
         </div>
       </div>
-
-      <div class="comp-section">
-        <div class="comp-section-title">Tooltip</div>
-        <div class="comp-card">
-          <div class="comp-row" style="gap:24px;">
-            <div class="ds-tooltip-wrap" data-tip="Top tooltip" data-pos="top">
-              <button class="ds-btn t-outline sz-md">Hover (Top)</button>
-            </div>
-            <div class="ds-tooltip-wrap" data-tip="Bottom tooltip" data-pos="bottom">
-              <button class="ds-btn t-outline sz-md">Hover (Bottom)</button>
-            </div>
-            <div class="ds-tooltip-wrap" data-tip="Right-side tooltip text" data-pos="right">
-              <button class="ds-btn t-outline sz-md">Hover (Right)</button>
-            </div>
-            <div class="ds-tooltip-wrap" data-tip="This is a longer tooltip description that wraps nicely." data-pos="top">
-              <button class="ds-btn t-secondary sz-md">Long Tooltip</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </div><!-- /page-tooltip -->
 
     <!-- TABS & ACCORDION PAGE -->
     <div class="page" id="page-tabs">
@@ -4848,98 +5000,409 @@ Do not finish until all of these are complete:
   <div class="page-sub-header">
     <div class="page-sub-header-left">
       <h1 class="page-title">Claude Setup</h1>
-      <p class="page-subtitle">Install the design system into Claude Code. One command — every slash command works immediately.</p>
+      <p class="page-subtitle">Connect the Prevalent AI design system to Claude Code. One command and every slash command works immediately.</p>
     </div>
   </div>
   <div class="page-content">
 
-    <div class="ds-claude-setup" style="margin:0;border:none;padding:0;background:none;">
-
-      <!-- Download hero: button + 3 steps side by side -->
-      <div class="ds-claude-dl-hero">
-        <div class="ds-claude-dl-left">
-          <button class="ds-claude-dl-btn" onclick="downloadClaudeSetup()" id="claude-setup-dl-btn-page">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download claude-setup.zip
-          </button>
-          <div style="margin-top:10px;">
-            <div style="font-size:10px;color:var(--shell-text-muted);margin-bottom:5px;">After downloading, run in your project root:</div>
-            <div class="ds-claude-code-block" style="font-size:10px;line-height:1.5;"><span style="color:#9ca3af;">cd</span> /path/to/your-project<br><span style="color:#9ca3af;">unzip</span> -o ~/Downloads/claude-setup.zip -d /tmp/cs <span style="color:#6b7280;">&amp;&amp;</span> <span style="color:#9ca3af;">bash</span> /tmp/cs/claude-setup/install.sh</div>
+    <!-- ── INSTALL HERO ── -->
+    <div class="ds-cs-hero">
+      <div class="ds-cs-hero-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        Run in your project root
+      </div>
+      <div class="ds-cs-hero-cmd">
+        <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSL https://anthu211.github.io/design-system-2.0/install.sh | bash</span>
+        <button class="ds-cs-hero-copy" id="cs-hero-copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://anthu211.github.io/design-system-2.0/install.sh | bash').then(function(){var b=document.getElementById('cs-hero-copy-btn');b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},2000)})">Copy</button>
+      </div>
+      <div class="ds-cs-hero-meta">
+        <span>Always installs the latest version</span>
+        <span class="ds-cs-hero-dot">·</span>
+        <span>Re-run anytime to update</span>
+        <span class="ds-cs-hero-dot">·</span>
+        <button id="claude-setup-dl-btn-page" class="ds-cs-hero-alt" onclick="var s=document.getElementById('zip-steps');var o=s.style.display==='block';s.style.display=o?'none':'block';this.textContent=o?'No curl? Download zip →':'Hide zip steps'">No curl? Download zip →</button>
+      </div>
+      <div id="zip-steps" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span class="ds-cs-zip-num">1</span>
+            <button onclick="downloadClaudeSetup()" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:44px;background:rgba(99,96,216,0.9);color:#fff;border:none;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.01em;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download claude-setup.zip
+            </button>
           </div>
-          <div class="ds-claude-dl-meta" style="margin-top:8px;">
-            <span>Or use the curl command →</span>
-            <span class="ds-claude-dl-dot">·</span>
-            <span>Always installs the latest version</span>
+          <div style="display:flex;align-items:flex-start;gap:12px;">
+            <span class="ds-cs-zip-num">2</span>
+            <code style="font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;"><span style="color:#9ca3af;">unzip</span> -o ~/Downloads/claude-setup.zip -d /tmp/cs &amp;&amp; <span style="color:#9ca3af;">bash</span> /tmp/cs/claude-setup/install.sh</code>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="ds-claude-dl-divider"></div>
+    <!-- ── THEN OPEN CLAUDE ── -->
+    <div class="ds-cs-next">
+      <div class="ds-cs-next-step">
+        <div class="ds-cs-next-num">2</div>
+        <div>
+          <div class="ds-cs-next-label">Open Claude Code in your project</div>
+          <code class="ds-cs-next-code"><span style="color:#8f8dde;">claude</span></code>
+        </div>
+      </div>
+      <div class="ds-cs-next-step">
+        <div class="ds-cs-next-num ds-cs-next-done">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="ds-cs-next-label" style="color:var(--shell-accent);">All slash commands ready</div>
+          <div class="ds-cs-next-hint">Type <code class="ds-cs-ic">/new-page</code>, <code class="ds-cs-ic">/new-component</code>, or <code class="ds-cs-ic">/ux-review</code> to start building.</div>
+        </div>
+      </div>
+    </div>
 
-        <div class="ds-claude-dl-steps">
-          <div class="ds-claude-dl-step">
-            <div class="ds-claude-dl-step-num">1</div>
-            <div class="ds-claude-dl-step-text">
-              <strong>Open terminal in your project root</strong>
-              <div class="ds-claude-code-block" style="margin-top:6px;"><span style="color:#9ca3af;">cd</span> /path/to/your-project</div>
-            </div>
+    <!-- ── COMMANDS GRID ── -->
+    <div class="ds-cs-commands-section">
+      <div class="ds-cs-section-title">Commands</div>
+      <div class="ds-cs-grid">
+        <div class="ds-cs-card">
+          <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="ds-cs-card-name">/new-page</div>
+          <div class="ds-cs-card-desc">Full HTML page from a description. Persona and filename inferred automatically.</div>
+        </div>
+        <div class="ds-cs-card">
+          <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></div>
+          <div class="ds-cs-card-name">/new-component</div>
+          <div class="ds-cs-card-desc">Adds a component into an existing page. No full rewrite — surgically inserted.</div>
+        </div>
+        <div class="ds-cs-card">
+          <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div class="ds-cs-card-name">/new-react-component</div>
+          <div class="ds-cs-card-desc">TypeScript + Tailwind + Radix UI component. Saved as a <code class="ds-cs-ic">.tsx</code> file.</div>
+        </div>
+        <div class="ds-cs-card">
+          <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="ds-cs-card-name">/ux-review</div>
+          <div class="ds-cs-card-desc">Audits a screen against the design spec. Returns a pass/fail list with exact fixes.</div>
+        </div>
+        <div class="ds-cs-card">
+          <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="ds-cs-card-name">/persona-check</div>
+          <div class="ds-cs-card-desc">Identifies the right persona for a feature and flags design conflicts.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HOW IT WORKS ── -->
+    <div class="ds-cs-commands-section">
+      <div class="ds-cs-section-title">How it works</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div class="ds-cs-info-row">
+          <div class="ds-cs-info-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div>
+            <div class="ds-cs-info-title">Fetches only what's needed</div>
+            <div class="ds-cs-info-desc">Each command pulls only the spec files relevant to your task. No charts? <code class="ds-cs-ic">charts.json</code> never loads. Keeps Claude focused and fast.</div>
           </div>
-          <div class="ds-claude-dl-step">
-            <div class="ds-claude-dl-step-num">2</div>
-            <div class="ds-claude-dl-step-text">
-              <strong>Run the installer</strong>
-              <div class="ds-claude-code-block" style="margin-top:6px;font-size:11px;"><span style="color:#9ca3af;">curl</span> -fsSL https://anthu211.github.io/design-system-2.0/install.sh | bash</div>
-              <div style="font-size:10px;color:var(--shell-text-muted);margin-top:5px;">Always installs the latest version. Re-run anytime to update.</div>
-            </div>
-          </div>
-          <div class="ds-claude-dl-step">
-            <div class="ds-claude-dl-step-num">3</div>
-            <div class="ds-claude-dl-step-text">
-              <strong>Open Claude Code</strong>
-              <div class="ds-claude-code-block" style="margin-top:6px;"><span style="color:#6760d8;">claude</span></div>
-            </div>
+        </div>
+        <div class="ds-cs-info-row">
+          <div class="ds-cs-info-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div>
+            <div class="ds-cs-info-title">Rules are baked in</div>
+            <div class="ds-cs-info-desc">No pasting spec docs. Tokens, spacing, border-radius, persona logic, confirmation modals — all carried in the command automatically.</div>
           </div>
         </div>
       </div>
 
-      <!-- Rule -->
-      <div class="ds-claude-setup-rule"></div>
-
-      <!-- Commands reference -->
-      <div class="ds-claude-cmds-grid">
-        <div class="ds-claude-cmd-card">
-          <div class="ds-claude-cmd-card-name">/new-page</div>
-          <div class="ds-claude-cmd-card-desc">Generates a complete HTML page and saves it as a file. Describe the screen — Claude infers persona, picks a filename, writes to disk.</div>
+      <!-- Token usage -->
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px 18px;margin-bottom:8px;">
+        <div style="font-size:11px;font-weight:700;color:var(--shell-text);margin-bottom:12px;">Token usage per command</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <div class="ds-cs-token-row"><span class="ds-cs-token-label">/new-page</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:90%;"></div></div><span class="ds-cs-token-val">14–22K</span></div>
+          <div class="ds-cs-token-row"><span class="ds-cs-token-label">/new-react-component</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:60%;"></div></div><span class="ds-cs-token-val">3–15K</span></div>
+          <div class="ds-cs-token-row"><span class="ds-cs-token-label">/new-component</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:55%;"></div></div><span class="ds-cs-token-val">5–15K</span></div>
+          <div class="ds-cs-token-row"><span class="ds-cs-token-label">/ux-review</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:22%;"></div></div><span class="ds-cs-token-val">3–6K</span></div>
+          <div class="ds-cs-token-row"><span class="ds-cs-token-label">/persona-check</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:8%;"></div></div><span class="ds-cs-token-val">1–2K</span></div>
         </div>
-        <div class="ds-claude-cmd-card">
-          <div class="ds-claude-cmd-card-name">/new-component</div>
-          <div class="ds-claude-cmd-card-desc">Adds a component to an existing page in place. Describe what to add and which file — no full rewrite.</div>
-        </div>
-        <div class="ds-claude-cmd-card">
-          <div class="ds-claude-cmd-card-name">/new-react-component</div>
-          <div class="ds-claude-cmd-card-desc">Generates a React + TypeScript component using Tailwind, Radix UI, Lucide, and Recharts. Saves as a <code style="font-size:10px;background:var(--shell-raised);border:1px solid var(--card-border);border-radius:3px;padding:1px 4px;color:#6760d8;">.tsx</code> file.</div>
-        </div>
-        <div class="ds-claude-cmd-card">
-          <div class="ds-claude-cmd-card-name">/ux-review</div>
-          <div class="ds-claude-cmd-card-desc">Checks a screen against the spec and UX laws. Returns a pass/fail checklist with exact fixes.</div>
-        </div>
-        <div class="ds-claude-cmd-card">
-          <div class="ds-claude-cmd-card-name">/persona-check</div>
-          <div class="ds-claude-cmd-card-desc">Maps a feature to the right persona, surfaces their goals and frustrations, flags anything working against them.</div>
-        </div>
+        <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--card-border);font-size:10px;color:var(--shell-text-muted);">Ranges scale with complexity. A full dashboard (charts + tables + filters) hits the upper end.</div>
       </div>
 
-      <div class="ds-claude-personas">
-        <span class="ds-claude-persona-label">Persona values:</span>
+      <!-- vs copy prompt -->
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px 18px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <div style="font-size:11px;font-weight:700;color:var(--shell-text);">vs. Copy Prompt (Claude.ai)</div>
+          <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:44px;background:rgba(49,165,109,0.1);color:#31A56D;border:1px solid rgba(49,165,109,0.2);">40–60% fewer tokens</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="padding:10px 12px;border-radius:4px;background:var(--shell-raised);border:1px solid var(--card-border);">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-text-muted);margin-bottom:5px;">Copy Prompt</div>
+            <div style="font-size:11.5px;color:var(--shell-text-2);line-height:1.6;">Loads <code class="ds-cs-ic">ds-core.md</code> + <code class="ds-cs-ic">page-spec.md</code> + <code class="ds-cs-ic">charts.md</code> every time — ~80KB, ~23K tokens.</div>
+          </div>
+          <div style="padding:10px 12px;border-radius:4px;background:rgba(99,96,216,0.04);border:1px solid rgba(99,96,216,0.15);">
+            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:5px;">Slash Commands</div>
+            <div style="font-size:11.5px;color:var(--shell-text-2);line-height:1.6;">Fetches only what the task needs. Same output quality, far fewer tokens.</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--shell-text-muted);">Use the copy prompt in Claude.ai. Use slash commands inside Claude Code.</div>
+      </div>
+    </div>
+
+    <!-- ── PERSONAS ── -->
+    <div class="ds-cs-commands-section" style="margin-bottom:0;">
+      <div class="ds-cs-section-title">Persona values</div>
+      <div class="ds-claude-personas" style="padding:0;background:none;border:none;margin-top:0;">
         <span class="ds-claude-persona-chip ciso">ciso</span>
         <span class="ds-claude-persona-chip grc">grc</span>
         <span class="ds-claude-persona-chip secarch">security-architect</span>
         <span class="ds-claude-persona-chip seceng">security-engineer</span>
         <span class="ds-claude-persona-chip socanalyst">soc-analyst</span>
       </div>
-
+      <p style="margin-top:10px;font-size:12px;color:var(--shell-text-muted);line-height:1.6;">Pass these as the persona argument in any command. Claude applies the right layout, density, and tone for that role.</p>
     </div>
+
   </div><!-- /page-content -->
 </div><!-- /page-claude-setup -->
+
+<!-- What's New page -->
+<div class="page" id="page-whats-new">
+  <div class="page-sub-header">
+    <div class="page-sub-header-left">
+      <h1 class="page-title">What's New <span id="whats-new-title-version" style="font-size:13px;font-weight:600;color:var(--shell-accent);background:rgba(143,141,222,0.1);border:1px solid rgba(143,141,222,0.2);border-radius:44px;padding:2px 10px;vertical-align:middle;letter-spacing:0.03em;">v2.1.79</span></h1>
+      <p class="page-subtitle">Release notes, changelog, and new component announcements.</p>
+    </div>
+  </div>
+  <div class="page-content">
+    <div class="ds-callout" style="margin-bottom:24px;">
+      <div class="ds-callout-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="ds-callout-body">
+        <div class="ds-callout-title">Release notes loading soon</div>
+        <div class="ds-callout-text">Full changelog and versioned release notes will be published here. Check back shortly.</div>
+      </div>
+    </div>
+    <div class="card" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:24px 28px;">
+      <div id="whats-new-version" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--shell-accent);margin-bottom:20px;">v2.1.79 — Latest</div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(49,165,109,0.12);color:#31A56D;white-space:nowrap;flex-shrink:0;margin-top:1px;">New</span>
+          Claude copy prompt with conditional fetching and 8-item completion checklist
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(49,165,109,0.12);color:#31A56D;white-space:nowrap;flex-shrink:0;margin-top:1px;">New</span>
+          Accordion navigation in sidebar with localStorage state persistence
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(99,96,216,0.12);color:#8F8DDE;white-space:nowrap;flex-shrink:0;margin-top:1px;">Improved</span>
+          Hero section — full-screen dark atmospheric landing page
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(99,96,216,0.12);color:#8F8DDE;white-space:nowrap;flex-shrink:0;margin-top:1px;">Improved</span>
+          page-spec.md trimmed from 48KB to 28KB — faster token usage
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(217,139,29,0.12);color:#D98B1D;white-space:nowrap;flex-shrink:0;margin-top:1px;">Added</span>
+          utilities.json and tabs.json component modules
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(209,35,41,0.12);color:#D12329;white-space:nowrap;flex-shrink:0;margin-top:1px;">Fixed</span>
+          charts.json incorrectly banned Recharts for React components
+        </div>
+      </div>
+      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--card-border);font-size:12px;color:var(--shell-text-muted);font-style:italic;">Full changelog coming soon…</div>
+    </div>
+  </div>
+</div><!-- /page-whats-new -->
+
+<!-- Documentation page -->
+<div class="page" id="page-docs">
+  <div class="page-sub-header">
+    <div class="page-sub-header-left">
+      <h1 class="page-title">Documentation</h1>
+      <p class="page-subtitle">Non-negotiable dos and don'ts for every screen built on this design system.</p>
+    </div>
+  </div>
+  <div class="page-content">
+
+    <div class="bp-section">
+      <h2>Layout &amp; Shell</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li>Use the page shell verbatim — topbar, left nav, sub-header, content slot only.</li>
+            <li>Topbar background is always <code>#131313</code> — use PAI logo image only, never text.</li>
+            <li>Minimum supported resolution: 1024px. Primary target: 1440px.</li>
+            <li>Sub-header title: <code>text-[12px] font-medium</code> — never <code>&lt;h1&gt;</code> or 18px.</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never invent new layout patterns — use defined shells only.</li>
+            <li>Never modify the navigation pattern without approval.</li>
+            <li>Never add page-level tabs unless explicitly requested.</li>
+            <li>Never use "Prevalent AI" text in the topbar — logo image only.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-section">
+      <h2>Colors &amp; Tokens</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li>Use CSS variables only — <code>var(--shell-accent)</code>, <code>var(--shell-text)</code>, etc.</li>
+            <li>Spacing on 4pt grid only — 4, 8, 12, 16, 20, 24, 32, 48px.</li>
+            <li>Severity colors: critical <code>#D12329</code>, high <code>#D98B1D</code>, medium <code>#6360D8</code>, low <code>#31A56D</code>.</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never hardcode hex or px values — always use CSS variables.</li>
+            <li>Never use spacing outside the 4pt grid (e.g. 5px, 10px, 15px).</li>
+            <li>Never use <code>shadow-lg</code>, <code>rounded-xl</code>, or other non-system Tailwind utilities.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-section">
+      <h2>Buttons</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li>All buttons use <code>border-radius: 44px</code> (pill). No exceptions.</li>
+            <li>Max 1 primary button per view.</li>
+            <li>Disabled: <code>opacity: 0.4</code>, cursor-not-allowed — always visible.</li>
+            <li>Destructive actions use red — never purple.</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never use <code>rounded-md</code>, <code>rounded-lg</code>, <code>rounded-xl</code>, or <code>rounded-full</code>.</li>
+            <li>Never show two primary buttons in the same view.</li>
+            <li>Never hide disabled buttons — keep visible at 40% opacity.</li>
+            <li>Never use purple for destructive actions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-section">
+      <h2>Tables &amp; Row Actions</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li>Column order: checkbox → data → status → actions. Max 7 columns.</li>
+            <li>Row actions: <code>opacity: 0 → group-hover: opacity-100</code>. Space always reserved.</li>
+            <li>Severity/status always visible in column — never tooltip-only.</li>
+            <li>Cards and table wrappers: <code>border-radius: 4px</code> only.</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never use <code>display:none</code> for row actions — use opacity/visibility.</li>
+            <li>Never show severity only in a tooltip.</li>
+            <li>Never exceed 7 columns in a table.</li>
+            <li>Never use <code>rounded-md</code> or larger on cards.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-section">
+      <h2>KPI Cards</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li>KPI cards: value + label + delta only. Max 5 per page.</li>
+            <li>Delta uses directional arrow + color based on context (green = good, red = bad).</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never add icons, colored borders, shadows, or custom bg to KPI cards.</li>
+            <li>Never put more than 5 KPI cards on a single page.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-section">
+      <h2>Modals &amp; Destructive Actions</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li>Button order: Cancel left, Confirm right — always.</li>
+            <li>Destructive modals must name the item and state the consequence.</li>
+            <li>Destructive confirm button uses red/danger variant.</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never use purple for a destructive confirm — always red.</li>
+            <li>Never allow a destructive action without a named confirmation modal.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-section">
+      <h2>Charts</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li>HTML pages: only the 5 SVG chart functions from <code>charts.md</code>.</li>
+            <li>React: Recharts only — AreaChart, BarChart, LineChart.</li>
+            <li>Always use defined severity colors for data series.</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never use canvas, Chart.js, D3, ECharts, or custom SVG functions.</li>
+            <li>Never use Recharts in HTML pages.</li>
+            <li>Never invent chart types not in the design system.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bp-section">
+      <h2>Personas</h2>
+      <div class="bp-grid">
+        <div class="bp-card bp-do">
+          <div class="bp-card-header">✅ Do</div>
+          <ul class="bp-list">
+            <li><strong>CISO:</strong> KPI cards first (max 5), trend chart, 1 dominant CTA.</li>
+            <li><strong>GRC:</strong> Compliance table, control status visible, export button.</li>
+            <li><strong>Security Engineer:</strong> Dense table, bulk toolbar, SLA column, pagination.</li>
+            <li><strong>SOC Analyst:</strong> Alert queue first, severity sorted, quick row actions on hover.</li>
+            <li><strong>Security Architect:</strong> CVSSv3 scores, technical detail, asset context.</li>
+          </ul>
+        </div>
+        <div class="bp-card bp-dont">
+          <div class="bp-card-header">❌ Don't</div>
+          <ul class="bp-list">
+            <li>Never mix persona patterns — identify one and apply it consistently.</li>
+            <li>Never use a CISO layout for an engineer's workflow or vice versa.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /page-docs -->
 
   </main>
 
@@ -5060,6 +5523,7 @@ Do not finish until all of these are complete:
   </div>
 
 </div>
+</div><!-- /view-ds -->
 
 
 <script src="main.js"></script>
@@ -5076,6 +5540,7 @@ Do not finish until all of these are complete:
     </linearGradient>
   </defs>
 </svg>
+
 
 </body>
 </html>
