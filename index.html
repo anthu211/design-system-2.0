@@ -1751,6 +1751,126 @@
       </div>
       <div class="page-divider"></div>
 
+      <!-- COLOR SCHEMES -->
+      <div class="comp-section">
+        <div class="comp-section-title">Color Schemes</div>
+        <div class="chart-color-schemes">
+
+          <div class="chart-scheme-block">
+            <div class="chart-scheme-label">RAG — Criticality</div>
+            <div class="chart-scheme-desc">Use exclusively for severity/risk data: Critical → High → Medium → Low. Never mix RAG colors into non-severity charts.</div>
+            <div class="chart-scheme-swatches">
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#D12329;"></div>
+                <div class="chart-scheme-swatch-name">Critical</div>
+                <div class="chart-scheme-swatch-hex">#D12329</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#D98B1D;"></div>
+                <div class="chart-scheme-swatch-name">High</div>
+                <div class="chart-scheme-swatch-hex">#D98B1D</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#F5B700;"></div>
+                <div class="chart-scheme-swatch-name">Medium</div>
+                <div class="chart-scheme-swatch-hex">#F5B700</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#31A56D;"></div>
+                <div class="chart-scheme-swatch-name">Low</div>
+                <div class="chart-scheme-swatch-hex">#31A56D</div>
+              </div>
+            </div>
+            <div class="chart-scheme-usage">
+              <span class="chart-scheme-tag chart-scheme-tag--use">Use for</span> Severity bars, risk donuts, finding trends by criticality
+            </div>
+          </div>
+
+          <div class="chart-scheme-block">
+            <div class="chart-scheme-label">Normal — Category</div>
+            <div class="chart-scheme-desc">Use for entity types, asset categories, tool breakdowns, and any non-severity data. Never includes red, amber, or green.</div>
+            <div class="chart-scheme-swatches">
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#6760d8;"></div>
+                <div class="chart-scheme-swatch-name">Primary</div>
+                <div class="chart-scheme-swatch-hex">#6760d8</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#47adcb;"></div>
+                <div class="chart-scheme-swatch-name">Cyan</div>
+                <div class="chart-scheme-swatch-hex">#47adcb</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#2ea8a8;"></div>
+                <div class="chart-scheme-swatch-name">Teal</div>
+                <div class="chart-scheme-swatch-hex">#2ea8a8</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#5c6bc0;"></div>
+                <div class="chart-scheme-swatch-name">Indigo</div>
+                <div class="chart-scheme-swatch-hex">#5c6bc0</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#8F8DDE;"></div>
+                <div class="chart-scheme-swatch-name">Lavender</div>
+                <div class="chart-scheme-swatch-hex">#8F8DDE</div>
+              </div>
+              <div class="chart-scheme-swatch">
+                <div class="chart-scheme-dot" style="background:#3a7fcb;"></div>
+                <div class="chart-scheme-swatch-name">Blue</div>
+                <div class="chart-scheme-swatch-hex">#3a7fcb</div>
+              </div>
+            </div>
+            <div class="chart-scheme-usage">
+              <span class="chart-scheme-tag chart-scheme-tag--use">Use for</span> Asset types, entity categories, tool comparisons, any non-RAG breakdown
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <!-- LEGEND WITH VALUES -->
+      <div class="comp-section">
+        <div class="comp-section-title">Donut + Legend with Values</div>
+        <div class="chart-wrap">
+          <div class="chart-title">Total Findings by Asset Type</div>
+          <div class="chart-legend-combo">
+            <div class="chart-legend-combo-donut">
+              <div style="position:relative;display:inline-block;">
+                <div id="donut-legend-1"></div>
+                <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
+                  <div style="font-size:10px;color:var(--shell-text-muted);margin-bottom:2px;">Total</div>
+                  <div style="font-size:18px;font-weight:700;color:var(--shell-text);letter-spacing:-0.02em;">3.28M</div>
+                </div>
+              </div>
+            </div>
+            <div class="chart-legend-table" id="legend-table-1"></div>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Characteristics</div>
+              <ul>
+                <li>Combines a donut arc chart with a structured legend table</li>
+                <li>Each row: icon · label · raw count · percentage</li>
+                <li>Percentages &lt;1% display as "&lt;1%" not "0%"</li>
+                <li>Icon background uses the segment color at 12% opacity</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">When to use</div>
+              <ul>
+                <li>Part-to-whole breakdowns with entity context (asset types, tool categories)</li>
+                <li>Use Normal color scheme — never RAG for entity breakdowns</li>
+                <li>Built via <code>buildDonutChart()</code> + <code>buildLegendTable()</code></li>
+                <li>Max 6 legend rows — group smaller slices into "Others"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
       <div class="comp-section">
         <div class="comp-section-title">Stacked Horizontal Bar Chart</div>
         <div class="chart-wrap">

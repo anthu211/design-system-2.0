@@ -472,7 +472,12 @@ document.querySelectorAll('.ds-textarea-field[data-max]').forEach(function(ta) {
 });
 
 // ─── Charts ───
-var CHART_COLORS = ['#6760d8', '#47adcb', '#2fa76d', '#d12329', '#f59e0b'];
+// RAG scheme — severity/criticality only (Critical → High → Medium → Low)
+var CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
+// Normal scheme — non-RAG colours for category/entity breakdowns
+var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb'];
+// Default fallback (kept for backward compat)
+var CHART_COLORS = CHART_COLORS_NORMAL;
 
 // ─── Chart Tooltip ───────────────────────────────────────────────────────────
 var _ctEl = null;
@@ -525,8 +530,9 @@ function describeArc(cx, cy, r, startAngle, endAngle) {
   return 'M ' + start.x + ' ' + start.y + ' A ' + r + ' ' + r + ' 0 ' + largeArc + ' 0 ' + end.x + ' ' + end.y;
 }
 
-function buildDonutChart(containerId, data, size) {
+function buildDonutChart(containerId, data, size, colors) {
   size = size || 160;
+  colors = colors || CHART_COLORS_NORMAL;
   var cx = size / 2, cy = size / 2;
   var outerR = size / 2 - 2;
   var strokeW = outerR * 0.12;
@@ -537,15 +543,14 @@ function buildDonutChart(containerId, data, size) {
     var endAngle = startAngle + sweep - 8;
     var path = describeArc(cx, cy, outerR - strokeW / 2, startAngle, endAngle);
     startAngle += sweep;
-    return '<path d="' + path + '" fill="none" stroke="' + CHART_COLORS[i % CHART_COLORS.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round" style="cursor:pointer;" data-di="' + i + '"></path>';
+    return '<path d="' + path + '" fill="none" stroke="' + colors[i % colors.length] + '" stroke-width="' + strokeW + '" stroke-linecap="round" style="cursor:pointer;" data-di="' + i + '"></path>';
   }).join('');
   var el = document.getElementById(containerId);
   if (!el) return;
   el.innerHTML = '<svg width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" style="overflow:visible;">' + paths + '</svg>';
-  var total = data.reduce(function(s, d) { return s + d.value; }, 0);
   el.querySelectorAll('path[data-di]').forEach(function(path) {
     var i = parseInt(path.dataset.di);
-    var d = data[i], color = CHART_COLORS[i % CHART_COLORS.length];
+    var d = data[i], color = colors[i % colors.length];
     var pct = Math.round(d.value / total * 100) + '%';
     path.addEventListener('mouseover', function(e) {
       showChartTooltip(e, d.label, [
@@ -556,6 +561,34 @@ function buildDonutChart(containerId, data, size) {
     path.addEventListener('mousemove', positionChartTooltip);
     path.addEventListener('mouseleave', hideChartTooltip);
   });
+}
+
+// ─── Legend with Values ───────────────────────────────────────────────────────
+function hexToRgba(hex, alpha) {
+  var r = parseInt(hex.slice(1, 3), 16);
+  var g = parseInt(hex.slice(3, 5), 16);
+  var b = parseInt(hex.slice(5, 7), 16);
+  return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+}
+
+function buildLegendTable(containerId, data) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var total = data.reduce(function(s, d) { return s + d.value; }, 0);
+  var html = '';
+  data.forEach(function(d) {
+    var pct = total > 0 ? (d.value / total * 100) : 0;
+    var pctStr = pct < 1 ? '<1%' : Math.round(pct) + '%';
+    html += '<div class="chart-legend-row">' +
+      '<div class="chart-legend-icon" style="background:' + hexToRgba(d.color, 0.12) + ';color:' + d.color + ';">' +
+        (d.icon || '') +
+      '</div>' +
+      '<span class="chart-legend-name">' + d.label + '</span>' +
+      '<span class="chart-legend-count">' + d.value.toLocaleString() + '</span>' +
+      '<span class="chart-legend-pct">' + pctStr + '</span>' +
+    '</div>';
+  });
+  el.innerHTML = html;
 }
 
 function buildVerticalBarChart(containerId, series, groups, colors) {
@@ -830,7 +863,22 @@ function initCharts() {
     { label: 'High', value: 28 },
     { label: 'Medium', value: 45 },
     { label: 'Low', value: 15 }
-  ], 180);
+  ], 180, CHART_COLORS_RAG);
+  // Legend with values — Normal color scheme
+  var _iconLaptop = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>';
+  var _iconServer = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>';
+  var _iconNetwork = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5.5" y2="16"/><line x1="12" y1="8" x2="18.5" y2="16"/></svg>';
+  var _iconMobile = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>';
+  var _iconOther = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>';
+  var _legendData = [
+    { label: 'Workstation', value: 1730006, color: '#6760d8', icon: _iconLaptop },
+    { label: 'Server',      value: 1425134, color: '#47adcb', icon: _iconServer },
+    { label: 'Network',     value: 44564,   color: '#2ea8a8', icon: _iconNetwork },
+    { label: 'Mobile',      value: 19264,   color: '#5c6bc0', icon: _iconMobile },
+    { label: 'Others',      value: 68000,   color: '#8F8DDE', icon: _iconOther }
+  ];
+  buildDonutChart('donut-legend-1', _legendData, 160, CHART_COLORS_NORMAL);
+  buildLegendTable('legend-table-1', _legendData);
   buildLineChart('line-chart-1',
     [24, 38, 30, 52, 47, 61, 55, 73, 68, 82, 76, 90],
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

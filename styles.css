@@ -2784,6 +2784,87 @@ html.theme-light .ds-claude-code-block { background: #1a1a2e; }
   .ds-hc-eng, .ds-hc-grc { display: none; }
 }
 
+/* ── Chart Color Schemes ── */
+.chart-color-schemes {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.chart-scheme-block {
+  background: var(--card-bg); border: 1px solid var(--card-border);
+  border-radius: 4px; padding: 20px 20px 16px;
+}
+.chart-scheme-label {
+  font-size: 12px; font-weight: 700; color: var(--shell-text);
+  margin-bottom: 6px; letter-spacing: -0.01em;
+}
+.chart-scheme-desc {
+  font-size: 11px; color: var(--shell-text-muted); line-height: 1.55;
+  margin-bottom: 16px;
+}
+.chart-scheme-swatches {
+  display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+}
+.chart-scheme-swatch {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.chart-scheme-dot {
+  width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
+}
+.chart-scheme-swatch-name {
+  font-size: 10px; font-weight: 600; color: var(--shell-text); text-align: center;
+}
+.chart-scheme-swatch-hex {
+  font-size: 9px; color: var(--shell-text-muted); font-family: 'SF Mono','Fira Code',monospace;
+}
+.chart-scheme-usage {
+  font-size: 11px; color: var(--shell-text-muted); line-height: 1.5;
+  padding-top: 12px; border-top: 1px solid var(--card-border);
+}
+.chart-scheme-tag {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  padding: 1px 7px; border-radius: 44px; text-transform: uppercase;
+  letter-spacing: 0.05em; margin-right: 4px;
+}
+.chart-scheme-tag--use {
+  background: rgba(99,96,216,0.1); color: var(--shell-accent);
+  border: 1px solid rgba(99,96,216,0.2);
+}
+
+/* ── Legend with Values ── */
+.chart-legend-combo {
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+  padding: 8px 0;
+}
+.chart-legend-combo-donut {
+  display: flex; justify-content: center;
+}
+.chart-legend-table {
+  width: 100%; max-width: 480px;
+  display: flex; flex-direction: column;
+}
+.chart-legend-row {
+  display: grid; grid-template-columns: 28px 1fr auto auto;
+  align-items: center; gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--card-border);
+}
+.chart-legend-row:last-child { border-bottom: none; }
+.chart-legend-icon {
+  width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.chart-legend-name {
+  font-size: 13px; font-weight: 500; color: var(--shell-text);
+}
+.chart-legend-count {
+  font-size: 12px; color: var(--shell-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.chart-legend-pct {
+  font-size: 13px; font-weight: 700; color: var(--shell-text);
+  min-width: 36px; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 /* ── Overview Bento Grid ── */
 .ds-ov-bento {
   display: grid;
