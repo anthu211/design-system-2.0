@@ -72,15 +72,19 @@ Use for entity types, asset categories, tool breakdowns, and any non-severity da
 
 | Name | Hex |
 |------|-----|
-| Primary (purple) | `#6760d8` |
+| Violet | `#6760d8` |
 | Cyan | `#47adcb` |
 | Teal | `#2ea8a8` |
 | Indigo | `#5c6bc0` |
 | Lavender | `#8F8DDE` |
 | Blue | `#3a7fcb` |
+| Sage | `#7a9e7e` |
+| Mauve | `#b87fba` |
+| Terracotta | `#c47e5a` |
+| Slate | `#7b95b4` |
 
 ```js
-var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb'];
+var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
 buildDonutChart('my-donut', data, 180, CHART_COLORS_NORMAL); // default
 ```
 

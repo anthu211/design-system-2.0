@@ -14,9 +14,10 @@
     "severity_colors": {
       "critical": "#D12329",
       "high":     "#D98B1D",
-      "medium":   "#6760d8",
+      "medium":   "#F5B700",
       "low":      "#31A56D"
     },
+    "normal_colors": ["#6760d8","#47adcb","#2ea8a8","#5c6bc0","#8F8DDE","#3a7fcb","#7a9e7e","#b87fba","#c47e5a","#7b95b4"],
     "single_series_color": "#6760d8",
     "grid_stroke":         "var(--shell-border)",
     "grid_stroke_width":   1,
@@ -100,9 +101,10 @@
     "severity_colors": {
       "critical": "#D12329",
       "high":     "#D98B1D",
-      "medium":   "#6360D8",
+      "medium":   "#F5B700",
       "low":      "#31A56D"
     },
+    "normal_colors": ["#6760d8","#47adcb","#2ea8a8","#5c6bc0","#8F8DDE","#3a7fcb","#7a9e7e","#b87fba","#c47e5a","#7b95b4"],
     "note": "React uses Recharts only. The SVG function bodies in charts.md are for HTML pages — do not copy them into React components."
   },
   "example_html": {
