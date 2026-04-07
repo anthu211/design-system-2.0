@@ -9,7 +9,7 @@
   ],
   "always": [
     "Use topbar background:#131313 with PAI logo image only — never 'Prevalent AI' text.",
-    "Use border-radius:44px on all CTA/text buttons, 4px on cards and table wrappers, 8px on inputs.",
+    "Use border-radius:44px on all CTA/text buttons and badges/tags, 4px on cards and table wrappers, 8px on inputs.",
     "Use spacing from 4px scale only: 4, 8, 12, 16, 20, 24, 32, 48px.",
     "Show severity and status in a visible table column — never tooltip-only.",
     "Use tables for list data, not cards.",

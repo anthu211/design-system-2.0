@@ -1563,15 +1563,60 @@
         <p>Data visualisation components built with SVG for proper axes, labels, and interactive states. All charts are responsive and theme-aware.</p>
       </div>
 
+      <!-- ── 1. COLOR SCHEMES ── -->
       <div class="comp-section">
-        <div class="comp-section-title">Grouped Vertical Bar Chart</div>
+        <div class="comp-section-title">Color Schemes</div>
+        <div class="chart-color-schemes">
+
+          <div class="chart-scheme-block">
+            <div class="chart-scheme-label">RAG — Criticality</div>
+            <div class="chart-scheme-desc">Use exclusively for severity/risk data: Critical → High → Medium → Low. Never mix RAG colors into non-severity charts.</div>
+            <div class="chart-scheme-swatches">
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#D12329;"></div><div class="chart-scheme-swatch-name">Critical</div><div class="chart-scheme-swatch-hex">#D12329</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#D98B1D;"></div><div class="chart-scheme-swatch-name">High</div><div class="chart-scheme-swatch-hex">#D98B1D</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#F5B700;"></div><div class="chart-scheme-swatch-name">Medium</div><div class="chart-scheme-swatch-hex">#F5B700</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#31A56D;"></div><div class="chart-scheme-swatch-name">Low</div><div class="chart-scheme-swatch-hex">#31A56D</div></div>
+            </div>
+            <div class="chart-scheme-usage"><span class="chart-scheme-tag chart-scheme-tag--use">Use for</span> Severity bars, risk donuts, finding trends by criticality</div>
+          </div>
+
+          <div class="chart-scheme-block">
+            <div class="chart-scheme-label">Normal — Category</div>
+            <div class="chart-scheme-desc">Use for entity types, asset categories, tool breakdowns, and any non-severity data. Never includes red, amber, or green.</div>
+            <div class="chart-scheme-swatches">
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#6760d8;"></div><div class="chart-scheme-swatch-name">Violet</div><div class="chart-scheme-swatch-hex">#6760d8</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#47adcb;"></div><div class="chart-scheme-swatch-name">Cyan</div><div class="chart-scheme-swatch-hex">#47adcb</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#2ea8a8;"></div><div class="chart-scheme-swatch-name">Teal</div><div class="chart-scheme-swatch-hex">#2ea8a8</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#5c6bc0;"></div><div class="chart-scheme-swatch-name">Indigo</div><div class="chart-scheme-swatch-hex">#5c6bc0</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#8F8DDE;"></div><div class="chart-scheme-swatch-name">Lavender</div><div class="chart-scheme-swatch-hex">#8F8DDE</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#3a7fcb;"></div><div class="chart-scheme-swatch-name">Blue</div><div class="chart-scheme-swatch-hex">#3a7fcb</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#7a9e7e;"></div><div class="chart-scheme-swatch-name">Sage</div><div class="chart-scheme-swatch-hex">#7a9e7e</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#b87fba;"></div><div class="chart-scheme-swatch-name">Mauve</div><div class="chart-scheme-swatch-hex">#b87fba</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#c47e5a;"></div><div class="chart-scheme-swatch-name">Terracotta</div><div class="chart-scheme-swatch-hex">#c47e5a</div></div>
+              <div class="chart-scheme-swatch"><div class="chart-scheme-dot" style="background:#7b95b4;"></div><div class="chart-scheme-swatch-name">Slate</div><div class="chart-scheme-swatch-hex">#7b95b4</div></div>
+            </div>
+            <div class="chart-scheme-usage"><span class="chart-scheme-tag chart-scheme-tag--use">Use for</span> Asset types, entity categories, tool comparisons, any non-RAG breakdown</div>
+          </div>
+
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <!-- ── 2. BAR CHARTS ── -->
+      <div class="comp-section">
+        <div class="comp-section-title">Bar Charts</div>
+      </div>
+
+      <!-- 2a. Grouped Vertical -->
+      <div class="comp-section">
+        <div class="comp-section-subtitle">Grouped Vertical</div>
         <div class="chart-wrap">
           <div class="chart-title">Findings by Severity — Jan–Jun 2025</div>
           <div id="vbar-chart-1" style="width:100%;"></div>
           <div class="chart-legend" style="margin-top:12px;">
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D12329;"></div>Critical</div>
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D98B1D;"></div>High</div>
-            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Medium</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#F5B700;"></div>Medium</div>
             <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#31A56D;"></div>Low</div>
           </div>
           <div class="chart-doc">
@@ -1607,45 +1652,19 @@
       </div>
       <div class="page-divider"></div>
 
-      <div class="chart-grid">
+      <!-- 2b. Horizontal -->
+      <div class="comp-section">
+        <div class="comp-section-subtitle">Horizontal</div>
         <div class="chart-wrap">
           <div class="chart-title">Findings by Category</div>
           <div class="css-hbar-chart">
-            <div class="css-hbar-row">
-              <span class="css-hbar-label">Injection</span>
-              <div class="css-hbar" style="width:78%;background:#6760d8;"></div>
-              <span class="css-hbar-val">78</span>
-            </div>
-            <div class="css-hbar-row">
-              <span class="css-hbar-label">Auth</span>
-              <div class="css-hbar" style="width:62%;background:#47adcb;"></div>
-              <span class="css-hbar-val">62</span>
-            </div>
-            <div class="css-hbar-row">
-              <span class="css-hbar-label">XSS</span>
-              <div class="css-hbar" style="width:55%;background:#31A56D;"></div>
-              <span class="css-hbar-val">55</span>
-            </div>
-            <div class="css-hbar-row">
-              <span class="css-hbar-label">CSRF</span>
-              <div class="css-hbar" style="width:41%;background:#D98B1D;"></div>
-              <span class="css-hbar-val">41</span>
-            </div>
-            <div class="css-hbar-row">
-              <span class="css-hbar-label">IDOR</span>
-              <div class="css-hbar" style="width:33%;background:#D12329;"></div>
-              <span class="css-hbar-val">33</span>
-            </div>
-            <div class="css-hbar-row">
-              <span class="css-hbar-label">RCE</span>
-              <div class="css-hbar" style="width:18%;background:#8F8DDE;"></div>
-              <span class="css-hbar-val">18</span>
-            </div>
-            <div class="css-hbar-row">
-              <span class="css-hbar-label">Other</span>
-              <div class="css-hbar" style="width:24%;background:#696969;"></div>
-              <span class="css-hbar-val">24</span>
-            </div>
+            <div class="css-hbar-row"><span class="css-hbar-label">Injection</span><div class="css-hbar" style="width:78%;background:#6760d8;"></div><span class="css-hbar-val">78</span></div>
+            <div class="css-hbar-row"><span class="css-hbar-label">Auth</span><div class="css-hbar" style="width:62%;background:#47adcb;"></div><span class="css-hbar-val">62</span></div>
+            <div class="css-hbar-row"><span class="css-hbar-label">XSS</span><div class="css-hbar" style="width:55%;background:#2ea8a8;"></div><span class="css-hbar-val">55</span></div>
+            <div class="css-hbar-row"><span class="css-hbar-label">CSRF</span><div class="css-hbar" style="width:41%;background:#5c6bc0;"></div><span class="css-hbar-val">41</span></div>
+            <div class="css-hbar-row"><span class="css-hbar-label">IDOR</span><div class="css-hbar" style="width:33%;background:#8F8DDE;"></div><span class="css-hbar-val">33</span></div>
+            <div class="css-hbar-row"><span class="css-hbar-label">RCE</span><div class="css-hbar" style="width:18%;background:#3a7fcb;"></div><span class="css-hbar-val">18</span></div>
+            <div class="css-hbar-row"><span class="css-hbar-label">Other</span><div class="css-hbar" style="width:24%;background:#696969;"></div><span class="css-hbar-val">24</span></div>
           </div>
           <div class="chart-doc">
             <div class="chart-doc-block">
@@ -1668,9 +1687,64 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="page-divider"></div>
 
+      <!-- 2c. Stacked Horizontal -->
+      <div class="comp-section">
+        <div class="comp-section-subtitle">Stacked Horizontal</div>
         <div class="chart-wrap">
-          <div class="chart-title">Severity Distribution</div>
+          <div class="chart-title">Exposure by Asset Category — Severity Breakdown</div>
+          <div id="stacked-bar-chart-1" style="width:100%;"></div>
+          <div class="chart-legend" style="margin-top:12px;">
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D12329;"></div>Critical</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D98B1D;"></div>High</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#F5B700;"></div>Medium</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#31A56D;"></div>Low</div>
+          </div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Characteristics</div>
+              <ul>
+                <li>Shows part-to-whole composition per row across severity levels</li>
+                <li>All segments sum to 100% — ideal for proportional comparison</li>
+                <li>Left-to-right order: Critical → High → Medium → Low</li>
+                <li>Seam-fix rects ensure clean segment joins with no radius gaps</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Behavior</div>
+              <ul>
+                <li>Hover reveals tooltip with all four severity values for that row</li>
+                <li>Built via buildStackedBarChart() — pure SVG, no external deps</li>
+                <li>Rows support multi-line labels using \n in the label string</li>
+                <li>Background track shows full 100% extent</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Usage Guidelines</div>
+              <ul>
+                <li>Use for comparing severity composition across asset categories or teams</li>
+                <li>Values must sum to 100% per row — use percentages, not raw counts</li>
+                <li>Recommended max: 8 rows for readability</li>
+                <li>Always include a legend; never rely on color alone</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="page-divider"></div>
+
+      <!-- ── 3. DONUT CHARTS ── -->
+      <div class="comp-section">
+        <div class="comp-section-title">Donut Charts</div>
+      </div>
+
+      <!-- 3a. Severity Donut -->
+      <div class="comp-section">
+        <div class="comp-section-subtitle">Severity Distribution</div>
+        <div class="chart-wrap">
+          <div class="chart-title">Findings by Severity</div>
           <div class="donut-wrap" style="justify-content:center;align-items:flex-start;">
             <div style="position:relative;flex-shrink:0;">
               <div id="donut-chart-1"></div>
@@ -1680,10 +1754,10 @@
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px;margin-left:8px;padding-top:8px;">
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Critical — 12</div>
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#47adcb;"></div>High — 28</div>
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#2fa76d;"></div>Medium — 45</div>
-              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d12329;"></div>Low — 15</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D12329;"></div>Critical — 12</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#D98B1D;"></div>High — 28</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#F5B700;"></div>Medium — 45</div>
+              <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#31A56D;"></div>Low — 15</div>
             </div>
           </div>
           <div class="chart-doc">
@@ -1700,7 +1774,7 @@
               <div class="chart-doc-block-title">Behavior</div>
               <ul>
                 <li>Built via SVG stroke arcs — no external dependencies</li>
-                <li>Colors map to CHART_COLORS token array in order</li>
+                <li>Uses RAG color scheme for severity data</li>
                 <li>Rendered with buildDonutChart() on page load</li>
                 <li>Scales to any container size via size parameter</li>
               </ul>
@@ -1710,129 +1784,9 @@
       </div>
       <div class="page-divider"></div>
 
+      <!-- 3b. Donut + Legend with Values -->
       <div class="comp-section">
-        <div class="comp-section-title">Line Chart</div>
-        <div class="chart-wrap">
-          <div class="chart-title">Monthly Findings Trend — 2025</div>
-          <div id="line-chart-1" style="width:100%;"></div>
-          <div class="chart-legend" style="margin-top:8px;">
-            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Total Findings</div>
-          </div>
-          <div class="chart-doc">
-            <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Characteristics</div>
-              <ul>
-                <li>Best for showing trends over continuous time (daily, monthly)</li>
-                <li>Minimum 3 data points; optimal 6–12</li>
-                <li>Gradient fill under line adds visual weight to the area</li>
-                <li>Data points marked with filled circles for exact value reference</li>
-              </ul>
-            </div>
-            <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Behavior</div>
-              <ul>
-                <li>SVG polyline rendered via buildLineChart()</li>
-                <li>X axis line + Y axis line drawn as SVG elements</li>
-                <li>Horizontal gridlines at each Y tick for readability</li>
-                <li>Re-renders when switching to/from charts page</li>
-              </ul>
-            </div>
-            <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Usage Guidelines</div>
-              <ul>
-                <li>Use for time-series data only, not discrete categories</li>
-                <li>Multi-line: add second polyline with different stroke color</li>
-                <li>Avoid more than 3 lines — use small multiples instead</li>
-                <li>Always label the x-axis with time units</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="page-divider"></div>
-
-      <!-- COLOR SCHEMES -->
-      <div class="comp-section">
-        <div class="comp-section-title">Color Schemes</div>
-        <div class="chart-color-schemes">
-
-          <div class="chart-scheme-block">
-            <div class="chart-scheme-label">RAG — Criticality</div>
-            <div class="chart-scheme-desc">Use exclusively for severity/risk data: Critical → High → Medium → Low. Never mix RAG colors into non-severity charts.</div>
-            <div class="chart-scheme-swatches">
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#D12329;"></div>
-                <div class="chart-scheme-swatch-name">Critical</div>
-                <div class="chart-scheme-swatch-hex">#D12329</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#D98B1D;"></div>
-                <div class="chart-scheme-swatch-name">High</div>
-                <div class="chart-scheme-swatch-hex">#D98B1D</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#F5B700;"></div>
-                <div class="chart-scheme-swatch-name">Medium</div>
-                <div class="chart-scheme-swatch-hex">#F5B700</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#31A56D;"></div>
-                <div class="chart-scheme-swatch-name">Low</div>
-                <div class="chart-scheme-swatch-hex">#31A56D</div>
-              </div>
-            </div>
-            <div class="chart-scheme-usage">
-              <span class="chart-scheme-tag chart-scheme-tag--use">Use for</span> Severity bars, risk donuts, finding trends by criticality
-            </div>
-          </div>
-
-          <div class="chart-scheme-block">
-            <div class="chart-scheme-label">Normal — Category</div>
-            <div class="chart-scheme-desc">Use for entity types, asset categories, tool breakdowns, and any non-severity data. Never includes red, amber, or green.</div>
-            <div class="chart-scheme-swatches">
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#6760d8;"></div>
-                <div class="chart-scheme-swatch-name">Primary</div>
-                <div class="chart-scheme-swatch-hex">#6760d8</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#47adcb;"></div>
-                <div class="chart-scheme-swatch-name">Cyan</div>
-                <div class="chart-scheme-swatch-hex">#47adcb</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#2ea8a8;"></div>
-                <div class="chart-scheme-swatch-name">Teal</div>
-                <div class="chart-scheme-swatch-hex">#2ea8a8</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#5c6bc0;"></div>
-                <div class="chart-scheme-swatch-name">Indigo</div>
-                <div class="chart-scheme-swatch-hex">#5c6bc0</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#8F8DDE;"></div>
-                <div class="chart-scheme-swatch-name">Lavender</div>
-                <div class="chart-scheme-swatch-hex">#8F8DDE</div>
-              </div>
-              <div class="chart-scheme-swatch">
-                <div class="chart-scheme-dot" style="background:#3a7fcb;"></div>
-                <div class="chart-scheme-swatch-name">Blue</div>
-                <div class="chart-scheme-swatch-hex">#3a7fcb</div>
-              </div>
-            </div>
-            <div class="chart-scheme-usage">
-              <span class="chart-scheme-tag chart-scheme-tag--use">Use for</span> Asset types, entity categories, tool comparisons, any non-RAG breakdown
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="page-divider"></div>
-
-      <!-- LEGEND WITH VALUES -->
-      <div class="comp-section">
-        <div class="comp-section-title">Donut + Legend with Values</div>
+        <div class="comp-section-subtitle">With Legend &amp; Values</div>
         <div class="chart-wrap">
           <div class="chart-title">Total Findings by Asset Type</div>
           <div class="chart-legend-combo">
@@ -1871,48 +1825,99 @@
       </div>
       <div class="page-divider"></div>
 
+      <!-- ── 4. LINE CHARTS ── -->
       <div class="comp-section">
-        <div class="comp-section-title">Stacked Horizontal Bar Chart</div>
+        <div class="comp-section-title">Line Charts</div>
+      </div>
+
+      <!-- 4a. Single Line -->
+      <div class="comp-section">
+        <div class="comp-section-subtitle">Single Line</div>
         <div class="chart-wrap">
-          <div class="chart-title">Exposure by Asset Category — Severity Breakdown</div>
-          <div id="stacked-bar-chart-1" style="width:100%;"></div>
-          <div class="chart-legend" style="margin-top:12px;">
-            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d12329;"></div>Critical</div>
-            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#e15252;"></div>High</div>
-            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#d98b1d;"></div>Medium</div>
-            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#31a56d;"></div>Low</div>
+          <div class="chart-title">Monthly Findings Trend — 2025</div>
+          <div id="line-chart-1" style="width:100%;"></div>
+          <div class="chart-legend" style="margin-top:8px;">
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#6760d8;"></div>Total Findings</div>
           </div>
           <div class="chart-doc">
             <div class="chart-doc-block">
               <div class="chart-doc-block-title">Characteristics</div>
               <ul>
-                <li>Shows part-to-whole composition per row across severity levels</li>
-                <li>All segments sum to 100% — ideal for proportional comparison</li>
-                <li>Left-to-right order: Critical → High → Medium → Low</li>
-                <li>Seam-fix rects ensure clean segment joins with no radius gaps</li>
+                <li>Best for showing trends over continuous time (daily, monthly)</li>
+                <li>Minimum 3 data points; optimal 6–12</li>
+                <li>Gradient fill under line adds visual weight to the area</li>
+                <li>Data points marked with filled circles for exact value reference</li>
               </ul>
             </div>
             <div class="chart-doc-block">
               <div class="chart-doc-block-title">Behavior</div>
               <ul>
-                <li>Hover reveals tooltip with all four severity values for that row</li>
-                <li>Built via buildStackedBarChart() — pure SVG, no external deps</li>
-                <li>Rows support multi-line labels using \n in the label string</li>
-                <li>Background track at #f5f5f5 shows full 100% extent</li>
+                <li>SVG polyline rendered via buildLineChart()</li>
+                <li>X axis line + Y axis line drawn as SVG elements</li>
+                <li>Horizontal gridlines at each Y tick for readability</li>
+                <li>Re-renders when switching to/from charts page</li>
               </ul>
             </div>
             <div class="chart-doc-block">
               <div class="chart-doc-block-title">Usage Guidelines</div>
               <ul>
-                <li>Use for comparing severity composition across asset categories or teams</li>
-                <li>Values must sum to 100% per row — use percentages, not raw counts</li>
-                <li>Recommended max: 8 rows for readability</li>
-                <li>Always include a legend; never rely on color alone</li>
+                <li>Use for time-series data only, not discrete categories</li>
+                <li>Multi-line: add second polyline with different stroke color</li>
+                <li>Avoid more than 3 lines — use small multiples instead</li>
+                <li>Always label the x-axis with time units</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- 4b. Multi-Line -->
+      <div class="comp-section">
+        <div class="comp-section-subtitle">Multi-Line with Reference</div>
+        <div class="chart-wrap">
+          <div class="chart-title">Exposure Score <span style="background:#D12329;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:44px;margin-left:6px;">950</span></div>
+          <div id="multiline-chart-1" style="width:100%;"></div>
+          <div class="chart-legend" style="margin-top:12px;">
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#8F8DDE;"></div>Control Gap</div>
+            <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#3a7fcb;"></div>Software Vulnerability</div>
+            <div class="chart-legend-item">
+              <div style="width:16px;height:2px;background:#D12329;border-top:2px dashed #D12329;margin-right:2px;"></div>
+              Threshold
+            </div>
+          </div>
+          <div id="multiline-chart-1-stat" style="display:flex;align-items:center;gap:6px;justify-content:center;margin-top:12px;font-size:12px;font-weight:600;color:#47adcb;"></div>
+          <div class="chart-doc">
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Characteristics</div>
+              <ul>
+                <li>2–3 series on a shared Y-axis for direct comparison</li>
+                <li>Dashed reference line marks a threshold or target value</li>
+                <li>Y-axis label (rotated) and x-axis label for full context</li>
+                <li>Stat summary below shows key metric (avg rate of change, delta)</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Behavior</div>
+              <ul>
+                <li>Hover over any x-position to see all series values in tooltip</li>
+                <li>Subtle area fill on first series only to reduce visual noise</li>
+                <li>Built via buildMultiLineChart() with refLine and stat options</li>
+                <li>X labels auto-thin when more than 8 data points</li>
+              </ul>
+            </div>
+            <div class="chart-doc-block">
+              <div class="chart-doc-block-title">Usage Guidelines</div>
+              <ul>
+                <li>Use Normal color scheme — never RAG colors for series lines</li>
+                <li>Limit to 5-8 lines max — use small multiples beyond that</li>
+                <li>Always include a legend; reference line must have a label</li>
+                <li>Pass refLine color as RAG red only when threshold is a risk boundary</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- ICONS PAGE -->
@@ -2566,20 +2571,20 @@
         <div class="comp-card">
           <div style="display:flex;flex-direction:column;gap:16px;">
             <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Scan Progress</span><span style="font-size:12px;color:var(--shell-text);">65%</span></div>
-              <div class="ds-progress"><div class="ds-progress-bar" style="width:65%;"></div></div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:6px;">Scan Progress</div>
+              <div style="display:flex;align-items:center;gap:10px;"><div class="ds-progress" style="flex:1;"><div class="ds-progress-bar" style="width:65%;"></div></div><span style="font-size:12px;font-weight:600;color:var(--shell-text);min-width:32px;">65%</span></div>
             </div>
             <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Risk Score</span><span style="font-size:12px;color:#D98B1D;">42%</span></div>
-              <div class="ds-progress"><div class="ds-progress-bar" style="width:42%;background:#D98B1D;"></div></div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:6px;">Risk Score</div>
+              <div style="display:flex;align-items:center;gap:10px;"><div class="ds-progress" style="flex:1;"><div class="ds-progress-bar" style="width:42%;background:#D98B1D;"></div></div><span style="font-size:12px;font-weight:600;color:#D98B1D;min-width:32px;">42%</span></div>
             </div>
             <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Vulnerability Patched</span><span style="font-size:12px;color:#31A56D;">88%</span></div>
-              <div class="ds-progress"><div class="ds-progress-bar" style="width:88%;background:#31A56D;"></div></div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:6px;">Vulnerability Patched</div>
+              <div style="display:flex;align-items:center;gap:10px;"><div class="ds-progress" style="flex:1;"><div class="ds-progress-bar" style="width:88%;background:#31A56D;"></div></div><span style="font-size:12px;font-weight:600;color:#31A56D;min-width:32px;">88%</span></div>
             </div>
             <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:12px;color:var(--shell-text-muted);">Critical Exposure</span><span style="font-size:12px;color:#D12329;">18%</span></div>
-              <div class="ds-progress"><div class="ds-progress-bar" style="width:18%;background:#D12329;"></div></div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:6px;">Critical Exposure</div>
+              <div style="display:flex;align-items:center;gap:10px;"><div class="ds-progress" style="flex:1;"><div class="ds-progress-bar" style="width:18%;background:#D12329;"></div></div><span style="font-size:12px;font-weight:600;color:#D12329;min-width:32px;">18%</span></div>
             </div>
           </div>
         </div>
@@ -3918,8 +3923,6 @@
               <span class="ds-kpi-period">from 30 June 2025</span>
             </div>
           </div>
-          <!-- Spacer so 2 cards don't stretch too wide -->
-          <div class="ds-kpi-card" style="visibility:hidden;pointer-events:none;"></div>
         </div>
       </div>
 

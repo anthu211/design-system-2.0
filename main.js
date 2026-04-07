@@ -475,7 +475,7 @@ document.querySelectorAll('.ds-textarea-field[data-max]').forEach(function(ta) {
 // RAG scheme — severity/criticality only (Critical → High → Medium → Low)
 var CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
 // Normal scheme — non-RAG colours for category/entity breakdowns
-var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb'];
+var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
 // Default fallback (kept for backward compat)
 var CHART_COLORS = CHART_COLORS_NORMAL;
 
@@ -729,56 +729,123 @@ function buildLineChart(containerId, data, labels) {
   });
 }
 
-function buildMultiLineChart(containerId, series, labels) {
+// opts: { refLine: { value, color, label }, yAxisLabel, xAxisLabel, stat: { value, label } }
+function buildMultiLineChart(containerId, series, labels, opts) {
+  opts = opts || {};
   var el = document.getElementById(containerId);
   if (!el) return;
   var W = el.offsetWidth || 700;
-  var H = 220;
-  var pad = { top: 16, right: 20, bottom: 32, left: 44 };
+  var H = 240;
+  var pad = { top: 20, right: 24, bottom: 36, left: 52 };
   var innerW = W - pad.left - pad.right;
   var innerH = H - pad.top - pad.bottom;
+
   var allVals = [];
   series.forEach(function(s) { s.values.forEach(function(v) { allVals.push(v); }); });
-  var yMax = Math.ceil(Math.max.apply(null, allVals) / 10) * 10 || 10;
+  if (opts.refLine) allVals.push(opts.refLine.value);
+  var yMax = Math.ceil(Math.max.apply(null, allVals) * 1.1 / 50) * 50 || 10;
   var step = innerW / (labels.length - 1);
-  var numTicks = 4;
+  var numTicks = 5;
   var gridLines = '', yLabels = '';
   for (var t = 0; t <= numTicks; t++) {
     var val = Math.round((t / numTicks) * yMax);
     var gy = pad.top + innerH - (val / yMax) * innerH;
-    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
-    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy.toFixed(1) + '" x2="' + (pad.left + innerW) + '" y2="' + gy.toFixed(1) + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 8) + '" y="' + (gy + 4).toFixed(1) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
   }
+
+  // Y-axis label (rotated)
+  var yAxisLabelSvg = '';
+  if (opts.yAxisLabel) {
+    yAxisLabelSvg = '<text x="12" y="' + (pad.top + innerH / 2) + '" text-anchor="middle" class="chart-axis-label" transform="rotate(-90,12,' + (pad.top + innerH / 2) + ')">' + opts.yAxisLabel + '</text>';
+  }
+
   var xLabels = labels.map(function(l, i) {
+    var show = labels.length <= 8 || i % Math.ceil(labels.length / 8) === 0 || i === labels.length - 1;
+    if (!show) return '';
     return '<text x="' + (pad.left + i * step).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + l + '</text>';
   }).join('');
+
+  // X-axis label
+  var xAxisLabelSvg = '';
+  if (opts.xAxisLabel) {
+    xAxisLabelSvg = '<text x="' + (pad.left + innerW / 2) + '" y="' + (H + 14) + '" text-anchor="middle" class="chart-axis-label">' + opts.xAxisLabel + '</text>';
+  }
+
   var axes =
     '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
     '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
-  var dotStroke = document.documentElement.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
+
+  // Reference line (dashed)
+  var refLineSvg = '';
+  if (opts.refLine) {
+    var ry = (pad.top + innerH - (opts.refLine.value / yMax) * innerH).toFixed(1);
+    var rc = opts.refLine.color || '#D12329';
+    refLineSvg = '<line x1="' + pad.left + '" y1="' + ry + '" x2="' + (pad.left + innerW) + '" y2="' + ry + '" stroke="' + rc + '" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.8"/>';
+  }
+
+  var dotStroke = document.documentElement.classList.contains('theme-light') ? '#FFFFFF' : '#131313';
   var defs = '<defs>';
   var seriesSvg = '';
+  var allPointCoords = [];
+
   series.forEach(function(s, si) {
     var uid = 'mlg' + Date.now() + si;
-    var pts = s.values.map(function(v, i) {
-      return (pad.left + i * step).toFixed(1) + ',' + (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
-    }).join(' ');
+    var coords = s.values.map(function(v, i) {
+      return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat((pad.top + innerH - (v / yMax) * innerH).toFixed(1)) };
+    });
+    allPointCoords.push(coords);
+    var pts = coords.map(function(p) { return p.x + ',' + p.y; }).join(' ');
+
+    // Subtle area fill for first series only
     if (si === 0) {
-      defs += '<linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + s.color + '" stop-opacity="0.15"/><stop offset="100%" stop-color="' + s.color + '" stop-opacity="0"/></linearGradient>';
-      var areaFirst = pad.left + ',' + (pad.top + innerH);
-      var areaLast = (pad.left + (s.values.length - 1) * step).toFixed(1) + ',' + (pad.top + innerH);
-      seriesSvg += '<polygon points="' + areaFirst + ' ' + pts + ' ' + areaLast + '" fill="url(#' + uid + ')"/>';
+      defs += '<linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0%" stop-color="' + s.color + '" stop-opacity="0.12"/>' +
+        '<stop offset="100%" stop-color="' + s.color + '" stop-opacity="0"/>' +
+        '</linearGradient>';
+      var af = pad.left + ',' + (pad.top + innerH);
+      var al = (pad.left + (s.values.length - 1) * step).toFixed(1) + ',' + (pad.top + innerH);
+      seriesSvg += '<polygon points="' + af + ' ' + pts + ' ' + al + '" fill="url(#' + uid + ')"/>';
     }
-    seriesSvg += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
-    seriesSvg += s.values.map(function(v, i) {
-      var cx = (pad.left + i * step).toFixed(1);
-      var cy = (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
-      return '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="' + s.color + '" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
+
+    seriesSvg += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+    seriesSvg += coords.map(function(p) {
+      return '<circle cx="' + p.x + '" cy="' + p.y + '" r="4" fill="' + s.color + '" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
     }).join('');
   });
+
+  // Hover overlay — vertical slices per x-position
+  var overlays = labels.map(function(_l, i) {
+    var ox = (pad.left + i * step).toFixed(1);
+    return '<rect x="' + (parseFloat(ox) - step / 2) + '" y="' + pad.top + '" width="' + step + '" height="' + innerH + '" fill="transparent" style="cursor:pointer;" data-mli="' + i + '"></rect>';
+  }).join('');
+
   defs += '</defs>';
   el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
-    defs + gridLines + axes + seriesSvg + yLabels + xLabels + '</svg>';
+    defs + gridLines + refLineSvg + axes + seriesSvg + yLabels + xLabels + yAxisLabelSvg + xAxisLabelSvg + overlays + '</svg>';
+
+  // Hover — show all series values at that x-index
+  el.querySelectorAll('rect[data-mli]').forEach(function(rect) {
+    var i = parseInt(rect.dataset.mli);
+    rect.addEventListener('mouseover', function(e) {
+      var rows = series.map(function(s) {
+        return { label: s.label, value: s.values[i].toLocaleString(), color: s.color, active: false };
+      });
+      showChartTooltip(e, labels[i], rows, series[0].color);
+    });
+    rect.addEventListener('mousemove', positionChartTooltip);
+    rect.addEventListener('mouseleave', hideChartTooltip);
+  });
+
+  // Stat summary below chart
+  if (opts.stat) {
+    var statEl = document.getElementById(containerId + '-stat');
+    if (statEl) {
+      statEl.innerHTML =
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>' +
+        '<strong>' + opts.stat.value + '</strong> ' + opts.stat.label;
+    }
+  }
 }
 
 function buildStackedBarChart(containerId, rows, xLabel) {
@@ -883,6 +950,15 @@ function initCharts() {
     [24, 38, 30, 52, 47, 61, 55, 73, 68, 82, 76, 90],
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   );
+  buildMultiLineChart('multiline-chart-1', [
+    { label: 'Control Gap',          color: '#8F8DDE', values: [490, 370, 380, 440, 450, 420, 390, 460, 500, 540, 590, 670] },
+    { label: 'Software Vulnerability', color: '#3a7fcb', values: [490, 370, 360, 390, 430, 460, 430, 480, 540, 570, 600, 620] }
+  ], ['29 May','02 Jun','06 Jun','10 Jun','14 Jun','18 Jun','22 Jun','26 Jun','30 Jun','04 Jul','08 Jul','12 Jul'], {
+    refLine: { value: 500, color: '#D12329' },
+    yAxisLabel: 'Score',
+    xAxisLabel: 'Days',
+    stat: { value: '0.95%', label: 'Average Rate of Change' }
+  });
   buildStackedBarChart('stacked-bar-chart-1', [
     { label: 'Device',    critical: 37, high: 6,  medium: 19, low: 38 },
     { label: 'Cloud',     critical: 9,  high: 8,  medium: 47, low: 36 },
