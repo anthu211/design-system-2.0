@@ -38,6 +38,15 @@
   requestAnimationFrame(tick);
 })();
 
+// ─── Design System Version (single source of truth) ───
+var DS_VERSION = 'v2.1.79';
+(function() {
+  var el = document.getElementById('whats-new-version');
+  if (el) el.textContent = DS_VERSION + ' \u2014 Latest';
+  var badge = document.getElementById('whats-new-title-version');
+  if (badge) badge.textContent = DS_VERSION;
+})();
+
 // ─── Top nav view switching ───
 var dsLayout = document.querySelector('.ds-layout');
 document.querySelectorAll('.ds-topnav-item').forEach(function(btn) {
@@ -2349,7 +2358,8 @@ var SEARCH_INDEX = [
   { t:'Charts', p:'charts', cat:'Component', d:'Bar, line, donut charts with SVG axes', k:'chart graph bar line donut pie data visualization' },
   { t:'Form Controls', p:'forms', cat:'Component', d:'Inputs, checkboxes, radio buttons, search fields', k:'form input field text checkbox radio search' },
   { t:'Icons', p:'icons', cat:'Component', d:'Full SVG icon library', k:'icon svg symbol glyph' },
-  { t:'Modal & Toast', p:'overlays', cat:'Component', d:'Confirmation dialogs, notification toasts, tooltips', k:'modal dialog overlay toast notification popup alert' },
+  { t:'Modal', p:'overlays', cat:'Component', d:'Confirmation dialogs, destructive actions, and form overlays', k:'modal dialog overlay popup alert confirmation destructive' },
+  { t:'Tooltip', p:'tooltip', cat:'Component', d:'UI hover tooltips and chart data tooltips', k:'tooltip hover hint label chart data ui position' },
   { t:'Navigation', p:'navmenu', cat:'Component', d:'Left sidebar nav with collapsible sections', k:'navigation nav sidebar menu left collapse' },
   { t:'Panels & Filters', p:'panels', cat:'Component', d:'Side drawers, filter bars, applied filter chips', k:'panel filter drawer side chip apply' },
   { t:'Progress & Slider', p:'progress', cat:'Component', d:'Progress bars, loading indicators, range sliders', k:'progress bar slider loading indicator range' },
@@ -2513,7 +2523,7 @@ if (cmdInput) {
 // ═══════════════════════════════════════════════════════════════════
 var COMPONENT_STATUS = {
   buttons:'stable', forms:'stable', charts:'stable', icons:'stable',
-  callout:'stable', badges:'stable', overlays:'stable', tabs:'stable',
+  callout:'stable', badges:'stable', overlays:'stable', tooltip:'stable', tabs:'stable',
   progress:'stable', table:'stable', breadnav:'stable', avatars:'stable',
   toggleselect:'beta', navmenu:'beta', panels:'beta',
   colors:'stable', typography:'stable', spacing:'stable', resolutions:'stable'

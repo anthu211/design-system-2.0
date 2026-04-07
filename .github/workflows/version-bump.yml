@@ -17,22 +17,28 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Bump patch version in index.html
+      - name: Bump patch version
         run: |
-          CURRENT=$(grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' index.html | head -1)
+          CURRENT=$(grep -o "DS_VERSION = 'v[0-9]\+\.[0-9]\+\.[0-9]\+'" main.js | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+')
           if [ -z "$CURRENT" ]; then
-            echo "No version tag found — skipping."
+            echo "No DS_VERSION found in main.js — skipping."
             exit 0
           fi
           MAJOR=$(echo "$CURRENT" | sed 's/v//' | cut -d. -f1)
           MINOR=$(echo "$CURRENT" | sed 's/v//' | cut -d. -f2)
           PATCH=$(echo "$CURRENT" | sed 's/v//' | cut -d. -f3)
           NEW_VERSION="v${MAJOR}.${MINOR}.$((PATCH + 1))"
-          sed -i "s/${CURRENT}/${NEW_VERSION}/g" index.html
+
+          # Update single source of truth in main.js
+          sed -i "s/DS_VERSION = '${CURRENT}'/DS_VERSION = '${NEW_VERSION}'/" main.js
+
+          # Keep the index.html fallback text in sync
+          sed -i "s/${CURRENT} — Latest/${NEW_VERSION} — Latest/g" index.html
+
           echo "Bumped: ${CURRENT} → ${NEW_VERSION}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
+          git add main.js index.html
           git commit -m "chore: bump version to ${NEW_VERSION}"
           git push
