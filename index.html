@@ -339,44 +339,160 @@
       <p class="page-subtitle">Everything you need to design and build Prevalent AI products.</p>
     </div>
   </div>
-  <div class="bp-section">
-    <div class="bp-section-title">What's inside</div>
-    <div class="ds-home-grid">
-      <div class="ds-home-card" onclick="document.querySelector('[data-page=home]').click()">
-        <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  <div class="page-content" style="padding-top:0;">
+    <div class="ds-ov-bento">
+
+      <!-- Colors — wide, shows actual swatches -->
+      <div class="ds-ov-card ds-ov-card--wide" onclick="navigateToPage('colors')" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></div>
+          <div class="ds-ov-card-title">Colors</div>
         </div>
-        <div class="ds-home-card-title">Design System</div>
-        <div class="ds-home-card-desc">Tokens, components, templates, and guidelines for building consistent UI.</div>
-      </div>
-      <div class="ds-home-card" onclick="document.querySelector('[data-page=whats-new]').click()">
-        <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <div class="ds-ov-card-preview">
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+            <div style="width:32px;height:32px;border-radius:4px;background:#6760d8;"></div>
+            <div style="width:32px;height:32px;border-radius:4px;background:#D12329;"></div>
+            <div style="width:32px;height:32px;border-radius:4px;background:#31A56D;"></div>
+            <div style="width:32px;height:32px;border-radius:4px;background:#D98B1D;"></div>
+            <div style="width:32px;height:32px;border-radius:4px;background:#1E82BE;"></div>
+            <div style="width:32px;height:32px;border-radius:4px;background:#8F8DDE;"></div>
+          </div>
+          <div style="display:flex;gap:4px;">
+            <div style="flex:1;height:8px;border-radius:2px;background:#131313;"></div>
+            <div style="flex:1;height:8px;border-radius:2px;background:#1c1c1c;"></div>
+            <div style="flex:1;height:8px;border-radius:2px;background:#242424;"></div>
+            <div style="flex:1;height:8px;border-radius:2px;background:#2e2e2e;"></div>
+            <div style="flex:1;height:8px;border-radius:2px;background:#3a3a3a;"></div>
+          </div>
         </div>
-        <div class="ds-home-card-title">What's New</div>
-        <div class="ds-home-card-desc">Latest updates, component additions, and changes to the design system.</div>
+        <div class="ds-ov-card-desc">Full palette — dark/light tokens, semantic status, CTA accent.</div>
       </div>
-      <div class="ds-home-card" onclick="document.querySelector('[data-page=docs]').click()">
-        <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+
+      <!-- Typography — shows actual type sample -->
+      <div class="ds-ov-card" onclick="navigateToPage('typography')" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div>
+          <div class="ds-ov-card-title">Typography</div>
         </div>
-        <div class="ds-home-card-title">Documentation</div>
-        <div class="ds-home-card-desc">Dos and don'ts, usage rules, and design principles.</div>
-      </div>
-      <div class="ds-home-card" onclick="document.querySelector('[data-page=ai-setup]').click()">
-        <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <div class="ds-ov-card-preview">
+          <div style="font-size:28px;font-weight:700;color:var(--shell-text);line-height:1;letter-spacing:-0.03em;margin-bottom:6px;">Aa</div>
+          <div style="font-size:11px;font-weight:600;color:var(--shell-text-muted);letter-spacing:0.04em;">Inter · 9 sizes</div>
         </div>
-        <div class="ds-home-card-title">Vibe Coding</div>
-        <div class="ds-home-card-desc">AI-assisted page and component generation using the design system.</div>
+        <div class="ds-ov-card-desc">Type scale, heading levels, body and code styles.</div>
       </div>
-      <div class="ds-home-card" onclick="document.querySelector('.ds-topnav-cta').click()">
-        <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+
+      <!-- Charts — shows mini bar chart preview -->
+      <div class="ds-ov-card" onclick="navigateToPage('charts')" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+          <div class="ds-ov-card-title">Charts</div>
         </div>
-        <div class="ds-home-card-title">Claude Setup</div>
-        <div class="ds-home-card-desc">Copy prompts and configuration for working with Claude on PAI products.</div>
+        <div class="ds-ov-card-preview">
+          <svg viewBox="0 0 120 56" width="100%" height="56" preserveAspectRatio="none">
+            <rect x="4"  y="28" width="14" height="24" rx="2" fill="#6760d8" opacity="0.8"/>
+            <rect x="22" y="14" width="14" height="38" rx="2" fill="#6760d8" opacity="0.8"/>
+            <rect x="40" y="8"  width="14" height="44" rx="2" fill="#D12329" opacity="0.8"/>
+            <rect x="58" y="20" width="14" height="32" rx="2" fill="#6760d8" opacity="0.8"/>
+            <rect x="76" y="4"  width="14" height="48" rx="2" fill="#31A56D" opacity="0.8"/>
+            <rect x="94" y="18" width="14" height="34" rx="2" fill="#6760d8" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="ds-ov-card-desc">Bar, line, donut — SVG, no dependencies.</div>
       </div>
+
+      <!-- Tokens — shows token names -->
+      <div class="ds-ov-card" onclick="navigateToPage('spacing')" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div class="ds-ov-card-title">Tokens</div>
+        </div>
+        <div class="ds-ov-card-preview">
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:#8f8dde;">--shell-accent</div>
+            <div style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:#31A56D;">--status-success</div>
+            <div style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:#D12329;">--status-danger</div>
+            <div style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:var(--shell-text-muted);">--card-border</div>
+          </div>
+        </div>
+        <div class="ds-ov-card-desc">Spacing, colour, and layout tokens on a 4pt grid.</div>
+      </div>
+
+      <!-- Table — shows mini table rows -->
+      <div class="ds-ov-card ds-ov-card--wide" onclick="navigateToPage('table')" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg></div>
+          <div class="ds-ov-card-title">Table</div>
+        </div>
+        <div class="ds-ov-card-preview">
+          <div style="border:1px solid var(--card-border);border-radius:4px;overflow:hidden;font-size:11px;">
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;background:var(--shell-raised);padding:6px 10px;font-weight:600;color:var(--shell-text-muted);font-size:10px;text-transform:uppercase;letter-spacing:0.05em;gap:8px;">
+              <span>Asset</span><span>Severity</span><span>Status</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;padding:6px 10px;border-top:1px solid var(--card-border);color:var(--shell-text);gap:8px;align-items:center;">
+              <span>api.example.com</span>
+              <span style="font-size:10px;font-weight:700;color:#D12329;">Critical</span>
+              <span style="font-size:10px;font-weight:600;color:#31A56D;">Active</span>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 80px 80px;padding:6px 10px;border-top:1px solid var(--card-border);color:var(--shell-text);gap:8px;align-items:center;opacity:0.6;">
+              <span>auth.internal</span>
+              <span style="font-size:10px;font-weight:700;color:#D98B1D;">High</span>
+              <span style="font-size:10px;font-weight:600;color:var(--shell-text-muted);">Inactive</span>
+            </div>
+          </div>
+        </div>
+        <div class="ds-ov-card-desc">Sortable, filterable data tables with row actions and severity columns.</div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="ds-ov-card" onclick="navigateToPage('buttons')" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg></div>
+          <div class="ds-ov-card-title">Buttons</div>
+        </div>
+        <div class="ds-ov-card-preview" style="display:flex;flex-direction:column;gap:6px;">
+          <div style="display:inline-flex;align-items:center;padding:6px 14px;border-radius:44px;background:#6760d8;color:#fff;font-size:11px;font-weight:600;">Primary</div>
+          <div style="display:inline-flex;align-items:center;padding:5px 13px;border-radius:44px;background:transparent;border:1px solid var(--card-border);color:var(--shell-text);font-size:11px;font-weight:600;">Outline</div>
+        </div>
+        <div class="ds-ov-card-desc">Primary, secondary, outline, danger — all states.</div>
+      </div>
+
+      <!-- Claude Setup — accent card -->
+      <div class="ds-ov-card ds-ov-card--accent" onclick="document.querySelector('.ds-topnav-item[data-page=claude-setup]').click()" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon" style="background:rgba(255,255,255,0.15);color:#fff;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="ds-ov-card-title" style="color:#fff;">Claude Setup</div>
+        </div>
+        <div class="ds-ov-card-preview">
+          <code style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:rgba(255,255,255,0.7);line-height:1.8;display:block;">curl -fsSL install.sh | bash</code>
+          <div style="display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;">
+            <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/new-page</span>
+            <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/ux-review</span>
+            <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/new-component</span>
+          </div>
+        </div>
+        <div class="ds-ov-card-desc" style="color:rgba(255,255,255,0.65);">Install the design system into Claude Code.</div>
+      </div>
+
+      <!-- Vibe Coding -->
+      <div class="ds-ov-card" onclick="document.querySelector('.ds-topnav-item[data-page=ai-setup]').click()" style="cursor:pointer;">
+        <div class="ds-ov-card-header">
+          <div class="ds-ov-card-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="ds-ov-card-title">Vibe Coding</div>
+        </div>
+        <div class="ds-ov-card-preview" style="display:flex;flex-direction:column;gap:4px;">
+          <div style="font-size:10px;color:var(--shell-text-muted);">Copy prompts for</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;">
+            <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:44px;background:rgba(99,96,216,0.1);color:var(--shell-accent);border:1px solid rgba(99,96,216,0.2);">Claude</span>
+            <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:44px;background:rgba(99,96,216,0.1);color:var(--shell-accent);border:1px solid rgba(99,96,216,0.2);">Cursor</span>
+            <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:44px;background:rgba(99,96,216,0.1);color:var(--shell-accent);border:1px solid rgba(99,96,216,0.2);">Lovable</span>
+            <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:44px;background:rgba(99,96,216,0.1);color:var(--shell-accent);border:1px solid rgba(99,96,216,0.2);">v0</span>
+          </div>
+        </div>
+        <div class="ds-ov-card-desc">AI-assisted generation with design system context.</div>
+      </div>
+
     </div>
   </div>
 </div>

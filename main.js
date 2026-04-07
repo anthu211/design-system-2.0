@@ -2491,6 +2491,16 @@ function updateCmdSelection() {
 function navigateToPage(page) {
   var navItem = document.querySelector('.nav-item[data-page="' + page + '"]');
   if (navItem) {
+    // Ensure the Design System topnav tab is active (shows sidebar, switches view)
+    var dsTab = document.querySelector('.ds-topnav-item[data-page="home"]');
+    if (dsTab) {
+      document.querySelectorAll('.ds-topnav-item').forEach(function(b) { b.classList.remove('active'); });
+      dsTab.classList.add('active');
+      document.querySelectorAll('.ds-view').forEach(function(v) { v.classList.remove('active'); });
+      document.getElementById('view-ds').classList.add('active');
+      var dsLayout = document.querySelector('.ds-layout');
+      if (dsLayout) dsLayout.classList.remove('no-sidebar');
+    }
     navItem.click();
     // Scroll content to top
     var content = document.querySelector('.ds-content');
