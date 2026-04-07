@@ -39,7 +39,7 @@
 })();
 
 // ─── Design System Version (single source of truth) ───
-var DS_VERSION = 'v2.1.83';
+var DS_VERSION = 'v2.1.84';
 (function() {
   var el = document.getElementById('whats-new-version');
   if (el) el.textContent = DS_VERSION + ' \u2014 Latest';
