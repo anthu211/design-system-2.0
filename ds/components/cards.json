@@ -23,7 +23,7 @@
       "gap": "8px",
       "border_radius": "4px",
       "slots": {
-        "kpi-value": "Primary metric number — 20px/600",
+        "kpi-value": "Primary metric number — 14px/600",
         "kpi-label": "Short descriptor — 11px/500 muted color",
         "kpi-delta": "Trend vs previous period — 11px/600, always required"
       },

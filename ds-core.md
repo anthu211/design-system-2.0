@@ -94,7 +94,7 @@ Dual toggle: `ds-dual-toggle` > `dual-label` + `ds-toggle-wrap` + `dual-label`.
 ```
 Delta classes: `up-good` · `down-good` · `up-bad` · `down-bad`.
 - Max 5 cards · `gap:8px` · `padding:12px 16px` · `border-radius:4px`
-- Value `20px/600` · Label `11px/500 muted` · Delta `11px/600`
+- Value `14px/600` · Label `11px/500 muted` · Delta `11px/600`
 - Value + label + delta ONLY — NEVER icons, colored borders, box-shadow, custom bg
 - Always include delta — never omit
 
