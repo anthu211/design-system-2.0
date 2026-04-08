@@ -378,7 +378,7 @@ Full React components in `react.md`. Rules for all React output:
 
 | Persona | Trigger words | Lead with | Key rule |
 |---------|--------------|-----------|----------|
-| **ciso** | dashboard, overview, executive, risk | KPI cards (max 5) + trend charts | 1 dominant CTA, no jargon |
+| **ciso** | dashboard, overview, executive, risk | trend charts + summary table | 1 dominant CTA, no jargon — KPI cards only if explicitly requested |
 | **grc** | compliance, audit, framework, control | Framework status table | Export button prominent |
 | **security-architect** | architecture, attack surface, topology | Technical detail visible | CVSSv3 scores, asset relationships |
 | **security-engineer** | vulnerability, CVE, patch, asset, scan | Dense CVE table | Bulk toolbar, SLA column, pagination |

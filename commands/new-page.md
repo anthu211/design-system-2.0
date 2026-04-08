@@ -24,11 +24,12 @@ Do not fetch files for components the page does not need.
 BUILD CHECKLIST — complete every item in order:
 
 [ ] 1. PERSONA — infer from request, apply layout:
-       ciso → KPI cards first (max 5), trend charts, 1 dominant CTA
+       ciso → trend charts, 1 dominant CTA — KPI cards ONLY if explicitly requested
        grc → Compliance table, control status visible, export button
        security-architect → CVSSv3 scores, technical detail, asset context
        security-engineer → Dense CVE table, bulk toolbar, SLA column, pagination
        soc-analyst → Alert queue first, severity sorted, quick row actions on hover
+       NOTE: Never add KPI cards unless the user explicitly asks for them.
 
 [ ] 2. SHELL — copy the complete shell HTML from page-spec.txt VERBATIM.
        Copy the ENTIRE <style> block — do not skip or shorten any CSS.
