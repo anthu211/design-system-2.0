@@ -5191,45 +5191,6 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
     </div>
 
     <!-- Claude -->
-    <div class="ai-prompt-card" id="ai-card-claude">
-      <div class="ai-prompt-header">
-        <div class="ai-prompt-meta">
-          <span class="ai-prompt-tool">Claude</span>
-          <span class="ai-prompt-location">→ paste at the start of any Claude.ai conversation</span>
-        </div>
-        <button class="ds-btn t-outline sz-sm ai-copy-btn" onclick="copyPrompt('ai-card-claude', this)">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copy
-        </button>
-      </div>
-      <pre class="ai-prompt-body">Fetch ALL of these URLs fully before writing any code:
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/page-spec.md
-3. https://anthu211.github.io/design-system-2.0/charts.md
-
-Then fetch only what your task needs:
-- Page has KPI cards → fetch https://anthu211.github.io/design-system-2.0/ds/components/cards.json
-- Page has forms/inputs → fetch https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
-- Page has toasts/errors → fetch https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
-
----
-
-My request: $YOUR_REQUEST_HERE
-
----
-
-Follow every rule in ds-core.md exactly. Copy the full shell HTML from page-spec.md verbatim — entire &lt;style&gt; and &lt;script&gt; blocks, do not skip or shorten. Only replace: page title, nav items, breadcrumb, sub-header text, and content slot. Copy chart functions from charts.md verbatim — never rewrite or shorten them.
-
-Do not finish until all of these are complete:
-- Persona identified and layout applied
-- Shell copied verbatim from page-spec.md
-- All tokens from ds-core.md used (CSS variables only, no hardcoded hex)
-- All interactive states present: hover, active, focus, disabled
-- Row actions use visibility:hidden / visibility:visible — never display:none
-- Severity always visible in table column — never tooltip-only
-- Destructive actions have confirmation modal naming the item and consequence
-- Charts use only the 5 functions from charts.md — never canvas, Chart.js, D3, or ECharts</pre>
-    </div>
 
   </div><!-- /page-content -->
 </div><!-- /page-ai-setup -->
