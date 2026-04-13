@@ -12,7 +12,14 @@ Fetch these URLs before doing anything else:
 
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
 - Cards on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/cards.json
-- Charts on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/charts.json AND https://anthu211.github.io/design-system-2.0/charts.txt
+- Charts on page → fetch https://anthu211.github.io/design-system-2.0/charts-base.txt PLUS only the chart types needed:
+    Bar chart → charts-bar.txt
+    Line chart → charts-line.txt
+    Multi-line chart → charts-multiline.txt
+    Donut chart → charts-donut.txt
+    Horizontal bar → charts-hbar.txt
+    Stacked bar → charts-stacked.txt
+  All at base URL: https://anthu211.github.io/design-system-2.0/
 - Forms / inputs / dropdowns / toggles on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
 - Three-panel layout or auth shell → fetch https://anthu211.github.io/design-system-2.0/ds/patterns/shells.json
 - Toasts / callouts / error states on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
@@ -24,11 +31,12 @@ Do not fetch files for components the page does not need.
 BUILD CHECKLIST — complete every item in order:
 
 [ ] 1. PERSONA — infer from request, apply layout:
-       ciso → KPI cards first (max 5), trend charts, 1 dominant CTA
+       ciso → trend charts, 1 dominant CTA — KPI cards ONLY if explicitly requested
        grc → Compliance table, control status visible, export button
        security-architect → CVSSv3 scores, technical detail, asset context
        security-engineer → Dense CVE table, bulk toolbar, SLA column, pagination
        soc-analyst → Alert queue first, severity sorted, quick row actions on hover
+       NOTE: Never add KPI cards unless the user explicitly asks for them.
 
 [ ] 2. SHELL — copy the complete shell HTML from page-spec.txt VERBATIM.
        Copy the ENTIRE <style> block — do not skip or shorten any CSS.
@@ -51,9 +59,10 @@ BUILD CHECKLIST — complete every item in order:
        Line 2: breadcrumb <div style="font-size:11px"> — last crumb color:#6360D8
        Never merge into one line.
 
-[ ] 7. CHARTS (only if page has charts) — copy each function from charts.txt VERBATIM: buildVerticalBarChart, buildLineChart, buildMultiLineChart, buildDonutChart, buildStackedBarChart.
+[ ] 7. CHARTS (only if page has charts) — fetch charts-base.txt + only the chart type files needed (not all of them).
+       Copy each function VERBATIM from the fetched files.
        Add <div id="chart-tooltip"> at end of <body>.
-       Copy showChartTooltip, positionChartTooltip, hideChartTooltip from charts.txt verbatim.
+       Copy showChartTooltip, positionChartTooltip, hideChartTooltip from charts-base.txt verbatim.
        Init: document.addEventListener('DOMContentLoaded', function() { setTimeout(initCharts, 60); });
 
 [ ] 8. COMPONENTS — use exact HTML patterns from the component JSONs fetched.
