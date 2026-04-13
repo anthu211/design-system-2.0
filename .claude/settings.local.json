@@ -113,7 +113,20 @@
       "Bash(sort echo:*)",
       "Bash(/dev/null ls:*)",
       "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/new-react-component.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/new-react-component.md\")",
-      "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/ux-review.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/ux-review.md\")"
+      "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/ux-review.md\" \"/Users/ananthusunil/PAI Edits/design-system/commands/ux-review.md\")",
+      "Bash(gh pr create --title 'feat: overview bento grid, nav routing fix, backend security patches' --body ':*)",
+      "Bash(brew install:*)",
+      "Bash(npm show:*)",
+      "Bash(npm install:*)",
+      "Bash(gh pr create --title 'fix: patch CVE-2026-39363 — upgrade vite to 8.0.6' --body ':*)",
+      "Bash(curl -s \"https://anthu211.github.io/design-system-2.0/styles.css\")",
+      "Bash(js\\\\|^)",
+      "Bash(html\\\\|^var \\\\|^function \\\\|^}\" \"/Users/ananthusunil/PAI Edits/design-system/charts.md\" | head -40)",
+      "Bash(grep -n \"^```js\\\\|^```css\\\\|^```html\\\\|^var \\\\|^function \\\\|^}\" \"/Users/ananthusunil/PAI Edits/design-system/charts.md\" | head -40)",
+      "Bash(curl -s https://anthu211.github.io/design-system-2.0/ds/__TRACKED_VAR__)",
+      "Bash(node -e \"const files = ['/Users/ananthusunil/PAI Edits/design-system/ds/rules.json', '/Users/ananthusunil/PAI Edits/design-system/ds/context.json']; files.forEach\\(f => { try { require\\(f\\); console.log\\('OK:', f\\); } catch\\(e\\) { console.log\\('ERROR:', f, e.message\\); } }\\)\")",
+      "Bash(gh pr:*)",
+      "Bash(curl -s \"https://api.github.com/repos/anthu211/design-system-2.0/pulls?state=open\")"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
