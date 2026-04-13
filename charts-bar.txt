@@ -1,0 +1,95 @@
+# Prevalent AI Charts — Grouped Bar Chart
+
+## Grouped Bar Chart
+
+```
+Bar shape:   rx="2" (slightly rounded top corners)
+Bar width:   auto — fit to group width, min 6px max 18px, gap 3px between bars
+Grid lines:  horizontal only, solid stroke
+Hover:       opacity 0.7 via CSS class chart-bar:hover
+```
+
+Series colors (in order): `#D12329` · `#D98B1D` · `#6760d8` · `#31A56D`
+
+```html
+<div id="vbar-chart" style="width:100%;"></div>
+
+<script>
+function buildVerticalBarChart(containerId, series, groups, colors) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W = el.offsetWidth || 700;
+  var H = 220;
+  var pad = { top: 16, right: 16, bottom: 36, left: 44 };
+  var innerW = W - pad.left - pad.right;
+  var innerH = H - pad.top - pad.bottom;
+
+  var allVals = [];
+  series.forEach(function(s) { s.values.forEach(function(v) { allVals.push(v); }); });
+  var maxVal = Math.max.apply(null, allVals);
+  var yMax = Math.ceil(maxVal / 5) * 5 || 10;
+
+  var numTicks = 5;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+  }
+
+  var groupW = innerW / groups.length;
+  var serCount = series.length;
+  var barW = Math.max(6, Math.min(18, (groupW * 0.72) / serCount - 3));
+  var barGap = 3;
+  var bars = '', xLabels = '';
+
+  groups.forEach(function(grp, gi) {
+    var groupCX = pad.left + gi * groupW + groupW / 2;
+    var totalBarsW = serCount * barW + (serCount - 1) * barGap;
+    var startX = groupCX - totalBarsW / 2;
+    series.forEach(function(s, si) {
+      var v = s.values[gi];
+      var bh = Math.max(2, (v / yMax) * innerH);
+      var bx = startX + si * (barW + barGap);
+      var by = pad.top + innerH - bh;
+      bars += '<rect x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh +
+        '" fill="' + (colors[si] || '#6760d8') + '" rx="2" class="chart-bar"' +
+        ' data-gi="' + gi + '" data-si="' + si + '"></rect>';
+    });
+    xLabels += '<text x="' + groupCX + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + grp + '</text>';
+  });
+
+  var axes =
+    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
+
+  el.innerHTML = '<svg class="chart-bar-svg" width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '">' +
+    gridLines + axes + bars + yLabels + xLabels + '</svg>';
+
+  el.querySelectorAll('.chart-bar').forEach(function(bar) {
+    bar.addEventListener('mouseover', function(e) {
+      var gi = parseInt(this.dataset.gi), si = parseInt(this.dataset.si);
+      var color = colors[si] || '#6760d8';
+      showChartTooltip(e, groups[gi], [
+        { label: series[si].label, value: series[si].values[gi].toLocaleString(), color: color, active: true }
+      ], color);
+    });
+    bar.addEventListener('mousemove', positionChartTooltip);
+    bar.addEventListener('mouseleave', hideChartTooltip);
+  });
+}
+
+// Usage — call inside setTimeout(initCharts, 60)
+buildVerticalBarChart('vbar-chart',
+  [
+    { label: 'Critical', values: [14, 11, 18, 9, 12, 6] },
+    { label: 'High',     values: [17, 18, 15, 13, 11, 10] },
+    { label: 'Medium',   values: [20, 16, 19, 14, 13, 11] },
+    { label: 'Low',      values: [8,  10, 12, 16, 18, 20] }
+  ],
+  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+  ['#D12329', '#D98B1D', '#6760d8', '#31A56D']
+);
+</script>
+```

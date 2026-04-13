@@ -7,7 +7,8 @@ Then read $ARGUMENTS and fetch only what is needed:
 - Form/input → inputs.json + modals.json
 - Button/action → buttons.json
 - Card/KPI → cards.json
-- Chart → charts.json AND https://anthu211.github.io/design-system-2.0/charts.txt
+- Chart → fetch https://anthu211.github.io/design-system-2.0/charts-base.txt + only the chart type file needed:
+    bar=charts-bar.txt · line=charts-line.txt · multiline=charts-multiline.txt · donut=charts-donut.txt · hbar=charts-hbar.txt · stacked=charts-stacked.txt
 - Modal/dialog → modals.json
 - Badge/status → badges.json
 - Toast/alert → feedback.json
@@ -45,7 +46,7 @@ Wait for the answer. Then read the target HTML file in full before making any ch
 
 [ ] 5. ALL STATES — every interactive element must have: hover, active, focus, disabled.
 
-[ ] 6. CHARTS (only if adding a chart) — copy function from charts.txt VERBATIM. Ensure `<div id="chart-tooltip">` exists. Ensure showChartTooltip, positionChartTooltip, hideChartTooltip are present. Wrap init in `setTimeout(fn, 60)`.
+[ ] 6. CHARTS (only if adding a chart) — fetch charts-base.txt + the specific chart type file only. Copy function VERBATIM. Ensure `<div id="chart-tooltip">` exists. Ensure showChartTooltip, positionChartTooltip, hideChartTooltip are present. Wrap init in `setTimeout(fn, 60)`.
 
 [ ] 7. VERIFY HARD RULES — check all design rules above are met.
 
