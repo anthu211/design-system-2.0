@@ -1,0 +1,185 @@
+# Prevalent AI Charts — Base (CSS + tooltip + tokens). Always fetch this first, then fetch the specific chart type file you need.
+
+## Required CSS Classes
+
+Add these to your page `<style>` block. Charts will not render correctly without them.
+
+```css
+/* Chart axis labels — used by SVG text elements */
+.chart-axis-label { font-size: 10px; fill: var(--shell-text-muted); font-family: inherit; }
+
+/* Bar chart SVG container */
+.chart-bar-svg { overflow: visible; display: block; }
+.chart-bar-svg rect.chart-bar { transition: opacity 150ms; cursor: pointer; }
+.chart-bar-svg rect.chart-bar:hover { opacity: 0.7; }
+.chart-bar-svg text { font-family: inherit; }
+
+/* Chart legend */
+.chart-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; justify-content: center; }
+.chart-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--shell-text-2); }
+.chart-legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* Horizontal bar chart (CSS-based) */
+.css-hbar-chart { display: flex; flex-direction: column; gap: 8px; }
+.css-hbar-row { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.css-hbar-label { width: 72px; font-size: 11px; color: var(--shell-text-muted); text-align: right; flex-shrink: 0; }
+.css-hbar { height: 22px; border-radius: 0 3px 3px 0; transition: opacity 150ms; }
+.css-hbar:hover { opacity: 0.78; }
+.css-hbar-val { font-size: 11px; color: var(--shell-text-muted); margin-left: 4px; flex-shrink: 0; }
+```
+
+---
+
+## Chart Wrapper
+
+Every chart lives inside a content card:
+
+```html
+<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:20px 24px;">
+  <div style="font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:2px;">Chart Title</div>
+  <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:16px;">Subtitle or date range</div>
+  <div id="my-chart" style="width:100%;"></div>
+</div>
+```
+
+---
+
+## Color Schemes
+
+Two mutually exclusive schemes. Never mix them in one chart.
+
+### RAG — Criticality (`CHART_COLORS_RAG`)
+Use **only** for severity/risk data (Critical → High → Medium → Low). Never apply RAG colors to entity or category breakdowns.
+
+| Severity | Hex | Token |
+|----------|-----|-------|
+| Critical | `#D12329` | `--status-danger` |
+| High | `#D98B1D` | `--status-warning` |
+| Medium | `#F5B700` | — |
+| Low | `#31A56D` | `--status-success` |
+
+```js
+var CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
+buildDonutChart('my-donut', data, 180, CHART_COLORS_RAG);
+```
+
+### Normal — Category (`CHART_COLORS_NORMAL`)
+Use for entity types, asset categories, tool breakdowns, and any non-severity data. No red, amber, or green.
+
+| Name | Hex |
+|------|-----|
+| Violet | `#6760d8` |
+| Cyan | `#47adcb` |
+| Teal | `#2ea8a8` |
+| Indigo | `#5c6bc0` |
+| Lavender | `#8F8DDE` |
+| Blue | `#3a7fcb` |
+| Sage | `#7a9e7e` |
+| Mauve | `#b87fba` |
+| Terracotta | `#c47e5a` |
+| Slate | `#7b95b4` |
+
+```js
+var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
+buildDonutChart('my-donut', data, 180, CHART_COLORS_NORMAL); // default
+```
+
+---
+
+## Shared Visual Tokens (all chart types)
+
+| Element | Value |
+|---------|-------|
+| Grid lines | `stroke: var(--shell-border)` · `stroke-width: 1` · solid |
+| Axis lines | `stroke: var(--shell-border)` · `stroke-width: 1` · solid |
+| Axis labels | CSS class `chart-axis-label` → `font-size: 10px` · `fill: var(--shell-text-muted)` |
+| Y-axis label | `text-anchor: end` · 6px gap from axis |
+| X-axis label | `text-anchor: middle` · 6px below bottom axis |
+| Y-tick count | 4–5 ticks — never more than 6 |
+| Chart padding | `top: 16` · `right: 16` · `bottom: 36` · `left: 44` |
+| Severity series | RAG scheme: Critical `#D12329` · High `#D98B1D` · Medium `#F5B700` · Low `#31A56D` |
+| Single-series | Always use accent `#6760d8` for line/bars |
+
+**Init timing:** Always call chart functions inside `setTimeout(initCharts, 60)` so elements have rendered width before SVG is drawn.
+
+```js
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(initCharts, 60);
+});
+function initCharts() {
+  // call buildVerticalBarChart, buildLineChart, buildDonutChart here
+}
+```
+
+---
+
+## Chart Tooltip
+
+Place **once** at the end of `<body>`. Wire to every interactive chart element.
+
+```html
+<div id="chart-tooltip" style="position:fixed;z-index:1000;pointer-events:none;display:none;
+     background:var(--card-bg);border-radius:8px;padding:12px 13px;min-width:180px;
+     box-shadow:0 4px 16px rgba(0,0,0,0.14);font-family:inherit;"></div>
+
+<script>
+var _ctEl = null;
+function _ct() { if (!_ctEl) _ctEl = document.getElementById('chart-tooltip'); return _ctEl; }
+
+function showChartTooltip(e, title, rows, borderColor) {
+  var el = _ct(); if (!el) return;
+  var rowsHtml = rows.map(function(r) {
+    var dot = r.color ? '<span style="width:8px;height:8px;border-radius:50%;background:' + r.color + ';flex-shrink:0;display:inline-block;"></span>' : '';
+    var fw = r.active ? '700' : '500', vc = r.active ? r.color : 'inherit';
+    return '<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:14px;font-weight:' + fw + ';color:var(--shell-text);white-space:nowrap;">' +
+      '<span style="display:flex;align-items:center;gap:6px;">' + dot + r.label + '</span>' +
+      '<span style="color:' + vc + ';">' + r.value + '</span></div>';
+  }).join('');
+  el.innerHTML =
+    '<div style="position:absolute;top:-7px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid ' + borderColor + ';"></div>' +
+    '<div style="position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid var(--card-bg);"></div>' +
+    '<div style="font-size:14px;font-weight:600;color:var(--shell-text);margin-bottom:8px;">' + title + '</div>' +
+    '<div style="display:flex;flex-direction:column;gap:11px;">' + rowsHtml + '</div>';
+  el.style.border = '1px solid ' + borderColor;
+  el.style.display = 'block';
+  positionChartTooltip(e);
+}
+function positionChartTooltip(e) {
+  var el = _ct(); if (!el || el.style.display === 'none') return;
+  var x = e.clientX - el.offsetWidth / 2, y = e.clientY + 18;
+  if (x + el.offsetWidth > window.innerWidth - 8) x = window.innerWidth - el.offsetWidth - 8;
+  if (x < 8) x = 8;
+  if (y + el.offsetHeight > window.innerHeight - 8) y = e.clientY - el.offsetHeight - 18;
+  el.style.left = x + 'px'; el.style.top = y + 'px';
+}
+function hideChartTooltip() { var el = _ct(); if (el) el.style.display = 'none'; }
+</script>
+```
+
+**Tooltip rules:**
+- Border + dot color must match the hovered series color
+- Hovered series row: `font-weight:700`, value `color:<series-color>`
+- Tooltip is mandatory on all chart hovers — never skip it
+
+---
+
+## Chart Legend
+
+Use alongside any chart to explain series colors:
+
+```html
+<div class="chart-legend">
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#D12329;"></span>Critical
+  </div>
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#D98B1D;"></span>High
+  </div>
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#6760d8;"></span>Medium
+  </div>
+  <div class="chart-legend-item">
+    <span class="chart-legend-dot" style="background:#31A56D;"></span>Low
+  </div>
+</div>
+```
