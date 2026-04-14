@@ -9,7 +9,7 @@
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src https://fonts.gstatic.com;
   img-src 'self' data: https:;
-  connect-src 'self' https://anthu211.github.io https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms;
+  connect-src 'self' https://prevalent-ai.github.io https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms;
 ">
 <title>Design System – Prevalent AI</title>
 <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -229,9 +229,13 @@
         <svg class="nav-acc-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
       <div class="nav-acc-body" id="acc-components">
+        <div class="nav-item" data-page="accordion">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/><line x1="3" y1="3" x2="21" y2="3"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
+          Accordion
+        </div>
         <div class="nav-item" data-page="avatars">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Avatar &amp; Skeleton
+          Avatar
         </div>
         <div class="nav-item" data-page="badges">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -239,7 +243,7 @@
         </div>
         <div class="nav-item" data-page="breadnav">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          Breadcrumb &amp; Pagination
+          Breadcrumb
         </div>
         <div class="nav-item" data-page="buttons">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
@@ -265,17 +269,13 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="9" height="9" rx="2"/><rect x="13" y="3" width="9" height="9" rx="2"/><rect x="2" y="14" width="9" height="9" rx="2"/><rect x="13" y="14" width="9" height="9" rx="2"/></svg>
           KPI Cards
         </div>
-        <div class="nav-item" data-page="overlays">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          Modal
-        </div>
-        <div class="nav-item" data-page="tooltip">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Tooltip
-        </div>
         <div class="nav-item" data-page="navmenu">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="13" y1="8" x2="18" y2="8"/><line x1="13" y1="12" x2="18" y2="12"/><line x1="13" y1="16" x2="18" y2="16"/></svg>
           Navigation
+        </div>
+        <div class="nav-item" data-page="overlays">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Modal
         </div>
         <div class="nav-item" data-page="panels">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
@@ -285,17 +285,25 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"/><path d="M12 2l0 20"/></svg>
           Progress &amp; Slider
         </div>
+        <div class="nav-item" data-page="states">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          States
+        </div>
         <div class="nav-item" data-page="table">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
           Table
         </div>
         <div class="nav-item" data-page="tabs">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          Tabs &amp; Accordion
+          Tabs
         </div>
         <div class="nav-item" data-page="toggleselect">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="8" cy="12" r="3" fill="currentColor" stroke="none"/></svg>
           Toggle &amp; Select
+        </div>
+        <div class="nav-item" data-page="tooltip">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Tooltip
         </div>
       </div>
     </div>
@@ -470,6 +478,7 @@
             <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/new-page</span>
             <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/ux-review</span>
             <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/new-component</span>
+            <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/audit-page</span>
           </div>
         </div>
         <div class="ds-ov-card-desc" style="color:rgba(255,255,255,0.65);">Install the design system into Claude Code.</div>
@@ -540,33 +549,19 @@
 
   <div class="ds-home-section-title" style="margin-top:40px;">Components</div>
   <div class="ds-home-grid">
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=buttons]').click()">
-      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
-      </div>
-      <div class="ds-home-card-title">Buttons</div>
-      <div class="ds-home-card-desc">Primary, secondary, outline, ghost — all sizes and states.</div>
-    </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=forms]').click()">
-      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      </div>
-      <div class="ds-home-card-title">Form Controls</div>
-      <div class="ds-home-card-desc">Inputs, checkboxes, radio buttons, search fields.</div>
-    </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=toggleselect]').click()">
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=accordion]').click()">
       <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="16" cy="12" r="3" fill="var(--shell-accent)" stroke="none"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/><line x1="3" y1="3" x2="21" y2="3"/><line x1="3" y1="21" x2="21" y2="21"/></svg>
       </div>
-      <div class="ds-home-card-title">Toggle &amp; Select</div>
-      <div class="ds-home-card-desc">Toggle switches and dropdown select controls.</div>
+      <div class="ds-home-card-title">Accordion</div>
+      <div class="ds-home-card-desc">Collapsible sections and tree-table accordion for hierarchical data.</div>
     </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=charts]').click()">
-      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=avatars]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(209,35,41,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D12329" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </div>
-      <div class="ds-home-card-title">Charts</div>
-      <div class="ds-home-card-desc">Bar, line, and donut charts with SVG axes and labels.</div>
+      <div class="ds-home-card-title">Avatar</div>
+      <div class="ds-home-card-desc">User avatars, initials, image fallbacks, and stacked groups.</div>
     </div>
     <div class="ds-home-card" onclick="document.querySelector('[data-page=badges]').click()">
       <div class="ds-home-card-icon" style="background:rgba(209,35,41,0.08);">
@@ -575,26 +570,61 @@
       <div class="ds-home-card-title">Badge &amp; Status</div>
       <div class="ds-home-card-desc">Status badges, count indicators, and dismissible tags.</div>
     </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=breadnav]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="ds-home-card-title">Breadcrumb</div>
+      <div class="ds-home-card-desc">Location context trail for multi-level navigation hierarchies.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=buttons]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="4"/></svg>
+      </div>
+      <div class="ds-home-card-title">Buttons &amp; Toggles</div>
+      <div class="ds-home-card-desc">Primary, secondary, outline, ghost — all sizes and states.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=callout]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="ds-home-card-title">Callout</div>
+      <div class="ds-home-card-desc">Info, warning, error, and success callout banners.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=charts]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <div class="ds-home-card-title">Charts</div>
+      <div class="ds-home-card-desc">Bar, line, and donut charts with SVG axes and labels.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=forms]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div class="ds-home-card-title">Form Controls</div>
+      <div class="ds-home-card-desc">Inputs, checkboxes, radio buttons, search fields.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=icons]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
+      <div class="ds-home-card-title">Icons &amp; Logos</div>
+      <div class="ds-home-card-desc">Feather icon set and Prevalent AI logo variants.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=kpi]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="9" height="9" rx="2"/><rect x="13" y="3" width="9" height="9" rx="2"/><rect x="2" y="14" width="9" height="9" rx="2"/><rect x="13" y="14" width="9" height="9" rx="2"/></svg>
+      </div>
+      <div class="ds-home-card-title">KPI Cards</div>
+      <div class="ds-home-card-desc">Key metric cards with trend delta and direction indicators.</div>
+    </div>
     <div class="ds-home-card" onclick="document.querySelector('[data-page=overlays]').click()">
       <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
       </div>
       <div class="ds-home-card-title">Modal</div>
       <div class="ds-home-card-desc">Confirmation dialogs, destructive actions, and form overlays.</div>
-    </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=tabs]').click()">
-      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      </div>
-      <div class="ds-home-card-title">Tabs &amp; Accordion</div>
-      <div class="ds-home-card-desc">Tab navigation and collapsible accordion sections.</div>
-    </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=table]').click()">
-      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
-      </div>
-      <div class="ds-home-card-title">Table</div>
-      <div class="ds-home-card-desc">Sortable, filterable data table with pagination and export.</div>
     </div>
     <div class="ds-home-card" onclick="document.querySelector('[data-page=navmenu]').click()">
       <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
@@ -610,19 +640,47 @@
       <div class="ds-home-card-title">Panels &amp; Filters</div>
       <div class="ds-home-card-desc">Side drawers, filter bars, and applied filter chips.</div>
     </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=avatars]').click()">
-      <div class="ds-home-card-icon" style="background:rgba(209,35,41,0.08);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D12329" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </div>
-      <div class="ds-home-card-title">Avatar &amp; Skeleton</div>
-      <div class="ds-home-card-desc">User avatars, stacked groups, and loading skeletons.</div>
-    </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=callout]').click()">
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=progress]').click()">
       <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"/><path d="M12 2l0 20"/></svg>
       </div>
-      <div class="ds-home-card-title">Callout</div>
-      <div class="ds-home-card-desc">Info, warning, error, and success callout banners.</div>
+      <div class="ds-home-card-title">Progress &amp; Slider</div>
+      <div class="ds-home-card-desc">Progress bars, step indicators, and range slider inputs.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=states]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(209,35,41,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D12329" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="ds-home-card-title">States</div>
+      <div class="ds-home-card-desc">Loading skeleton, empty state, and error patterns.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=table]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(217,139,29,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D98B1D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <div class="ds-home-card-title">Table</div>
+      <div class="ds-home-card-desc">Sortable, filterable data table with pagination and export.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=tabs]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="ds-home-card-title">Tabs</div>
+      <div class="ds-home-card-desc">Horizontal tab navigation — default and pill variants.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=toggleselect]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="22" height="14" rx="7"/><circle cx="16" cy="12" r="3" fill="var(--shell-accent)" stroke="none"/></svg>
+      </div>
+      <div class="ds-home-card-title">Toggle &amp; Select</div>
+      <div class="ds-home-card-desc">Toggle switches and dropdown select controls.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=tooltip]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="ds-home-card-title">Tooltip</div>
+      <div class="ds-home-card-desc">Contextual hints on hover for icons and truncated content.</div>
     </div>
   </div>
 </div>
@@ -706,6 +764,32 @@
         <span class="token-chip"><span class="token-dot" style="background:#31A56D;"></span>--text-green</span>
         <span class="token-chip"><span class="token-dot" style="background:#D98B1D;"></span>--text-orange</span>
       </div>
+
+      <!-- 1.2 Token Export Panel -->
+      <div class="page-divider"></div>
+      <div class="section-title">Export Tokens</div>
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:20px 24px;">
+        <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:16px;line-height:1.6;">Download the full token set in your preferred format. All three outputs are generated from the same source — <code style="font-family:'SF Mono','Fira Code',monospace;font-size:11px;color:var(--code-text);">ds/tokens/*.json</code>.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="ds-btn sz-sm t-secondary" onclick="downloadTokenExport('css')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            CSS Variables
+          </button>
+          <button class="ds-btn sz-sm t-secondary" onclick="downloadTokenExport('json')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Flat JSON
+          </button>
+          <button class="ds-btn sz-sm t-secondary" onclick="downloadTokenExport('tailwind')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Tailwind Config
+          </button>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:24px;flex-wrap:wrap;">
+          <div style="font-size:11px;color:var(--shell-text-muted);"><span style="font-weight:600;color:var(--shell-text-2);">pai-tokens.css</span> — :root CSS custom properties, drop into any project</div>
+          <div style="font-size:11px;color:var(--shell-text-muted);"><span style="font-weight:600;color:var(--shell-text-2);">pai-tokens.json</span> — flat key/value map, use with Style Dictionary or Tokens Studio</div>
+          <div style="font-size:11px;color:var(--shell-text-muted);"><span style="font-weight:600;color:var(--shell-text-2);">tailwind.pai-tokens.js</span> — paste into your tailwind.config.js theme.extend</div>
+        </div>
+      </div>
     </div>
 
     <!-- TYPOGRAPHY PAGE -->
@@ -715,13 +799,42 @@
         <p>Inter is the primary typeface across all Prevalent AI interfaces. Weights 400, 500, 600, and 700 are used. Base size is 12px.</p>
       </div>
 
-      <div class="section-title">Typeface</div>
-      <div class="grid-card" style="margin-bottom:32px;">
-        <div style="font-size:32px;font-weight:700;color:var(--shell-text);line-height:1.2;margin-bottom:8px;">Inter</div>
-        <div style="font-size:13px;color:var(--shell-text-muted);margin-bottom:20px;">Google Fonts · Variable weight 100–900 · Used at 400, 500, 600, 700</div>
+      <div class="section-title">Typefaces</div>
+
+      <!-- Primary -->
+      <div class="grid-card" style="margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <div style="font-size:32px;font-weight:700;color:var(--shell-text);line-height:1.2;">Inter</div>
+          <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:44px;background:rgba(99,96,216,0.12);color:var(--shell-accent);border:1px solid rgba(99,96,216,0.25);">Primary</span>
+        </div>
+        <div style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">Google Fonts · Variable weight 100–900 · Used at 400, 500, 600, 700 · All UI surfaces</div>
         <div style="font-size:20px;color:var(--shell-text-2);line-height:1.6;">
           AaBbCcDdEeFfGgHhIiJjKkLlMm NnOoPpQqRrSsTtUuVvWwXxYyZz<br>0123456789 !@#$%^&amp;*()
         </div>
+      </div>
+
+      <!-- Secondary -->
+      <div class="grid-card" style="margin-bottom:32px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <div style="font-size:32px;font-weight:600;color:var(--shell-text);line-height:1.2;font-family:'Urbanist',sans-serif;">Urbanist</div>
+          <span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:44px;background:rgba(49,165,109,0.1);color:#31A56D;border:1px solid rgba(49,165,109,0.2);">Secondary · Navigator only</span>
+        </div>
+        <div style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">Google Fonts · Used at 400, 500, 600, 700 · Left sidebar navigation only — section labels and nav items</div>
+        <div style="font-size:20px;color:var(--shell-text-2);line-height:1.6;font-family:'Urbanist',sans-serif;">
+          AaBbCcDdEeFfGgHhIiJjKkLlMm NnOoPpQqRrSsTtUuVvWwXxYyZz<br>0123456789 !@#$%^&amp;*()
+        </div>
+        <div style="margin-top:16px;display:flex;gap:16px;align-items:center;">
+          <div style="font-family:'Urbanist',sans-serif;font-size:12.5px;color:var(--shell-text-2);display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--shell-raised);border-radius:4px;border-left:2px solid var(--shell-accent);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Components
+          </div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:12.5px;color:var(--shell-accent);display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--shell-active);border-radius:4px;border-left:2px solid var(--shell-accent);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            States
+          </div>
+          <div style="font-family:'Urbanist',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--shell-text-muted);padding:0 4px;">FOUNDATION</div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--shell-text-muted);font-style:italic;">CSS variable: <code style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:var(--code-text);">--font-nav</code></div>
       </div>
       <div class="page-divider"></div>
 
@@ -1185,7 +1298,7 @@
             </div>
 
             <div class="ds-dropdown has-error" id="dd-error">
-              <span class="ds-dropdown-label">Assignment <span style="color:#d12329;">*</span></span>
+              <span class="ds-dropdown-label">Assignment <span style="color:#D12329;">*</span></span>
               <div class="ds-dropdown-trigger">
                 <span class="ds-dropdown-trigger-text placeholder">Select assignee…</span>
                 <svg class="ds-dropdown-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
@@ -1512,7 +1625,7 @@
               </div>
             </div>
             <div class="ds-input-wrap" style="width:100%;">
-              <span class="ds-input-label">Error state <span style="color:#d12329;">*</span></span>
+              <span class="ds-input-label">Error state <span style="color:#D12329;">*</span></span>
               <div class="ds-input-field has-error">
                 <input type="email" placeholder="email@domain.com" value="invalid-email">
               </div>
@@ -2041,26 +2154,17 @@
         <div class="comp-section-title">Toast Notifications</div>
         <div class="comp-card">
           <div class="comp-row">
-            <button class="ds-btn t-success sz-md" onclick="showToast('success','Changes saved successfully!')">Success Toast</button>
-            <button class="ds-btn t-danger sz-md" onclick="showToast('error','Connection failed. Please try again.')">Error Toast</button>
-            <button class="ds-btn t-outline sz-md" onclick="showToast('warning','This action cannot be undone.')">Warning Toast</button>
-            <button class="ds-btn t-secondary sz-md" onclick="showToast('info','Your session will expire in 5 minutes.')">Info Toast</button>
-          </div>
-          <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--shell-border);">
-            <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">STATIC PREVIEW</div>
-            <div style="display:flex;flex-direction:column;gap:8px;max-width:360px;">
-              <div class="ds-toast-preview success"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Changes saved successfully!</span></div>
-              <div class="ds-toast-preview error"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span>Connection failed. Please retry.</span></div>
-              <div class="ds-toast-preview warning"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>This action cannot be undone.</span></div>
-              <div class="ds-toast-preview info"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg><span>Session expiring in 5 minutes.</span></div>
-            </div>
+            <button class="ds-btn t-success sz-md" onclick="showDemoToast('success','Changes saved successfully!')">Success Toast</button>
+            <button class="ds-btn t-danger sz-md" onclick="showDemoToast('error','Connection failed. Please try again.')">Error Toast</button>
+            <button class="ds-btn t-warning sz-md" onclick="showDemoToast('warning','This action cannot be undone.')">Warning Toast</button>
+            <button class="ds-btn t-secondary sz-md" onclick="showDemoToast('info','Your session will expire in 5 minutes.')">Info Toast</button>
           </div>
           <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--shell-border);">
             <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--shell-text-muted);margin-bottom:8px;">Rules</div>
             <ul style="list-style:none;display:flex;flex-direction:column;gap:5px;padding:0;">
               <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Success and info toasts auto-dismiss after 3 seconds</li>
               <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Error toasts persist until manually dismissed</li>
-              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Always positioned bottom-right — never block primary content</li>
+              <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Always positioned top-right — never block primary content</li>
               <li style="font-size:12px;color:var(--shell-text-2);padding-left:12px;position:relative;"><span style="position:absolute;left:0;color:var(--shell-accent);font-weight:700;">·</span>Use callout for inline feedback, toast for system-level events</li>
             </ul>
           </div>
@@ -2159,9 +2263,6 @@
         <h1>Modal</h1>
         <p>Overlay patterns for focused interactions. Fully interactive — click buttons to trigger states.</p>
       </div>
-
-      <!-- Toast container -->
-      <div class="ds-toast-container" id="toast-container"></div>
 
       <!-- Modal overlays -->
       <div class="ds-modal-overlay" id="modal-basic">
@@ -2460,8 +2561,8 @@
     <!-- TABS & ACCORDION PAGE -->
     <div class="page" id="page-tabs">
       <div class="page-header">
-        <h1>Tabs &amp; Accordion</h1>
-        <p>Content organisation patterns. Tabs for sibling views, accordion for vertically stacked expandable sections.</p>
+        <h1>Tabs</h1>
+        <p>Horizontal navigation pattern for sibling views within the same context. Use default tabs for primary page sections, pill tabs for filter-style switching.</p>
       </div>
 
       <div class="comp-section">
@@ -2516,8 +2617,17 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- ACCORDION PAGE -->
+    <div class="page" id="page-accordion">
+      <div class="page-header">
+        <h1>Accordion</h1>
+        <p>Two accordion patterns: a standard collapsible FAQ-style accordion, and a tree-table accordion for hierarchical data with metrics — used in compliance frameworks, control libraries, and nested findings views.</p>
+      </div>
+
       <div class="comp-section">
-        <div class="comp-section-title">Accordion</div>
+        <div class="comp-section-title">Standard Accordion</div>
         <div class="ds-accordion">
           <div class="ds-accordion-item">
             <button class="ds-accordion-trigger" onclick="toggleAccordion(this)">
@@ -2555,6 +2665,233 @@
               <p>Yes. The design tokens (CSS variables), colour palette, typography, and spacing scale are all framework-agnostic. The CSS classes can be mapped to React component props. A React wrapper library is planned for a future release.</p>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Tree Table Accordion</div>
+        <p class="comp-section-desc">Hierarchical data rows that expand to reveal nested controls, sub-controls, and mappings. Used in compliance frameworks and control library views.</p>
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
+          <table class="ds-tree-table">
+            <thead>
+              <tr>
+                <th style="width:40%;padding-left:16px;">Name</th>
+                <th style="text-align:right;"></th>
+                <th style="text-align:right;min-width:80px;">Closed</th>
+                <th style="text-align:right;min-width:60px;">Open</th>
+                <th style="text-align:center;min-width:140px;">Compliance Posture</th>
+                <th style="text-align:right;min-width:100px;">Rating</th>
+              </tr>
+            </thead>
+            <tbody id="tree-tbody">
+              <!-- Level 0: GV: Govern -->
+              <tr class="ds-tree-row" data-tree-id="gv" data-tree-level="0" data-tree-open="true">
+                <td style="padding-left:16px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle open" onclick="treeToggle('gv')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="font-weight:600;color:var(--shell-text);">GV: Govern</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">56,583</span> <span class="ds-tree-dir up">↑</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">53,185</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:51%;background:#D98B1D;"></div></div><span class="ds-tree-posture-pct">51%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge warning">Moderate</span></td>
+              </tr>
+              <!-- Level 1: GV.RR -->
+              <tr class="ds-tree-row" data-tree-id="gv-rr" data-tree-parent="gv" data-tree-level="1" data-tree-open="true">
+                <td style="padding-left:32px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle open" onclick="treeToggle('gv-rr')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="color:var(--shell-text);">GV.RR: Roles, Responsibilities, and Authorities</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">56,162</span> <span class="ds-tree-dir down">↓</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">53,185</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:51%;background:#D98B1D;"></div></div><span class="ds-tree-posture-pct">51%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge warning">Moderate</span></td>
+              </tr>
+              <!-- Level 2: GV.RR-02 -->
+              <tr class="ds-tree-row" data-tree-id="gv-rr-02" data-tree-parent="gv-rr" data-tree-level="2" data-tree-open="true">
+                <td style="padding-left:48px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle open" onclick="treeToggle('gv-rr-02')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="color:var(--shell-text-2);">GV.RR-02: Roles, responsibilities, and authorities related to cybersecurity risk ma…</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">56,162</span> <span class="ds-tree-dir down">↓</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">53,185</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:51%;background:#D98B1D;"></div></div><span class="ds-tree-posture-pct">51%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge warning">Moderate</span></td>
+              </tr>
+              <!-- Level 3 leaves under GV.RR-02 -->
+              <tr class="ds-tree-row" data-tree-parent="gv-rr-02" data-tree-level="3">
+                <td style="padding-left:64px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-leaf-spacer"></span>
+                    <span class="ds-tree-type-badge m">M</span>
+                    <span style="color:var(--shell-text-2);">Users have their role inventoried</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">15,910</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">19</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:99%;background:#31A56D;"></div></div><span class="ds-tree-posture-pct">99%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge success">Strong</span></td>
+              </tr>
+              <tr class="ds-tree-row" data-tree-parent="gv-rr-02" data-tree-level="3">
+                <td style="padding-left:64px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-leaf-spacer"></span>
+                    <span class="ds-tree-type-badge m">M</span>
+                    <span style="color:var(--shell-text-2);">Devices have an active owner</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">20,261</span> <span class="ds-tree-dir down">↓</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">34,426</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:37%;background:#D12329;"></div></div><span class="ds-tree-posture-pct">37%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge danger">Weak</span></td>
+              </tr>
+              <tr class="ds-tree-row" data-tree-parent="gv-rr-02" data-tree-level="3">
+                <td style="padding-left:64px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-leaf-spacer"></span>
+                    <span class="ds-tree-type-badge m">M</span>
+                    <span style="color:var(--shell-text-2);">Devices have a single assigned owner</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">19,991</span> <span class="ds-tree-dir down">↓</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">18,740</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:51%;background:#D98B1D;"></div></div><span class="ds-tree-posture-pct">51%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge warning">Moderate</span></td>
+              </tr>
+              <!-- Level 1: GV.PO -->
+              <tr class="ds-tree-row" data-tree-id="gv-po" data-tree-parent="gv" data-tree-level="1" data-tree-open="true">
+                <td style="padding-left:32px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle open" onclick="treeToggle('gv-po')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="color:var(--shell-text);">GV.PO: Policy</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">1</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">0</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:100%;background:#31A56D;"></div></div><span class="ds-tree-posture-pct">100%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge success">Compliant</span></td>
+              </tr>
+              <!-- Level 2: GV.PO-01 -->
+              <tr class="ds-tree-row" data-tree-id="gv-po-01" data-tree-parent="gv-po" data-tree-level="2" data-tree-open="true">
+                <td style="padding-left:48px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle open" onclick="treeToggle('gv-po-01')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="color:var(--shell-text-2);">GV.PO-01: Policy for managing cybersecurity risks is established based on organi…</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">1</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">0</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:100%;background:#31A56D;"></div></div><span class="ds-tree-posture-pct">100%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge success">Compliant</span></td>
+              </tr>
+              <!-- Level 3 leaf under GV.PO-01 -->
+              <tr class="ds-tree-row" data-tree-parent="gv-po-01" data-tree-level="3">
+                <td style="padding-left:64px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-leaf-spacer"></span>
+                    <span class="ds-tree-type-badge c">C</span>
+                    <span style="color:var(--shell-text-2);">Azure managed clusters have policies for resource compliance and governa…</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">1</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">0</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:100%;background:#31A56D;"></div></div><span class="ds-tree-posture-pct">100%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge success">Compliant</span></td>
+              </tr>
+              <!-- Level 0: ID: Identify (collapsed) -->
+              <tr class="ds-tree-row" data-tree-id="id" data-tree-level="0">
+                <td style="padding-left:16px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle" onclick="treeToggle('id')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="font-weight:600;color:var(--shell-text);">ID: Identify</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">219,945</span> <span class="ds-tree-dir up">↑</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">119,600</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:64%;background:#D98B1D;"></div></div><span class="ds-tree-posture-pct">64%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge warning">Moderate</span></td>
+              </tr>
+              <tr class="ds-tree-row ds-tree-hidden" data-tree-parent="id" data-tree-level="1"><td colspan="6" style="padding:10px 32px;color:var(--shell-text-muted);font-size:12px;">12 sub-controls · expand to view</td></tr>
+              <!-- Level 0: PR: Protect (collapsed) -->
+              <tr class="ds-tree-row" data-tree-id="pr" data-tree-level="0">
+                <td style="padding-left:16px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle" onclick="treeToggle('pr')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="font-weight:600;color:var(--shell-text);">PR: Protect</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">7,323,444</span> <span class="ds-tree-dir up">↑</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">393,282</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:94%;background:#31A56D;"></div></div><span class="ds-tree-posture-pct">94%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge success">Strong</span></td>
+              </tr>
+              <tr class="ds-tree-row ds-tree-hidden" data-tree-parent="pr" data-tree-level="1"><td colspan="6" style="padding:10px 32px;color:var(--shell-text-muted);font-size:12px;">18 sub-controls · expand to view</td></tr>
+              <!-- Level 0: DE: Detect (collapsed) -->
+              <tr class="ds-tree-row" data-tree-id="de" data-tree-level="0">
+                <td style="padding-left:16px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle" onclick="treeToggle('de')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="font-weight:600;color:var(--shell-text);">DE: Detect</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">355,187</span> <span class="ds-tree-dir down">↓</span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">378,547</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:48%;background:#D98B1D;"></div></div><span class="ds-tree-posture-pct">48%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge danger">Weak</span></td>
+              </tr>
+              <tr class="ds-tree-row ds-tree-hidden" data-tree-parent="de" data-tree-level="1"><td colspan="6" style="padding:10px 32px;color:var(--shell-text-muted);font-size:12px;">7 sub-controls · expand to view</td></tr>
+              <!-- Level 0: RS: Respond (collapsed) -->
+              <tr class="ds-tree-row" data-tree-id="rs" data-tree-level="0">
+                <td style="padding-left:16px;">
+                  <div class="ds-tree-name">
+                    <span class="ds-tree-toggle" onclick="treeToggle('rs')">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                    </span>
+                    <span style="font-weight:600;color:var(--shell-text);">RS: Respond</span>
+                  </div>
+                </td>
+                <td></td>
+                <td style="text-align:right;"><span class="ds-tree-val">102</span> <span class="ds-dot" style="display:inline-block;margin-left:2px;background:var(--shell-text-muted);"></span></td>
+                <td style="text-align:right;"><span class="ds-tree-val">382</span> <span class="ds-dot orange" style="display:inline-block;margin-left:2px;"></span></td>
+                <td style="text-align:center;"><div class="ds-tree-posture-wrap"><div class="ds-tree-posture-track"><div class="ds-tree-posture-fill" style="width:20%;background:#D12329;"></div></div><span class="ds-tree-posture-pct">20%</span></div></td>
+                <td style="text-align:right;"><span class="ds-badge danger">Weak</span></td>
+              </tr>
+              <tr class="ds-tree-row ds-tree-hidden" data-tree-parent="rs" data-tree-level="1"><td colspan="6" style="padding:10px 32px;color:var(--shell-text-muted);font-size:12px;">5 sub-controls · expand to view</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -2895,13 +3232,36 @@
           </div>
         </div>
       </div>
+
+      <div class="comp-section">
+        <div class="comp-section-title">Pagination</div>
+        <div class="comp-card">
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Default</div>
+              <nav class="ds-pagination" id="pager-1" data-total="10" data-current="3"></nav>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Small</div>
+              <nav class="ds-pagination ds-pagination-sm" id="pager-2" data-total="5" data-current="1"></nav>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">With row count</div>
+              <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+                <span style="font-size:12px;color:var(--shell-text-muted);">Showing 21–30 of 247 findings</span>
+                <nav class="ds-pagination" id="pager-3" data-total="25" data-current="3"></nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- BREADCRUMB & PAGINATION PAGE -->
+    <!-- BREADCRUMB PAGE -->
     <div class="page" id="page-breadnav">
       <div class="page-header">
-        <h1>Breadcrumb &amp; Pagination</h1>
-        <p>Navigation aid components. Breadcrumbs for location context, pagination for multi-page datasets.</p>
+        <h1>Breadcrumb</h1>
+        <p>Navigation aid showing a user's location within the product hierarchy. Always left-aligned in the page header, below the page title.</p>
       </div>
 
       <div class="comp-section">
@@ -2940,35 +3300,13 @@
         </div>
       </div>
 
-      <div class="comp-section">
-        <div class="comp-section-title">Pagination</div>
-        <div class="comp-card">
-          <div style="display:flex;flex-direction:column;gap:20px;">
-            <div>
-              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Default</div>
-              <nav class="ds-pagination" id="pager-1" data-total="10" data-current="3" data-onchange="changePage('pager-1', p)"></nav>
-            </div>
-            <div>
-              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Small</div>
-              <nav class="ds-pagination ds-pagination-sm" id="pager-2" data-total="5" data-current="1"></nav>
-            </div>
-            <div>
-              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">With info</div>
-              <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-                <span style="font-size:12px;color:var(--shell-text-muted);">Showing 21–30 of 247 findings</span>
-                <nav class="ds-pagination" id="pager-3" data-total="25" data-current="3"></nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- AVATAR & SKELETON PAGE -->
+    <!-- AVATAR PAGE -->
     <div class="page" id="page-avatars">
       <div class="page-header">
-        <h1>Avatar &amp; Skeleton</h1>
-        <p>User representation components and loading placeholder patterns for deferred content.</p>
+        <h1>Avatar</h1>
+        <p>User representation components — initials, image fallbacks, and stacked groups. For skeleton loading patterns see <a href="#" onclick="document.querySelector('.nav-item[data-page=states]').click();return false;" style="color:var(--shell-accent);">States</a>.</p>
       </div>
 
       <div class="comp-section">
@@ -3005,66 +3343,6 @@
         </div>
       </div>
 
-      <div class="comp-section">
-        <div class="comp-section-title">Skeleton Loaders</div>
-        <div class="comp-card">
-          <div style="display:flex;flex-direction:column;gap:20px;">
-            <div>
-              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Text Lines</div>
-              <div style="display:flex;flex-direction:column;gap:8px;">
-                <div class="ds-skeleton" style="height:14px;width:40%;"></div>
-                <div class="ds-skeleton" style="height:12px;width:85%;"></div>
-                <div class="ds-skeleton" style="height:12px;width:70%;"></div>
-                <div class="ds-skeleton" style="height:12px;width:60%;"></div>
-              </div>
-            </div>
-            <div>
-              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">Card Skeleton</div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
-                <div style="background:var(--shell-raised);border:1px solid var(--shell-border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;">
-                  <div class="ds-skeleton" style="height:80px;border-radius:6px;"></div>
-                  <div class="ds-skeleton" style="height:14px;width:60%;"></div>
-                  <div class="ds-skeleton" style="height:12px;width:80%;"></div>
-                </div>
-                <div style="background:var(--shell-raised);border:1px solid var(--shell-border);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;">
-                  <div class="ds-skeleton" style="height:80px;border-radius:6px;"></div>
-                  <div class="ds-skeleton" style="height:14px;width:50%;"></div>
-                  <div class="ds-skeleton" style="height:12px;width:75%;"></div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:10px;">List Skeleton</div>
-              <div style="display:flex;flex-direction:column;gap:0;">
-                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--shell-border);">
-                  <div class="ds-skeleton" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;"></div>
-                  <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-                    <div class="ds-skeleton" style="height:12px;width:40%;"></div>
-                    <div class="ds-skeleton" style="height:11px;width:60%;"></div>
-                  </div>
-                  <div class="ds-skeleton" style="width:60px;height:22px;border-radius:4px;"></div>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--shell-border);">
-                  <div class="ds-skeleton" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;"></div>
-                  <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-                    <div class="ds-skeleton" style="height:12px;width:55%;"></div>
-                    <div class="ds-skeleton" style="height:11px;width:45%;"></div>
-                  </div>
-                  <div class="ds-skeleton" style="width:60px;height:22px;border-radius:4px;"></div>
-                </div>
-                <div style="display:flex;align-items:center;gap:12px;padding:12px 0;">
-                  <div class="ds-skeleton" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;"></div>
-                  <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-                    <div class="ds-skeleton" style="height:12px;width:35%;"></div>
-                    <div class="ds-skeleton" style="height:11px;width:70%;"></div>
-                  </div>
-                  <div class="ds-skeleton" style="width:60px;height:22px;border-radius:4px;"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- TOGGLE & SELECT PAGE -->
@@ -3348,6 +3626,184 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- STATES PAGE — 1.3 -->
+    <div class="page" id="page-states">
+      <div class="page-header">
+        <h1>States</h1>
+        <p>Canonical patterns for loading, empty, and error states across every component type. Pick the right pattern — never invent a new one.</p>
+      </div>
+
+      <!-- Selection guide -->
+      <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px 20px;margin-bottom:24px;">
+        <div class="section-title" style="margin-bottom:12px;">When to use which</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="padding:12px 14px;background:var(--shell-raised);border-radius:4px;border:1px solid var(--card-border);">
+            <div style="font-size:11px;font-weight:700;color:var(--shell-accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Loading</div>
+            <div style="font-size:12px;color:var(--shell-text-muted);line-height:1.6;">Data is being fetched. Show skeleton instead of spinner wherever layout is known.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--shell-raised);border-radius:4px;border:1px solid var(--card-border);">
+            <div style="font-size:11px;font-weight:700;color:var(--shell-accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Empty</div>
+            <div style="font-size:12px;color:var(--shell-text-muted);line-height:1.6;">Query returned 0 results, or no data has been added yet. Never hide table headers.</div>
+          </div>
+          <div style="padding:12px 14px;background:var(--shell-raised);border-radius:4px;border:1px solid var(--card-border);">
+            <div style="font-size:11px;font-weight:700;color:var(--shell-accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">Error</div>
+            <div style="font-size:12px;color:var(--shell-text-muted);line-height:1.6;">Request failed or page cannot render. Scope error to the failing section — don't kill the whole page.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading States -->
+      <div class="comp-section">
+        <div class="comp-section-title">Loading — Skeleton</div>
+        <p class="comp-section-desc">Use skeleton loaders whenever the layout is predictable. They reduce perceived wait time better than a spinner.</p>
+        <div class="comp-card">
+          <div class="states-skeleton-demo">
+            <button class="ds-btn sz-sm t-outline states-demo-toggle" style="margin-bottom:16px;">Show Content</button>
+            <!-- Skeleton rows -->
+            <div class="ds-skeleton" style="height:12px;width:60%;border-radius:4px;margin-bottom:10px;"></div>
+            <div class="ds-skeleton" style="height:12px;width:85%;border-radius:4px;margin-bottom:10px;"></div>
+            <div class="ds-skeleton" style="height:12px;width:45%;border-radius:4px;margin-bottom:16px;"></div>
+            <div style="display:flex;gap:8px;">
+              <div class="ds-skeleton" style="height:28px;width:80px;border-radius:44px;"></div>
+              <div class="ds-skeleton" style="height:28px;width:80px;border-radius:44px;"></div>
+            </div>
+            <!-- Content slot (hidden while skeleton shows) -->
+            <div class="states-content-slot" style="display:none;">
+              <div style="font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">Vendor Risk Report</div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:6px;">142 vendors assessed · Last updated 2 hours ago</div>
+              <div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:16px;">3 critical findings require immediate review</div>
+              <div style="display:flex;gap:8px;"><button class="ds-btn sz-sm t-primary">View Report</button><button class="ds-btn sz-sm t-outline">Export</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-code-block"><pre><code>&lt;!-- Skeleton: replace with content on load --&gt;
+&lt;div class="ds-skeleton" style="height:12px;width:60%;border-radius:4px;"&gt;&lt;/div&gt;
+&lt;div class="ds-skeleton" style="height:12px;width:85%;border-radius:4px;"&gt;&lt;/div&gt;</code></pre></div>
+      </div>
+
+      <!-- Loading — Table Skeleton -->
+      <div class="comp-section">
+        <div class="comp-section-title">Loading — Table Skeleton</div>
+        <p class="comp-section-desc">Always keep <code>&lt;thead&gt;</code> visible during load. Only the rows are replaced with skeletons.</p>
+        <div class="comp-card" style="padding:0;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--table-th-bg);">
+              <th style="padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--shell-text-muted);border-bottom:1px solid var(--table-border);">Vendor</th>
+              <th style="padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--shell-text-muted);border-bottom:1px solid var(--table-border);">Risk Score</th>
+              <th style="padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--shell-text-muted);border-bottom:1px solid var(--table-border);">Severity</th>
+              <th style="padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--shell-text-muted);border-bottom:1px solid var(--table-border);">Last Assessed</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--table-border);"><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:70%;border-radius:3px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:40%;border-radius:3px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:20px;width:60px;border-radius:44px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:55%;border-radius:3px;"></div></td></tr>
+              <tr style="border-bottom:1px solid var(--table-border);"><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:55%;border-radius:3px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:35%;border-radius:3px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:20px;width:60px;border-radius:44px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:50%;border-radius:3px;"></div></td></tr>
+              <tr><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:65%;border-radius:3px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:42%;border-radius:3px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:20px;width:60px;border-radius:44px;"></div></td><td style="padding:10px 16px;"><div class="ds-skeleton" style="height:11px;width:48%;border-radius:3px;"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Empty States -->
+      <div class="comp-section">
+        <div class="comp-section-title">Empty — Table (No Results)</div>
+        <p class="comp-section-desc">Use 🚦 emoji. Keep <code>&lt;thead&gt;</code> and pagination visible. No Refresh button.</p>
+        <div class="comp-card" style="padding:0;overflow:hidden;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--table-th-bg);">
+              <th style="padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--shell-text-muted);border-bottom:1px solid var(--table-border);">Vendor</th>
+              <th style="padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--shell-text-muted);border-bottom:1px solid var(--table-border);">Risk Score</th>
+              <th style="padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--shell-text-muted);border-bottom:1px solid var(--table-border);">Severity</th>
+            </tr></thead>
+            <tbody>
+              <tr><td colspan="3" style="padding:48px 16px;text-align:center;">
+                <div style="font-size:28px;margin-bottom:10px;">🚦</div>
+                <div style="font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">No Data… For Now!</div>
+                <div style="font-size:12px;color:var(--shell-text-muted);">No records match your current filters. Try adjusting your search.</div>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Empty — Section -->
+      <div class="comp-section">
+        <div class="comp-section-title">Empty — First Use / Section</div>
+        <p class="comp-section-desc">When a section has no data yet (not filtered empty). Offer a clear action to add data.</p>
+        <div class="comp-card" style="text-align:center;padding:48px 24px;">
+          <div style="font-size:28px;margin-bottom:12px;">📋</div>
+          <div style="font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">No Vendors Added Yet</div>
+          <div style="font-size:12px;color:var(--shell-text-muted);max-width:320px;margin:0 auto 20px;">Add your first vendor to start tracking risk assessments and compliance status.</div>
+          <button class="ds-btn sz-md t-primary">Add Vendor</button>
+        </div>
+      </div>
+
+      <!-- Error States -->
+      <div class="comp-section">
+        <div class="comp-section-title">Error — Section Failure</div>
+        <p class="comp-section-desc">Use 🚧 emoji. Scope to the failing section — never redirect the whole page. Include a Retry button.</p>
+        <div class="comp-card" style="text-align:center;padding:40px 24px;">
+          <div style="font-size:28px;margin-bottom:12px;">🚧</div>
+          <div style="font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:6px;">Data Retrieval Failed</div>
+          <div style="font-size:12px;color:var(--shell-text-muted);max-width:360px;margin:0 auto 20px;">We couldn't load this section. Other parts of the page are still functional.</div>
+          <button class="ds-btn sz-md t-primary" onclick="showToast('info','Retrying…')">Retry</button>
+        </div>
+      </div>
+
+      <!-- Error — Field -->
+      <div class="comp-section">
+        <div class="comp-section-title">Error — Field Validation</div>
+        <p class="comp-section-desc">Trigger on blur only — never per-keystroke. Always pair red border with a specific message. Never clear the field value.</p>
+        <div class="comp-card">
+          <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+            <div class="ds-input-wrap" style="width:240px;">
+              <label class="ds-input-label">Email <span style="color:#dc2626">*</span></label>
+              <input type="email" class="ds-input-field" value="not-an-email" style="border:1.5px solid #dc2626;">
+              <span style="font-size:11px;color:#dc2626;margin-top:4px;display:flex;align-items:center;gap:4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Enter a valid email address
+              </span>
+            </div>
+            <div class="ds-input-wrap" style="width:240px;">
+              <label class="ds-input-label">API Key <span style="color:#dc2626">*</span></label>
+              <input type="text" class="ds-input-field" placeholder="sk-..." style="border:1.5px solid #dc2626;">
+              <span style="font-size:11px;color:#dc2626;margin-top:4px;display:flex;align-items:center;gap:4px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                This field is required
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Do / Don't -->
+      <div class="comp-section">
+        <div class="comp-section-title">Rules</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="padding:16px 18px;background:rgba(49,165,109,0.06);border:1px solid rgba(49,165,109,0.2);border-radius:4px;">
+            <div style="font-size:11px;font-weight:700;color:#31A56D;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Do</div>
+            <ul style="font-size:12px;color:var(--shell-text-muted);line-height:1.8;padding-left:16px;">
+              <li>Use 🚦 for table empty, 🚧 for errors</li>
+              <li>Keep <code>&lt;thead&gt;</code> visible during loading and empty states</li>
+              <li>Scope errors to the failing section</li>
+              <li>Use skeleton when layout is predictable</li>
+              <li>Always include a Retry button on section errors</li>
+              <li>Validate fields on blur only</li>
+            </ul>
+          </div>
+          <div style="padding:16px 18px;background:rgba(209,35,41,0.06);border:1px solid rgba(209,35,41,0.2);border-radius:4px;">
+            <div style="font-size:11px;font-weight:700;color:#D12329;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Don't</div>
+            <ul style="font-size:12px;color:var(--shell-text-muted);line-height:1.8;padding-left:16px;">
+              <li>Never auto-redirect the page on section error</li>
+              <li>Never show 🚧 in table empty state</li>
+              <li>Never hide thead during loading</li>
+              <li>Never add a Refresh button to table-empty state</li>
+              <li>Never validate per-keystroke</li>
+              <li>Never clear field value when showing a validation error</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- NAVIGATION PAGE -->
@@ -4184,7 +4640,7 @@
               <!-- Body placeholder -->
               <div style="flex:1;padding:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-content:start;">
                 <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Total Assets</div><div style="font-size:24px;font-weight:700;color:#101010;margin-top:4px;">12,847</div><div style="font-size:11px;color:#31a56d;margin-top:4px;">▲ 3.2%</div></div>
-                <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Critical Findings</div><div style="font-size:24px;font-weight:700;color:#d12329;margin-top:4px;">284</div><div style="font-size:11px;color:#e15252;margin-top:4px;">▲ 12 new</div></div>
+                <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Critical Findings</div><div style="font-size:24px;font-weight:700;color:#D12329;margin-top:4px;">284</div><div style="font-size:11px;color:#e15252;margin-top:4px;">▲ 12 new</div></div>
                 <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Risk Score</div><div style="font-size:24px;font-weight:700;color:#d98b1d;margin-top:4px;">68/100</div><div style="font-size:11px;color:#6e6e6e;margin-top:4px;">Medium</div></div>
                 <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px;"><div style="font-size:11px;color:#6e6e6e;">Remediated</div><div style="font-size:24px;font-weight:700;color:#31a56d;margin-top:4px;">1,204</div><div style="font-size:11px;color:#31a56d;margin-top:4px;">▼ 8.1%</div></div>
                 <div style="background:#fff;border:1px solid #e6e6e6;border-radius:10px;padding:16px 16px 12px;grid-column:1/-1;"><div style="font-size:12px;font-weight:600;color:#101010;margin-bottom:10px;">Exposure Trend</div><div style="height:80px;background:linear-gradient(135deg,rgba(99,96,216,0.06) 0%,rgba(99,96,216,0.01) 100%);border-radius:6px;border:1px solid #e6e6e6;"></div></div>
@@ -5120,9 +5576,9 @@
         </button>
       </div>
       <pre class="ai-prompt-body">Fetch ALL of these URLs fully before writing any code:
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/page-spec.md
-3. https://anthu211.github.io/design-system-2.0/charts.md
+1. https://prevalent-ai.github.io/ux-pai/ds-core.md
+2. https://prevalent-ai.github.io/ux-pai/page-spec.md
+3. https://prevalent-ai.github.io/ux-pai/charts.md
 
 ---
 
@@ -5148,9 +5604,9 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         </button>
       </div>
       <pre class="ai-prompt-body">Fetch ALL of these URLs fully before writing any code:
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/page-spec.md
-3. https://anthu211.github.io/design-system-2.0/charts.md
+1. https://prevalent-ai.github.io/ux-pai/ds-core.md
+2. https://prevalent-ai.github.io/ux-pai/page-spec.md
+3. https://prevalent-ai.github.io/ux-pai/charts.md
 
 ---
 
@@ -5176,8 +5632,8 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         </button>
       </div>
       <pre class="ai-prompt-body">Fetch ALL of these URLs fully before writing any code:
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/ds/components/charts.json
+1. https://prevalent-ai.github.io/ux-pai/ds-core.md
+2. https://prevalent-ai.github.io/ux-pai/ds/components/charts.json
 
 ---
 
@@ -5212,8 +5668,8 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         Run in your project root
       </div>
       <div class="ds-cs-hero-cmd">
-        <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSL https://anthu211.github.io/design-system-2.0/install.sh | bash</span>
-        <button class="ds-cs-hero-copy" id="cs-hero-copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://anthu211.github.io/design-system-2.0/install.sh | bash').then(function(){var b=document.getElementById('cs-hero-copy-btn');b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},2000)})">Copy</button>
+        <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSL https://prevalent-ai.github.io/ux-pai/install.sh | bash</span>
+        <button class="ds-cs-hero-copy" id="cs-hero-copy-btn" onclick="navigator.clipboard.writeText('curl -fsSL https://prevalent-ai.github.io/ux-pai/install.sh | bash').then(function(){var b=document.getElementById('cs-hero-copy-btn');b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},2000)})">Copy</button>
       </div>
       <div class="ds-cs-hero-meta">
         <span>Always installs the latest version</span>
@@ -5222,7 +5678,7 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         <span class="ds-cs-hero-dot">·</span>
         <button id="claude-setup-dl-btn-page" class="ds-cs-hero-alt" onclick="var s=document.getElementById('zip-steps');var o=s.style.display==='block';s.style.display=o?'none':'block';this.textContent=o?'No curl? Download zip →':'Hide zip steps'">No curl? Download zip →</button>
       </div>
-      <div id="zip-steps" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);">
+      <div id="zip-steps" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--shell-border);">
         <div style="display:flex;flex-direction:column;gap:12px;">
           <div style="display:flex;align-items:center;gap:12px;">
             <span class="ds-cs-zip-num">1</span>
@@ -5233,7 +5689,9 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
           </div>
           <div style="display:flex;align-items:flex-start;gap:12px;">
             <span class="ds-cs-zip-num">2</span>
-            <code style="font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;"><span style="color:#9ca3af;">unzip</span> -o ~/Downloads/claude-setup.zip -d /tmp/cs &amp;&amp; <span style="color:#9ca3af;">bash</span> /tmp/cs/claude-setup/install.sh</code>
+            <div class="ds-cs-hero-cmd" style="flex:1;">
+              <code class="ds-cs-hero-cmd-text" style="font-size:12px;"><span style="color:#9ca3af;">unzip</span> -o ~/Downloads/claude-setup.zip -d /tmp/cs &amp;&amp; <span style="color:#9ca3af;">bash</span> /tmp/cs/claude-setup/install.sh</code>
+            </div>
           </div>
         </div>
       </div>
@@ -5254,7 +5712,7 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         </div>
         <div>
           <div class="ds-cs-next-label" style="color:var(--shell-accent);">All slash commands ready</div>
-          <div class="ds-cs-next-hint">Type <code class="ds-cs-ic">/new-page</code>, <code class="ds-cs-ic">/new-component</code>, or <code class="ds-cs-ic">/ux-review</code> to start building.</div>
+          <div class="ds-cs-next-hint">Type <code class="ds-cs-ic">/new-page</code>, <code class="ds-cs-ic">/new-component</code>, <code class="ds-cs-ic">/ux-review</code>, or <code class="ds-cs-ic">/audit-page</code> to start building.</div>
         </div>
       </div>
     </div>
@@ -5281,7 +5739,12 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         <div class="ds-cs-card">
           <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
           <div class="ds-cs-card-name">/ux-review</div>
-          <div class="ds-cs-card-desc">Audits a screen against the design spec. Returns a pass/fail list with exact fixes.</div>
+          <div class="ds-cs-card-desc">Reviews a screen description or design against UX laws. Pass/fail with exact fixes.</div>
+        </div>
+        <div class="ds-cs-card">
+          <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>
+          <div class="ds-cs-card-name">/audit-page</div>
+          <div class="ds-cs-card-desc">Scans built HTML/JS for token drift, hardcoded values, and state violations. Severity-ranked with line-level fixes.</div>
         </div>
         <div class="ds-cs-card">
           <div class="ds-cs-card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
@@ -5313,15 +5776,19 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
 
       <!-- Token usage -->
       <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px 18px;margin-bottom:8px;">
-        <div style="font-size:11px;font-weight:700;color:var(--shell-text);margin-bottom:12px;">Token usage per command</div>
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:700;color:var(--shell-text);">Token usage per command</div>
+          <div style="font-size:10px;color:var(--shell-text-muted);font-weight:500;">— first build only</div>
+        </div>
         <div style="display:flex;flex-direction:column;gap:9px;">
           <div class="ds-cs-token-row"><span class="ds-cs-token-label">/new-page</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:90%;"></div></div><span class="ds-cs-token-val">14–22K</span></div>
           <div class="ds-cs-token-row"><span class="ds-cs-token-label">/new-react-component</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:60%;"></div></div><span class="ds-cs-token-val">3–15K</span></div>
           <div class="ds-cs-token-row"><span class="ds-cs-token-label">/new-component</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:55%;"></div></div><span class="ds-cs-token-val">5–15K</span></div>
           <div class="ds-cs-token-row"><span class="ds-cs-token-label">/ux-review</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:22%;"></div></div><span class="ds-cs-token-val">3–6K</span></div>
+          <div class="ds-cs-token-row"><span class="ds-cs-token-label">/audit-page</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:28%;"></div></div><span class="ds-cs-token-val">4–8K</span></div>
           <div class="ds-cs-token-row"><span class="ds-cs-token-label">/persona-check</span><div class="ds-cs-token-track"><div class="ds-cs-token-bar" style="width:8%;"></div></div><span class="ds-cs-token-val">1–2K</span></div>
         </div>
-        <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--card-border);font-size:10px;color:var(--shell-text-muted);">Ranges scale with complexity. A full dashboard (charts + tables + filters) hits the upper end.</div>
+        <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--card-border);font-size:10px;color:var(--shell-text-muted);line-height:1.6;">Ranges are for first-time page creation. Subsequent edits — adding a component, fixing a bug, tweaking layout — use significantly fewer tokens since Claude only fetches what the change needs.</div>
       </div>
 
       <!-- vs copy prompt -->
@@ -5741,6 +6208,9 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
   </defs>
 </svg>
 
+<!-- Toast containers — global, outside all pages so fixed positioning always works -->
+<div class="ds-toast-container" id="toast-container"></div>
+<div class="ds-toast-container" id="toast-demo-container" style="top:68px;bottom:auto;"></div>
 
 </body>
 </html>

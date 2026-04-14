@@ -1,7 +1,7 @@
 Fetch these files first:
-1. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
-2. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
-3. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
+1. https://prevalent-ai.github.io/ux-pai/ds/tokens/colors.json
+2. https://prevalent-ai.github.io/ux-pai/ds/tokens/spacing.json
+3. https://prevalent-ai.github.io/ux-pai/ds/tokens/typography.json
 
 Then read $ARGUMENTS and fetch only what the component needs:
 - Table/list → tables.json + badges.json
@@ -14,9 +14,9 @@ Then read $ARGUMENTS and fetch only what the component needs:
 - Toast/alert → feedback.json
 - Tabs → tabs.json
 - Tooltip/accordion/progress/steps/avatar/skeleton → utilities.json
-- Full page/dashboard → ALSO fetch https://anthu211.github.io/design-system-2.0/react.txt
+- Full page/dashboard → ALSO fetch https://prevalent-ai.github.io/ux-pai/react.txt
 
-All JSON base URL: https://anthu211.github.io/design-system-2.0/ds/components/
+All JSON base URL: https://prevalent-ai.github.io/ux-pai/ds/components/
 
 Do not fetch files for component types not in the request.
 

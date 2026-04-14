@@ -6,9 +6,9 @@ Paste at the start of your Lovable project prompt, before describing what to bui
 
 ```
 Fetch ALL of these URLs fully before writing any code:
-1. https://anthu211.github.io/design-system-2.0/ds-core.md
-2. https://anthu211.github.io/design-system-2.0/page-spec.md
-3. https://anthu211.github.io/design-system-2.0/charts.md
+1. https://prevalent-ai.github.io/ux-pai/ds-core.md
+2. https://prevalent-ai.github.io/ux-pai/page-spec.md
+3. https://prevalent-ai.github.io/ux-pai/charts.md
 
 ---
 
