@@ -2208,7 +2208,7 @@ function resetFilterChips() {
 // ─── Download CLAUDE.md ───
 function downloadClaudeMd() {
   var btn = document.getElementById('claude-dl-btn') || document.querySelector('[onclick="downloadClaudeMd()"]');
-  fetch('https://anthu211.github.io/design-system-2.0/CLAUDE.md')
+  fetch('https://prevalent-ai.github.io/ux-pai/CLAUDE.md')
     .then(function(r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.text();
@@ -2230,7 +2230,7 @@ function downloadClaudeMd() {
       }
     })
     .catch(function() {
-      showToast('error', 'Download failed — try right-clicking and saving from: anthu211.github.io/design-system-2.0/CLAUDE.md');
+      showToast('error', 'Download failed — try right-clicking and saving from: prevalent-ai.github.io/ux-pai/CLAUDE.md');
     });
 }
 
@@ -2241,7 +2241,7 @@ function downloadClaudeSetup() {
     btn.disabled = true;
     btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Downloading…';
   }
-  fetch('https://anthu211.github.io/design-system-2.0/claude-setup.zip')
+  fetch('https://prevalent-ai.github.io/ux-pai/claude-setup.zip')
     .then(function(r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.blob();
@@ -2262,7 +2262,7 @@ function downloadClaudeSetup() {
       }
     })
     .catch(function() {
-      showToast('error', 'Download failed — try again or get it from: anthu211.github.io/design-system-2.0/claude-setup.zip');
+      showToast('error', 'Download failed — try again or get it from: prevalent-ai.github.io/ux-pai/claude-setup.zip');
       if (btn) { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download claude-setup.zip'; }
     });
 }
@@ -2273,8 +2273,8 @@ function copyAiPrompt() {
     'Build UI for Prevalent AI — B2B cybersecurity platform for enterprise security teams.',
     '',
     'Read these design system files fully before responding:',
-    'https://anthu211.github.io/design-system-2.0/page-spec.md',
-    'https://anthu211.github.io/design-system-2.0/charts.md',
+    'https://prevalent-ai.github.io/ux-pai/page-spec.md',
+    'https://prevalent-ai.github.io/ux-pai/charts.md',
     '',
     'REQUIRED — copy these verbatim, never rewrite or shorten:',
     '• Shell HTML template from page-spec.md — full <style> block, full <script> block',
@@ -2369,7 +2369,7 @@ function copyShellTemplate() {
     '',
     '  <!-- TOPBAR — always #131313, never changes with theme -->',
     '  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">',
-    '    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
+    '    <img src="https://prevalent-ai.github.io/ux-pai/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
     '    <span style="flex:1;"></span>',
     '    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>',
     '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">',
