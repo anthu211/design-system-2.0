@@ -1,0 +1,104 @@
+# Prevalent AI Charts — Line Chart
+
+## Line Chart
+
+```
+Line:       stroke:#6760d8  stroke-width:2  stroke-linecap:round  stroke-linejoin:round
+Area fill:  linearGradient  top stop-opacity:0.25  bottom stop-opacity:0
+Dots:       r:5  fill:#6760d8  stroke:#fff (light) or #0E0E0E (dark)  stroke-width:1.5  pointer-events:none
+Hover area: r:16  fill:transparent  cursor:pointer  (sits on top of visible dot — Fitts's Law)
+Baseline:   always from 0 — do NOT use dynamic yMin
+Grid lines: solid (not dashed)
+Gradient ID: always use a unique ID per chart instance (Date.now() suffix) to avoid collision
+```
+
+```html
+<div id="line-chart" style="width:100%;"></div>
+
+<script>
+function buildLineChart(containerId, data, labels) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W = el.offsetWidth || 700;
+  var H = 170;
+  var pad = { top: 16, right: 20, bottom: 32, left: 44 };
+  var innerW = W - pad.left - pad.right;
+  var innerH = H - pad.top - pad.bottom;
+  var max = Math.max.apply(null, data);
+  var yMax = Math.ceil(max / 10) * 10 || 10;
+  var step = innerW / (data.length - 1);
+
+  var numTicks = 4;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+  }
+
+  var pts = data.map(function(v, i) {
+    return (pad.left + i * step).toFixed(1) + ',' + (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
+  }).join(' ');
+
+  var areaFirst = pad.left + ',' + (pad.top + innerH);
+  var areaLast  = (pad.left + (data.length - 1) * step).toFixed(1) + ',' + (pad.top + innerH);
+  var areaPts   = areaFirst + ' ' + pts + ' ' + areaLast;
+
+  var xLabels = labels.map(function(l, i) {
+    var x = (pad.left + i * step).toFixed(1);
+    return '<text x="' + x + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + l + '</text>';
+  }).join('');
+
+  // Theme-aware dot stroke: white on light, dark on dark
+  var dotStroke = document.documentElement.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
+
+  var pointCoords = data.map(function(v, i) {
+    return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat((pad.top + innerH - (v / yMax) * innerH).toFixed(1)) };
+  });
+  var visibleDots = pointCoords.map(function(p) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
+  }).join('');
+  // Large invisible hit area (r=16) for Fitts's Law compliance
+  var overlayDots = pointCoords.map(function(p, i) {
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="16" fill="transparent" style="cursor:pointer;" data-li="' + i + '"></circle>';
+  }).join('');
+
+  var axes =
+    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
+
+  // Unique gradient ID prevents collision when multiple line charts are on one page
+  var uid = 'lg' + Date.now();
+  el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
+    '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1">' +
+      '<stop offset="0%" stop-color="#6760d8" stop-opacity="0.25"/>' +
+      '<stop offset="100%" stop-color="#6760d8" stop-opacity="0"/>' +
+    '</linearGradient></defs>' +
+    gridLines + axes +
+    '<polygon points="' + areaPts + '" fill="url(#' + uid + ')"/>' +
+    '<polyline points="' + pts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    visibleDots + xLabels + yLabels + overlayDots + '</svg>';
+
+  el.querySelectorAll('circle[data-li]').forEach(function(circle) {
+    var i = parseInt(circle.dataset.li);
+    circle.addEventListener('mouseover', function() {
+      var svgEl = circle.closest('svg');
+      var rect = svgEl.getBoundingClientRect();
+      var syntheticE = { clientX: rect.left + pointCoords[i].x * (rect.width / W), clientY: rect.top + pointCoords[i].y * (rect.height / H) };
+      showChartTooltip(syntheticE, labels[i], [
+        { label: 'Value', value: data[i].toLocaleString(), color: '#6760d8', active: true }
+      ], '#6760d8');
+    });
+    circle.addEventListener('mousemove', positionChartTooltip);
+    circle.addEventListener('mouseleave', hideChartTooltip);
+  });
+}
+
+// Usage — call inside setTimeout(initCharts, 60)
+buildLineChart('line-chart',
+  [24, 38, 30, 52, 47, 61, 55, 73, 68, 82, 76, 90],
+  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+);
+</script>
+```

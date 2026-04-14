@@ -1,0 +1,87 @@
+# Prevalent AI Charts — Multi-Series Line Chart
+
+## Multi-Series Line Chart
+
+Use this when you need 2+ lines on the same chart (e.g. Exposure Score vs Critical Findings). **Never invent a custom implementation — use this function.**
+
+```
+Same rules as single-series:  stroke-width:2  dots r:5  area fill opacity:0.15 (no area on secondary series)
+Colors: series[0] uses #6760d8 · series[1] uses #D12329 · series[2] uses #31A56D
+```
+
+```html
+<div id="multi-line-chart" style="width:100%;"></div>
+
+<script>
+// series = [{label:'Name', values:[...], color:'#6760d8'}, ...]
+// labels = ['Oct','Nov','Dec',...]
+function buildMultiLineChart(containerId, series, labels) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  var W = el.offsetWidth || 700;
+  var H = 220;
+  var pad = { top: 16, right: 20, bottom: 32, left: 44 };
+  var innerW = W - pad.left - pad.right;
+  var innerH = H - pad.top - pad.bottom;
+
+  var allVals = [];
+  series.forEach(function(s) { s.values.forEach(function(v) { allVals.push(v); }); });
+  var yMax = Math.ceil(Math.max.apply(null, allVals) / 10) * 10 || 10;
+  var step = innerW / (labels.length - 1);
+
+  var numTicks = 4;
+  var gridLines = '', yLabels = '';
+  for (var t = 0; t <= numTicks; t++) {
+    var val = Math.round((t / numTicks) * yMax);
+    var gy = pad.top + innerH - (val / yMax) * innerH;
+    gridLines += '<line x1="' + pad.left + '" y1="' + gy + '" x2="' + (pad.left + innerW) + '" y2="' + gy + '" stroke="var(--shell-border)" stroke-width="1"/>';
+    yLabels += '<text x="' + (pad.left - 6) + '" y="' + (gy + 4) + '" text-anchor="end" class="chart-axis-label">' + val + '</text>';
+  }
+
+  var xLabels = labels.map(function(l, i) {
+    return '<text x="' + (pad.left + i * step).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + l + '</text>';
+  }).join('');
+
+  var axes =
+    '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
+    '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
+
+  var dotStroke = document.documentElement.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
+  var defs = '<defs>';
+  var seriesSvg = '';
+
+  series.forEach(function(s, si) {
+    var uid = 'mlg' + Date.now() + si;
+    var pts = s.values.map(function(v, i) {
+      return (pad.left + i * step).toFixed(1) + ',' + (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
+    }).join(' ');
+    // Area fill only on first series
+    if (si === 0) {
+      defs += '<linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="' + s.color + '" stop-opacity="0.15"/><stop offset="100%" stop-color="' + s.color + '" stop-opacity="0"/></linearGradient>';
+      var areaFirst = pad.left + ',' + (pad.top + innerH);
+      var areaLast = (pad.left + (s.values.length - 1) * step).toFixed(1) + ',' + (pad.top + innerH);
+      seriesSvg += '<polygon points="' + areaFirst + ' ' + pts + ' ' + areaLast + '" fill="url(#' + uid + ')"/>';
+    }
+    seriesSvg += '<polyline points="' + pts + '" fill="none" stroke="' + s.color + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+    seriesSvg += s.values.map(function(v, i) {
+      var cx = (pad.left + i * step).toFixed(1);
+      var cy = (pad.top + innerH - (v / yMax) * innerH).toFixed(1);
+      return '<circle cx="' + cx + '" cy="' + cy + '" r="4" fill="' + s.color + '" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
+    }).join('');
+  });
+  defs += '</defs>';
+
+  el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
+    defs + gridLines + axes + seriesSvg + yLabels + xLabels + '</svg>';
+}
+
+// Usage — call inside setTimeout(initCharts, 60)
+buildMultiLineChart('multi-line-chart',
+  [
+    { label: 'Exposure Score', values: [62,63,65,63,66,67,69,72,74,76,79,81], color: '#6760d8' },
+    { label: 'Critical Findings', values: [41,44,47,43,49,51,48,53,55,58,60,63], color: '#D12329' }
+  ],
+  ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+);
+</script>
+```

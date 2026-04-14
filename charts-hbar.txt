@@ -1,0 +1,50 @@
+# Prevalent AI Charts — Horizontal Bar Chart
+
+## Horizontal Bar Chart (CSS-based)
+
+This chart uses CSS flex — no SVG. Width is set as a percentage of the container.
+
+```html
+<div class="css-hbar-chart">
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">Injection</span>
+    <div class="css-hbar" style="width:78%;background:#6760d8;"></div>
+    <span class="css-hbar-val">78</span>
+  </div>
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">Auth</span>
+    <div class="css-hbar" style="width:62%;background:#D98B1D;"></div>
+    <span class="css-hbar-val">62</span>
+  </div>
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">XSS</span>
+    <div class="css-hbar" style="width:55%;background:#31A56D;"></div>
+    <span class="css-hbar-val">55</span>
+  </div>
+  <div class="css-hbar-row">
+    <span class="css-hbar-label">CSRF</span>
+    <div class="css-hbar" style="width:41%;background:#D98B1D;"></div>
+    <span class="css-hbar-val">41</span>
+  </div>
+</div>
+
+<script>
+// Wire tooltips to horizontal bar rows — call inside initCharts()
+document.querySelectorAll('.css-hbar-row').forEach(function(row) {
+  var bar    = row.querySelector('.css-hbar');
+  var labelEl = row.querySelector('.css-hbar-label');
+  var valEl   = row.querySelector('.css-hbar-val');
+  if (!bar || !labelEl || !valEl) return;
+  var color = bar.style.background;
+  var label = labelEl.textContent.trim();
+  var value = valEl.textContent.trim();
+  row.addEventListener('mouseover', function(e) {
+    showChartTooltip(e, label, [
+      { label: 'Count', value: value, color: color, active: true }
+    ], color);
+  });
+  row.addEventListener('mousemove', positionChartTooltip);
+  row.addEventListener('mouseleave', hideChartTooltip);
+});
+</script>
+```

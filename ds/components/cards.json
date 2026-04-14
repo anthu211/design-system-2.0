@@ -19,13 +19,13 @@
       "description": "Metric display card. Value + label + delta only. Max 5 in a row.",
       "class": "ds-kpi-card",
       "row_class": "ds-kpi-row",
-      "padding": "8px 12px",
+      "padding": "12px 16px",
       "gap": "8px",
       "border_radius": "4px",
       "slots": {
-        "kpi-value": "Primary metric number — largest text in card",
-        "kpi-label": "Short descriptor — 11px",
-        "kpi-delta": "Trend vs previous period — always required"
+        "kpi-value": "Primary metric number — 14px/600",
+        "kpi-label": "Short descriptor — 11px/500 muted color",
+        "kpi-delta": "Trend vs previous period — 11px/600, always required"
       },
       "delta_classes": {
         "up-good":   "Increase is positive (e.g. uptime up)",
@@ -45,7 +45,7 @@
         "Never use a custom background color on KPI cards.",
         "Never omit the delta value."
       ],
-      "example_html": "<div class=\"ds-kpi-row\">\n  <div class=\"ds-kpi-card\">\n    <div class=\"kpi-value\">1,284</div>\n    <div class=\"kpi-label\">Total Assets</div>\n    <div class=\"kpi-delta up-good\">↑ 12% vs last month</div>\n  </div>\n</div>"
+      "example_html": "<div class=\"ds-kpi-row\">\n  <div class=\"ds-kpi-card\">\n    <div class=\"ds-kpi-value\">1,284</div>\n    <div class=\"ds-kpi-label\">Total Assets</div>\n    <div class=\"ds-kpi-trend\"><span class=\"ds-kpi-delta up-good\">↑ 12%</span><span class=\"ds-kpi-period\">vs last month</span></div>\n  </div>\n</div>"
     },
     "stat-card": {
       "description": "Simpler single-metric tile used inside section cards. No delta required.",

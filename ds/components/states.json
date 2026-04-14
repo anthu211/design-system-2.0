@@ -1,0 +1,134 @@
+{
+  "component": "states",
+  "description": "Canonical patterns for loading, empty, and error states. Never invent a new pattern — always pick from this spec.",
+  "selection_guide": {
+    "loading-skeleton": "Data is being fetched and layout is known. Always prefer over spinner.",
+    "loading-spinner":  "Short-lived background action where layout cannot be predicted.",
+    "empty-table":      "Query returned 0 results. Keep thead + pagination visible.",
+    "empty-section":    "Section has no data yet (first-use / no items added). Offer a primary action.",
+    "error-section":    "A single section/widget failed to load. Scope to that section only.",
+    "error-full-page":  "The entire page cannot render (rare). Keep topbar + nav.",
+    "error-field":      "Form field failed validation on blur."
+  },
+  "patterns": {
+    "loading-skeleton": {
+      "class": "ds-skeleton",
+      "css_animation": "ds-shimmer — 1.5s infinite linear shimmer",
+      "border_radius": "Match the shape it replaces: 4px for text/rows, 44px for badge/button shapes",
+      "rule": "Keep thead always visible during table skeleton load — only replace tbody rows.",
+      "example_html": {
+        "text_row":  "<div class=\"ds-skeleton\" style=\"height:12px;width:70%;border-radius:4px;\"></div>",
+        "badge":     "<div class=\"ds-skeleton\" style=\"height:20px;width:60px;border-radius:44px;\"></div>",
+        "table_row": "<tr><td><div class=\"ds-skeleton\" style=\"height:11px;width:65%;border-radius:3px;\"></div></td></tr>"
+      },
+      "do": [
+        "Match skeleton dimensions closely to real content.",
+        "Vary widths (60%/85%/45%) to avoid a mechanical look.",
+        "Keep thead visible throughout load for tables."
+      ],
+      "dont": [
+        "Never use a spinner when layout is predictable.",
+        "Never hide thead or pagination during load.",
+        "Never animate an entire card — skeleton only individual lines."
+      ]
+    },
+    "empty-table": {
+      "emoji": "🚦",
+      "heading": "No Data… For Now!",
+      "subtext": "No records match your current filters. Try adjusting your search.",
+      "cta": "None — no Refresh or Add button",
+      "keep_visible": ["thead", "pagination"],
+      "colspan": "Span all columns on the empty <td>",
+      "example_html": "<tr><td colspan=\"N\" style=\"padding:48px 16px;text-align:center;\"><div style=\"font-size:28px;margin-bottom:10px;\">🚦</div><div style=\"font-size:13px;font-weight:600;\">No Data… For Now!</div><div style=\"font-size:12px;color:var(--shell-text-muted);\">No records match your current filters.</div></td></tr>",
+      "do": [
+        "Always use 🚦 emoji for table empty state.",
+        "Keep thead and pagination rows visible.",
+        "Keep filter controls accessible so user can adjust."
+      ],
+      "dont": [
+        "Never use 🚧 in table empty state.",
+        "Never hide thead.",
+        "Never add a Refresh button to a table empty state."
+      ]
+    },
+    "empty-section": {
+      "emoji": "📋",
+      "heading": "No [Items] Added Yet",
+      "subtext": "Describe what can be added and the benefit. Max 2 lines.",
+      "cta": "One primary action button (ds-btn sz-md t-primary)",
+      "layout": "text-align:center, padding:48px 24px",
+      "example_html": "<div style=\"text-align:center;padding:48px 24px;\"><div style=\"font-size:28px;margin-bottom:12px;\">📋</div><div style=\"font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:6px;\">No Vendors Added Yet</div><div style=\"font-size:12px;color:var(--shell-text-muted);max-width:320px;margin:0 auto 20px;\">Add your first vendor to start tracking risk.</div><button class=\"ds-btn sz-md t-primary\">Add Vendor</button></div>",
+      "do": [
+        "Offer exactly one clear action.",
+        "Use 📋 emoji as default for first-use empty states.",
+        "Keep copy concise — one sentence of context + one CTA label."
+      ],
+      "dont": [
+        "Never use 🚧 or 🚦 for first-use empty states.",
+        "Never add more than one CTA.",
+        "Never write \"There are no items\" — be specific about what's missing."
+      ]
+    },
+    "error-section": {
+      "emoji": "🚧",
+      "heading": "Data Retrieval Failed",
+      "subtext": "We couldn't load this section. Other parts of the page are still functional.",
+      "cta": "Retry button (ds-btn sz-md t-primary)",
+      "layout": "text-align:center, padding:40px 24px",
+      "scope": "Always scoped to the failing section — never redirect the whole page.",
+      "example_html": "<div style=\"text-align:center;padding:40px 24px;\"><div style=\"font-size:28px;margin-bottom:12px;\">🚧</div><div style=\"font-size:13px;font-weight:600;color:var(--shell-text);margin-bottom:6px;\">Data Retrieval Failed</div><div style=\"font-size:12px;color:var(--shell-text-muted);max-width:360px;margin:0 auto 20px;\">We couldn't load this section. Other parts of the page are still functional.</div><button class=\"ds-btn sz-md t-primary\" onclick=\"retrySection()\">Retry</button></div>",
+      "do": [
+        "Scope error to the exact section that failed.",
+        "Always include a Retry button.",
+        "Reassure user that the rest of the page works."
+      ],
+      "dont": [
+        "Never redirect the entire page for a section failure.",
+        "Never show a stack trace or technical error message.",
+        "Never use 🚦 in an error state."
+      ]
+    },
+    "error-full-page": {
+      "emoji": "🚧",
+      "heading": "Oops! That Wasn't Supposed to Happen",
+      "subtext": "We ran into an unexpected issue. Try refreshing — it usually helps.",
+      "cta": "Refresh Page button (ds-btn sz-md t-primary, onclick=location.reload())",
+      "watermark": "Background 'ERROR' text — font-size:90px, opacity:0.08, user-select:none",
+      "keep_visible": ["topbar (#131313)", "left-nav"],
+      "example_html": "<div style=\"text-align:center;padding:80px 24px;position:relative;\"><div style=\"position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:90px;font-weight:900;opacity:0.08;user-select:none;pointer-events:none;\">ERROR</div><div style=\"font-size:32px;margin-bottom:16px;\">🚧</div><div style=\"font-size:18px;font-weight:700;margin-bottom:8px;\">Oops! That Wasn't Supposed to Happen</div><div style=\"font-size:13px;color:var(--shell-text-muted);max-width:400px;margin:0 auto 24px;\">We ran into an unexpected issue. Try refreshing — it usually helps.</div><button class=\"ds-btn sz-md t-primary\" onclick=\"location.reload()\">Refresh Page</button></div>",
+      "do": [
+        "Keep topbar and left-nav visible — user needs orientation.",
+        "Include the ERROR watermark for full-page errors only.",
+        "Offer exactly one action: Refresh Page."
+      ],
+      "dont": [
+        "Never auto-redirect.",
+        "Never show technical details or stack traces.",
+        "Never use 🚦 for full-page errors."
+      ]
+    },
+    "error-field": {
+      "trigger": "Blur on invalid field — never per-keystroke",
+      "border": "1.5px solid #dc2626",
+      "message": "ⓘ icon (12×12 stroke) + specific message, font-size:11px, color:#dc2626, margin-top:4px",
+      "example_html": "<div class=\"ds-input-wrap\"><label class=\"ds-input-label\">Email <span style=\"color:#dc2626\">*</span></label><input type=\"email\" class=\"ds-input-field\" value=\"not-an-email\" style=\"border:1.5px solid #dc2626;\"><span style=\"font-size:11px;color:#dc2626;margin-top:4px;display:flex;align-items:center;gap:4px;\"><svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"8\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"16\" x2=\"12.01\" y2=\"16\"/></svg>Enter a valid email address</span></div>",
+      "do": [
+        "Trigger validation on blur only.",
+        "Always pair red border with a specific error message below the field.",
+        "Preserve the field value — never clear it on error."
+      ],
+      "dont": [
+        "Never validate per-keystroke — too noisy.",
+        "Never show a red border without a message.",
+        "Never clear the field value when showing an error."
+      ]
+    }
+  },
+  "rules_summary": [
+    "🚦 = table empty state only. 🚧 = all error states.",
+    "Skeleton loaders over spinners whenever layout is known.",
+    "Scope errors to the failing section — never kill the whole page.",
+    "thead + pagination always visible during load AND empty states.",
+    "Field errors: blur-triggered only, paired message required."
+  ]
+}

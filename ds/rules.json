@@ -9,7 +9,7 @@
   ],
   "always": [
     "Use topbar background:#131313 with PAI logo image only — never 'Prevalent AI' text.",
-    "Use border-radius:44px on all CTA/text buttons, 4px on cards and table wrappers, 8px on inputs.",
+    "Use border-radius:44px on all CTA/text buttons and badges/tags, 4px on cards and table wrappers, 8px on inputs.",
     "Use spacing from 4px scale only: 4, 8, 12, 16, 20, 24, 32, 48px.",
     "Show severity and status in a visible table column — never tooltip-only.",
     "Use tables for list data, not cards.",
@@ -27,6 +27,7 @@
     "Never use style='display:flex' inline on .row-actions — CSS only.",
     "Never place action icons in the same <td> as the status badge.",
     "Never use <h1> below the sub-header or an 18px title in the sub-header.",
+    "Never add KPI cards unless the user explicitly asks for them — they are not a default component.",
     "Never add icons, colored borders, or box-shadow to KPI cards.",
     "Never use off-scale spacing values for margin, padding, or gap: 3, 5, 6, 7, 10, 11, 13, 15px. Note: border-radius is NOT spacing — progress bars, pills, tags, and decorative elements may use any border-radius that fits their shape.",
     "Never auto-dismiss error or warning toasts.",

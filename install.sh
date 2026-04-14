@@ -4,7 +4,7 @@
 
 set -e
 
-BASE="https://anthu211.github.io/design-system-2.0"
+BASE="https://prevalent-ai.github.io/ux-pai"
 
 echo "Installing Prevalent AI Claude Code setup..."
 echo "Fetching latest command files from $BASE"

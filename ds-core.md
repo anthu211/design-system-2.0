@@ -37,7 +37,7 @@ Single-file reference for all commands. Contains: tokens, every component HTML p
 - Cards, table wrappers, panels, chart wrappers: `4px` ONLY
 - Inputs, dropdowns: `8px`
 - Modals, drawers: `12px`
-- Badges, tags: `4px` · Nav active item: `6px` · Callouts: `4px`
+- Badges, tags: `44px` (pill) · Nav active item: `6px` · Callouts: `4px`
 
 ### Spacing
 4px scale ONLY: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`.
@@ -93,7 +93,8 @@ Dual toggle: `ds-dual-toggle` > `dual-label` + `ds-toggle-wrap` + `dual-label`.
 </div>
 ```
 Delta classes: `up-good` · `down-good` · `up-bad` · `down-bad`.
-- Max 5 cards · `gap:8px` · `padding:8px 12px` · `border-radius:4px`
+- Max 5 cards · `gap:8px` · `padding:12px 16px` · `border-radius:4px`
+- Value `14px/600` · Label `11px/500 muted` · Delta `11px/600`
 - Value + label + delta ONLY — NEVER icons, colored borders, box-shadow, custom bg
 - Always include delta — never omit
 
@@ -250,7 +251,7 @@ NEVER custom alert/banner styling. Include icon + message. Border-radius: `4px`.
 ### Utility Components
 - **Tooltip:** `ds-tooltip-wrap > ds-icon-btn + ds-tooltip` — CSS-only, no JS. NEVER tooltip-only for severity.
 - **Accordion:** `ds-accordion > ds-accordion-item > ds-accordion-trigger + ds-accordion-content`
-- **Progress bar:** `ds-progress > ds-progress-bar [danger] [indeterminate]`
+- **Progress bar:** `ds-progress > ds-progress-bar [danger] [indeterminate]` — label above, bar + value inline: `<div style="display:flex;align-items:center;gap:10px;"><div class="ds-progress" style="flex:1;"><div class="ds-progress-bar" style="width:65%;"></div></div><span>65%</span></div>`
 - **Pagination:** `ds-pagination > ds-page-btn [active] [disabled]`
 - **Breadcrumb:** `ds-breadcrumb > a + ds-bc-sep + ds-bc-current` (last crumb: `color:#6360D8`)
 - **Steps:** `ds-steps > ds-step [completed] [active] > ds-step-icon + ds-step-label`
@@ -280,7 +281,8 @@ Panel slides in from right. Open state: add `.open` class to overlay + panel.
 HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart` from `charts.md` **verbatim**. NEVER `<canvas>`, Chart.js, D3, ECharts.
 - ALWAYS include Chart Tooltip HTML + JS from `charts.md` — hovers break without it
 - Every multi-series chart needs `<div class="chart-legend">` with `chart-legend-dot` (`border-radius:50%`) per series, centered below chart
-- Severity colors: critical=`#D12329` · high=`#D98B1D` · medium=`#6360D8` · low=`#31A56D`
+- Severity colors (RAG): critical=`#D12329` · high=`#D98B1D` · medium=`#F5B700` · low=`#31A56D`
+- Normal colors (10, non-RAG): `#6760d8` `#47adcb` `#2ea8a8` `#5c6bc0` `#8F8DDE` `#3a7fcb` `#7a9e7e` `#b87fba` `#c47e5a` `#7b95b4` — NEVER use RAG colors for category/entity breakdowns
 - React: Recharts only — `AreaChart`, `BarChart`, `LineChart`
 
 ---
@@ -376,7 +378,7 @@ Full React components in `react.md`. Rules for all React output:
 
 | Persona | Trigger words | Lead with | Key rule |
 |---------|--------------|-----------|----------|
-| **ciso** | dashboard, overview, executive, risk | KPI cards (max 5) + trend charts | 1 dominant CTA, no jargon |
+| **ciso** | dashboard, overview, executive, risk | trend charts + summary table | 1 dominant CTA, no jargon — KPI cards only if explicitly requested |
 | **grc** | compliance, audit, framework, control | Framework status table | Export button prominent |
 | **security-architect** | architecture, attack surface, topology | Technical detail visible | CVSSv3 scores, asset relationships |
 | **security-engineer** | vulnerability, CVE, patch, asset, scan | Dense CVE table | Bulk toolbar, SLA column, pagination |

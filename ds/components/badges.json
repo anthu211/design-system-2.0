@@ -4,7 +4,7 @@
   "base_class": "ds-badge",
   "dot_modifier": "dot",
   "tokens": {
-    "border_radius": "4px",
+    "border_radius": "44px",
     "font_size":     "11px",
     "font_weight":   600,
     "padding":       "2px 6px",

@@ -48,6 +48,48 @@ Every chart lives inside a content card:
 
 ---
 
+## Color Schemes
+
+Two mutually exclusive schemes. Never mix them in one chart.
+
+### RAG — Criticality (`CHART_COLORS_RAG`)
+Use **only** for severity/risk data (Critical → High → Medium → Low). Never apply RAG colors to entity or category breakdowns.
+
+| Severity | Hex | Token |
+|----------|-----|-------|
+| Critical | `#D12329` | `--status-danger` |
+| High | `#D98B1D` | `--status-warning` |
+| Medium | `#F5B700` | — |
+| Low | `#31A56D` | `--status-success` |
+
+```js
+var CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
+buildDonutChart('my-donut', data, 180, CHART_COLORS_RAG);
+```
+
+### Normal — Category (`CHART_COLORS_NORMAL`)
+Use for entity types, asset categories, tool breakdowns, and any non-severity data. No red, amber, or green.
+
+| Name | Hex |
+|------|-----|
+| Violet | `#6760d8` |
+| Cyan | `#47adcb` |
+| Teal | `#2ea8a8` |
+| Indigo | `#5c6bc0` |
+| Lavender | `#8F8DDE` |
+| Blue | `#3a7fcb` |
+| Sage | `#7a9e7e` |
+| Mauve | `#b87fba` |
+| Terracotta | `#c47e5a` |
+| Slate | `#7b95b4` |
+
+```js
+var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
+buildDonutChart('my-donut', data, 180, CHART_COLORS_NORMAL); // default
+```
+
+---
+
 ## Shared Visual Tokens (all chart types)
 
 | Element | Value |
@@ -59,7 +101,7 @@ Every chart lives inside a content card:
 | X-axis label | `text-anchor: middle` · 6px below bottom axis |
 | Y-tick count | 4–5 ticks — never more than 6 |
 | Chart padding | `top: 16` · `right: 16` · `bottom: 36` · `left: 44` |
-| Series colors | Critical `#D12329` · High `#D98B1D` · Accent/primary `#6760d8` · Success `#31A56D` |
+| Severity series | RAG scheme: Critical `#D12329` · High `#D98B1D` · Medium `#F5B700` · Low `#31A56D` |
 | Single-series | Always use accent `#6760d8` for line/bars |
 
 **Init timing:** Always call chart functions inside `setTimeout(initCharts, 60)` so elements have rendered width before SVG is drawn.
@@ -697,3 +739,82 @@ function hideChartTooltip() { var el = _ct(); if (el) el.style.display = 'none';
 - Border + dot color must match the hovered series color
 - Hovered series row: `font-weight:700`, value `color:<series-color>`
 - Tooltip is mandatory on all chart hovers — never skip it
+
+---
+
+## Donut + Legend with Values
+
+Combines a donut arc chart with a structured legend table. Use for part-to-whole breakdowns with entity context (asset types, categories). Always use **Normal** color scheme — never RAG for entity breakdowns.
+
+**Layout:** donut centered above, legend table full-width below.  
+**Percentages <1%:** display as `<1%`, never `0%`.  
+**Max rows:** 6 — group smaller items into "Others".
+
+### Required CSS
+
+```css
+.chart-legend-combo { display:flex; flex-direction:column; align-items:center; gap:20px; padding:8px 0; }
+.chart-legend-combo-donut { display:flex; justify-content:center; }
+.chart-legend-table { width:100%; max-width:480px; display:flex; flex-direction:column; }
+.chart-legend-row { display:grid; grid-template-columns:28px 1fr auto auto; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--card-border); }
+.chart-legend-row:last-child { border-bottom:none; }
+.chart-legend-icon { width:28px; height:28px; border-radius:6px; display:flex; align-items:center; justify-content:center; }
+.chart-legend-name { font-size:13px; font-weight:500; color:var(--shell-text); }
+.chart-legend-count { font-size:12px; color:var(--shell-text-muted); font-variant-numeric:tabular-nums; }
+.chart-legend-pct { font-size:13px; font-weight:700; color:var(--shell-text); min-width:36px; text-align:right; font-variant-numeric:tabular-nums; }
+```
+
+### JS Functions
+
+```js
+function hexToRgba(hex, alpha) {
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return 'rgba('+r+','+g+','+b+','+alpha+')';
+}
+
+function buildLegendTable(containerId, data) {
+  var el = document.getElementById(containerId); if (!el) return;
+  var total = data.reduce(function(s,d){ return s+d.value; }, 0);
+  el.innerHTML = data.map(function(d) {
+    var pct = total > 0 ? (d.value/total*100) : 0;
+    var pctStr = pct < 1 ? '<1%' : Math.round(pct)+'%';
+    return '<div class="chart-legend-row">'+
+      '<div class="chart-legend-icon" style="background:'+hexToRgba(d.color,0.12)+';color:'+d.color+';">'+
+        (d.icon||'')+
+      '</div>'+
+      '<span class="chart-legend-name">'+d.label+'</span>'+
+      '<span class="chart-legend-count">'+d.value.toLocaleString()+'</span>'+
+      '<span class="chart-legend-pct">'+pctStr+'</span>'+
+    '</div>';
+  }).join('');
+}
+```
+
+### Usage
+
+```html
+<div class="chart-legend-combo">
+  <div class="chart-legend-combo-donut">
+    <div style="position:relative;display:inline-block;">
+      <div id="donut-legend-1"></div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
+        <div style="font-size:10px;color:var(--shell-text-muted);">Total</div>
+        <div style="font-size:18px;font-weight:700;color:var(--shell-text);">3.28M</div>
+      </div>
+    </div>
+  </div>
+  <div class="chart-legend-table" id="legend-table-1"></div>
+</div>
+
+<script>
+var data = [
+  { label:'Workstation', value:1730006, color:'#6760d8', icon:'<!-- SVG -->' },
+  { label:'Server',      value:1425134, color:'#47adcb', icon:'<!-- SVG -->' },
+  { label:'Network',     value:44564,   color:'#2ea8a8', icon:'<!-- SVG -->' },
+  { label:'Mobile',      value:19264,   color:'#5c6bc0', icon:'<!-- SVG -->' },
+  { label:'Others',      value:68000,   color:'#8F8DDE', icon:'<!-- SVG -->' }
+];
+buildDonutChart('donut-legend-1', data, 160, CHART_COLORS_NORMAL);
+buildLegendTable('legend-table-1', data);
+</script>
+```
