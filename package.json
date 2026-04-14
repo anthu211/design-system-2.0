@@ -1,0 +1,18 @@
+{
+  "name": "@prevalentai/design-system",
+  "version": "2.0.0",
+  "description": "Prevalent AI Design System — tokens, components, and patterns",
+  "private": true,
+  "scripts": {
+    "build:tokens": "node scripts/build-tokens.js",
+    "lint:ds": "node scripts/lint-ds.js",
+    "prebuild": "npm run build:tokens"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

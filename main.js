@@ -1565,8 +1565,6 @@ document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
     }
     if (item.dataset.page === 'table') {
       initTable();
-    }
-    if (item.dataset.page === 'breadnav') {
       setTimeout(initPaginators, 0);
     }
     if (item.dataset.page === 'panels') {
@@ -1753,6 +1751,31 @@ function showToast(type, message) {
   }, 3500);
 }
 
+// ─── Toast — demo (top-right, feels real) ───
+function showDemoToast(type, message) {
+  var container = document.getElementById('toast-demo-container');
+  if (!container) return;
+  var icons = {
+    success: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    error:   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    warning: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    info:    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+  };
+  var toast = document.createElement('div');
+  toast.className = 'ds-toast ' + type;
+  toast.style.animation = 'ds-toast-drop 250ms ease';
+  function dismiss() {
+    toast.style.transition = 'opacity 250ms, transform 250ms';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(-8px)';
+    setTimeout(function() { if (toast.parentNode) toast.remove(); }, 270);
+  }
+  toast.innerHTML = (icons[type] || '') + '<span>' + message + '</span><button class="ds-toast-dismiss">×</button>';
+  toast.querySelector('.ds-toast-dismiss').addEventListener('click', dismiss);
+  container.appendChild(toast);
+  setTimeout(dismiss, 5000);
+}
+
 // ─── Tabs ───
 document.querySelectorAll('.ds-tab').forEach(function(tab) {
   tab.addEventListener('click', function() {
@@ -1775,6 +1798,36 @@ function toggleAccordion(trigger) {
   var isOpen = trigger.classList.contains('open');
   trigger.classList.toggle('open', !isOpen);
   content.classList.toggle('open', !isOpen);
+}
+
+// ─── Tree Table Accordion ───
+function treeToggle(id) {
+  var tbody = document.getElementById('tree-tbody');
+  if (!tbody) return;
+  var toggleRow = tbody.querySelector('[data-tree-id="' + id + '"]');
+  if (!toggleRow) return;
+  var isOpen = toggleRow.dataset.treeOpen === 'true';
+  var nowOpen = !isOpen;
+  toggleRow.dataset.treeOpen = nowOpen ? 'true' : 'false';
+  var btn = toggleRow.querySelector('.ds-tree-toggle');
+  if (btn) btn.classList.toggle('open', nowOpen);
+
+  // Show/hide all descendant rows
+  var allRows = tbody.querySelectorAll('.ds-tree-row');
+  // Build a set of visible parent IDs
+  function isAncestorOpen(row) {
+    var parentId = row.dataset.treeParent;
+    if (!parentId) return true;
+    var parentRow = tbody.querySelector('[data-tree-id="' + parentId + '"]');
+    if (!parentRow) return false;
+    if (parentRow.dataset.treeOpen !== 'true') return false;
+    return isAncestorOpen(parentRow);
+  }
+  allRows.forEach(function(row) {
+    if (!row.dataset.treeParent) return; // top-level always visible
+    var visible = isAncestorOpen(row);
+    row.classList.toggle('ds-tree-hidden', !visible);
+  });
 }
 
 // ─── Step Progress ───
@@ -2474,7 +2527,7 @@ var SEARCH_INDEX = [
   { t:'Resolutions', p:'resolutions', cat:'Foundation', d:'Desktop-only, 1024px minimum, breakpoint system', k:'resolution breakpoint screen desktop viewport' },
   { t:'Spacing & Grid', p:'spacing', cat:'Foundation', d:'4px base unit, 12-column grid, margins and gutters', k:'spacing grid margin padding gap column layout' },
   { t:'Typography', p:'typography', cat:'Foundation', d:'Inter type scale, heading levels, body and code styles', k:'typography font text heading body size weight inter' },
-  { t:'Avatar & Skeleton', p:'avatars', cat:'Component', d:'User avatars, stacked groups, loading skeletons', k:'avatar user profile image skeleton loading' },
+  { t:'Avatar', p:'avatars', cat:'Component', d:'User avatars, initials, image fallbacks, stacked groups', k:'avatar user profile image initials group' },
   { t:'Badge & Status', p:'badges', cat:'Component', d:'Severity badges, count indicators, dismissible tags', k:'badge status tag label count indicator pill severity' },
   { t:'Breadcrumb & Pagination', p:'breadnav', cat:'Component', d:'Navigation breadcrumbs and page pagination controls', k:'breadcrumb pagination nav page next previous' },
   { t:'Buttons & Toggles', p:'buttons', cat:'Component', d:'Primary, secondary, outline, ghost — all sizes and states', k:'button cta action primary secondary outline ghost danger' },
@@ -2488,8 +2541,11 @@ var SEARCH_INDEX = [
   { t:'Panels & Filters', p:'panels', cat:'Component', d:'Side drawers, filter bars, applied filter chips', k:'panel filter drawer side chip apply' },
   { t:'Progress & Slider', p:'progress', cat:'Component', d:'Progress bars, loading indicators, range sliders', k:'progress bar slider loading indicator range' },
   { t:'Table', p:'table', cat:'Component', d:'Sortable, filterable data table with pagination and export', k:'table data row column sort filter paginate export csv' },
-  { t:'Tabs & Accordion', p:'tabs', cat:'Component', d:'Tab navigation and collapsible accordion sections', k:'tab accordion collapse expand section' },
+  { t:'Tabs', p:'tabs', cat:'Component', d:'Horizontal tab navigation for sibling views — default and pill variants', k:'tab navigation panel switch view sibling' },
+  { t:'Accordion', p:'accordion', cat:'Component', d:'Collapsible accordion sections and tree-table accordion for hierarchical data', k:'accordion collapse expand section tree table hierarchy compliance framework control' },
+  { t:'KPI Cards', p:'kpi', cat:'Component', d:'Key performance indicator cards with trend delta and direction', k:'kpi card metric value delta trend performance indicator dashboard' },
   { t:'Toggle & Select', p:'toggleselect', cat:'Component', d:'Toggle switches and dropdown select controls', k:'toggle switch select dropdown' },
+  { t:'States', p:'states', cat:'Component', d:'Loading skeleton, empty, and error state patterns', k:'state loading skeleton empty error section table field validation spinner' },
   { t:'Screen Shell', p:'screenshell', cat:'Template', d:'Mandatory full-page layout: topbar, left nav, sticky sub-header, content body', k:'screen shell layout template topbar nav breadcrumb structure page' },
   { t:'--shell-accent', p:'colors', cat:'Token', d:'#6360D8 · Primary CTA, buttons, focus rings', k:'accent purple cta primary button' },
   { t:'--shell-bg', p:'colors', cat:'Token', d:'App background color', k:'background bg surface' },
@@ -2987,3 +3043,686 @@ function copyPrompt(cardId, btn) {
     btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
   }, 2000);
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// 1.1 — GENERIC COMPONENT PLAYGROUND ENGINE
+// ═══════════════════════════════════════════════════════════════════
+function createComponentPlayground(cfg) {
+  var page = document.getElementById('page-' + cfg.pageId);
+  if (!page || page.querySelector('.playground-wrap')) return;
+
+  var uid = cfg.pageId;
+
+  function buildControls(controls) {
+    return controls.map(function(ctrl) {
+      var id = uid + '-' + ctrl.id;
+      if (ctrl.type === 'radio') {
+        var opts = ctrl.options.map(function(o) {
+          var checked = o.value === ctrl.default ? ' checked' : '';
+          return '<label class="pg-option"><input type="radio" name="' + id + '" value="' + o.value + '"' + checked + '> ' + o.label + '</label>';
+        }).join('');
+        return '<div><div class="pg-ctrl-label">' + ctrl.label + '</div><div class="pg-options">' + opts + '</div></div>';
+      }
+      if (ctrl.type === 'text') {
+        return '<div><div class="pg-ctrl-label">' + ctrl.label + '</div><input type="text" class="pg-text-input" id="' + id + '" value="' + (ctrl.default || '') + '"></div>';
+      }
+      if (ctrl.type === 'checkbox') {
+        var chk = ctrl.default ? ' checked' : '';
+        return '<div><label class="pg-option"><input type="checkbox" id="' + id + '"' + chk + '> ' + ctrl.label + '</label></div>';
+      }
+      return '';
+    }).join('');
+  }
+
+  function getValues(controls) {
+    var vals = {};
+    controls.forEach(function(ctrl) {
+      var id = uid + '-' + ctrl.id;
+      if (ctrl.type === 'radio') {
+        var checked = page.querySelector('input[name="' + id + '"]:checked');
+        vals[ctrl.id] = checked ? checked.value : ctrl.default;
+      } else if (ctrl.type === 'text') {
+        var el = page.querySelector('#' + id);
+        vals[ctrl.id] = el ? el.value : (ctrl.default || '');
+      } else if (ctrl.type === 'checkbox') {
+        var el = page.querySelector('#' + id);
+        vals[ctrl.id] = el ? el.checked : !!ctrl.default;
+      }
+    });
+    return vals;
+  }
+
+  var section = document.createElement('div');
+  section.className = 'comp-section';
+  section.innerHTML =
+    '<div class="comp-section-title">Interactive Playground</div>' +
+    '<div class="playground-wrap">' +
+      '<div class="playground-header">' + cfg.title + ' <span>Live Preview</span></div>' +
+      '<div class="playground-body">' +
+        '<div class="playground-controls">' + buildControls(cfg.controls) + '</div>' +
+        '<div class="playground-preview">' +
+          '<div class="playground-live" id="pg-live-' + uid + '"></div>' +
+          '<div class="playground-code">' +
+            '<code id="pg-snip-' + uid + '"></code>' +
+            '<button class="pg-copy-btn" id="pg-copy-' + uid + '">Copy</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  page.appendChild(section);
+
+  function update() {
+    var vals = getValues(cfg.controls);
+    var result = cfg.render(vals);
+    var live = page.querySelector('#pg-live-' + uid);
+    var snip = page.querySelector('#pg-snip-' + uid);
+    if (live) {
+      live.innerHTML = result.html;
+      // Re-wire toggle interactions inside the live preview
+      live.querySelectorAll('.ds-toggle-wrap').forEach(function(wrap) {
+        wrap.addEventListener('click', function() {
+          if (wrap.classList.contains('is-disabled')) return;
+          var track = wrap.querySelector('.ds-toggle-track');
+          if (track) track.classList.toggle('on');
+        });
+      });
+      // Re-wire checkbox interactions inside the live preview
+      live.querySelectorAll('.ds-checkbox-item').forEach(function(item) {
+        item.addEventListener('click', function() {
+          if (item.classList.contains('disabled')) return;
+          var box = item.querySelector('.ds-checkbox-box');
+          if (box) box.classList.toggle('checked');
+        });
+      });
+    }
+    if (snip) snip.textContent = result.snippet;
+  }
+
+  page.addEventListener('input', function(e) {
+    if (e.target.closest('.playground-controls')) update();
+  });
+  page.addEventListener('change', function(e) {
+    if (e.target.closest('.playground-controls')) update();
+  });
+
+  var copyBtn = page.querySelector('#pg-copy-' + uid);
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function() {
+      var snip = page.querySelector('#pg-snip-' + uid);
+      if (!snip || !navigator.clipboard) return;
+      navigator.clipboard.writeText(snip.textContent).then(function() {
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('copied');
+        setTimeout(function() { copyBtn.textContent = 'Copy'; copyBtn.classList.remove('copied'); }, 1800);
+      });
+    });
+  }
+
+  update();
+}
+
+// ── Badge Playground ──────────────────────────────────────────────
+var _badgePgInited = false;
+function initBadgePlayground() {
+  if (_badgePgInited) return; _badgePgInited = true;
+  createComponentPlayground({
+    pageId: 'badges',
+    title: 'Badge Playground',
+    controls: [
+      { type: 'radio', id: 'variant', label: 'Variant', default: 'danger',
+        options: [
+          {value:'danger',  label:'Danger (Critical)'},
+          {value:'warning', label:'Warning (High)'},
+          {value:'caution', label:'Caution (Medium-High)'},
+          {value:'info',    label:'Info (Medium)'},
+          {value:'success', label:'Success (Low/Active)'},
+          {value:'neutral', label:'Neutral (Inactive)'}
+        ]},
+      { type: 'text',     id: 'label',  label: 'Label',          default: 'Critical' },
+      { type: 'checkbox', id: 'dot',    label: 'Dot indicator',  default: false }
+    ],
+    render: function(v) {
+      var cls = 'ds-badge ' + v.variant + (v.dot ? ' dot' : '');
+      var html = '<span class="' + cls + '">' + (v.label || 'Badge') + '</span>';
+      return { html: html, snippet: html };
+    }
+  });
+}
+
+// ── Callout Playground ────────────────────────────────────────────
+var _calloutPgInited = false;
+function initCalloutPlayground() {
+  if (_calloutPgInited) return; _calloutPgInited = true;
+  createComponentPlayground({
+    pageId: 'callout',
+    title: 'Callout Playground',
+    controls: [
+      { type: 'radio', id: 'variant', label: 'Variant', default: 'info',
+        options: [
+          {value:'info',    label:'Info'},
+          {value:'warning', label:'Warning'},
+          {value:'error',   label:'Error'},
+          {value:'success', label:'Success'}
+        ]},
+      { type: 'text', id: 'message', label: 'Message', default: 'This integration requires re-authentication.' }
+    ],
+    render: function(v) {
+      var cls = 'ds-callout ds-callout-' + v.variant;
+      var html = '<div class="' + cls + '">' + (v.message || 'Message') + '</div>';
+      return { html: html, snippet: html };
+    }
+  });
+}
+
+// ── Form / Input Playground ───────────────────────────────────────
+var _formPgInited = false;
+function initFormPlayground() {
+  if (_formPgInited) return; _formPgInited = true;
+  createComponentPlayground({
+    pageId: 'forms',
+    title: 'Input Playground',
+    controls: [
+      { type: 'radio', id: 'type', label: 'Type', default: 'text',
+        options: [
+          {value:'text',     label:'Text Input'},
+          {value:'textarea', label:'Textarea'},
+          {value:'checkbox', label:'Checkbox'},
+          {value:'toggle',   label:'Toggle'}
+        ]},
+      { type: 'text',     id: 'label',       label: 'Label',       default: 'API Key' },
+      { type: 'text',     id: 'placeholder', label: 'Placeholder', default: 'Enter value' },
+      { type: 'checkbox', id: 'error',       label: 'Error state', default: false },
+      { type: 'checkbox', id: 'disabled',    label: 'Disabled',    default: false }
+    ],
+    render: function(v) {
+      var lbl = v.label || 'Label';
+      var ph  = v.placeholder || '';
+      var html, snip;
+      if (v.type === 'text') {
+        var fieldCls = 'ds-input-field' + (v.error ? ' has-error' : '') + (v.disabled ? ' disabled' : '');
+        html = '<div class="ds-input-wrap" style="width:280px;">' +
+          '<label class="ds-input-label">' + lbl + (v.error ? ' <span style="color:var(--color-danger,#dc2626)">*</span>' : '') + '</label>' +
+          '<div class="' + fieldCls + '"><input type="text" placeholder="' + ph + '"' + (v.disabled ? ' disabled' : '') + '></div>' +
+          (v.error ? '<span style="font-size:11px;color:var(--color-danger,#dc2626);margin-top:4px;display:block;">This field is required</span>' : '') +
+          '</div>';
+        snip = '<div class="ds-input-wrap">\n  <label class="ds-input-label">' + lbl + '</label>\n  <div class="ds-input-field"><input type="text" placeholder="' + ph + '"></div>\n</div>';
+      } else if (v.type === 'textarea') {
+        var taCls = 'ds-textarea-field' + (v.error ? ' has-error' : '');
+        html = '<div class="ds-input-wrap" style="width:280px;">' +
+          '<label class="ds-input-label">' + lbl + '</label>' +
+          '<textarea class="' + taCls + '" rows="3" placeholder="' + ph + '"' + (v.disabled ? ' disabled' : '') + '></textarea>' +
+          '</div>';
+        snip = '<div class="ds-input-wrap">\n  <label class="ds-input-label">' + lbl + '</label>\n  <textarea class="ds-textarea-field" rows="3" placeholder="' + ph + '"></textarea>\n</div>';
+      } else if (v.type === 'checkbox') {
+        var cbCls = 'ds-checkbox-item' + (v.disabled ? ' disabled' : '');
+        html = '<label class="' + cbCls + '">' +
+          '<span class="ds-checkbox-box sz-md">' +
+            '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="chk"><polyline points="20 6 9 17 4 12"/></svg>' +
+            '<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="dash"><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+          '</span>' +
+          '<span class="ds-checkbox-text">' + lbl + '</span>' +
+          '</label>';
+        snip = '<label class="ds-checkbox-item">\n  <span class="ds-checkbox-box sz-md"><svg class="chk">...</svg></span>\n  <span class="ds-checkbox-text">' + lbl + '</span>\n</label>';
+      } else {
+        var toggleWrapCls = 'ds-toggle-wrap' + (v.disabled ? ' is-disabled' : '');
+        html = '<label class="' + toggleWrapCls + '">' +
+          '<span class="ds-toggle-track sz-sm"><span class="ds-toggle-thumb"></span></span>' +
+          '<span class="ds-toggle-label">' + lbl + '</span>' +
+          '</label>';
+        snip = '<label class="ds-toggle-wrap">\n  <span class="ds-toggle-track sz-sm"><span class="ds-toggle-thumb"></span></span>\n  <span class="ds-toggle-label">' + lbl + '</span>\n</label>';
+      }
+      return { html: html, snippet: snip };
+    }
+  });
+}
+
+// ── KPI Card Playground ───────────────────────────────────────────
+var _kpiPgInited = false;
+function initKpiPlayground() {
+  if (_kpiPgInited) return; _kpiPgInited = true;
+  createComponentPlayground({
+    pageId: 'kpi',
+    title: 'KPI Card Playground',
+    controls: [
+      { type: 'text',  id: 'value',  label: 'Value',  default: '1,284' },
+      { type: 'text',  id: 'label',  label: 'Label',  default: 'Total Assets' },
+      { type: 'text',  id: 'delta',  label: 'Delta',  default: '↑ 12%' },
+      { type: 'radio', id: 'dir',    label: 'Direction', default: 'up-good',
+        options: [
+          {value:'up-good',   label:'Up — Good (e.g. uptime ↑)'},
+          {value:'down-good', label:'Down — Good (e.g. findings ↓)'},
+          {value:'up-bad',    label:'Up — Bad (e.g. critical ↑)'},
+          {value:'down-bad',  label:'Down — Bad (e.g. score ↓)'}
+        ]},
+      { type: 'text',  id: 'period', label: 'Period', default: 'vs last month' }
+    ],
+    render: function(v) {
+      var html =
+        '<div class="ds-kpi-row" style="display:flex;">' +
+          '<div class="ds-kpi-card">' +
+            '<div class="ds-kpi-value">' + (v.value || '—') + '</div>' +
+            '<div class="ds-kpi-label">' + (v.label || 'Metric') + '</div>' +
+            '<div class="ds-kpi-trend">' +
+              '<span class="ds-kpi-delta ' + v.dir + '">' + (v.delta || '—') + '</span>' +
+              '<span class="ds-kpi-period">' + (v.period || '') + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      var snip =
+        '<div class="ds-kpi-row">\n  <div class="ds-kpi-card">\n' +
+        '    <div class="ds-kpi-value">' + (v.value || '—') + '</div>\n' +
+        '    <div class="ds-kpi-label">' + (v.label || 'Metric') + '</div>\n' +
+        '    <div class="ds-kpi-trend">\n' +
+        '      <span class="ds-kpi-delta ' + v.dir + '">' + (v.delta || '—') + '</span>\n' +
+        '      <span class="ds-kpi-period">' + (v.period || '') + '</span>\n' +
+        '    </div>\n  </div>\n</div>';
+      return { html: html, snippet: snip };
+    }
+  });
+}
+
+// ── Avatar Playground ─────────────────────────────────────────────
+var _avatarPgInited = false;
+function initAvatarPlayground() {
+  if (_avatarPgInited) return; _avatarPgInited = true;
+  createComponentPlayground({
+    pageId: 'avatars',
+    title: 'Avatar Playground',
+    controls: [
+      { type: 'radio', id: 'size', label: 'Size', default: 'md',
+        options: [
+          {value:'xs',  label:'XSmall (22px)'},
+          {value:'sm',  label:'Small (28px)'},
+          {value:'md',  label:'Medium (36px)'},
+          {value:'lg',  label:'Large (48px)'}
+        ]},
+      { type: 'text', id: 'initials', label: 'Initials', default: 'JD' },
+      { type: 'radio', id: 'color', label: 'Color', default: 'purple',
+        options: [
+          {value:'purple',  label:'Purple'},
+          {value:'teal',    label:'Teal'},
+          {value:'green',   label:'Green'},
+          {value:'red',     label:'Red'},
+          {value:'amber',   label:'Amber'}
+        ]}
+    ],
+    render: function(v) {
+      var sizeMap = { xs:'22px', sm:'28px', md:'36px', lg:'48px' };
+      var fsMap   = { xs:'9px',  sm:'11px', md:'13px', lg:'16px' };
+      var colorMap = { purple:'#6760d8', teal:'#47adcb', green:'#31A56D', red:'#D12329', amber:'#D98B1D' };
+      var sz = sizeMap[v.size] || '36px';
+      var fs = fsMap[v.size] || '13px';
+      var bg = colorMap[v.color] || '#6760d8';
+      var text = (v.initials || 'JD').slice(0,2).toUpperCase();
+      var html = '<div class="ds-avatar" style="width:' + sz + ';height:' + sz + ';font-size:' + fs + ';background:' + bg + ';">' + text + '</div>';
+      return { html: html, snippet: '<div class="ds-avatar" style="width:' + sz + ';height:' + sz + ';font-size:' + fs + ';background:' + bg + ';">' + text + '</div>' };
+    }
+  });
+}
+
+// ── Progress Playground ───────────────────────────────────────────
+var _progressPgInited = false;
+function initProgressPlayground() {
+  if (_progressPgInited) return; _progressPgInited = true;
+  createComponentPlayground({
+    pageId: 'progress',
+    title: 'Progress Bar Playground',
+    controls: [
+      { type: 'text',  id: 'value',  label: 'Value (0–100)', default: '65' },
+      { type: 'text',  id: 'label',  label: 'Label',         default: 'Scanning…' },
+      { type: 'radio', id: 'variant', label: 'Variant', default: 'default',
+        options: [
+          {value:'default', label:'Default (accent)'},
+          {value:'success', label:'Success'},
+          {value:'danger',  label:'Danger'},
+          {value:'warning', label:'Warning'}
+        ]}
+    ],
+    render: function(v) {
+      var pct  = Math.min(100, Math.max(0, parseInt(v.value) || 0));
+      var colorMap = { default:'var(--shell-accent)', success:'#31A56D', danger:'#D12329', warning:'#D98B1D' };
+      var barColor = colorMap[v.variant] || 'var(--shell-accent)';
+      var html =
+        '<div style="width:260px;">' +
+          (v.label ? '<div style="font-size:12px;color:var(--shell-text-2);margin-bottom:6px;display:flex;justify-content:space-between;"><span>' + v.label + '</span><span style="color:var(--shell-text-muted);">' + pct + '%</span></div>' : '') +
+          '<div class="ds-progress"><div class="ds-progress-bar" style="width:' + pct + '%;background:' + barColor + ';"></div></div>' +
+        '</div>';
+      var snip = '<div class="ds-progress"><div class="ds-progress-bar" style="width:' + pct + '%;background:' + barColor + ';"></div></div>';
+      return { html: html, snippet: snip };
+    }
+  });
+}
+
+// ── Tabs Playground ───────────────────────────────────────────────
+var _tabsPgInited = false;
+function initTabsPlayground() {
+  if (_tabsPgInited) return; _tabsPgInited = true;
+  createComponentPlayground({
+    pageId: 'tabs',
+    title: 'Tabs Playground',
+    controls: [
+      { type: 'radio', id: 'style', label: 'Style', default: 'underline',
+        options: [
+          {value:'underline', label:'Underline'},
+          {value:'pill',      label:'Pill'}
+        ]},
+      { type: 'radio', id: 'active', label: 'Active Tab', default: '0',
+        options: [
+          {value:'0', label:'Tab 1'},
+          {value:'1', label:'Tab 2'},
+          {value:'2', label:'Tab 3'}
+        ]}
+    ],
+    render: function(v) {
+      var labels = ['Overview', 'Findings', 'History'];
+      var isPill = v.style === 'pill';
+      var wrapCls = isPill ? 'ds-tabs ds-tabs-pill' : 'ds-tabs';
+      var tabs = labels.map(function(lbl, i) {
+        return '<button class="ds-tab' + (String(i) === v.active ? ' active' : '') + '">' + lbl + '</button>';
+      }).join('');
+      var html = '<div class="' + wrapCls + '"><div class="ds-tabs-list">' + tabs + '</div></div>';
+      return { html: html, snippet: html };
+    }
+  });
+}
+
+// ── Toggle & Select Playground ────────────────────────────────────
+var _toggleSelectPgInited = false;
+function initToggleSelectPlayground() {
+  if (_toggleSelectPgInited) return; _toggleSelectPgInited = true;
+  createComponentPlayground({
+    pageId: 'toggleselect',
+    title: 'Toggle Playground',
+    controls: [
+      { type: 'radio', id: 'size', label: 'Size', default: 'sm',
+        options: [
+          {value:'sm', label:'Small'},
+          {value:'md', label:'Medium'}
+        ]},
+      { type: 'radio', id: 'state', label: 'State', default: 'off',
+        options: [
+          {value:'off', label:'Off'},
+          {value:'on',  label:'On'}
+        ]},
+      { type: 'text',     id: 'label',    label: 'Label',    default: 'Enable alerts' },
+      { type: 'checkbox', id: 'disabled', label: 'Disabled', default: false }
+    ],
+    render: function(v) {
+      var trackCls = 'ds-toggle-track sz-' + v.size + (v.state === 'on' ? ' on' : '');
+      var wrapCls  = 'ds-toggle-wrap' + (v.disabled ? ' is-disabled' : '');
+      var dis = v.disabled ? ' style="opacity:0.45;cursor:not-allowed;"' : '';
+      var html =
+        '<label class="' + wrapCls + '"' + dis + '>' +
+          '<input type="checkbox" class="ds-toggle-input"' + (v.state === 'on' ? ' checked' : '') + (v.disabled ? ' disabled' : '') + ' style="display:none;">' +
+          '<span class="' + trackCls + '"><span class="ds-toggle-thumb"></span></span>' +
+          '<span class="ds-toggle-label" style="font-size:13px;color:var(--shell-text);">' + (v.label || '') + '</span>' +
+        '</label>';
+      var snip =
+        '<label class="ds-toggle-wrap">\n' +
+        '  <input type="checkbox" class="ds-toggle-input">\n' +
+        '  <span class="ds-toggle-track sz-' + v.size + '"><span class="ds-toggle-thumb"></span></span>\n' +
+        '  <span class="ds-toggle-label">' + (v.label || '') + '</span>\n' +
+        '</label>';
+      return { html: html, snippet: snip };
+    }
+  });
+}
+
+// ── Breadcrumb Playground ─────────────────────────────────────────
+var _breadnavPgInited = false;
+function initBreadnavPlayground() {
+  if (_breadnavPgInited) return; _breadnavPgInited = true;
+  createComponentPlayground({
+    pageId: 'breadnav',
+    title: 'Breadcrumb Playground',
+    controls: [
+      { type: 'radio', id: 'depth', label: 'Depth', default: '3',
+        options: [
+          {value:'2', label:'2 levels'},
+          {value:'3', label:'3 levels'},
+          {value:'4', label:'4 levels'}
+        ]},
+      { type: 'text', id: 'current', label: 'Current page', default: 'Risk Assessment' }
+    ],
+    render: function(v) {
+      var ancestors = ['Home', 'Vendors', 'Acme Corp', 'Reports'];
+      var depth = parseInt(v.depth) || 3;
+      var crumbs = ancestors.slice(0, depth - 1);
+      var current = v.current || 'Current Page';
+      var sep = '<span class="ds-breadcrumb-sep">/</span>';
+      var parts = crumbs.map(function(c) {
+        return '<a href="#" onclick="return false;">' + c + '</a>' + sep;
+      });
+      parts.push('<span class="ds-breadcrumb-current">' + current + '</span>');
+      var html = '<nav class="ds-breadcrumb">' + parts.join('') + '</nav>';
+      return { html: html, snippet: html };
+    }
+  });
+}
+
+// ── Modal Playground ──────────────────────────────────────────────
+var _overlaysPgInited = false;
+function initOverlaysPlayground() {
+  if (_overlaysPgInited) return; _overlaysPgInited = true;
+  createComponentPlayground({
+    pageId: 'overlays',
+    title: 'Modal Playground',
+    controls: [
+      { type: 'radio', id: 'type', label: 'Type', default: 'confirm',
+        options: [
+          {value:'confirm',     label:'Confirmation'},
+          {value:'destructive', label:'Destructive'},
+          {value:'info',        label:'Info / Alert'}
+        ]},
+      { type: 'text', id: 'title',  label: 'Title',  default: 'Confirm Action' },
+      { type: 'text', id: 'body',   label: 'Body',   default: 'Are you sure you want to proceed?' }
+    ],
+    render: function(v) {
+      var isDestructive = v.type === 'destructive';
+      var confirmCls = isDestructive ? 'ds-btn sz-sm t-danger' : 'ds-btn sz-sm t-primary';
+      var confirmLbl = isDestructive ? 'Delete' : 'Confirm';
+      var html =
+        '<div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;padding:24px;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,.18);">' +
+          '<div style="font-size:14px;font-weight:600;color:var(--shell-text);margin-bottom:8px;">' + (v.title || 'Confirm') + '</div>' +
+          '<div style="font-size:12px;color:var(--shell-text-muted);margin-bottom:20px;">' + (v.body || '') + '</div>' +
+          '<div style="display:flex;justify-content:flex-end;gap:8px;">' +
+            '<button class="ds-btn sz-sm t-outline">Cancel</button>' +
+            '<button class="' + confirmCls + '">' + confirmLbl + '</button>' +
+          '</div>' +
+        '</div>';
+      return { html: html, snippet: html };
+    }
+  });
+}
+
+// ── Tooltip Playground ────────────────────────────────────────────
+var _tooltipPgInited = false;
+function initTooltipPlayground() {
+  if (_tooltipPgInited) return; _tooltipPgInited = true;
+  createComponentPlayground({
+    pageId: 'tooltip',
+    title: 'Tooltip Playground',
+    controls: [
+      { type: 'radio', id: 'pos', label: 'Position', default: 'top',
+        options: [
+          {value:'top',    label:'Top'},
+          {value:'bottom', label:'Bottom'},
+          {value:'left',   label:'Left'},
+          {value:'right',  label:'Right'}
+        ]},
+      { type: 'text', id: 'text', label: 'Tooltip text', default: 'Additional context here' }
+    ],
+    render: function(v) {
+      var text = v.text || 'Tooltip';
+      var html =
+        '<div style="position:relative;display:inline-block;padding:24px;">' +
+          '<button class="ds-btn sz-sm t-outline ds-tooltip" data-tip="' + text + '" data-tip-pos="' + v.pos + '">Hover me</button>' +
+          '<div class="ds-tip ds-tip-' + v.pos + '" style="position:absolute;background:#1a1a1a;color:#f9f9f9;font-size:11px;padding:5px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;' +
+            (v.pos === 'top'    ? 'bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);' : '') +
+            (v.pos === 'bottom' ? 'top:calc(100% + 6px);left:50%;transform:translateX(-50%);' : '') +
+            (v.pos === 'left'   ? 'right:calc(100% + 6px);top:50%;transform:translateY(-50%);' : '') +
+            (v.pos === 'right'  ? 'left:calc(100% + 6px);top:50%;transform:translateY(-50%);' : '') +
+          '">' + text + '</div>' +
+        '</div>';
+      var snip = '<button class="ds-btn sz-sm t-outline ds-tooltip" data-tip="' + text + '" data-tip-pos="' + v.pos + '">Hover me</button>';
+      return { html: html, snippet: snip };
+    }
+  });
+}
+
+// ── Wire all playgrounds to nav clicks ────────────────────────────
+(function() {
+  var pgMap = {
+    avatars:      initAvatarPlayground,
+    badges:       initBadgePlayground,
+    breadnav:     initBreadnavPlayground,
+    callout:      initCalloutPlayground,
+    forms:        initFormPlayground,
+    kpi:          initKpiPlayground,
+    overlays:     initOverlaysPlayground,
+    progress:     initProgressPlayground,
+    tabs:         initTabsPlayground,
+    toggleselect: initToggleSelectPlayground,
+    tooltip:      initTooltipPlayground
+  };
+  document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var fn = pgMap[item.dataset.page];
+      if (fn) setTimeout(fn, 50);
+    });
+  });
+  Object.keys(pgMap).forEach(function(pg) {
+    if (document.querySelector('#page-' + pg + '.active')) pgMap[pg]();
+  });
+})();
+
+
+// ═══════════════════════════════════════════════════════════════════
+// 1.2 — TOKEN EXPORT
+// ═══════════════════════════════════════════════════════════════════
+var _DS_TOKENS = {
+  colors: {
+    '--color-accent':          '#6360D8',
+    '--color-accent-filter':   '#504bb8',
+    '--color-accent-light':    '#f0f0fc',
+    '--color-accent-tint':     '#e0dff7',
+    '--color-severity-critical': '#D12329',
+    '--color-severity-high':     '#D98B1D',
+    '--color-severity-medium':   '#6360D8',
+    '--color-severity-low':      '#31A56D',
+    '--color-success-bg':        '#EFF7ED',
+    '--color-warning-bg':        '#FEF3C7',
+    '--color-danger-bg':         '#F9EEEE',
+    '--color-topbar':            '#131313'
+  },
+  spacing: { '--spacing-2xs':'4px','--spacing-xs':'8px','--spacing-sm':'12px','--spacing-md':'16px','--spacing-lg':'20px','--spacing-xl':'24px','--spacing-2xl':'32px','--spacing-3xl':'48px' },
+  radius:  { '--radius-button':'44px','--radius-card':'4px','--radius-badge':'4px','--radius-input':'8px','--radius-modal':'12px' },
+  typography: { '--font-base-size':'12px','--font-weight-normal':400,'--font-weight-medium':500,'--font-weight-semibold':600,'--font-weight-bold':700 }
+};
+
+function downloadTokenExport(format) {
+  var content, filename, mime;
+
+  if (format === 'css') {
+    var lines = ['/* Prevalent AI Design System — Token Export */\n:root {'];
+    [_DS_TOKENS.colors, _DS_TOKENS.spacing, _DS_TOKENS.radius, _DS_TOKENS.typography].forEach(function(group) {
+      lines.push('');
+      Object.entries(group).forEach(function(e) { lines.push('  ' + e[0] + ': ' + e[1] + ';'); });
+    });
+    lines.push('}');
+    content = lines.join('\n');
+    filename = 'pai-tokens.css';
+    mime = 'text/css';
+
+  } else if (format === 'json') {
+    var flat = {};
+    [_DS_TOKENS.colors, _DS_TOKENS.spacing, _DS_TOKENS.radius, _DS_TOKENS.typography].forEach(function(group) {
+      Object.entries(group).forEach(function(e) { flat[e[0].replace(/^--/, '')] = e[1]; });
+    });
+    content = JSON.stringify(flat, null, 2);
+    filename = 'pai-tokens.json';
+    mime = 'application/json';
+
+  } else if (format === 'tailwind') {
+    content = [
+      '// Prevalent AI Design System — Tailwind Token Config',
+      '/** @type {import("tailwindcss").Config} */',
+      'module.exports = {',
+      '  theme: {',
+      '    extend: {',
+      '      colors: {',
+      '        accent:    \'' + _DS_TOKENS.colors['--color-accent'] + '\',',
+      '        \'accent-filter\': \'' + _DS_TOKENS.colors['--color-accent-filter'] + '\',',
+      '        \'accent-light\':  \'' + _DS_TOKENS.colors['--color-accent-light'] + '\',',
+      '        critical:  \'' + _DS_TOKENS.colors['--color-severity-critical'] + '\',',
+      '        high:      \'' + _DS_TOKENS.colors['--color-severity-high'] + '\',',
+      '        medium:    \'' + _DS_TOKENS.colors['--color-severity-medium'] + '\',',
+      '        low:       \'' + _DS_TOKENS.colors['--color-severity-low'] + '\',',
+      '      },',
+      '      spacing: {',
+      '        \'2xs\': \'4px\', xs: \'8px\', sm: \'12px\', md: \'16px\',',
+      '        lg: \'20px\', xl: \'24px\', \'2xl\': \'32px\', \'3xl\': \'48px\',',
+      '      },',
+      '      borderRadius: {',
+      '        button: \'44px\', card: \'4px\', badge: \'4px\',',
+      '        input: \'8px\', modal: \'12px\',',
+      '      },',
+      '      fontSize: {',
+      '        \'2xs\': [\'10px\',{lineHeight:\'14px\'}], xs: [\'11px\',{lineHeight:\'15px\'}],',
+      '        sm:   [\'12px\',{lineHeight:\'16px\'}], base:[\'13px\',{lineHeight:\'19px\'}],',
+      '        md:   [\'14px\',{lineHeight:\'20px\'}],',
+      '      },',
+      '    },',
+      '  },',
+      '};'
+    ].join('\n');
+    filename = 'tailwind.pai-tokens.js';
+    mime = 'text/javascript';
+  }
+
+  var blob = new Blob([content], { type: mime });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+  showToast('success', filename + ' downloaded');
+}
+
+
+// ═══════════════════════════════════════════════════════════════════
+// 1.3 — STATES PAGE INIT
+// ═══════════════════════════════════════════════════════════════════
+var _statesPgInited = false;
+function initStatesPage() {
+  if (_statesPgInited) return; _statesPgInited = true;
+  var page = document.getElementById('page-states');
+  if (!page) return;
+
+  // Skeleton loader demo — activate on toggle
+  page.querySelectorAll('.states-skeleton-demo').forEach(function(wrap) {
+    var btn = wrap.querySelector('.states-demo-toggle');
+    var skels = wrap.querySelectorAll('.ds-skeleton');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      var loading = btn.dataset.state !== 'loading';
+      btn.dataset.state = loading ? 'loading' : '';
+      btn.textContent = loading ? 'Show Content' : 'Show Skeleton';
+      skels.forEach(function(s) { s.style.display = loading ? '' : 'none'; });
+      wrap.querySelectorAll('.states-content-slot').forEach(function(c) {
+        c.style.display = loading ? 'none' : '';
+      });
+    });
+  });
+}
+
+(function() {
+  document.querySelectorAll('.nav-item[data-page]').forEach(function(item) {
+    item.addEventListener('click', function() {
+      if (item.dataset.page === 'states') setTimeout(initStatesPage, 50);
+    });
+  });
+  if (document.querySelector('#page-states.active')) initStatesPage();
+})();
