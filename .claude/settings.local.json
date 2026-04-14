@@ -126,7 +126,14 @@
       "Bash(curl -s https://anthu211.github.io/design-system-2.0/ds/__TRACKED_VAR__)",
       "Bash(node -e \"const files = ['/Users/ananthusunil/PAI Edits/design-system/ds/rules.json', '/Users/ananthusunil/PAI Edits/design-system/ds/context.json']; files.forEach\\(f => { try { require\\(f\\); console.log\\('OK:', f\\); } catch\\(e\\) { console.log\\('ERROR:', f, e.message\\); } }\\)\")",
       "Bash(gh pr:*)",
-      "Bash(curl -s \"https://api.github.com/repos/anthu211/design-system-2.0/pulls?state=open\")"
+      "Bash(curl -s \"https://api.github.com/repos/anthu211/design-system-2.0/pulls?state=open\")",
+      "Bash(awk 'NR>=2102 && NR<=2190' \"/Users/ananthusunil/PAI Edits/design-system/index.html\")",
+      "Bash(cat)",
+      "Bash(bash /tmp/find_violations.sh)",
+      "Bash(awk -F: '$1 > 109')",
+      "Bash(awk -F: '$1 > 128')",
+      "Bash(grep -n \"#[0-9a-fA-F]\\\\{3,6\\\\}\" \"/Users/ananthusunil/PAI Edits/design-system/styles.css\")",
+      "Bash(awk -F: '$1 <= 128')"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
