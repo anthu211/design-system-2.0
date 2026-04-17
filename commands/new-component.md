@@ -1,19 +1,19 @@
 Fetch these files first:
-1. https://ux-prevalent.netlify.app/ds/tokens/colors.json
-2. https://ux-prevalent.netlify.app/ds/tokens/spacing.json
+1. https://design-system-2-0.pages.dev/ds/tokens/colors.json
+2. https://design-system-2-0.pages.dev/ds/tokens/spacing.json
 
 Then read $ARGUMENTS and fetch only what is needed:
 - Table/list → tables.json + badges.json
 - Form/input → inputs.json + modals.json
 - Button/action → buttons.json
 - Card/KPI → cards.json
-- Chart → fetch https://ux-prevalent.netlify.app/charts-base.txt + only the chart type file needed:
+- Chart → fetch https://design-system-2-0.pages.dev/charts-base.txt + only the chart type file needed:
     bar=charts-bar.txt · line=charts-line.txt · multiline=charts-multiline.txt · donut=charts-donut.txt · hbar=charts-hbar.txt · stacked=charts-stacked.txt
 - Modal/dialog → modals.json
 - Badge/status → badges.json
 - Toast/alert → feedback.json
 
-All JSON base URL: https://ux-prevalent.netlify.app/ds/components/
+All JSON base URL: https://design-system-2-0.pages.dev/ds/components/
 
 Do not fetch files for components not in the request.
 

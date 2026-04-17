@@ -4,7 +4,7 @@
 
 set -e
 
-BASE="https://ux-prevalent.netlify.app"
+BASE="https://design-system-2-0.pages.dev"
 
 echo "Installing Prevalent AI Claude Code setup..."
 echo "Fetching latest command files from $BASE"

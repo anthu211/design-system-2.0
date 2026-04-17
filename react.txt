@@ -454,7 +454,7 @@ export function Shell({
       >
         {/* PAI logo — use actual SVG asset, never a placeholder box */}
         <img
-          src="https://ux-prevalent.netlify.app/icons/pai-logo.svg"
+          src="https://design-system-2-0.pages.dev/icons/pai-logo.svg"
           height={26}
           alt="Prevalent AI"
         />

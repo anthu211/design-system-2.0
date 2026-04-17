@@ -11,14 +11,14 @@
       "padding": "0 16px",
       "slots": {
         "left":   "PAI logo <img> only — height:26px. NEVER 'Prevalent AI' text.",
-        "left_logo_src": "https://ux-prevalent.netlify.app/icons/pai-logo.svg",
+        "left_logo_src": "https://design-system-2-0.pages.dev/icons/pai-logo.svg",
         "center": "flex-1 spacer",
         "right":  "Last Updated label → bell icon → avatar → Navigator button (t-special, sz-sm)"
       },
       "navigator_button": {
         "class": "ds-btn sz-sm t-special",
         "inner": "<span class='btn-text'>Navigator</span>",
-        "logo_src": "https://ux-prevalent.netlify.app/icons/pai-logo.svg"
+        "logo_src": "https://design-system-2-0.pages.dev/icons/pai-logo.svg"
       },
       "rules": [
         "Background is always #131313 — never changes with light/dark theme.",

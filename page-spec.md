@@ -183,7 +183,7 @@
 
   <!-- TOPBAR — always #131313, never changes with theme -->
   <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">
-    <img src="https://ux-prevalent.netlify.app/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">
+    <img src="https://design-system-2-0.pages.dev/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">
     <span style="flex:1;"></span>
     <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>
     <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;" aria-label="Notifications">

@@ -1,20 +1,20 @@
 Fetch ALL of these URLs fully before doing anything:
-1. https://ux-prevalent.netlify.app/ds/rules.json
-2. https://ux-prevalent.netlify.app/ds/tokens/colors.json
-3. https://ux-prevalent.netlify.app/ds/tokens/spacing.json
-4. https://ux-prevalent.netlify.app/ds/tokens/typography.json
-5. https://ux-prevalent.netlify.app/ds/components/buttons.json
-6. https://ux-prevalent.netlify.app/ds/components/tables.json
-7. https://ux-prevalent.netlify.app/ds/components/badges.json
-8. https://ux-prevalent.netlify.app/ds/components/modals.json
-9. https://ux-prevalent.netlify.app/ds/components/inputs.json
-10. https://ux-prevalent.netlify.app/ds/components/feedback.json
-11. https://ux-prevalent.netlify.app/ds/components/states.json
-12. https://ux-prevalent.netlify.app/ds/components/charts.json
-13. https://ux-prevalent.netlify.app/ds/components/cards.json
-14. https://ux-prevalent.netlify.app/ds/components/utilities.json
-15. https://ux-prevalent.netlify.app/ds/components/tabs.json
-16. https://ux-prevalent.netlify.app/ds-core.txt
+1. https://design-system-2-0.pages.dev/ds/rules.json
+2. https://design-system-2-0.pages.dev/ds/tokens/colors.json
+3. https://design-system-2-0.pages.dev/ds/tokens/spacing.json
+4. https://design-system-2-0.pages.dev/ds/tokens/typography.json
+5. https://design-system-2-0.pages.dev/ds/components/buttons.json
+6. https://design-system-2-0.pages.dev/ds/components/tables.json
+7. https://design-system-2-0.pages.dev/ds/components/badges.json
+8. https://design-system-2-0.pages.dev/ds/components/modals.json
+9. https://design-system-2-0.pages.dev/ds/components/inputs.json
+10. https://design-system-2-0.pages.dev/ds/components/feedback.json
+11. https://design-system-2-0.pages.dev/ds/components/states.json
+12. https://design-system-2-0.pages.dev/ds/components/charts.json
+13. https://design-system-2-0.pages.dev/ds/components/cards.json
+14. https://design-system-2-0.pages.dev/ds/components/utilities.json
+15. https://design-system-2-0.pages.dev/ds/components/tabs.json
+16. https://design-system-2-0.pages.dev/ds-core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 

@@ -1,30 +1,30 @@
 Fetch these URLs before doing anything else:
-1. https://ux-prevalent.netlify.app/ds/rules.json
-2. https://ux-prevalent.netlify.app/ds/tokens/colors.json
-3. https://ux-prevalent.netlify.app/ds/tokens/spacing.json
-4. https://ux-prevalent.netlify.app/ds/tokens/typography.json
-5. https://ux-prevalent.netlify.app/ds/patterns/navigation.json
-6. https://ux-prevalent.netlify.app/ds/components/buttons.json
-7. https://ux-prevalent.netlify.app/ds/components/tables.json
-8. https://ux-prevalent.netlify.app/ds/components/badges.json
-9. https://ux-prevalent.netlify.app/ds/components/modals.json
-10. https://ux-prevalent.netlify.app/page-spec.txt
+1. https://design-system-2-0.pages.dev/ds/rules.json
+2. https://design-system-2-0.pages.dev/ds/tokens/colors.json
+3. https://design-system-2-0.pages.dev/ds/tokens/spacing.json
+4. https://design-system-2-0.pages.dev/ds/tokens/typography.json
+5. https://design-system-2-0.pages.dev/ds/patterns/navigation.json
+6. https://design-system-2-0.pages.dev/ds/components/buttons.json
+7. https://design-system-2-0.pages.dev/ds/components/tables.json
+8. https://design-system-2-0.pages.dev/ds/components/badges.json
+9. https://design-system-2-0.pages.dev/ds/components/modals.json
+10. https://design-system-2-0.pages.dev/page-spec.txt
 
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
-- Cards on page → fetch https://ux-prevalent.netlify.app/ds/components/cards.json
-- Charts on page → fetch https://ux-prevalent.netlify.app/charts-base.txt PLUS only the chart types needed:
+- Cards on page → fetch https://design-system-2-0.pages.dev/ds/components/cards.json
+- Charts on page → fetch https://design-system-2-0.pages.dev/charts-base.txt PLUS only the chart types needed:
     Bar chart → charts-bar.txt
     Line chart → charts-line.txt
     Multi-line chart → charts-multiline.txt
     Donut chart → charts-donut.txt
     Horizontal bar → charts-hbar.txt
     Stacked bar → charts-stacked.txt
-  All at base URL: https://ux-prevalent.netlify.app/
-- Forms / inputs / dropdowns / toggles on page → fetch https://ux-prevalent.netlify.app/ds/components/inputs.json
-- Three-panel layout or auth shell → fetch https://ux-prevalent.netlify.app/ds/patterns/shells.json
-- Toasts / callouts / error states on page → fetch https://ux-prevalent.netlify.app/ds/components/feedback.json
-- Tabs on page → fetch https://ux-prevalent.netlify.app/ds/components/tabs.json
-- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://ux-prevalent.netlify.app/ds/components/utilities.json
+  All at base URL: https://design-system-2-0.pages.dev/
+- Forms / inputs / dropdowns / toggles on page → fetch https://design-system-2-0.pages.dev/ds/components/inputs.json
+- Three-panel layout or auth shell → fetch https://design-system-2-0.pages.dev/ds/patterns/shells.json
+- Toasts / callouts / error states on page → fetch https://design-system-2-0.pages.dev/ds/components/feedback.json
+- Tabs on page → fetch https://design-system-2-0.pages.dev/ds/components/tabs.json
+- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://design-system-2-0.pages.dev/ds/components/utilities.json
 
 Do not fetch files for components the page does not need.
 
