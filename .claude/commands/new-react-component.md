@@ -14,7 +14,7 @@ Then read $ARGUMENTS and fetch only what the component needs:
 - Toast/alert → feedback.json
 - Tabs → tabs.json
 - Tooltip/accordion/progress/steps/avatar/skeleton → utilities.json
-- Full page/dashboard → ALSO fetch https://design-system-2-0.pages.dev/react.txt
+- Full page/dashboard → ALSO fetch https://design-system-2-0.pages.dev/ds/react.txt
 
 All JSON base URL: https://design-system-2-0.pages.dev/ds/components/
 

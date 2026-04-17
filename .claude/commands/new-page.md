@@ -8,11 +8,11 @@ Fetch these URLs before doing anything else:
 7. https://design-system-2-0.pages.dev/ds/components/tables.json
 8. https://design-system-2-0.pages.dev/ds/components/badges.json
 9. https://design-system-2-0.pages.dev/ds/components/modals.json
-10. https://design-system-2-0.pages.dev/page-spec.txt
+10. https://design-system-2-0.pages.dev/ds/page-spec.txt
 
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
 - Cards on page → fetch https://design-system-2-0.pages.dev/ds/components/cards.json
-- Charts on page → fetch https://design-system-2-0.pages.dev/charts-base.txt PLUS only the chart types needed:
+- Charts on page → fetch https://design-system-2-0.pages.dev/ds/charts/base.txt PLUS only the chart types needed:
     Bar chart → charts-bar.txt
     Line chart → charts-line.txt
     Multi-line chart → charts-multiline.txt

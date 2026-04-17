@@ -6,9 +6,9 @@ Paste at the start of your Lovable project prompt, before describing what to bui
 
 ```
 Fetch ALL of these URLs fully before writing any code:
-1. https://design-system-2-0.pages.dev/ds-core.txt
-2. https://design-system-2-0.pages.dev/page-spec.txt
-3. https://design-system-2-0.pages.dev/charts.txt
+1. https://design-system-2-0.pages.dev/ds/core.txt
+2. https://design-system-2-0.pages.dev/ds/page-spec.txt
+3. https://design-system-2-0.pages.dev/ds/charts/charts.txt
 
 ---
 

@@ -7,7 +7,7 @@ Then read $ARGUMENTS and fetch only what is needed:
 - Form/input → inputs.json + modals.json
 - Button/action → buttons.json
 - Card/KPI → cards.json
-- Chart → fetch https://design-system-2-0.pages.dev/charts-base.txt + only the chart type file needed:
+- Chart → fetch https://design-system-2-0.pages.dev/ds/charts/base.txt + only the chart type file needed:
     bar=charts-bar.txt · line=charts-line.txt · multiline=charts-multiline.txt · donut=charts-donut.txt · hbar=charts-hbar.txt · stacked=charts-stacked.txt
 - Modal/dialog → modals.json
 - Badge/status → badges.json

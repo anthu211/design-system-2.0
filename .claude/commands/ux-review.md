@@ -7,7 +7,7 @@ Fetch ALL of these URLs fully before doing anything:
 6. https://design-system-2-0.pages.dev/ds/components/tables.json
 7. https://design-system-2-0.pages.dev/ds/components/badges.json
 8. https://design-system-2-0.pages.dev/ds/components/modals.json
-9. https://design-system-2-0.pages.dev/ds-core.txt
+9. https://design-system-2-0.pages.dev/ds/core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 
