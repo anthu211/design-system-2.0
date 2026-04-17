@@ -1,7 +1,28 @@
 [build]
   publish = "."
-  ignore = "exit 0"
+  command = ""
 
-[build.environment]
-  NODE_VERSION = "22"
-  NPM_FLAGS = "--ignore-scripts"
+[[headers]]
+  for = "/ds/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.txt"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.md"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
