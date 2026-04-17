@@ -13,12 +13,12 @@ Fetch these URLs before doing anything else:
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
 - Cards on page → fetch https://design-system-2-0.pages.dev/ds/components/cards.json
 - Charts on page → fetch https://design-system-2-0.pages.dev/ds/charts/base.txt PLUS only the chart types needed:
-    Bar chart → charts-bar.txt
-    Line chart → charts-line.txt
-    Multi-line chart → charts-multiline.txt
-    Donut chart → charts-donut.txt
-    Horizontal bar → charts-hbar.txt
-    Stacked bar → charts-stacked.txt
+    Bar chart → ds/charts/bar.txt
+    Line chart → ds/charts/line.txt
+    Multi-line chart → ds/charts/multiline.txt
+    Donut chart → ds/charts/donut.txt
+    Horizontal bar → ds/charts/hbar.txt
+    Stacked bar → ds/charts/stacked.txt
   All at base URL: https://design-system-2-0.pages.dev/
 - Forms / inputs / dropdowns / toggles on page → fetch https://design-system-2-0.pages.dev/ds/components/inputs.json
 - Three-panel layout or auth shell → fetch https://design-system-2-0.pages.dev/ds/patterns/shells.json
@@ -59,10 +59,10 @@ BUILD CHECKLIST — complete every item in order:
        Line 2: breadcrumb <div style="font-size:11px"> — last crumb color:#6360D8
        Never merge into one line.
 
-[ ] 7. CHARTS (only if page has charts) — fetch charts-base.txt + only the chart type files needed (not all of them).
+[ ] 7. CHARTS (only if page has charts) — fetch ds/charts/base.txt + only the chart type files needed (not all of them).
        Copy each function VERBATIM from the fetched files.
        Add <div id="chart-tooltip"> at end of <body>.
-       Copy showChartTooltip, positionChartTooltip, hideChartTooltip from charts-base.txt verbatim.
+       Copy showChartTooltip, positionChartTooltip, hideChartTooltip from ds/charts/base.txt verbatim.
        Init: document.addEventListener('DOMContentLoaded', function() { setTimeout(initCharts, 60); });
 
 [ ] 8. COMPONENTS — use exact HTML patterns from the component JSONs fetched.

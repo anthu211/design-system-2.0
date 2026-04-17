@@ -7,8 +7,8 @@ Then read $ARGUMENTS and fetch only what is needed:
 - Form/input → inputs.json + modals.json
 - Button/action → buttons.json
 - Card/KPI → cards.json
-- Chart → fetch https://design-system-2-0.pages.dev/charts-base.txt + only the chart type file needed:
-    bar=charts-bar.txt · line=charts-line.txt · multiline=charts-multiline.txt · donut=charts-donut.txt · hbar=charts-hbar.txt · stacked=charts-stacked.txt
+- Chart → fetch https://design-system-2-0.pages.dev/ds/charts/base.txt + only the chart type file needed:
+    bar=ds/charts/bar.txt · line=ds/charts/line.txt · multiline=ds/charts/multiline.txt · donut=ds/charts/donut.txt · hbar=ds/charts/hbar.txt · stacked=ds/charts/stacked.txt
 - Modal/dialog → modals.json
 - Badge/status → badges.json
 - Toast/alert → feedback.json
@@ -22,7 +22,7 @@ The user's request is: $ARGUMENTS
 If $ARGUMENTS is empty, ask: "What component? Which file? What variants does it need?"
 Wait for the answer. Then read the target HTML file in full before making any changes.
 
-## Design Rules (apply without fetching ds-core.txt)
+## Design Rules (apply without fetching ds/core.txt)
 - Colors: CSS variables only — never hardcode hex (use values from colors.json)
 - Spacing: 4pt grid — 4, 8, 12, 16, 20, 24, 32, 48px only. Any other value is a bug.
 - Buttons: `border-radius:44px`. Cards/table-wrappers: `border-radius:4px`.
@@ -46,7 +46,7 @@ Wait for the answer. Then read the target HTML file in full before making any ch
 
 [ ] 5. ALL STATES — every interactive element must have: hover, active, focus, disabled.
 
-[ ] 6. CHARTS (only if adding a chart) — fetch charts-base.txt + the specific chart type file only. Copy function VERBATIM. Ensure `<div id="chart-tooltip">` exists. Ensure showChartTooltip, positionChartTooltip, hideChartTooltip are present. Wrap init in `setTimeout(fn, 60)`.
+[ ] 6. CHARTS (only if adding a chart) — fetch ds/charts/base.txt + the specific chart type file only. Copy function VERBATIM. Ensure `<div id="chart-tooltip">` exists. Ensure showChartTooltip, positionChartTooltip, hideChartTooltip are present. Wrap init in `setTimeout(fn, 60)`.
 
 [ ] 7. VERIFY HARD RULES — check all design rules above are met.
 

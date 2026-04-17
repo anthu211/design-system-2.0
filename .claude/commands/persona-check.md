@@ -12,7 +12,7 @@ $ARGUMENTS
 
 ---
 
-Using the personas and UX laws from ds-core.txt:
+Using the personas and UX laws from ds/core.txt:
 
 **Primary Persona** — which of ciso / grc / security-architect / security-engineer / soc-analyst, and why in one sentence.
 
