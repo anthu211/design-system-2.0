@@ -6,9 +6,9 @@ Paste at the start of your Lovable project prompt, before describing what to bui
 
 ```
 Fetch ALL of these URLs fully before writing any code:
-1. https://prevalent-ai.github.io/ux-pai/ds-core.md
-2. https://prevalent-ai.github.io/ux-pai/page-spec.md
-3. https://prevalent-ai.github.io/ux-pai/charts.md
+1. https://ux-prevalent.netlify.app/ds-core.txt
+2. https://ux-prevalent.netlify.app/page-spec.txt
+3. https://ux-prevalent.netlify.app/charts.txt
 
 ---
 
@@ -16,7 +16,7 @@ My request: $YOUR_REQUEST_HERE
 
 ---
 
-Follow every rule in ds-core.md. Copy the full shell HTML from page-spec.md verbatim (entire <style> and <script> blocks — do not shorten). Copy chart functions from charts.md verbatim. Apply the persona that best matches the request.
+Follow every rule in ds-core.txt. Copy the full shell HTML from page-spec.txt verbatim (entire <style> and <script> blocks — do not shorten). Copy chart functions from charts.txt verbatim. Apply the persona that best matches the request.
 
 Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
 ```

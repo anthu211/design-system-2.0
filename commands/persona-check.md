@@ -1,6 +1,6 @@
 Fetch ALL of these URLs fully before doing anything:
-1. https://prevalent-ai.github.io/ux-pai/ds/rules.json
-2. https://prevalent-ai.github.io/ux-pai/ds-core.txt
+1. https://ux-prevalent.netlify.app/ds/rules.json
+2. https://ux-prevalent.netlify.app/ds-core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 

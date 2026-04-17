@@ -48,7 +48,7 @@ Single-file reference for all commands. Contains: tokens, every component HTML p
 ---
 ## Shell Structure
 
-Every HTML page uses the full shell from `page-spec.md` — copy verbatim, only replace title/nav/breadcrumb/content.
+Every HTML page uses the full shell from `page-spec.txt` — copy verbatim, only replace title/nav/breadcrumb/content.
 - **Topbar** (#131313): PAI logo img → spacer → "Last Updated" → bell → avatar → Navigator `t-special` button. NEVER "Prevalent AI" text.
 - **Left nav** (220px, collapses to 52px): header = workspace name + "Exposure Management" subtitle — NOT "Prevalent AI". Active sub-item: `color:#6360D8; background:rgba(99,96,216,0.08); border-radius:6px`. Parent stays grey `#f5f5f5`. Sub-items: `padding-left:30px`.
 - **Sub-header** (sticky): page title `12px/500` + breadcrumb (last crumb `#6360D8`) · right: Explore In → spacer → Add (+) → Active Filters pill → divider → Filter (`#e0dff7/#504bb8`). NEVER `<h1>`.
@@ -278,8 +278,8 @@ Panel slides in from right. Open state: add `.open` class to overlay + panel.
 ---
 ## Charts
 
-HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart` from `charts.md` **verbatim**. NEVER `<canvas>`, Chart.js, D3, ECharts.
-- ALWAYS include Chart Tooltip HTML + JS from `charts.md` — hovers break without it
+HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart` from `charts.txt` **verbatim**. NEVER `<canvas>`, Chart.js, D3, ECharts.
+- ALWAYS include Chart Tooltip HTML + JS from `charts.txt` — hovers break without it
 - Every multi-series chart needs `<div class="chart-legend">` with `chart-legend-dot` (`border-radius:50%`) per series, centered below chart
 - Severity colors (RAG): critical=`#D12329` · high=`#D98B1D` · medium=`#F5B700` · low=`#31A56D`
 - Normal colors (10, non-RAG): `#6760d8` `#47adcb` `#2ea8a8` `#5c6bc0` `#8F8DDE` `#3a7fcb` `#7a9e7e` `#b87fba` `#c47e5a` `#7b95b4` — NEVER use RAG colors for category/entity breakdowns
@@ -358,10 +358,10 @@ Success/Info auto-dismiss 3s. Error/Warning persist. Max 3 stacked. NEVER for de
 ---
 ## React Quick Rules
 
-Full React components in `react.md`. Rules for all React output:
+Full React components in `react.txt`. Rules for all React output:
 
 - **Stack:** React 18 + TypeScript + Tailwind CSS + Radix UI + Lucide React + Recharts
-- **Shell:** `<Shell navItems={[...]} subHeader={<SubHeader .../>}>` from `react.md`
+- **Shell:** `<Shell navItems={[...]} subHeader={<SubHeader .../>}>` from `react.txt`
 - **Topbar:** PAI logo `<img>` only — no "Prevalent AI" text
 - **Nav header:** workspace name (e.g. "EM Dashboard") — NOT "Prevalent AI"
 - **SubHeader title:** `text-[12px] font-medium` — NEVER `<h1>` or 18px

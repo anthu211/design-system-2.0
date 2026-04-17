@@ -1,30 +1,30 @@
 Fetch these URLs before doing anything else:
-1. https://prevalent-ai.github.io/ux-pai/ds/rules.json
-2. https://prevalent-ai.github.io/ux-pai/ds/tokens/colors.json
-3. https://prevalent-ai.github.io/ux-pai/ds/tokens/spacing.json
-4. https://prevalent-ai.github.io/ux-pai/ds/tokens/typography.json
-5. https://prevalent-ai.github.io/ux-pai/ds/patterns/navigation.json
-6. https://prevalent-ai.github.io/ux-pai/ds/components/buttons.json
-7. https://prevalent-ai.github.io/ux-pai/ds/components/tables.json
-8. https://prevalent-ai.github.io/ux-pai/ds/components/badges.json
-9. https://prevalent-ai.github.io/ux-pai/ds/components/modals.json
-10. https://prevalent-ai.github.io/ux-pai/page-spec.txt
+1. https://ux-prevalent.netlify.app/ds/rules.json
+2. https://ux-prevalent.netlify.app/ds/tokens/colors.json
+3. https://ux-prevalent.netlify.app/ds/tokens/spacing.json
+4. https://ux-prevalent.netlify.app/ds/tokens/typography.json
+5. https://ux-prevalent.netlify.app/ds/patterns/navigation.json
+6. https://ux-prevalent.netlify.app/ds/components/buttons.json
+7. https://ux-prevalent.netlify.app/ds/components/tables.json
+8. https://ux-prevalent.netlify.app/ds/components/badges.json
+9. https://ux-prevalent.netlify.app/ds/components/modals.json
+10. https://ux-prevalent.netlify.app/page-spec.txt
 
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
-- Cards on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/cards.json
-- Charts on page → fetch https://prevalent-ai.github.io/ux-pai/charts-base.txt PLUS only the chart types needed:
+- Cards on page → fetch https://ux-prevalent.netlify.app/ds/components/cards.json
+- Charts on page → fetch https://ux-prevalent.netlify.app/charts-base.txt PLUS only the chart types needed:
     Bar chart → charts-bar.txt
     Line chart → charts-line.txt
     Multi-line chart → charts-multiline.txt
     Donut chart → charts-donut.txt
     Horizontal bar → charts-hbar.txt
     Stacked bar → charts-stacked.txt
-  All at base URL: https://prevalent-ai.github.io/ux-pai/
-- Forms / inputs / dropdowns / toggles on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/inputs.json
-- Three-panel layout or auth shell → fetch https://prevalent-ai.github.io/ux-pai/ds/patterns/shells.json
-- Toasts / callouts / error states on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/feedback.json
-- Tabs on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/tabs.json
-- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/utilities.json
+  All at base URL: https://ux-prevalent.netlify.app/
+- Forms / inputs / dropdowns / toggles on page → fetch https://ux-prevalent.netlify.app/ds/components/inputs.json
+- Three-panel layout or auth shell → fetch https://ux-prevalent.netlify.app/ds/patterns/shells.json
+- Toasts / callouts / error states on page → fetch https://ux-prevalent.netlify.app/ds/components/feedback.json
+- Tabs on page → fetch https://ux-prevalent.netlify.app/ds/components/tabs.json
+- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://ux-prevalent.netlify.app/ds/components/utilities.json
 
 Do not fetch files for components the page does not need.
 

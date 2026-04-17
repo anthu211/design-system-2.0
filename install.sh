@@ -4,7 +4,7 @@
 
 set -e
 
-BASE="https://prevalent-ai.github.io/ux-pai"
+BASE="https://ux-prevalent.netlify.app"
 
 echo "Installing Prevalent AI Claude Code setup..."
 echo "Fetching latest command files from $BASE"
@@ -18,6 +18,7 @@ curl -fsSL "$BASE/commands/new-component.md"       -o .claude/commands/new-compo
 curl -fsSL "$BASE/commands/new-react-component.md" -o .claude/commands/new-react-component.md
 curl -fsSL "$BASE/commands/ux-review.md"           -o .claude/commands/ux-review.md
 curl -fsSL "$BASE/commands/persona-check.md"       -o .claude/commands/persona-check.md
+curl -fsSL "$BASE/commands/audit-page.md"          -o .claude/commands/audit-page.md
 curl -fsSL "$BASE/.claude/CLAUDE.md"               -o .claude/CLAUDE.md
 
 echo "✓ Done! Files installed:"

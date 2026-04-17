@@ -1,7 +1,7 @@
 Fetch these files first:
-1. https://prevalent-ai.github.io/ux-pai/ds/tokens/colors.json
-2. https://prevalent-ai.github.io/ux-pai/ds/tokens/spacing.json
-3. https://prevalent-ai.github.io/ux-pai/ds/tokens/typography.json
+1. https://ux-prevalent.netlify.app/ds/tokens/colors.json
+2. https://ux-prevalent.netlify.app/ds/tokens/spacing.json
+3. https://ux-prevalent.netlify.app/ds/tokens/typography.json
 
 Then read $ARGUMENTS and fetch only what the component needs:
 - Table/list → tables.json + badges.json
@@ -14,9 +14,9 @@ Then read $ARGUMENTS and fetch only what the component needs:
 - Toast/alert → feedback.json
 - Tabs → tabs.json
 - Tooltip/accordion/progress/steps/avatar/skeleton → utilities.json
-- Full page/dashboard → ALSO fetch https://prevalent-ai.github.io/ux-pai/react.txt
+- Full page/dashboard → ALSO fetch https://ux-prevalent.netlify.app/react.txt
 
-All JSON base URL: https://prevalent-ai.github.io/ux-pai/ds/components/
+All JSON base URL: https://ux-prevalent.netlify.app/ds/components/
 
 Do not fetch files for component types not in the request.
 

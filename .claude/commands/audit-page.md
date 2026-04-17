@@ -1,14 +1,14 @@
 Fetch ALL of these URLs fully before doing anything:
-1. https://prevalent-ai.github.io/ux-pai/ds/context.json
-2. https://prevalent-ai.github.io/ux-pai/ds/tokens/colors.json
-3. https://prevalent-ai.github.io/ux-pai/ds/tokens/spacing.json
-4. https://prevalent-ai.github.io/ux-pai/ds/tokens/typography.json
-5. https://prevalent-ai.github.io/ux-pai/ds/components/buttons.json
-6. https://prevalent-ai.github.io/ux-pai/ds/components/tables.json
-7. https://prevalent-ai.github.io/ux-pai/ds/components/badges.json
-8. https://prevalent-ai.github.io/ux-pai/ds/components/feedback.json
-9. https://prevalent-ai.github.io/ux-pai/ds/components/states.json
-10. https://prevalent-ai.github.io/ux-pai/ds-core.txt
+1. https://ux-prevalent.netlify.app/ds/context.json
+2. https://ux-prevalent.netlify.app/ds/tokens/colors.json
+3. https://ux-prevalent.netlify.app/ds/tokens/spacing.json
+4. https://ux-prevalent.netlify.app/ds/tokens/typography.json
+5. https://ux-prevalent.netlify.app/ds/components/buttons.json
+6. https://ux-prevalent.netlify.app/ds/components/tables.json
+7. https://ux-prevalent.netlify.app/ds/components/badges.json
+8. https://ux-prevalent.netlify.app/ds/components/feedback.json
+9. https://ux-prevalent.netlify.app/ds/components/states.json
+10. https://ux-prevalent.netlify.app/ds-core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 

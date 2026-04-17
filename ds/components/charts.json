@@ -1,6 +1,6 @@
 {
   "component": "charts",
-  "note": "JS function bodies live in charts.md — copy verbatim. This file documents rules, tokens, and usage only.",
+  "note": "JS function bodies live in charts.txt — copy verbatim. This file documents rules, tokens, and usage only.",
   "variants": ["bar-vertical", "line", "line-multi", "donut", "bar-horizontal-css", "bar-stacked"],
   "functions": {
     "bar-vertical":      "buildVerticalBarChart(containerId, series, groups, colors)",
@@ -79,7 +79,7 @@
     ".css-hbar-val { font-size:11px; color:var(--shell-text-muted); margin-left:4px; flex-shrink:0; }"
   ],
   "do": [
-    "Copy JS function bodies from charts.md verbatim — never rewrite or shorten.",
+    "Copy JS function bodies from charts.txt verbatim — never rewrite or shorten.",
     "Use a unique gradient ID per line chart instance (Date.now() suffix) to prevent SVG collision.",
     "Always include chart-tooltip HTML + showChartTooltip/positionChartTooltip/hideChartTooltip JS — hovers break without it.",
     "Add chart-legend below every multi-series chart with chart-legend-dot per series (border-radius:50%).",
@@ -88,8 +88,8 @@
   ],
   "dont": [
     "Never use <canvas> or any external library: Chart.js, D3, ECharts.",
-    "HTML only: never use Recharts — use the 5 named SVG functions from charts.md verbatim.",
-    "Never invent a custom chart implementation — use only the 5 named functions from charts.md.",
+    "HTML only: never use Recharts — use the 5 named SVG functions from charts.txt verbatim.",
+    "Never invent a custom chart implementation — use only the 5 named functions from charts.txt.",
     "Never call chart functions directly — always wrap in setTimeout(initCharts, 60).",
     "Never use more than 6 y-axis ticks.",
     "Never omit the tooltip HTML — place it once at end of <body>."
@@ -105,7 +105,7 @@
       "low":      "#31A56D"
     },
     "normal_colors": ["#6760d8","#47adcb","#2ea8a8","#5c6bc0","#8F8DDE","#3a7fcb","#7a9e7e","#b87fba","#c47e5a","#7b95b4"],
-    "note": "React uses Recharts only. The SVG function bodies in charts.md are for HTML pages — do not copy them into React components."
+    "note": "React uses Recharts only. The SVG function bodies in charts.txt are for HTML pages — do not copy them into React components."
   },
   "example_html": {
     "bar-vertical":      "<div id=\"vbar-chart\" style=\"width:100%;\"></div>\n<!-- call: buildVerticalBarChart('vbar-chart', series, groups, colors) -->",

@@ -1,6 +1,6 @@
 # Prevalent AI — React / Developer Reference
 
-Stack: React 18 + TypeScript + Tailwind CSS + Radix UI + Lucide React + Recharts. Read `ds-core.md` alongside this file for tokens, rules, and personas.
+Stack: React 18 + TypeScript + Tailwind CSS + Radix UI + Lucide React + Recharts. Read `ds-core.txt` alongside this file for tokens, rules, and personas.
 
 ---
 
@@ -454,7 +454,7 @@ export function Shell({
       >
         {/* PAI logo — use actual SVG asset, never a placeholder box */}
         <img
-          src="https://prevalent-ai.github.io/ux-pai/icons/pai-logo.svg"
+          src="https://ux-prevalent.netlify.app/icons/pai-logo.svg"
           height={26}
           alt="Prevalent AI"
         />
