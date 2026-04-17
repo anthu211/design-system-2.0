@@ -1,0 +1,7 @@
+[build]
+  publish = "."
+  ignore = "exit 0"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--ignore-scripts"
