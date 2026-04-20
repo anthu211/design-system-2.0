@@ -5664,43 +5664,51 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
     <!-- ── INSTALL HERO ── -->
     <div class="ds-cs-hero">
       <div class="ds-cs-hero-eyebrow">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        Run in your project root
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        3 steps · no network required
       </div>
-      <div class="ds-cs-hero-cmd">
-        <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSLk https://design-system-2-0.pages.dev/setup/install.sh | bash</span>
-        <button class="ds-cs-hero-copy" id="cs-hero-copy-btn" onclick="navigator.clipboard.writeText('curl -fsSLk https://design-system-2-0.pages.dev/setup/install.sh | bash').then(function(){var b=document.getElementById('cs-hero-copy-btn');b.textContent='Copied';setTimeout(function(){b.textContent='Copy'},2000)})">Copy</button>
-      </div>
-      <div class="ds-cs-hero-meta">
-        <span>Always installs the latest version</span>
-        <span class="ds-cs-hero-dot">·</span>
-        <span>Re-run anytime to update</span>
-        <span class="ds-cs-hero-dot">·</span>
-        <button id="claude-setup-dl-btn-page" class="ds-cs-hero-alt" onclick="var s=document.getElementById('zip-steps');var o=s.style.display==='block';s.style.display=o?'none':'block';this.textContent=o?'No curl? Download zip →':'Hide zip steps'">No curl? Download zip →</button>
-      </div>
-      <div id="zip-steps" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--shell-border);">
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div style="display:flex;align-items:center;gap:12px;">
-            <span class="ds-cs-zip-num">1</span>
-            <button id="claude-setup-dl-btn" onclick="downloadClaudeSetup()" style="display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:44px;background:rgba(99,96,216,0.9);color:#fff;border:none;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.01em;">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download claude-setup.zip
-            </button>
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:12px;">
-            <span class="ds-cs-zip-num">2</span>
-            <div class="ds-cs-hero-cmd" style="flex:1;">
-              <code class="ds-cs-hero-cmd-text" style="font-size:12px;"><span style="color:#9ca3af;">unzip</span> -o ~/Downloads/claude-setup.zip -d /tmp/cs &amp;&amp; <span style="color:#9ca3af;">bash</span> /tmp/cs/claude-setup/install.sh</code>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:4px;">
+
+        <!-- Step 1 -->
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="ds-cs-zip-num">1</span>
+          <button id="claude-setup-dl-btn" onclick="downloadClaudeSetup()" style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:44px;background:rgba(99,96,216,0.9);color:#fff;border:none;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.01em;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download claude-setup.zip
+          </button>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="display:flex;align-items:flex-start;gap:16px;">
+          <span class="ds-cs-zip-num">2</span>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="font-size:11px;color:var(--shell-muted);margin-bottom:2px;">In terminal, go to your project root and unzip:</div>
+            <div class="ds-cs-hero-cmd">
+              <code class="ds-cs-hero-cmd-text" style="font-size:12px;"><span style="color:#9ca3af;">unzip</span> ~/Downloads/claude-setup.zip</code>
+              <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/claude-setup.zip').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
             </div>
           </div>
         </div>
+
+        <!-- Step 3 -->
+        <div style="display:flex;align-items:flex-start;gap:16px;">
+          <span class="ds-cs-zip-num">3</span>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <div style="font-size:11px;color:var(--shell-muted);margin-bottom:2px;">Run the installer from your project root:</div>
+            <div class="ds-cs-hero-cmd">
+              <code class="ds-cs-hero-cmd-text" style="font-size:12px;"><span style="color:#9ca3af;">bash</span> claude-setup/install.sh</code>
+              <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('bash claude-setup/install.sh').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
     <!-- ── THEN OPEN CLAUDE ── -->
     <div class="ds-cs-next">
       <div class="ds-cs-next-step">
-        <div class="ds-cs-next-num">2</div>
+        <div class="ds-cs-next-num">4</div>
         <div>
           <div class="ds-cs-next-label">Open Claude Code in your project</div>
           <code class="ds-cs-next-code"><span style="color:#8f8dde;">claude</span></code>
