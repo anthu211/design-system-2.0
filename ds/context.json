@@ -1,13 +1,13 @@
 {
   "version": "1.0.0",
   "product": "Prevalent AI — Cybersecurity Risk & Exposure Management Platform",
-  "base_url": "https://prevalent-ai.github.io/ux-pai/ds/",
+  "base_url": "https://pai-ux.netlify.app/ds/",
   "standard_plan_note": "Keep total fetched JSON under 15KB per session. Fetch only the modules listed in routing[] for your task type.",
   "implementation_files": {
     "note": "JSON modules describe rules and tokens. These MD files contain the actual verbatim HTML/CSS/JS to copy — always fetch them for build tasks.",
-    "shell_template": "https://prevalent-ai.github.io/ux-pai/page-spec.txt",
-    "chart_functions": "https://prevalent-ai.github.io/ux-pai/charts.txt",
-    "component_patterns": "https://prevalent-ai.github.io/ux-pai/ds-core.txt",
+    "shell_template": "https://pai-ux.netlify.app/ds/page-spec.txt",
+    "chart_functions": "https://pai-ux.netlify.app/ds/charts/charts.txt",
+    "component_patterns": "https://pai-ux.netlify.app/ds/core.txt",
     "must_copy_verbatim": [
       "Shell HTML template — full <style> block, full <script> block including shellNavToggle()",
       "Chart JS functions — buildVerticalBarChart, buildLineChart, buildMultiLineChart, buildDonutChart, buildStackedBarChart",

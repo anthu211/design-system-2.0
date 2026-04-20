@@ -37,7 +37,7 @@ Single-file reference for all commands. Contains: tokens, every component HTML p
 - Cards, table wrappers, panels, chart wrappers: `4px` ONLY
 - Inputs, dropdowns: `8px`
 - Modals, drawers: `12px`
-- Badges, tags: `4px` · Nav active item: `6px` · Callouts: `4px`
+- Badges, tags: `44px` (pill) · Nav active item: `6px` · Callouts: `4px`
 
 ### Spacing
 4px scale ONLY: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`.
@@ -48,7 +48,7 @@ Single-file reference for all commands. Contains: tokens, every component HTML p
 ---
 ## Shell Structure
 
-Every HTML page uses the full shell from `page-spec.md` — copy verbatim, only replace title/nav/breadcrumb/content.
+Every HTML page uses the full shell from `page-spec.txt` — copy verbatim, only replace title/nav/breadcrumb/content.
 - **Topbar** (#131313): PAI logo img → spacer → "Last Updated" → bell → avatar → Navigator `t-special` button. NEVER "Prevalent AI" text.
 - **Left nav** (220px, collapses to 52px): header = workspace name + "Exposure Management" subtitle — NOT "Prevalent AI". Active sub-item: `color:#6360D8; background:rgba(99,96,216,0.08); border-radius:6px`. Parent stays grey `#f5f5f5`. Sub-items: `padding-left:30px`.
 - **Sub-header** (sticky): page title `12px/500` + breadcrumb (last crumb `#6360D8`) · right: Explore In → spacer → Add (+) → Active Filters pill → divider → Filter (`#e0dff7/#504bb8`). NEVER `<h1>`.
@@ -93,7 +93,8 @@ Dual toggle: `ds-dual-toggle` > `dual-label` + `ds-toggle-wrap` + `dual-label`.
 </div>
 ```
 Delta classes: `up-good` · `down-good` · `up-bad` · `down-bad`.
-- Max 5 cards · `gap:8px` · `padding:8px 12px` · `border-radius:4px`
+- Max 5 cards · `gap:8px` · `padding:12px 16px` · `border-radius:4px`
+- Value `14px/600` · Label `11px/500 muted` · Delta `11px/600`
 - Value + label + delta ONLY — NEVER icons, colored borders, box-shadow, custom bg
 - Always include delta — never omit
 
@@ -140,7 +141,7 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
 </div>
 ```
 - NEVER put action icons in same `<td>` as status badge
-- `.row-actions` hidden by default — CSS reveals on `tr:hover`; NEVER `style="display:flex"` inline
+- `.row-actions` uses `visibility:hidden` by default, `visibility:visible` on `tr:hover` — space always reserved, no row height jump; NEVER `display:none` or `style="display:flex"` inline
 - Sort indicators on sortable columns · pagination + row-count always present
 - Keep table header visible in empty and error states
 
@@ -250,7 +251,7 @@ NEVER custom alert/banner styling. Include icon + message. Border-radius: `4px`.
 ### Utility Components
 - **Tooltip:** `ds-tooltip-wrap > ds-icon-btn + ds-tooltip` — CSS-only, no JS. NEVER tooltip-only for severity.
 - **Accordion:** `ds-accordion > ds-accordion-item > ds-accordion-trigger + ds-accordion-content`
-- **Progress bar:** `ds-progress > ds-progress-bar [danger] [indeterminate]`
+- **Progress bar:** `ds-progress > ds-progress-bar [danger] [indeterminate]` — label above, bar + value inline: `<div style="display:flex;align-items:center;gap:10px;"><div class="ds-progress" style="flex:1;"><div class="ds-progress-bar" style="width:65%;"></div></div><span>65%</span></div>`
 - **Pagination:** `ds-pagination > ds-page-btn [active] [disabled]`
 - **Breadcrumb:** `ds-breadcrumb > a + ds-bc-sep + ds-bc-current` (last crumb: `color:#6360D8`)
 - **Steps:** `ds-steps > ds-step [completed] [active] > ds-step-icon + ds-step-label`
@@ -277,10 +278,11 @@ Panel slides in from right. Open state: add `.open` class to overlay + panel.
 ---
 ## Charts
 
-HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart` from `charts.md` **verbatim**. NEVER `<canvas>`, Chart.js, D3, ECharts.
-- ALWAYS include Chart Tooltip HTML + JS from `charts.md` — hovers break without it
+HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart` from `charts.txt` **verbatim**. NEVER `<canvas>`, Chart.js, D3, ECharts.
+- ALWAYS include Chart Tooltip HTML + JS from `charts.txt` — hovers break without it
 - Every multi-series chart needs `<div class="chart-legend">` with `chart-legend-dot` (`border-radius:50%`) per series, centered below chart
-- Severity colors: critical=`#D12329` · high=`#D98B1D` · medium=`#6360D8` · low=`#31A56D`
+- Severity colors (RAG): critical=`#D12329` · high=`#D98B1D` · medium=`#F5B700` · low=`#31A56D`
+- Normal colors (10, non-RAG): `#6760d8` `#47adcb` `#2ea8a8` `#5c6bc0` `#8F8DDE` `#3a7fcb` `#7a9e7e` `#b87fba` `#c47e5a` `#7b95b4` — NEVER use RAG colors for category/entity breakdowns
 - React: Recharts only — `AreaChart`, `BarChart`, `LineChart`
 
 ---
@@ -356,10 +358,10 @@ Success/Info auto-dismiss 3s. Error/Warning persist. Max 3 stacked. NEVER for de
 ---
 ## React Quick Rules
 
-Full React components in `react.md`. Rules for all React output:
+Full React components in `react.txt`. Rules for all React output:
 
 - **Stack:** React 18 + TypeScript + Tailwind CSS + Radix UI + Lucide React + Recharts
-- **Shell:** `<Shell navItems={[...]} subHeader={<SubHeader .../>}>` from `react.md`
+- **Shell:** `<Shell navItems={[...]} subHeader={<SubHeader .../>}>` from `react.txt`
 - **Topbar:** PAI logo `<img>` only — no "Prevalent AI" text
 - **Nav header:** workspace name (e.g. "EM Dashboard") — NOT "Prevalent AI"
 - **SubHeader title:** `text-[12px] font-medium` — NEVER `<h1>` or 18px
@@ -376,7 +378,7 @@ Full React components in `react.md`. Rules for all React output:
 
 | Persona | Trigger words | Lead with | Key rule |
 |---------|--------------|-----------|----------|
-| **ciso** | dashboard, overview, executive, risk | KPI cards (max 5) + trend charts | 1 dominant CTA, no jargon |
+| **ciso** | dashboard, overview, executive, risk | trend charts + summary table | 1 dominant CTA, no jargon — KPI cards only if explicitly requested |
 | **grc** | compliance, audit, framework, control | Framework status table | Export button prominent |
 | **security-architect** | architecture, attack surface, topology | Technical detail visible | CVSSv3 scores, asset relationships |
 | **security-engineer** | vulnerability, CVE, patch, asset, scan | Dense CVE table | Bulk toolbar, SLA column, pagination |

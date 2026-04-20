@@ -1,13 +1,20 @@
 Fetch ALL of these URLs fully before doing anything:
-1. https://prevalent-ai.github.io/ux-pai/ds/rules.json
-2. https://prevalent-ai.github.io/ux-pai/ds/tokens/colors.json
-3. https://prevalent-ai.github.io/ux-pai/ds/tokens/spacing.json
-4. https://prevalent-ai.github.io/ux-pai/ds/tokens/typography.json
-5. https://prevalent-ai.github.io/ux-pai/ds/components/buttons.json
-6. https://prevalent-ai.github.io/ux-pai/ds/components/tables.json
-7. https://prevalent-ai.github.io/ux-pai/ds/components/badges.json
-8. https://prevalent-ai.github.io/ux-pai/ds/components/modals.json
-9. https://prevalent-ai.github.io/ux-pai/ds-core.txt
+1. https://pai-ux.netlify.app/ds/rules.json
+2. https://pai-ux.netlify.app/ds/tokens/colors.json
+3. https://pai-ux.netlify.app/ds/tokens/spacing.json
+4. https://pai-ux.netlify.app/ds/tokens/typography.json
+5. https://pai-ux.netlify.app/ds/components/buttons.json
+6. https://pai-ux.netlify.app/ds/components/tables.json
+7. https://pai-ux.netlify.app/ds/components/badges.json
+8. https://pai-ux.netlify.app/ds/components/modals.json
+9. https://pai-ux.netlify.app/ds/components/inputs.json
+10. https://pai-ux.netlify.app/ds/components/feedback.json
+11. https://pai-ux.netlify.app/ds/components/states.json
+12. https://pai-ux.netlify.app/ds/components/charts.json
+13. https://pai-ux.netlify.app/ds/components/cards.json
+14. https://pai-ux.netlify.app/ds/components/utilities.json
+15. https://pai-ux.netlify.app/ds/components/tabs.json
+16. https://pai-ux.netlify.app/ds/core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 
@@ -40,19 +47,94 @@ Return a `✅ PASS` / `❌ FAIL` checklist using the fetched files as the source
 - [ ] Row actions CSS-hidden by default — no `style="display:flex"` inline
 - [ ] Status/severity visible in column — not tooltip-only
 - [ ] Pagination footer present
+- [ ] Skeleton load keeps `thead` visible — only `tbody` rows replaced with `ds-skeleton`
 
 ## Components
 - [ ] KPI cards ≤ 5, no icons, no colored borders, correct delta classes
+- [ ] KPI delta always present — never omitted; direction class correct (`up-good` / `down-good` / `up-bad` / `down-bad`)
 - [ ] Table columns ≤ 7
 - [ ] Destructive actions have confirmation modal (item name + consequence + red confirm)
 - [ ] No page-level tabs unless explicitly requested
-- [ ] Error/empty states present where needed
+- [ ] Empty/error states use correct emoji — 🚦 table empty · 🚧 error · 📋 first-use
 
-## UX Laws
-- [ ] Hick's: 1 primary CTA per section
-- [ ] Fitts's: row actions on hover, min 32px height on controls
-- [ ] Miller's: ≤5 KPIs · ≤7 table columns
-- [ ] Jakob's: checkboxes leftmost · Cancel left of Confirm
+## Forms & Inputs
+- [ ] Text inputs and dropdowns use `border-radius:8px` — not 4px (cards) or 44px (buttons)
+- [ ] No native `<select>` — `ds-dropdown` used throughout
+- [ ] Dropdown panel includes search input when 10+ options present
+- [ ] Validation triggers on blur only — never per-keystroke
+- [ ] Required fields marked with `<span style="color:#dc2626">*</span>` after label text
+- [ ] Field error: red `1.5px` border + ⓘ icon + specific message below — never border alone
+- [ ] Field value preserved on error — never cleared
+- [ ] Filter chips use `ds-filter-chip` with `ds-chip-key` / `ds-chip-value` / `ds-chip-close` structure
+
+## Feedback & States
+- [ ] Toast position: `bottom-right`, `fixed`, `z-index:1000` — max 3 stacked
+- [ ] Error and warning toasts **persist** (never auto-dismiss) — success/info auto-dismiss after 3s
+- [ ] Toast never used for destructive confirmations or decisions — modal used instead
+- [ ] Inline alerts/banners use `ds-callout` classes — never custom-styled
+- [ ] Table empty state: 🚦 emoji · "No Data… For Now!" · `thead` + pagination remain visible · no Refresh CTA
+- [ ] First-use empty section: 📋 emoji · headline + 1-line context + exactly one primary CTA
+- [ ] Section error: 🚧 emoji · "Data Retrieval Failed" · Retry button · scoped to section only — entire page never redirected
+- [ ] Full-page error: 🚧 emoji · "ERROR" watermark (`font-size:90px, opacity:0.08`) · topbar + nav kept visible · no stack trace
+- [ ] Skeleton loaders used when layout is predictable — not spinners
+- [ ] Skeleton shape matches content it replaces: `border-radius:4px` for rows/text, `44px` for badge/button shapes
+
+## Charts & Data Visualization
+- [ ] No `<canvas>`, Chart.js, D3, or ECharts — SVG functions (HTML) or Recharts (React) only
+- [ ] Chart wrapped in content-card: `border-radius:4px`, `padding:20px 24px`
+- [ ] Y-axis baseline always `0` — never dynamic `yMin`
+- [ ] Y-axis ticks ≤ 6
+- [ ] Legend present below every multi-series chart with `chart-legend-dot` per series
+- [ ] Tooltip HTML present in DOM — charts never rendered without it
+- [ ] Severity series use DS tokens: critical `#D12329` · high `#D98B1D` · medium `#F5B700` · low `#31A56D`
+- [ ] Non-severity series use DS normal color palette — no custom hex colors
+
+## Cards
+- [ ] All cards use `border-radius:4px` — forbidden values: 8px, 10px, 12px, 16px, `rounded-xl`, `rounded-2xl`
+- [ ] No `box-shadow`, colored left-border, or background gradients on any card
+- [ ] Cards not nested more than one level deep
+- [ ] `var(--card-bg)` and `var(--card-border)` used — no hardcoded card background colors
+
+## Tabs
+- [ ] Tabs appear only within a page section or detail panel — never at page level (unless explicitly requested)
+- [ ] Max 5 visible tabs — overflow menu present if more
+- [ ] Active tab: `color:#6360D8` with `2px solid #6360D8` bottom-border indicator
+- [ ] Tab buttons: `border-radius:0` — indicator is bottom-border only, no pill shape
+- [ ] Tab `font-size:12px` · active weight 500 · inactive weight 400
+
+## Utilities
+- [ ] Breadcrumb last crumb: `color:#6360D8` · non-linked · represents current page
+- [ ] Tooltip is CSS-only (`:hover`) — no JS `.show()` / `.hide()`
+- [ ] Pagination "Showing X–Y of Z" label on the left · prev/next disabled (not hidden) at boundaries
+- [ ] Progress bars use `border-radius:44px` · `danger` modifier used for critical thresholds
+- [ ] Multi-step flows use `ds-steps` component with `completed` / `active` state classes
+
+## Interaction Quality
+
+### Decision Hierarchy
+- [ ] Each view has exactly one visually dominant primary action — secondary/tertiary actions are clearly subordinate in weight
+- [ ] High-severity or overdue items surface visually without requiring the user to sort or filter — critical rows are scannable at a glance
+- [ ] Applied filters always visible as chips — user never has to guess why fewer rows appear
+
+### Workflow Integrity
+- [ ] Multi-step flows (wizards, onboarding, config) show a `ds-steps` progress indicator — user always knows where they are and how many steps remain
+- [ ] Bulk operations available for any repetitive row-level action (select-all → apply) — no forcing one-by-one repetition
+- [ ] Every multi-step flow has a Cancel / back path at every step — no dead ends that force a page refresh
+
+### Action Safety
+- [ ] Primary and destructive CTAs are never adjacent — spatial separation prevents misclicks under time pressure
+- [ ] Irreversible bulk operations (mass delete, bulk revoke) require a secondary confirmation beyond the standard modal — single checkbox is not enough
+- [ ] Confirmation modals state the item name AND the consequence — not a generic prompt
+
+### Contextual Continuity
+- [ ] Filter, sort, and pagination state survive back-navigation (URL params or session state) — user's place is never lost
+- [ ] Drill-down views keep breadcrumb + back action visible — user can always orient and exit
+- [ ] Modal and slide-panel actions do not reset or lose parent page state on close
+
+### Scannability
+- [ ] Table's most decision-relevant column sits immediately left of the status column — not buried after 5 data columns
+- [ ] Row density is consistent — no variable-height rows; no wasted whitespace in data-dense views
+- [ ] Long lists with > 10 selectable options (dropdowns, filter panels) have a search — options are never scrolled through blindly
 
 ## Persona
 - [ ] Layout matches primary persona (state which one)
@@ -67,18 +149,16 @@ Return a `✅ PASS` / `❌ FAIL` checklist using the fetched files as the source
 - [ ] Modal traps focus and restores it on close; `role="dialog"` + `aria-modal="true"` present
 
 ## Motion & Feedback
-- [ ] Loading states present for every async action (skeleton or spinner — not blank)
-- [ ] Inline success/error feedback on form submission — no silent failures
-- [ ] Destructive / irreversible actions have visible undo or a 3–5s delay toast
 - [ ] Transitions ≤ 200ms for micro-interactions; no animation on data tables or large repaints
 - [ ] `prefers-reduced-motion` respected — animations disabled or simplified when set
+- [ ] Destructive / irreversible actions have visible undo or a 3–5s delay toast
 
 ## Content & Copywriting
 - [ ] All empty states have a headline + 1-line explanation + primary action (no naked "No data")
 - [ ] CTA labels are verb-first and specific ("Export Report" not "Submit" or "Click here")
 - [ ] Truncated text has full value accessible via tooltip (`title` attr or `aria-describedby`)
 - [ ] Error messages state what went wrong + how to fix it — no raw API errors exposed
-- [ ] Confirmation modal copy names the item being acted on (not "Are you sure?")
+- [ ] Confirmation modal names the item being acted on and states the consequence — no generic "Are you sure?"
 
 ## Responsive & Density
 - [ ] Layout tested at 1280px, 1440px, 1920px — no overflow or orphaned elements

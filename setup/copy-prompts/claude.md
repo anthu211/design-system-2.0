@@ -34,7 +34,7 @@ Type: heading 14px/600 · body 12px/400 · meta 11px/400 · sub-header title 12p
 
 ## SHELL STRUCTURE (every page)
 
-Topbar (52px, #131313): PAI logo <img src="https://prevalent-ai.github.io/ux-pai/icons/pai-logo.svg" style="height:26px"> → spacer → Last Updated → bell → avatar → Navigator t-special button. NEVER "Prevalent AI" text.
+Topbar (52px, #131313): PAI logo <img src="https://pai-ux.netlify.app/icons/pai-logo.svg" style="height:26px"> → spacer → Last Updated → bell → avatar → Navigator t-special button. NEVER "Prevalent AI" text.
 Left nav (220px, collapses to 52px): workspace name + subtitle. Active sub-item: color:#6360D8; background:rgba(99,96,216,0.08); border-radius:6px. Sub-items: padding-left:30px.
 Sub-header (sticky): Line 1: page title div 12px/500 (NEVER <h1>). Line 2: breadcrumb 11px, last crumb color:#6360D8.
 Content body: padding:24px.

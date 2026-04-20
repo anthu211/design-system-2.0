@@ -1,7 +1,7 @@
 Fetch these files first:
-1. https://prevalent-ai.github.io/ux-pai/ds/tokens/colors.json
-2. https://prevalent-ai.github.io/ux-pai/ds/tokens/spacing.json
-3. https://prevalent-ai.github.io/ux-pai/ds/tokens/typography.json
+1. https://pai-ux.netlify.app/ds/tokens/colors.json
+2. https://pai-ux.netlify.app/ds/tokens/spacing.json
+3. https://pai-ux.netlify.app/ds/tokens/typography.json
 
 Then read $ARGUMENTS and fetch only what the component needs:
 - Table/list → tables.json + badges.json
@@ -14,9 +14,9 @@ Then read $ARGUMENTS and fetch only what the component needs:
 - Toast/alert → feedback.json
 - Tabs → tabs.json
 - Tooltip/accordion/progress/steps/avatar/skeleton → utilities.json
-- Full page/dashboard → ALSO fetch https://prevalent-ai.github.io/ux-pai/react.txt
+- Full page/dashboard → ALSO fetch https://pai-ux.netlify.app/ds/react.txt
 
-All JSON base URL: https://prevalent-ai.github.io/ux-pai/ds/components/
+All JSON base URL: https://pai-ux.netlify.app/ds/components/
 
 Do not fetch files for component types not in the request.
 
@@ -33,7 +33,7 @@ Generate a React component and save it as a `.tsx` file in the current directory
 - Lucide React — all icons; never emoji or text symbols
 - Recharts — charts only: AreaChart, BarChart, LineChart; never canvas or D3
 
-## Design Rules (apply without fetching ds-core.txt)
+## Design Rules (apply without fetching ds/core.txt)
 - Colors: CSS variables only — never hardcode hex (use values from colors.json)
 - Spacing: 4pt grid only — 4, 8, 12, 16, 20, 24, 32, 48px. Any other value is a bug.
 - Buttons: `rounded-[44px]` always. Cards/wrappers: `rounded-[4px]` only. Never `rounded-md`, `rounded-lg`, `rounded-xl`, `rounded-full`, `shadow-lg`.

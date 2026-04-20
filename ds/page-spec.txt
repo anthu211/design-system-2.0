@@ -96,8 +96,8 @@
     .ds-table tbody tr:last-child td { border-bottom:none; }
     .ds-table tbody tr:hover td { background:var(--shell-hover); }
     .col-actions { width:80px; }
-    .row-actions { display:none;align-items:center;gap:4px; }
-    .ds-table tbody tr:hover .row-actions { display:flex; }
+    .row-actions { display:flex;align-items:center;gap:4px;visibility:hidden; }
+    .ds-table tbody tr:hover .row-actions { visibility:visible; }
     .ds-pagination { display:flex;align-items:center;gap:4px;flex-wrap:wrap; }
     .ds-page-btn { min-width:32px;height:32px;border-radius:44px;border:1px solid var(--shell-border);background:var(--card-bg);color:var(--shell-text-2);cursor:pointer;font-size:13px;font-family:inherit;padding:0 6px;display:flex;align-items:center;justify-content:center;transition:all 120ms; }
     .ds-page-btn:hover { background:var(--shell-hover);color:var(--shell-text); }
@@ -183,7 +183,7 @@
 
   <!-- TOPBAR — always #131313, never changes with theme -->
   <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">
-    <img src="https://prevalent-ai.github.io/ux-pai/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">
+    <img src="https://pai-ux.netlify.app/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">
     <span style="flex:1;"></span>
     <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>
     <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;" aria-label="Notifications">

@@ -1,30 +1,30 @@
 Fetch these URLs before doing anything else:
-1. https://prevalent-ai.github.io/ux-pai/ds/rules.json
-2. https://prevalent-ai.github.io/ux-pai/ds/tokens/colors.json
-3. https://prevalent-ai.github.io/ux-pai/ds/tokens/spacing.json
-4. https://prevalent-ai.github.io/ux-pai/ds/tokens/typography.json
-5. https://prevalent-ai.github.io/ux-pai/ds/patterns/navigation.json
-6. https://prevalent-ai.github.io/ux-pai/ds/components/buttons.json
-7. https://prevalent-ai.github.io/ux-pai/ds/components/tables.json
-8. https://prevalent-ai.github.io/ux-pai/ds/components/badges.json
-9. https://prevalent-ai.github.io/ux-pai/ds/components/modals.json
-10. https://prevalent-ai.github.io/ux-pai/page-spec.txt
+1. https://pai-ux.netlify.app/ds/rules.json
+2. https://pai-ux.netlify.app/ds/tokens/colors.json
+3. https://pai-ux.netlify.app/ds/tokens/spacing.json
+4. https://pai-ux.netlify.app/ds/tokens/typography.json
+5. https://pai-ux.netlify.app/ds/patterns/navigation.json
+6. https://pai-ux.netlify.app/ds/components/buttons.json
+7. https://pai-ux.netlify.app/ds/components/tables.json
+8. https://pai-ux.netlify.app/ds/components/badges.json
+9. https://pai-ux.netlify.app/ds/components/modals.json
+10. https://pai-ux.netlify.app/ds/page-spec.txt
 
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
-- Cards on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/cards.json
-- Charts on page → fetch https://prevalent-ai.github.io/ux-pai/charts-base.txt PLUS only the chart types needed:
-    Bar chart → charts-bar.txt
-    Line chart → charts-line.txt
-    Multi-line chart → charts-multiline.txt
-    Donut chart → charts-donut.txt
-    Horizontal bar → charts-hbar.txt
-    Stacked bar → charts-stacked.txt
-  All at base URL: https://prevalent-ai.github.io/ux-pai/
-- Forms / inputs / dropdowns / toggles on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/inputs.json
-- Three-panel layout or auth shell → fetch https://prevalent-ai.github.io/ux-pai/ds/patterns/shells.json
-- Toasts / callouts / error states on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/feedback.json
-- Tabs on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/tabs.json
-- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://prevalent-ai.github.io/ux-pai/ds/components/utilities.json
+- Cards on page → fetch https://pai-ux.netlify.app/ds/components/cards.json
+- Charts on page → fetch https://pai-ux.netlify.app/ds/charts/base.txt PLUS only the chart types needed:
+    Bar chart → ds/charts/bar.txt
+    Line chart → ds/charts/line.txt
+    Multi-line chart → ds/charts/multiline.txt
+    Donut chart → ds/charts/donut.txt
+    Horizontal bar → ds/charts/hbar.txt
+    Stacked bar → ds/charts/stacked.txt
+  All at base URL: https://pai-ux.netlify.app/
+- Forms / inputs / dropdowns / toggles on page → fetch https://pai-ux.netlify.app/ds/components/inputs.json
+- Three-panel layout or auth shell → fetch https://pai-ux.netlify.app/ds/patterns/shells.json
+- Toasts / callouts / error states on page → fetch https://pai-ux.netlify.app/ds/components/feedback.json
+- Tabs on page → fetch https://pai-ux.netlify.app/ds/components/tabs.json
+- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://pai-ux.netlify.app/ds/components/utilities.json
 
 Do not fetch files for components the page does not need.
 
@@ -59,10 +59,10 @@ BUILD CHECKLIST — complete every item in order:
        Line 2: breadcrumb <div style="font-size:11px"> — last crumb color:#6360D8
        Never merge into one line.
 
-[ ] 7. CHARTS (only if page has charts) — fetch charts-base.txt + only the chart type files needed (not all of them).
+[ ] 7. CHARTS (only if page has charts) — fetch ds/charts/base.txt + only the chart type files needed (not all of them).
        Copy each function VERBATIM from the fetched files.
        Add <div id="chart-tooltip"> at end of <body>.
-       Copy showChartTooltip, positionChartTooltip, hideChartTooltip from charts-base.txt verbatim.
+       Copy showChartTooltip, positionChartTooltip, hideChartTooltip from ds/charts/base.txt verbatim.
        Init: document.addEventListener('DOMContentLoaded', function() { setTimeout(initCharts, 60); });
 
 [ ] 8. COMPONENTS — use exact HTML patterns from the component JSONs fetched.

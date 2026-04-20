@@ -1,0 +1,33 @@
+# Cloudflare Pages — HTTP headers
+
+# Allow AI tools to fetch DS data files from any origin
+/ds/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/*.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/*.txt
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/*.md
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+/icons/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=86400
+
+/charts*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+
+# Main site — no caching for HTML
+/
+  Cache-Control: no-cache
+
+/*.html
+  Cache-Control: no-cache

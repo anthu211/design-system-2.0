@@ -1,0 +1,28 @@
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/ds/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.json"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.txt"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/*.md"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
