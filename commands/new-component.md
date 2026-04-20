@@ -1,19 +1,19 @@
 Fetch these files first:
-1. https://design-system-2-0.pages.dev/ds/tokens/colors.json
-2. https://design-system-2-0.pages.dev/ds/tokens/spacing.json
+1. https://pai-ux.netlify.app/ds/tokens/colors.json
+2. https://pai-ux.netlify.app/ds/tokens/spacing.json
 
 Then read $ARGUMENTS and fetch only what is needed:
 - Table/list → tables.json + badges.json
 - Form/input → inputs.json + modals.json
 - Button/action → buttons.json
 - Card/KPI → cards.json
-- Chart → fetch https://design-system-2-0.pages.dev/ds/charts/base.txt + only the chart type file needed:
+- Chart → fetch https://pai-ux.netlify.app/ds/charts/base.txt + only the chart type file needed:
     bar=ds/charts/bar.txt · line=ds/charts/line.txt · multiline=ds/charts/multiline.txt · donut=ds/charts/donut.txt · hbar=ds/charts/hbar.txt · stacked=ds/charts/stacked.txt
 - Modal/dialog → modals.json
 - Badge/status → badges.json
 - Toast/alert → feedback.json
 
-All JSON base URL: https://design-system-2-0.pages.dev/ds/components/
+All JSON base URL: https://pai-ux.netlify.app/ds/components/
 
 Do not fetch files for components not in the request.
 

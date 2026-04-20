@@ -1,6 +1,6 @@
 # Prevalent AI — Design System
 
-Context: https://design-system-2-0.pages.dev/ds/context.json
+Context: https://pai-ux.netlify.app/ds/context.json
 **Fetch this before any design or build task.**
 
 ## Non-negotiable rules

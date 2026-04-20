@@ -1,7 +1,7 @@
 Fetch these files first:
-1. https://design-system-2-0.pages.dev/ds/tokens/colors.json
-2. https://design-system-2-0.pages.dev/ds/tokens/spacing.json
-3. https://design-system-2-0.pages.dev/ds/tokens/typography.json
+1. https://pai-ux.netlify.app/ds/tokens/colors.json
+2. https://pai-ux.netlify.app/ds/tokens/spacing.json
+3. https://pai-ux.netlify.app/ds/tokens/typography.json
 
 Then read $ARGUMENTS and fetch only what the component needs:
 - Table/list → tables.json + badges.json
@@ -14,9 +14,9 @@ Then read $ARGUMENTS and fetch only what the component needs:
 - Toast/alert → feedback.json
 - Tabs → tabs.json
 - Tooltip/accordion/progress/steps/avatar/skeleton → utilities.json
-- Full page/dashboard → ALSO fetch https://design-system-2-0.pages.dev/ds/react.txt
+- Full page/dashboard → ALSO fetch https://pai-ux.netlify.app/ds/react.txt
 
-All JSON base URL: https://design-system-2-0.pages.dev/ds/components/
+All JSON base URL: https://pai-ux.netlify.app/ds/components/
 
 Do not fetch files for component types not in the request.
 
