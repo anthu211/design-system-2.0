@@ -257,6 +257,10 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
           Charts
         </div>
+        <div class="nav-item" data-page="filter">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          Filter Popup
+        </div>
         <div class="nav-item" data-page="forms">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           Form Controls
@@ -4292,6 +4296,113 @@
     </div>
 
 
+    <!-- FILTER POPUP PAGE -->
+    <div class="page" id="page-filter">
+      <div class="page-header">
+        <h1>Filter Popup</h1>
+        <p>Advanced multi-entity filter builder. Opens as a full overlay with an entity graph canvas, attribute selection, and a values panel. Click <strong>Filter</strong> below to trigger it.</p>
+      </div>
+
+      <!-- Live demo -->
+      <div class="comp-section">
+        <div class="comp-section-title">Live Demo</div>
+        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">
+          The Filter button lives in the sub-header, top-right. Click it to open the full 3-panel popup. Select an entity → pick an attribute → check values → Apply.
+        </p>
+
+        <!-- Mock sub-header bar -->
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
+          <div style="padding:10px 16px;border-bottom:1px solid var(--shell-border);display:flex;align-items:center;gap:8px;background:var(--card-bg);">
+            <div>
+              <div style="font-size:12px;font-weight:500;color:var(--shell-text);">Hosts</div>
+              <div style="font-size:11px;color:var(--shell-text-muted);">Asset Management / <span style="color:var(--shell-accent);">Hosts</span></div>
+            </div>
+            <span style="flex:1;"></span>
+            <button class="ds-filter-btn" onclick="openDsFilterPopup()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              Filter
+            </button>
+            <button class="ds-btn sz-sm t-outline" style="gap:4px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+          </div>
+
+          <!-- Active filters bar -->
+          <div class="ds-fp-active-bar hidden" id="ds-fp-active-bar">
+            <span style="font-size:11px;font-weight:600;color:var(--shell-text-muted);margin-right:4px;">Filters:</span>
+            <div id="ds-fp-chip-row" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <button onclick="dsFpClearAll()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-family:inherit;font-size:11px;color:var(--shell-text-muted);padding:2px 6px;border-radius:4px;" onmouseover="this.style.background='var(--shell-hover)'" onmouseout="this.style.background='none'">Clear all</button>
+          </div>
+
+          <!-- Mini table -->
+          <div style="overflow-x:auto;">
+            <table class="ds-table">
+              <thead>
+                <tr>
+                  <th>Hostname</th><th>Type</th><th>Business Unit</th><th>Score</th><th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td style="font-weight:500;">srv-prod-001.internal</td><td><span class="ds-badge neutral dot">Server</span></td><td>Infrastructure</td><td style="font-weight:600;color:#D12329;">8.7</td><td><span class="ds-badge danger dot">Critical</span></td></tr>
+                <tr><td style="font-weight:500;">workstation-42.corp</td><td><span class="ds-badge neutral dot">Workstation</span></td><td>Engineering</td><td style="font-weight:600;color:#D98B1D;">6.2</td><td><span class="ds-badge warning dot">High</span></td></tr>
+                <tr><td style="font-weight:500;">net-switch-floor3.local</td><td><span class="ds-badge neutral dot">Network</span></td><td>Operations</td><td style="font-weight:600;color:#6360D8;">4.1</td><td><span class="ds-badge info dot">Medium</span></td></tr>
+                <tr><td style="font-weight:500;">scanner-dc-02.internal</td><td><span class="ds-badge neutral dot">Scanner</span></td><td>Security</td><td style="font-weight:600;color:#31A56D;">1.8</td><td><span class="ds-badge success dot">Low</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Anatomy -->
+      <div class="comp-section">
+        <div class="comp-section-title">Anatomy</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Panel 1 — Entity Graph</div>
+            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Dot-grid canvas (280px). Circular entity nodes with SVG icon + label. Selected node: accent fill + glow ring. SVG dashed lines connect nodes to the center entity.</div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Panel 2 — Attribute Selection</div>
+            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Radio list (260px). One attribute selected at a time. Active item: left accent border + dot indicator. Search input filters the list.</div>
+          </div>
+          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Panel 3 — Values</div>
+            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">2-column checkbox grid (flex:1). Include/Exclude segmented toggle. Select All as Pattern. A-Z/Z-A sort. Value search. Upload Values.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rules -->
+      <div class="comp-section">
+        <div class="comp-section-title">Rules</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#31A56D;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Do</div>
+            <ul style="font-size:12px;color:var(--shell-text-2);line-height:2;padding-left:16px;">
+              <li>Filter button: top-right of sub-header, adjacent to Export</li>
+              <li>Use the 3-panel layout — entity graph is always leftmost</li>
+              <li>Values always use checkboxes (multi-select)</li>
+              <li>Apply button commits — never auto-apply on check</li>
+              <li>Active filter chips appear immediately below sub-header</li>
+              <li>Close on Escape key and backdrop click</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#D12329;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Don't</div>
+            <ul style="font-size:12px;color:var(--shell-text-2);line-height:2;padding-left:16px;">
+              <li>Never use a simple dropdown instead of the full popup</li>
+              <li>Never hide the entity graph panel</li>
+              <li>Never use radio buttons for values</li>
+              <li>Never show values panel without an attribute selected</li>
+              <li>Never auto-apply filters on checkbox change</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <!-- KPI CARDS PAGE -->
     <div class="page" id="page-kpi">
       <div class="page-header">
@@ -6231,6 +6342,126 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
 <!-- Toast containers — global, outside all pages so fixed positioning always works -->
 <div class="ds-toast-container" id="toast-container"></div>
 <div class="ds-toast-container" id="toast-demo-container" style="top:68px;bottom:auto;"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FILTER POPUP — global overlay, shared across all pages
+═══════════════════════════════════════════════════════════════ -->
+<div class="ds-fp-overlay" id="ds-fp-overlay" onclick="dsFpOverlayClick(event)">
+  <div class="ds-fp-popup" id="ds-fp-popup" role="dialog" aria-modal="true" aria-label="Add Filter">
+
+    <!-- Header -->
+    <div class="ds-fp-header">
+      <span class="ds-fp-title">Add Filter</span>
+      <button class="ds-fp-close" onclick="closeDsFilterPopup()" aria-label="Close">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="ds-fp-body">
+
+      <!-- Panel 1: Entity Graph Canvas -->
+      <div class="ds-fp-canvas" id="ds-fp-canvas">
+        <svg class="ds-fp-connections" id="ds-fp-svg"></svg>
+
+        <div class="ds-fp-node active" data-entity="host" onclick="dsFpSelectEntity('host')" style="left:50%;top:50%;">
+          <div class="ds-fp-node-circle">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <span class="ds-fp-node-label">Host</span>
+        </div>
+
+        <div class="ds-fp-node" data-entity="application" onclick="dsFpSelectEntity('application')" style="left:75%;top:28%;">
+          <div class="ds-fp-node-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <span class="ds-fp-node-label">Application</span>
+        </div>
+
+        <div class="ds-fp-node" data-entity="user" onclick="dsFpSelectEntity('user')" style="left:75%;top:72%;">
+          <div class="ds-fp-node-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <span class="ds-fp-node-label">User</span>
+        </div>
+
+        <div class="ds-fp-node" data-entity="vulnerability" onclick="dsFpSelectEntity('vulnerability')" style="left:25%;top:28%;">
+          <div class="ds-fp-node-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <span class="ds-fp-node-label">Vulnerability</span>
+        </div>
+
+        <div class="ds-fp-node" data-entity="cve" onclick="dsFpSelectEntity('cve')" style="left:25%;top:72%;">
+          <div class="ds-fp-node-circle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span class="ds-fp-node-label">CVE</span>
+        </div>
+      </div>
+
+      <!-- Panel 2: Attribute Selection -->
+      <div class="ds-fp-attrs">
+        <div class="ds-fp-panel-head">
+          <div class="ds-fp-entity-label" id="ds-fp-entity-label">Host</div>
+          <div class="ds-fp-section-label">Attribute Selection</div>
+        </div>
+        <div class="ds-fp-search-wrap">
+          <svg class="ds-fp-search-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="ds-fp-search" id="ds-fp-attr-search" placeholder="Search attribute" oninput="dsFpFilterAttrs(this.value)">
+        </div>
+        <div class="ds-fp-attr-list" id="ds-fp-attr-list"></div>
+      </div>
+
+      <!-- Panel 3: Values -->
+      <div class="ds-fp-values">
+        <div class="ds-fp-val-header">
+          <span class="ds-fp-val-title">Values</span>
+          <button class="ds-fp-upload" onclick="showToast('info','Upload Values — coming soon')">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload Values
+          </button>
+          <div class="ds-fp-incexc">
+            <button class="ds-fp-ie-btn active" id="ds-fp-inc" onclick="dsFpSetMode('include')">Include</button>
+            <button class="ds-fp-ie-btn" id="ds-fp-exc" onclick="dsFpSetMode('exclude')">Exclude</button>
+          </div>
+        </div>
+        <div class="ds-fp-val-controls">
+          <label class="ds-fp-sel-all">
+            <input type="checkbox" id="ds-fp-sel-all" onchange="dsFpSelectAll(this.checked)">
+            Select All as Pattern
+            <span class="ds-fp-hint" title="Applies this filter to all current and future matching values">?</span>
+          </label>
+          <button class="ds-fp-sort" id="ds-fp-sort-btn" onclick="dsFpToggleSort()">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Sort by: <span class="ds-fp-sort-lbl" id="ds-fp-sort-lbl">A-Z</span>
+          </button>
+        </div>
+        <div class="ds-fp-search-wrap" style="border-bottom:1px solid var(--shell-border);">
+          <svg class="ds-fp-search-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="ds-fp-search" id="ds-fp-val-search" placeholder="Search values" oninput="dsFpFilterVals(this.value)">
+        </div>
+        <div class="ds-fp-val-body">
+          <div class="ds-fp-val-grid" id="ds-fp-val-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="ds-fp-footer">
+      <button class="ds-btn sz-sm t-tertiary" onclick="showToast('info','Entity management coming soon')" style="gap:4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add / Hide Entity
+      </button>
+      <span style="flex:1;"></span>
+      <button class="ds-btn sz-sm t-outline" onclick="closeDsFilterPopup()">Cancel</button>
+      <button class="ds-btn sz-sm t-primary" onclick="dsFpApply()" style="gap:4px;">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Apply
+      </button>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

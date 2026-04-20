@@ -3726,3 +3726,274 @@ function initStatesPage() {
   });
   if (document.querySelector('#page-states.active')) initStatesPage();
 })();
+
+/* ══════════════════════════════════════════════════
+   FILTER POPUP — ds-fp-* namespace
+══════════════════════════════════════════════════ */
+(function() {
+  // ── Data ──
+  var FP_ATTRS = {
+    host:          ['Asset Criticality','Business Unit','Compliance','Display Label','Infrastructure Type','Purpose','Score','Type'],
+    application:   ['Application Name','Business Unit','Compliance','Environment','Framework','Owner','Risk Level','Status'],
+    vulnerability: ['CVSSv3 Score','Category','Exploit Available','First Seen','Last Seen','Patch Available','Severity','State'],
+    user:          ['Business Unit','Department','Last Login','Privilege Level','Role','Status'],
+    cve:           ['CVE ID','CVSSv3 Score','Exploit Maturity','Published Date','Severity','Vendor']
+  };
+  var FP_VALS = {
+    'Type':               ['Server','Workstation','Mobile','Network','Printer','Scanner','Others'],
+    'Infrastructure Type':['On-Premises','Cloud','Hybrid','Container','Virtual Machine'],
+    'Asset Criticality':  ['Critical','High','Medium','Low'],
+    'Severity':           ['Critical','High','Medium','Low','Informational'],
+    'Business Unit':      ['Engineering','Finance','HR','Infrastructure','Legal','Operations','Sales','Security'],
+    'Status':             ['Active','Inactive','Decommissioned','Under Review'],
+    'Compliance':         ['GDPR','HIPAA','ISO 27001','PCI DSS','SOC 2'],
+    'Environment':        ['Development','Production','Staging','Testing'],
+    'Purpose':            ['Analytics','Authentication','Database','File Storage','Load Balancer','Web Server'],
+    'Privilege Level':    ['Admin','Operator','Read-Only','Super Admin'],
+    'Role':               ['Analyst','Developer','Engineer','Manager','Owner'],
+    'State':              ['Active','Fixed','Accepted Risk','In Progress'],
+    'Exploit Available':  ['Yes','No'],
+    'Patch Available':    ['Yes','No'],
+    'Exploit Maturity':   ['Functional','High','Proof of Concept','Unproven']
+  };
+
+  // ── State ──
+  var fp = {
+    entity: 'host',
+    attr:   null,
+    mode:   'include',
+    sortAsc: true,
+    checked: {},       // key = "entity::attr::val" → bool
+    applied: []        // [{entity,attr,values,mode}]
+  };
+
+  // ── Open / Close ──
+  window.openDsFilterPopup = function() {
+    document.getElementById('ds-fp-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    dsFpSelectEntity('host', true);
+    setTimeout(dsFpDrawLines, 60);
+  };
+  window.closeDsFilterPopup = function() {
+    document.getElementById('ds-fp-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  window.dsFpOverlayClick = function(e) {
+    if (e.target === document.getElementById('ds-fp-overlay')) closeDsFilterPopup();
+  };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('ds-fp-overlay').classList.contains('open')) {
+      closeDsFilterPopup();
+    }
+  });
+
+  // ── Entity selection ──
+  window.dsFpSelectEntity = function(key, autoAttr) {
+    fp.entity = key;
+    document.querySelectorAll('.ds-fp-node').forEach(function(n) {
+      n.classList.toggle('active', n.dataset.entity === key);
+    });
+    var label = key.charAt(0).toUpperCase() + key.slice(1);
+    document.getElementById('ds-fp-entity-label').textContent = label;
+    document.getElementById('ds-fp-attr-search').value = '';
+    fp.attr = null;
+    dsFpRenderAttrs(FP_ATTRS[key] || []);
+    dsFpClearValGrid();
+    if (autoAttr !== false && (FP_ATTRS[key] || []).length) {
+      dsFpSelectAttr((FP_ATTRS[key] || [])[0]);
+    }
+  };
+
+  // ── Attribute list ──
+  function dsFpRenderAttrs(list) {
+    var el = document.getElementById('ds-fp-attr-list');
+    el.innerHTML = '';
+    if (!list.length) {
+      el.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--shell-text-muted);">No attributes found.</div>';
+      return;
+    }
+    list.forEach(function(attr) {
+      var row = document.createElement('label');
+      row.className = 'ds-fp-attr-opt' + (attr === fp.attr ? ' active' : '');
+      row.dataset.attr = attr;
+      row.innerHTML = '<input type="radio" name="ds-fp-attr"' + (attr === fp.attr ? ' checked' : '') + '> ' + attr +
+        (attr === fp.attr ? '<span class="ds-fp-attr-dot"></span>' : '');
+      row.addEventListener('click', function() { dsFpSelectAttr(attr); });
+      el.appendChild(row);
+    });
+  }
+
+  window.dsFpFilterAttrs = function(q) {
+    var all = FP_ATTRS[fp.entity] || [];
+    dsFpRenderAttrs(q ? all.filter(function(a) { return a.toLowerCase().indexOf(q.toLowerCase()) > -1; }) : all);
+  };
+
+  window.dsFpSelectAttr = function(attr) {
+    fp.attr = attr;
+    document.querySelectorAll('.ds-fp-attr-opt').forEach(function(o) {
+      var sel = o.dataset.attr === attr;
+      o.classList.toggle('active', sel);
+      var r = o.querySelector('input[type="radio"]');
+      if (r) r.checked = sel;
+      var dot = o.querySelector('.ds-fp-attr-dot');
+      if (sel && !dot) { var d = document.createElement('span'); d.className = 'ds-fp-attr-dot'; o.appendChild(d); }
+      else if (!sel && dot) dot.remove();
+    });
+    document.getElementById('ds-fp-val-search').value = '';
+    document.getElementById('ds-fp-sel-all').checked = false;
+    dsFpRenderVals(dsFpGetVals(attr));
+  };
+
+  // ── Values ──
+  function dsFpGetVals(attr) {
+    return FP_VALS[attr] || ['Value A','Value B','Value C','Value D','Value E','Value F'];
+  }
+
+  function dsFpRenderVals(list) {
+    var grid = document.getElementById('ds-fp-val-grid');
+    grid.innerHTML = '';
+    var sorted = fp.sortAsc ? list.slice().sort() : list.slice().sort().reverse();
+    sorted.forEach(function(val) {
+      var key = fp.entity + '::' + fp.attr + '::' + val;
+      var checked = !!fp.checked[key];
+      var item = document.createElement('div');
+      item.className = 'ds-fp-val-opt' + (checked ? ' checked' : '');
+      item.dataset.key = key;
+      item.innerHTML = '<div class="ds-fp-val-box">' +
+        (checked ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '') +
+        '</div><span class="ds-fp-val-name">' + val + '</span>';
+      item.addEventListener('click', function() { dsFpToggleVal(key, val, item); });
+      grid.appendChild(item);
+    });
+  }
+
+  function dsFpToggleVal(key, val, item) {
+    fp.checked[key] = !fp.checked[key];
+    var c = fp.checked[key];
+    item.classList.toggle('checked', c);
+    item.querySelector('.ds-fp-val-box').innerHTML = c
+      ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'
+      : '';
+    // sync select-all checkbox
+    var all = dsFpGetVals(fp.attr);
+    var allChecked = all.every(function(v) { return !!fp.checked[fp.entity + '::' + fp.attr + '::' + v]; });
+    document.getElementById('ds-fp-sel-all').checked = allChecked;
+  }
+
+  function dsFpClearValGrid() {
+    var g = document.getElementById('ds-fp-val-grid');
+    if (g) g.innerHTML = '<div style="padding:24px 16px;font-size:12px;color:var(--shell-text-muted);">Select an attribute to view values.</div>';
+  }
+
+  window.dsFpFilterVals = function(q) {
+    if (!fp.attr) return;
+    var all = dsFpGetVals(fp.attr);
+    dsFpRenderVals(q ? all.filter(function(v) { return v.toLowerCase().indexOf(q.toLowerCase()) > -1; }) : all);
+  };
+
+  window.dsFpSelectAll = function(checked) {
+    if (!fp.attr) return;
+    dsFpGetVals(fp.attr).forEach(function(v) {
+      fp.checked[fp.entity + '::' + fp.attr + '::' + v] = checked;
+    });
+    dsFpRenderVals(dsFpGetVals(fp.attr));
+  };
+
+  window.dsFpToggleSort = function() {
+    fp.sortAsc = !fp.sortAsc;
+    document.getElementById('ds-fp-sort-lbl').textContent = fp.sortAsc ? 'A-Z' : 'Z-A';
+    if (fp.attr) dsFpRenderVals(dsFpGetVals(fp.attr));
+  };
+
+  window.dsFpSetMode = function(mode) {
+    fp.mode = mode;
+    document.getElementById('ds-fp-inc').classList.toggle('active', mode === 'include');
+    document.getElementById('ds-fp-exc').classList.toggle('active', mode === 'exclude');
+  };
+
+  // ── Apply ──
+  window.dsFpApply = function() {
+    var groups = {};
+    Object.keys(fp.checked).forEach(function(key) {
+      if (!fp.checked[key]) return;
+      var parts = key.split('::');
+      var gk = parts[0] + '::' + parts[1];
+      if (!groups[gk]) groups[gk] = { entity: parts[0], attr: parts[1], values: [], mode: fp.mode };
+      groups[gk].values.push(parts[2]);
+    });
+    fp.applied = Object.values ? Object.values(groups) : Object.keys(groups).map(function(k) { return groups[k]; });
+    dsFpRenderChips();
+    closeDsFilterPopup();
+    var total = fp.applied.reduce(function(n, g) { return n + g.values.length; }, 0);
+    if (total > 0) showToast('success', total + ' filter(s) applied');
+  };
+
+  function dsFpRenderChips() {
+    var bar = document.getElementById('ds-fp-active-bar');
+    var row = document.getElementById('ds-fp-chip-row');
+    if (!bar || !row) return;
+    row.innerHTML = '';
+    if (!fp.applied.length) { bar.classList.add('hidden'); return; }
+    bar.classList.remove('hidden');
+    fp.applied.forEach(function(g, gi) {
+      g.values.forEach(function(val) {
+        var chip = document.createElement('div');
+        chip.className = 'ds-fp-chip';
+        chip.innerHTML = '<span class="ds-fp-chip-key">' + g.attr + ':</span>' +
+          '<span class="ds-fp-chip-value">' + val + '</span>' +
+          '<button class="ds-fp-chip-x" title="Remove">' +
+          '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+        chip.querySelector('.ds-fp-chip-x').addEventListener('click', function() {
+          dsFpRemoveVal(gi, val);
+        });
+        row.appendChild(chip);
+      });
+    });
+  }
+
+  function dsFpRemoveVal(gi, val) {
+    var g = fp.applied[gi];
+    if (!g) return;
+    fp.checked[g.entity + '::' + g.attr + '::' + val] = false;
+    g.values = g.values.filter(function(v) { return v !== val; });
+    if (!g.values.length) fp.applied.splice(gi, 1);
+    dsFpRenderChips();
+  }
+
+  window.dsFpClearAll = function() {
+    fp.checked = {};
+    fp.applied = [];
+    dsFpRenderChips();
+    showToast('info', 'All filters cleared');
+  };
+
+  // ── SVG connection lines ──
+  function dsFpDrawLines() {
+    var canvas = document.getElementById('ds-fp-canvas');
+    var svg = document.getElementById('ds-fp-svg');
+    if (!canvas || !svg) return;
+    var cr = canvas.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + cr.width + ' ' + cr.height);
+    svg.innerHTML = '';
+    var center = document.querySelector('.ds-fp-node[data-entity="host"]');
+    if (!center) return;
+    var ccr = center.getBoundingClientRect();
+    var cx = ccr.left - cr.left + ccr.width / 2;
+    var cy = ccr.top  - cr.top  + ccr.height / 2;
+    document.querySelectorAll('.ds-fp-node:not([data-entity="host"])').forEach(function(node) {
+      var nr = node.getBoundingClientRect();
+      var nx = nr.left - cr.left + nr.width / 2;
+      var ny = nr.top  - cr.top  + nr.height / 2;
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', nx); line.setAttribute('y2', ny);
+      line.setAttribute('stroke', 'var(--ctrl-border)');
+      line.setAttribute('stroke-width', '1.5');
+      line.setAttribute('stroke-dasharray', '4 4');
+      svg.appendChild(line);
+    });
+  }
+  window.addEventListener('resize', function() {
+    if (document.getElementById('ds-fp-overlay').classList.contains('open')) dsFpDrawLines();
+  });
+})();
