@@ -14,7 +14,7 @@ Then read $ARGUMENTS and fetch only what the component needs:
 - Toast/alert → feedback.json
 - Tabs → tabs.json
 - Tooltip/accordion/progress/steps/avatar/skeleton → utilities.json
-- Full page/dashboard → ALSO fetch https://design-system-2-0.pages.dev/react.txt
+- Full page/dashboard → ALSO fetch https://design-system-2-0.pages.dev/ds/react.txt
 
 All JSON base URL: https://design-system-2-0.pages.dev/ds/components/
 
@@ -33,7 +33,7 @@ Generate a React component and save it as a `.tsx` file in the current directory
 - Lucide React — all icons; never emoji or text symbols
 - Recharts — charts only: AreaChart, BarChart, LineChart; never canvas or D3
 
-## Design Rules (apply without fetching ds-core.txt)
+## Design Rules (apply without fetching ds/core.txt)
 - Colors: CSS variables only — never hardcode hex (use values from colors.json)
 - Spacing: 4pt grid only — 4, 8, 12, 16, 20, 24, 32, 48px. Any other value is a bug.
 - Buttons: `rounded-[44px]` always. Cards/wrappers: `rounded-[4px]` only. Never `rounded-md`, `rounded-lg`, `rounded-xl`, `rounded-full`, `shadow-lg`.

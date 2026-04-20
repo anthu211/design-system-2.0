@@ -14,7 +14,7 @@ Fetch ALL of these URLs fully before doing anything:
 13. https://design-system-2-0.pages.dev/ds/components/cards.json
 14. https://design-system-2-0.pages.dev/ds/components/utilities.json
 15. https://design-system-2-0.pages.dev/ds/components/tabs.json
-16. https://design-system-2-0.pages.dev/ds-core.txt
+16. https://design-system-2-0.pages.dev/ds/core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 
