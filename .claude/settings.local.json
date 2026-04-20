@@ -168,7 +168,9 @@
       "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/audit-page.md\" claude-setup/.claude/commands/)",
       "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/setup/install.sh\" claude-setup/)",
       "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/.claude/CLAUDE.md\" claude-setup/)",
-      "Bash(cat \"/Users/ananthusunil/PAI Edits/design-system/.github/workflows/\"*.yml)"
+      "Bash(cat \"/Users/ananthusunil/PAI Edits/design-system/.github/workflows/\"*.yml)",
+      "Bash(zip -r claude-setup.zip claude-setup)",
+      "Bash(cp claude-setup.zip \"/Users/ananthusunil/PAI Edits/design-system/setup/claude-setup.zip\")"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
