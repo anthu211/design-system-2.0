@@ -1,0 +1,151 @@
+{
+  "component": "filter-popup",
+  "description": "Advanced multi-entity filter popup. Triggered by a Filter button (top-right of content area). Contains three panels: entity graph canvas, attribute selection, and values selection.",
+  "tokens": {
+    "popup_width":        "min(960px, 96vw)",
+    "popup_height":       "min(600px, 92vh)",
+    "popup_radius":       "12px",
+    "panel_entity_width": "280px",
+    "panel_attr_width":   "260px",
+    "panel_values_flex":  "1 (fill remaining)",
+    "overlay_bg":         "rgba(0,0,0,0.5) + backdrop-filter:blur(2px)",
+    "z_index":            "400"
+  },
+  "trigger": {
+    "element": "button.ds-filter-btn",
+    "placement": "top-right of content sub-header, adjacent to Export",
+    "style": "background:#e0dff7; color:#504bb8; border-radius:44px; height:24px; font-size:12px",
+    "icon": "funnel SVG (lucide filter)",
+    "label": "Filter"
+  },
+  "active_filters_bar": {
+    "location": "between sub-header and page content",
+    "background": "var(--ctrl-selected-bg)",
+    "classes": "ds-active-filters-bar",
+    "chip_structure": "ds-filter-chip-active > ds-chip-active-key + ds-chip-active-value + ds-chip-active-close",
+    "hidden_when_empty": true,
+    "clear_all_button": "right-aligned, ds-clear-all-btn"
+  },
+  "panels": {
+    "entity_canvas": {
+      "width": "280px",
+      "background": "dot-grid via radial-gradient on shell-bg",
+      "dot_size": "1px",
+      "dot_spacing": "20px",
+      "node_structure": "div.ds-entity-node > div.ds-entity-node-circle + span.ds-entity-node-label",
+      "node_circle_size": "64px",
+      "node_states": {
+        "default": "border:2px solid var(--shell-border), color:var(--shell-text-muted)",
+        "hover":   "border-color:var(--shell-accent), color:var(--shell-accent)",
+        "selected": "background:var(--shell-accent), border-color:var(--shell-accent), color:#fff, box-shadow:0 0 0 4px rgba(99,96,216,0.2)"
+      },
+      "connections": "SVG dashed lines between center entity and linked entities (stroke-dasharray:4 4)",
+      "entities": ["Host", "Application", "Vulnerability", "User", "CVE"]
+    },
+    "attribute_selection": {
+      "width": "260px",
+      "subheader": "entity label (accent color, uppercase 11px) + section title 'Attribute Selection'",
+      "search_input": "height:28px, border-radius:8px, left search icon, focus ring on accent",
+      "option_structure": "label.ds-filter-attr-option > input[radio] + text + optional dot-indicator",
+      "option_states": {
+        "default":  "padding:8px 16px, border-left:3px solid transparent",
+        "hover":    "background:var(--shell-hover)",
+        "selected": "background:var(--ctrl-selected-bg), border-left-color:var(--shell-accent), dot indicator on right"
+      },
+      "input_type": "radio (one attribute at a time per entity)"
+    },
+    "values_selection": {
+      "flex": "1",
+      "header": {
+        "title": "'Values' 12px 600",
+        "upload_button": "Upload Values — border, accent text, 44px radius",
+        "include_exclude_toggle": "segmented control, active tab = shell-accent bg + white text, position:margin-left:auto"
+      },
+      "controls_bar": {
+        "select_all_pattern": "checkbox + label + hint icon (?)",
+        "sort_button": "right-aligned, Sort by: A-Z / Z-A toggle, 44px radius border"
+      },
+      "search_input": "same as attribute search",
+      "values_grid": {
+        "columns": 2,
+        "item_structure": "div.ds-filter-value-option > div.ds-filter-value-checkbox + span.ds-filter-value-name",
+        "checkbox_size": "16px, border-radius:4px",
+        "item_states": {
+          "default": "border:2px solid var(--ctrl-border), background:var(--ctrl-bg)",
+          "checked": "background:var(--shell-accent), border-color:var(--shell-accent), white checkmark SVG inside",
+          "hover":   "background:var(--shell-hover)"
+        }
+      }
+    }
+  },
+  "footer": {
+    "left": "Add/Hide Entity button — ds-btn sz-sm t-tertiary with + icon",
+    "right": "Cancel (t-outline) · Apply (t-primary with checkmark icon)",
+    "layout": "flex, spacer between left and right"
+  },
+  "interactions": {
+    "open": "Filter button click → overlay.open class → popup visible",
+    "close": ["Escape key", "Click overlay backdrop", "Cancel button", "X close button"],
+    "entity_select": "clicking entity node → repopulate attribute list → clear value panel",
+    "attr_select": "clicking attribute → repopulate values grid with that attribute's values",
+    "value_toggle": "clicking value row → toggle ds-filter-value-checkbox checked state",
+    "select_all": "checkbox toggles all values in current attribute",
+    "sort": "toggles A-Z / Z-A, re-renders values grid",
+    "inc_exc": "sets global include/exclude mode for this filter session",
+    "apply": "collects all checked values → renders ds-active-filters-bar chips → closes popup → auto-dismiss success toast (3s)",
+    "clear_all": "clears checkedValues state and appliedFilters → hides bar → info toast (3s)",
+    "remove_chip": "removes single value from appliedFilters, updates bar"
+  },
+  "classes": {
+    "ds-filter-popup-overlay":   "fixed full-screen overlay",
+    "ds-filter-popup":           "popup modal container",
+    "ds-filter-popup-header":    "title + close button row",
+    "ds-filter-popup-body":      "flex row with 3 panels",
+    "ds-filter-entities-canvas": "dot-grid entity graph panel",
+    "ds-entity-node":            "single entity node (circle + label)",
+    "ds-entity-node-circle":     "64px circle icon container",
+    "ds-entity-node-label":      "11px label below circle",
+    "ds-entity-connections":     "SVG layer for connection lines",
+    "ds-filter-attr-panel":      "attribute selection middle panel",
+    "ds-filter-panel-subheader": "entity label + section title",
+    "ds-filter-attr-list":       "scrollable attribute radio list",
+    "ds-filter-attr-option":     "single attribute radio option",
+    "ds-filter-values-panel":    "values panel (flex:1)",
+    "ds-filter-values-header":   "Values label + upload + inc/exc toggle",
+    "ds-filter-incexc":          "segmented include/exclude control",
+    "ds-filter-incexc-btn":      "individual inc/exc segment",
+    "ds-filter-values-controls": "select-all + sort bar",
+    "ds-filter-select-all":      "checkbox + label + hint icon",
+    "ds-filter-sort-btn":        "sort toggle button",
+    "ds-filter-values-body":     "scrollable values area",
+    "ds-filter-values-grid":     "2-column CSS grid for value options",
+    "ds-filter-value-option":    "single value row",
+    "ds-filter-value-checkbox":  "custom 16px checkbox",
+    "ds-filter-popup-footer":    "Add Entity (left) + Cancel·Apply (right)",
+    "ds-active-filters-bar":     "filter chips bar below sub-header",
+    "ds-filter-chip-active":     "single active filter chip",
+    "ds-chip-active-key":        "attribute label in chip",
+    "ds-chip-active-value":      "value label in chip (accent color)",
+    "ds-chip-active-close":      "remove chip button",
+    "ds-clear-all-btn":          "clear all filters button"
+  },
+  "do": [
+    "Always place Filter button in the sub-header top-right, adjacent to Export.",
+    "Use entity-graph canvas as leftmost panel — never a flat list.",
+    "Show attribute panel only after entity is selected.",
+    "Use 2-column grid for values when 4+ values; single column below 4.",
+    "Include/Exclude toggle applies to the entire current filter session.",
+    "Active filters bar appears immediately below sub-header when filters are applied.",
+    "Success toast auto-dismisses at 3 seconds. Info/error toasts also auto-dismiss at 3 seconds.",
+    "Draw SVG dashed connection lines from center entity to all linked entities.",
+    "Close popup on Escape key and backdrop click."
+  ],
+  "dont": [
+    "Never use a simple dropdown instead of the full popup for multi-entity filtering.",
+    "Never hide entity graph — it must always show at least one node.",
+    "Never use radio buttons for values — values always use checkboxes (multi-select).",
+    "Never use radio buttons for inc/exc — use the segmented button control.",
+    "Never show values panel without an attribute selected.",
+    "Never apply filters without the Apply button — never auto-apply on check."
+  ]
+}
