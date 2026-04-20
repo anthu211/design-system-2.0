@@ -5703,6 +5703,18 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         </div>
 
       </div>
+
+      <!-- curl alternative -->
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--shell-border);">
+        <button class="ds-cs-hero-alt" onclick="var s=document.getElementById('curl-alt');var o=s.style.display==='block';s.style.display=o?'none':'block';this.textContent=o?'On a network without SSL restrictions? Use curl →':'Hide curl command'">On a network without SSL restrictions? Use curl →</button>
+        <div id="curl-alt" style="display:none;margin-top:12px;">
+          <div class="ds-cs-hero-cmd">
+            <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSLk https://pai-ux.netlify.app/setup/install.sh | bash</span>
+            <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('curl -fsSLk https://pai-ux.netlify.app/setup/install.sh | bash').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- ── THEN OPEN CLAUDE ── -->
