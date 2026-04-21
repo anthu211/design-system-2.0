@@ -1,30 +1,32 @@
 Fetch these URLs before doing anything else:
-1. https://design-system-2-0.pages.dev/ds/rules.json
-2. https://design-system-2-0.pages.dev/ds/tokens/colors.json
-3. https://design-system-2-0.pages.dev/ds/tokens/spacing.json
-4. https://design-system-2-0.pages.dev/ds/tokens/typography.json
-5. https://design-system-2-0.pages.dev/ds/patterns/navigation.json
-6. https://design-system-2-0.pages.dev/ds/components/buttons.json
-7. https://design-system-2-0.pages.dev/ds/components/tables.json
-8. https://design-system-2-0.pages.dev/ds/components/badges.json
-9. https://design-system-2-0.pages.dev/ds/components/modals.json
-10. https://design-system-2-0.pages.dev/ds/page-spec.txt
+1. https://anthu211.github.io/design-system-2.0/ds/rules.json
+2. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
+3. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
+4. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
+5. https://anthu211.github.io/design-system-2.0/ds/patterns/navigation.json
+6. https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
+7. https://anthu211.github.io/design-system-2.0/ds/components/tables.json
+8. https://anthu211.github.io/design-system-2.0/ds/components/badges.json
+9. https://anthu211.github.io/design-system-2.0/ds/components/modals.json
+10. https://anthu211.github.io/design-system-2.0/ds/page-spec.txt
 
 Then read $ARGUMENTS (or ask "What is this page called and who is its primary user?" if empty) and fetch only what the page needs:
-- Cards on page → fetch https://design-system-2-0.pages.dev/ds/components/cards.json
-- Charts on page → fetch https://design-system-2-0.pages.dev/ds/charts/base.txt PLUS only the chart types needed:
+- Cards on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/cards.json
+- Charts on page → fetch https://anthu211.github.io/design-system-2.0/ds/charts/base.txt PLUS only the chart types needed:
     Bar chart → ds/charts/bar.txt
     Line chart → ds/charts/line.txt
     Multi-line chart → ds/charts/multiline.txt
     Donut chart → ds/charts/donut.txt
     Horizontal bar → ds/charts/hbar.txt
     Stacked bar → ds/charts/stacked.txt
-  All at base URL: https://design-system-2-0.pages.dev/
-- Forms / inputs / dropdowns / toggles on page → fetch https://design-system-2-0.pages.dev/ds/components/inputs.json
-- Three-panel layout or auth shell → fetch https://design-system-2-0.pages.dev/ds/patterns/shells.json
-- Toasts / callouts / error states on page → fetch https://design-system-2-0.pages.dev/ds/components/feedback.json
-- Tabs on page → fetch https://design-system-2-0.pages.dev/ds/components/tabs.json
-- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://design-system-2-0.pages.dev/ds/components/utilities.json
+  All at base URL: https://anthu211.github.io/design-system-2.0/
+- Forms / inputs / dropdowns / toggles on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
+- Three-panel layout or auth shell → fetch https://anthu211.github.io/design-system-2.0/ds/patterns/shells.json
+- Toasts / callouts / error states on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
+- Tabs on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/tabs.json
+- Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/utilities.json
+- Detail drawer (row-click asset detail panel) on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/drawer.json
+- Filter popup (multi-entity filter builder) on page → fetch https://anthu211.github.io/design-system-2.0/ds/components/filters.json
 
 Do not fetch files for components the page does not need.
 

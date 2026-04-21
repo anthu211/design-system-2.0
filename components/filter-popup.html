@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter Popup Component — Prevalent AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { text-decoration: none; }
+    :root {
+      --shell-bg:#0E0E0E; --shell-border:#272727; --shell-text:#F9F9F9; --shell-text-2:#D1D1D1;
+      --shell-text-muted:#696969; --shell-text-faint:#3B3A3A; --shell-accent:#6360D8;
+      --shell-hover:rgba(255,255,255,0.04); --shell-active:rgba(99,96,216,0.12);
+      --shell-raised:#1a1a1a; --shell-elevated:#1F1F1F;
+      --ctrl-bg:#1a1a1a; --ctrl-border:#3B3A3A; --ctrl-text:#F9F9F9; --ctrl-text-2:#D1D1D1;
+      --ctrl-placeholder:#696969; --ctrl-panel-bg:#1a1a1a; --ctrl-hover:#242424;
+      --ctrl-focus:rgba(103,96,216,.22); --ctrl-selected-bg:rgba(99,96,216,0.15); --ctrl-selected-text:#8F8DDE;
+      --card-bg:#131313; --card-border:#272727; --table-th-bg:#131313; --table-border:#1F1F1F;
+    }
+    html.theme-light {
+      --shell-bg:#F7F9FC; --shell-border:#E6E6E6; --shell-text:#101010; --shell-text-2:#282828;
+      --shell-text-muted:#6E6E6E; --shell-text-faint:#C0C0C0; --shell-accent:#6360D8;
+      --shell-hover:rgba(0,0,0,0.04); --shell-active:rgba(99,96,216,0.08);
+      --shell-raised:#F5F5F5; --shell-elevated:#EBEBEB;
+      --ctrl-bg:#FFFFFF; --ctrl-border:#cfcfcf; --ctrl-text:#282828; --ctrl-text-2:#282828;
+      --ctrl-placeholder:#9f9f9f; --ctrl-panel-bg:#FFFFFF; --ctrl-hover:#f3f3f3;
+      --ctrl-focus:rgba(103,96,216,.15); --ctrl-selected-bg:#f0f0fc; --ctrl-selected-text:#6760d8;
+      --card-bg:#FFFFFF; --card-border:#E6E6E6; --table-th-bg:#F5F5F5; --table-border:#E6E6E6;
+    }
+
+    body { font-family:'Inter',sans-serif; background:var(--shell-bg); color:var(--shell-text); display:flex; flex-direction:column; height:100vh; overflow:hidden; font-size:12px; line-height:1.5; }
+
+    /* ── DS Buttons ── */
+    .ds-btn { display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;border-radius:44px;font-family:inherit;transition:background 150ms,color 150ms,border-color 150ms;white-space:nowrap;user-select:none;line-height:1;text-decoration:none; }
+    .ds-btn:focus-visible { outline:2px solid #6760d8;outline-offset:2px; }
+    .ds-btn[disabled] { cursor:not-allowed;pointer-events:none;opacity:0.4; }
+    .ds-btn.sz-sm { height:24px;padding:0 12px;font-size:12px;font-weight:500; }
+    .ds-btn.sz-md { height:32px;padding:0 12px;font-size:14px;font-weight:500; }
+    .ds-btn.t-primary { background:#6760d8;color:#f0f0fc; }
+    .ds-btn.t-primary:hover { background:#5754c2; }
+    .ds-btn.t-primary:active { background:#4d4ab0; }
+    .ds-btn.t-outline { background:transparent;border:1px solid var(--shell-border);color:var(--shell-text-2); }
+    .ds-btn.t-outline:hover { border-color:var(--shell-text-muted);background:var(--shell-hover); }
+    html.theme-light .ds-btn.t-outline { border-color:#c1c1c1;color:#282828; }
+    html.theme-light .ds-btn.t-outline:hover { border-color:#404040;background:transparent; }
+    .ds-btn.t-tertiary { background:transparent;color:var(--shell-text-2); }
+    .ds-btn.t-tertiary:hover { background:var(--shell-hover); }
+    .ds-btn.t-special { background:transparent;border:1px solid #b1b8f5; }
+    .ds-btn.t-special .btn-text { background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;background-clip:text;color:transparent; }
+    .ds-btn.t-special:hover { background:rgba(177,184,245,0.12); }
+    .ds-icon-btn { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;transition:background .12s,color .12s; }
+    .ds-icon-btn:hover { background:var(--shell-hover);color:var(--shell-text); }
+
+    /* ── Filter Bar (in sub-header) ── */
+    .ds-filter-bar { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+    .ds-filter-btn { display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:44px;background:#e0dff7;color:#504bb8;font-size:12px;font-weight:500;border:none;cursor:pointer;white-space:nowrap;transition:background .12s; height:24px; }
+    .ds-filter-btn:hover { background:#d4d2f5; }
+    .ds-filter-btn:active { background:#c8c5f0; }
+    .ds-filter-chips { display:flex;align-items:center;gap:8px;flex-wrap:wrap; }
+    .ds-filter-chip { display:inline-flex;align-items:center;gap:4px;background:var(--shell-raised);border:1px solid var(--shell-border);border-radius:4px;padding:3px 8px;font-size:11px; }
+    .ds-chip-key { color:var(--shell-text-muted);font-weight:500;white-space:nowrap; }
+    .ds-chip-value { color:var(--shell-accent);font-weight:500;white-space:nowrap; }
+    .ds-chip-close { background:none;border:none;width:16px;height:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--shell-text-muted);line-height:1;padding:0;border-radius:50%; }
+    .ds-chip-close:hover { color:var(--shell-text);background:var(--shell-hover); }
+
+    /* ── Shell layout ── */
+    #shell-nav { transition:width 0.22s ease,padding 0.22s ease; }
+    #shell-nav.nav-collapsed { width:52px !important;padding:16px 8px !important;overflow:hidden; }
+    #shell-nav.nav-collapsed .nav-hdr-info { display:none; }
+    #shell-nav.nav-collapsed .nav-hdr { flex-direction:column;align-items:center;border-bottom:none !important;padding-bottom:4px;margin-bottom:0; }
+    #shell-nav.nav-collapsed .nav-row { justify-content:center; }
+    #shell-nav.nav-collapsed .nav-lbl { display:none; }
+    #shell-nav.nav-collapsed .nav-chev { display:none; }
+    #shell-nav.nav-collapsed .nav-sub { display:none; }
+    #shell-nav.nav-collapsed .nav-sub.nav-active { display:flex;justify-content:center;padding:8px !important; }
+    #shell-nav.nav-collapsed .nav-sub.nav-active .nav-lbl { display:none; }
+    #shell-nav.nav-collapsed:not(.click-collapsed):hover { width:220px !important;padding:16px !important; }
+    .nav-lbl { white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px; }
+    .nav-row { transition:background .12s,color .12s; }
+    .nav-row:hover { background:#f5f5f5 !important; }
+    .nav-row:hover .nav-lbl { color:#101010 !important; }
+    .nav-sub { transition:background .12s,color .12s; }
+    .nav-sub:hover { background:#f5f5f5 !important; }
+    .nav-sub:hover .nav-lbl { color:#6360d8 !important; }
+    html:not(.theme-light) .nav-row:hover { background:rgba(255,255,255,0.06) !important; }
+    html:not(.theme-light) .nav-row:hover .nav-lbl { color:#F9F9F9 !important; }
+    html:not(.theme-light) .nav-sub:hover { background:rgba(255,255,255,0.06) !important; }
+
+    /* ── Badges ── */
+    .ds-badge { display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:0.03em; }
+    .ds-badge.success  { background:rgba(49,165,109,0.14);color:#31A56D; }
+    .ds-badge.warning  { background:rgba(217,139,29,0.14);color:#D98B1D; }
+    .ds-badge.danger   { background:rgba(209,35,41,0.14);color:#D12329; }
+    .ds-badge.info     { background:rgba(99,96,216,0.14);color:#8F8DDE; }
+    .ds-badge.neutral  { background:rgba(255,255,255,0.07);color:var(--shell-text-muted); }
+    html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
+    .ds-badge.dot::before { content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0; }
+
+    /* ── Table ── */
+    .ds-table-wrap { width:100%;overflow-x:auto; }
+    .ds-table { width:100%;border-collapse:collapse;font-size:12px; }
+    .ds-table th { padding:8px 16px;text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-text-muted);background:var(--table-th-bg);border-bottom:1px solid var(--shell-border);white-space:nowrap; }
+    .ds-table td { padding:12px 16px;border-bottom:1px solid var(--table-border);color:var(--shell-text-2);vertical-align:middle; }
+    .ds-table tbody tr:last-child td { border-bottom:none; }
+    .ds-table tbody tr:hover td { background:var(--shell-hover); }
+    .row-actions { display:flex;align-items:center;gap:4px;visibility:hidden; }
+    .ds-table tbody tr:hover .row-actions { visibility:visible; }
+
+    /* ══════════════════════════════════════════════════
+       FILTER POPUP COMPONENT
+    ══════════════════════════════════════════════════ */
+
+    /* Overlay */
+    .ds-filter-popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(2px);
+      z-index: 400;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .ds-filter-popup-overlay.open { display: flex; }
+
+    /* Popup container */
+    .ds-filter-popup {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      width: min(960px, 96vw);
+      height: min(600px, 92vh);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    /* Popup header */
+    .ds-filter-popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--shell-border);
+      flex-shrink: 0;
+    }
+    .ds-filter-popup-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--shell-text);
+    }
+    .ds-filter-popup-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: var(--shell-text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: background .12s, color .12s;
+    }
+    .ds-filter-popup-close:hover { background: var(--shell-hover); color: var(--shell-text); }
+
+    /* Popup body: 3-panel layout */
+    .ds-filter-popup-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── Panel 1: Entity Graph Canvas ── */
+    .ds-filter-entities-canvas {
+      width: 280px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--shell-border);
+      background: var(--shell-bg);
+      position: relative;
+      overflow: hidden;
+      /* dot grid */
+      background-image: radial-gradient(circle, var(--ctrl-border) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .ds-filter-canvas-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Entity node */
+    .ds-entity-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      position: absolute;
+      user-select: none;
+    }
+    .ds-entity-node-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--shell-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .15s, box-shadow .15s;
+      color: var(--shell-text-muted);
+    }
+    .ds-entity-node:hover .ds-entity-node-circle {
+      border-color: var(--shell-accent);
+      color: var(--shell-accent);
+    }
+    .ds-entity-node.selected .ds-entity-node-circle {
+      background: var(--shell-accent);
+      border-color: var(--shell-accent);
+      color: #fff;
+      box-shadow: 0 0 0 4px rgba(99,96,216,0.2);
+    }
+    .ds-entity-node-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--shell-text-muted);
+    }
+    .ds-entity-node.selected .ds-entity-node-label {
+      color: var(--shell-accent);
+      font-weight: 600;
+    }
+
+    /* Entity connection line (SVG) */
+    .ds-entity-connections {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* ── Panel 2: Attribute Selection ── */
+    .ds-filter-attr-panel {
+      width: 260px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--shell-border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .ds-filter-panel-subheader {
+      padding: 12px 16px 8px;
+      border-bottom: 1px solid var(--shell-border);
+      flex-shrink: 0;
+    }
+    .ds-filter-panel-entity-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--shell-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    .ds-filter-panel-section-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--shell-text);
+    }
+    .ds-filter-search-wrap {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--shell-border);
+      flex-shrink: 0;
+    }
+    .ds-filter-search {
+      width: 100%;
+      height: 28px;
+      border: 1px solid var(--ctrl-border);
+      border-radius: 8px;
+      background: var(--ctrl-bg);
+      color: var(--ctrl-text);
+      font-family: inherit;
+      font-size: 12px;
+      padding: 0 8px 0 28px;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .ds-filter-search:focus { border-color: var(--shell-accent); box-shadow: 0 0 0 3px rgba(99,96,216,0.15); }
+    .ds-filter-search::placeholder { color: var(--ctrl-placeholder); }
+    .ds-filter-search-container {
+      position: relative;
+    }
+    .ds-filter-search-icon {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ctrl-placeholder);
+      pointer-events: none;
+    }
+    .ds-filter-attr-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+    .ds-filter-attr-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--shell-text-2);
+      border-left: 3px solid transparent;
+      transition: background .1s, border-color .1s;
+      user-select: none;
+    }
+    .ds-filter-attr-option:hover { background: var(--shell-hover); }
+    .ds-filter-attr-option.selected {
+      background: var(--ctrl-selected-bg);
+      border-left-color: var(--shell-accent);
+      color: var(--shell-text);
+    }
+    .ds-filter-attr-option input[type="radio"] {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--shell-accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .ds-filter-attr-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--shell-accent);
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    /* ── Panel 3: Values ── */
+    .ds-filter-values-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+    .ds-filter-values-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--shell-border);
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+    .ds-filter-values-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--shell-text);
+    }
+    .ds-filter-upload-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 44px;
+      border: 1px solid var(--ctrl-border);
+      background: transparent;
+      color: var(--shell-accent);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .12s, border-color .12s;
+    }
+    .ds-filter-upload-btn:hover { background: var(--ctrl-selected-bg); border-color: var(--shell-accent); }
+
+    /* Include / Exclude toggle */
+    .ds-filter-incexc {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--ctrl-border);
+      border-radius: 44px;
+      overflow: hidden;
+      margin-left: auto;
+    }
+    .ds-filter-incexc-btn {
+      padding: 3px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      color: var(--shell-text-muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .12s, color .12s;
+    }
+    .ds-filter-incexc-btn:hover { background: var(--shell-hover); color: var(--shell-text); }
+    .ds-filter-incexc-btn.active {
+      background: var(--shell-accent);
+      color: #fff;
+    }
+    html.theme-light .ds-filter-incexc-btn.active { background: var(--shell-accent); color: #fff; }
+
+    /* Values controls bar */
+    .ds-filter-values-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-bottom: 1px solid var(--shell-border);
+      flex-shrink: 0;
+    }
+    .ds-filter-select-all {
+      display: flex;
+      align-items: center;
+      gap:6px;
+      font-size: 12px;
+      color: var(--shell-text-2);
+      cursor: pointer;
+      user-select: none;
+    }
+    .ds-filter-select-all input[type="checkbox"] {
+      width: 13px;
+      height: 13px;
+      accent-color: var(--shell-accent);
+      cursor: pointer;
+    }
+    .ds-filter-hint-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid var(--ctrl-placeholder);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--ctrl-placeholder);
+      cursor: default;
+      flex-shrink: 0;
+    }
+    .ds-filter-sort-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+      padding: 3px 10px;
+      border-radius: 44px;
+      border: 1px solid var(--ctrl-border);
+      background: transparent;
+      color: var(--shell-text-2);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .ds-filter-sort-btn:hover { background: var(--shell-hover); }
+    .ds-filter-sort-label {
+      color: var(--shell-accent);
+      font-weight: 600;
+    }
+
+    /* Values grid */
+    .ds-filter-values-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+    .ds-filter-values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    .ds-filter-value-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--shell-text-2);
+      border-radius: 4px;
+      transition: background .1s;
+      user-select: none;
+    }
+    .ds-filter-value-option:hover { background: var(--shell-hover); }
+    .ds-filter-value-option.checked {
+      color: var(--shell-text);
+    }
+    .ds-filter-value-checkbox {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--ctrl-border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .12s, border-color .12s;
+      background: var(--ctrl-bg);
+    }
+    .ds-filter-value-option.checked .ds-filter-value-checkbox {
+      background: var(--shell-accent);
+      border-color: var(--shell-accent);
+    }
+    /* highlighted/active row */
+    .ds-filter-value-option.active-row {
+      background: var(--ctrl-selected-bg);
+      border-left: 3px solid var(--shell-accent);
+      padding-left: 13px;
+    }
+    .ds-filter-value-name {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Popup footer */
+    .ds-filter-popup-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-top: 1px solid var(--shell-border);
+      flex-shrink: 0;
+    }
+    .ds-filter-popup-footer .spacer { flex: 1; }
+
+    /* Active filters summary bar (below sub-header) */
+    .ds-active-filters-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 6px 16px;
+      background: var(--ctrl-selected-bg);
+      border-bottom: 1px solid var(--shell-border);
+      font-size: 11px;
+      color: var(--shell-text-muted);
+    }
+    .ds-active-filters-bar.hidden { display: none; }
+    .ds-active-filters-label { font-weight: 600; color: var(--shell-text-muted); margin-right: 4px; }
+    .ds-filter-chip-active {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--card-bg);
+      border: 1px solid var(--shell-border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 11px;
+    }
+    .ds-chip-active-key { color: var(--shell-text-muted); font-weight: 500; }
+    .ds-chip-active-value { color: var(--shell-accent); font-weight: 600; }
+    .ds-chip-active-close {
+      background: none;
+      border: none;
+      padding: 0;
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--shell-text-muted);
+      font-size: 11px;
+      border-radius: 50%;
+    }
+    .ds-chip-active-close:hover { background: var(--shell-hover); color: var(--shell-text); }
+    .ds-clear-all-btn {
+      margin-left: auto;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 11px;
+      color: var(--shell-text-muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .ds-clear-all-btn:hover { background: var(--shell-hover); color: var(--shell-text); }
+
+    /* Toast */
+    .ds-toast-container { position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;gap:8px;align-items:flex-end; }
+    .ds-toast { display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:8px;font-size:13px;min-width:280px;max-width:400px;box-shadow:0 4px 16px rgba(0,0,0,.18);animation:ds-toast-in .2s ease; }
+    @keyframes ds-toast-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+    .ds-toast.success { background:#EFF7ED;color:#1A7D4D;border:1px solid rgba(49,165,109,0.3); }
+    .ds-toast.info    { background:rgba(99,96,216,0.08);color:#8F8DDE;border:1px solid rgba(99,96,216,0.2); }
+    .ds-toast-dismiss { margin-left:auto;background:none;border:none;cursor:pointer;color:inherit;opacity:0.6;font-size:16px;line-height:1;padding:0 2px; }
+    .ds-toast-dismiss:hover { opacity:1; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width:6px;height:6px; }
+    ::-webkit-scrollbar-track { background:transparent; }
+    ::-webkit-scrollbar-thumb { background:var(--ctrl-border);border-radius:3px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--shell-text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">
+    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">
+    <span style="flex:1;"></span>
+    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>
+    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;" aria-label="Notifications">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <div style="width:32px;height:32px;border-radius:50%;background:#6360D8;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;">A</div>
+    <button class="ds-btn sz-sm t-special"><span class="btn-text">Navigator</span></button>
+  </div>
+
+  <!-- SHELL: sidebar + content -->
+  <div style="display:flex;flex:1;overflow:hidden;">
+
+    <!-- LEFT NAV -->
+    <nav id="shell-nav" style="width:220px;background:#fff;border-right:0.5px solid #d8d9dd;overflow-y:auto;flex-shrink:0;display:flex;flex-direction:column;padding:16px;gap:0;">
+      <div class="nav-hdr" style="display:flex;align-items:flex-start;justify-content:space-between;padding:0 8px 8px 12px;border-bottom:1px solid #467fcd;margin-bottom:12px;flex-shrink:0;">
+        <div class="nav-hdr-info">
+          <div style="display:flex;align-items:center;gap:4px;font-size:14px;font-weight:500;color:#101010;">EM Dashboard
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div style="font-size:12px;color:#6e6e6e;margin-top:2px;">Exposure Management</div>
+        </div>
+        <button id="shell-nav-btn" onclick="shellNavToggle()" style="background:none;border:none;color:#6e6e6e;padding:0;display:flex;align-items:center;cursor:pointer;" title="Collapse sidebar">
+          <svg id="shell-nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><polyline points="15 8 11 12 15 16"/></svg>
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;flex:1;">
+        <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;cursor:pointer;color:#6e6e6e;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <span class="nav-lbl" style="font-size:14px;">Dashboard</span>
+          </div>
+        </div>
+        <div>
+          <div class="nav-row" style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:6px;background:#f5f5f5;cursor:pointer;color:#6e6e6e;">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <span class="nav-lbl" style="font-size:14px;">Asset Management</span>
+            </div>
+            <svg class="nav-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+          </div>
+          <a href="#" class="nav-sub nav-active" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;background:rgba(99,96,216,0.08);border-radius:6px;color:#6360d8;margin-top:4px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <span class="nav-lbl" style="font-size:13px;">Hosts</span>
+          </a>
+          <a href="#" class="nav-sub" style="display:flex;align-items:center;gap:4px;padding:8px 8px 8px 30px;text-decoration:none;color:#6e6e6e;border-radius:6px;margin-top:2px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <span class="nav-lbl" style="font-size:13px;">Applications</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- CONTENT AREA -->
+    <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;min-width:0;">
+
+      <!-- Sub-header -->
+      <div style="position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e6e6e6;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+        <div style="min-width:0;flex:1;">
+          <div style="font-size:12px;font-weight:500;color:#101010;">Hosts</div>
+          <div style="font-size:11px;color:#9ca3af;display:flex;align-items:center;gap:4px;">
+            Asset Management <span style="color:#cfcfcf;">/</span>
+            <span style="color:#6360D8;">Hosts</span>
+          </div>
+        </div>
+        <!-- Filter button -->
+        <button class="ds-filter-btn" id="openFilterBtn" onclick="openFilterPopup()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+          Filter
+        </button>
+        <button class="ds-btn sz-sm t-outline" style="gap:4px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export
+        </button>
+      </div>
+
+      <!-- Active filters bar -->
+      <div class="ds-active-filters-bar hidden" id="activeFiltersBar">
+        <span class="ds-active-filters-label">Filters:</span>
+        <div id="activeFilterChips" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+        <button class="ds-clear-all-btn" onclick="clearAllFilters()">Clear all</button>
+      </div>
+
+      <!-- Page content -->
+      <div style="padding:16px;flex:1;">
+        <!-- Table card -->
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid var(--shell-border);display:flex;align-items:center;gap:8px;">
+            <span style="font-size:13px;font-weight:600;color:var(--shell-text);">All Hosts</span>
+            <span class="ds-badge neutral" id="hostCountBadge">247</span>
+            <span style="flex:1;"></span>
+            <input type="text" placeholder="Search hosts..." style="height:28px;border:1px solid var(--ctrl-border);border-radius:8px;background:var(--ctrl-bg);color:var(--ctrl-text);font-family:inherit;font-size:12px;padding:0 8px;outline:none;width:200px;" onfocus="this.style.borderColor='#6360d8'" onblur="this.style.borderColor=''">
+          </div>
+          <div class="ds-table-wrap">
+            <table class="ds-table">
+              <thead>
+                <tr>
+                  <th>Hostname</th>
+                  <th>Type</th>
+                  <th>Business Unit</th>
+                  <th>Compliance</th>
+                  <th>Score</th>
+                  <th>Status</th>
+                  <th class="col-actions"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:500;">srv-prod-001.internal</td>
+                  <td><span class="ds-badge neutral dot">Server</span></td>
+                  <td>Infrastructure</td>
+                  <td>SOC 2, ISO 27001</td>
+                  <td><span style="font-weight:600;color:#D12329;">8.7</span></td>
+                  <td><span class="ds-badge danger dot">Critical</span></td>
+                  <td><div class="row-actions">
+                    <button class="ds-icon-btn" title="View">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button class="ds-icon-btn" title="Edit">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">workstation-42.corp</td>
+                  <td><span class="ds-badge neutral dot">Workstation</span></td>
+                  <td>Engineering</td>
+                  <td>PCI DSS</td>
+                  <td><span style="font-weight:600;color:#D98B1D;">6.2</span></td>
+                  <td><span class="ds-badge warning dot">High</span></td>
+                  <td><div class="row-actions">
+                    <button class="ds-icon-btn" title="View">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button class="ds-icon-btn" title="Edit">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">net-switch-floor3.local</td>
+                  <td><span class="ds-badge neutral dot">Network</span></td>
+                  <td>Operations</td>
+                  <td>HIPAA</td>
+                  <td><span style="font-weight:600;color:#6360D8;">4.1</span></td>
+                  <td><span class="ds-badge info dot">Medium</span></td>
+                  <td><div class="row-actions">
+                    <button class="ds-icon-btn" title="View">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button class="ds-icon-btn" title="Edit">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </div></td>
+                </tr>
+                <tr>
+                  <td style="font-weight:500;">scanner-dc-02.internal</td>
+                  <td><span class="ds-badge neutral dot">Scanner</span></td>
+                  <td>Security</td>
+                  <td>SOC 2</td>
+                  <td><span style="font-weight:600;color:#31A56D;">1.8</span></td>
+                  <td><span class="ds-badge success dot">Low</span></td>
+                  <td><div class="row-actions">
+                    <button class="ds-icon-btn" title="View">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
+                    <button class="ds-icon-btn" title="Edit">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                  </div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       FILTER POPUP
+  ═══════════════════════════════════════════════════ -->
+  <div class="ds-filter-popup-overlay" id="filterPopupOverlay" onclick="overlayClickClose(event)">
+    <div class="ds-filter-popup" id="filterPopupModal" role="dialog" aria-modal="true" aria-labelledby="filterPopupTitle">
+
+      <!-- Header -->
+      <div class="ds-filter-popup-header">
+        <span class="ds-filter-popup-title" id="filterPopupTitle">Add Filter</span>
+        <button class="ds-filter-popup-close" onclick="closeFilterPopup()" aria-label="Close filter">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="ds-filter-popup-body">
+
+        <!-- ── Panel 1: Entity Graph Canvas ── -->
+        <div class="ds-filter-entities-canvas" id="filterEntitiesCanvas">
+          <!-- SVG connections layer -->
+          <svg class="ds-entity-connections" id="entityConnectionsSvg"></svg>
+
+          <!-- Entity nodes — positioned absolutely via JS -->
+          <div class="ds-entity-node selected" id="node-host" data-entity="host" onclick="selectEntity('host')" style="left:50%;top:50%;transform:translate(-50%,-50%);">
+            <div class="ds-entity-node-circle">
+              <!-- Host / Server icon -->
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <span class="ds-entity-node-label">Host</span>
+          </div>
+
+          <div class="ds-entity-node" id="node-app" data-entity="application" onclick="selectEntity('application')" style="left:75%;top:30%;transform:translate(-50%,-50%);">
+            <div class="ds-entity-node-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+            </div>
+            <span class="ds-entity-node-label">Application</span>
+          </div>
+
+          <div class="ds-entity-node" id="node-user" data-entity="user" onclick="selectEntity('user')" style="left:75%;top:70%;transform:translate(-50%,-50%);">
+            <div class="ds-entity-node-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <span class="ds-entity-node-label">User</span>
+          </div>
+
+          <div class="ds-entity-node" id="node-vuln" data-entity="vulnerability" onclick="selectEntity('vulnerability')" style="left:25%;top:30%;transform:translate(-50%,-50%);">
+            <div class="ds-entity-node-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span class="ds-entity-node-label">Vulnerability</span>
+          </div>
+
+          <div class="ds-entity-node" id="node-cve" data-entity="cve" onclick="selectEntity('cve')" style="left:25%;top:70%;transform:translate(-50%,-50%);">
+            <div class="ds-entity-node-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </div>
+            <span class="ds-entity-node-label">CVE</span>
+          </div>
+        </div>
+
+        <!-- ── Panel 2: Attribute Selection ── -->
+        <div class="ds-filter-attr-panel" id="filterAttrPanel">
+          <div class="ds-filter-panel-subheader">
+            <div class="ds-filter-panel-entity-label" id="attrPanelEntityLabel">Host</div>
+            <div class="ds-filter-panel-section-label">Attribute Selection</div>
+          </div>
+          <div class="ds-filter-search-wrap">
+            <div class="ds-filter-search-container">
+              <svg class="ds-filter-search-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" class="ds-filter-search" id="attrSearch" placeholder="Search attribute" oninput="filterAttributes(this.value)">
+            </div>
+          </div>
+          <div class="ds-filter-attr-list" id="attrList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- ── Panel 3: Values ── -->
+        <div class="ds-filter-values-panel" id="filterValuesPanel">
+          <div class="ds-filter-values-header">
+            <span class="ds-filter-values-title">Values</span>
+            <button class="ds-filter-upload-btn" onclick="showToast('Upload feature coming soon','info')">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload Values
+            </button>
+            <div class="ds-filter-incexc">
+              <button class="ds-filter-incexc-btn active" id="incBtn" onclick="setIncExc('include')">Include</button>
+              <button class="ds-filter-incexc-btn" id="excBtn" onclick="setIncExc('exclude')">Exclude</button>
+            </div>
+          </div>
+          <div class="ds-filter-values-controls">
+            <label class="ds-filter-select-all">
+              <input type="checkbox" id="selectAllCheck" onchange="toggleSelectAll(this.checked)">
+              Select All as Pattern
+              <span class="ds-filter-hint-icon" title="Select All as Pattern applies the filter to all current and future values matching this attribute">?</span>
+            </label>
+            <button class="ds-filter-sort-btn" id="sortBtn" onclick="toggleSort()">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Sort by: <span class="ds-filter-sort-label" id="sortLabel">A-Z</span>
+            </button>
+          </div>
+          <div class="ds-filter-search-wrap" style="padding:8px 12px;">
+            <div class="ds-filter-search-container">
+              <svg class="ds-filter-search-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" class="ds-filter-search" id="valueSearch" placeholder="Search values" oninput="filterValues(this.value)">
+            </div>
+          </div>
+          <div class="ds-filter-values-body">
+            <div class="ds-filter-values-grid" id="valuesGrid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="ds-filter-popup-footer">
+        <button class="ds-btn sz-sm t-tertiary" onclick="showAddEntityModal()" style="gap:4px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add / Hide Entity
+        </button>
+        <div class="spacer"></div>
+        <button class="ds-btn sz-sm t-outline" onclick="closeFilterPopup()">Cancel</button>
+        <button class="ds-btn sz-sm t-primary" onclick="applyFilter()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Apply
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="ds-toast-container" id="toastContainer"></div>
+
+  <script>
+    // ── Nav toggle ──
+    function shellNavToggle() {
+      const nav = document.getElementById('shell-nav');
+      nav.classList.toggle('nav-collapsed');
+      nav.classList.toggle('click-collapsed');
+    }
+
+    // ══════════════════════════════════════════════════
+    //  FILTER DATA
+    // ══════════════════════════════════════════════════
+    const entityAttributes = {
+      host: [
+        'Asset Criticality', 'Business Unit', 'Compliance',
+        'Display Label', 'Infrastructure Type', 'Purpose', 'Score', 'Type'
+      ],
+      application: [
+        'Application Name', 'Business Unit', 'Compliance',
+        'Environment', 'Framework', 'Owner', 'Risk Level', 'Status'
+      ],
+      vulnerability: [
+        'CVSSv3 Score', 'Category', 'Exploit Available',
+        'First Seen', 'Last Seen', 'Patch Available', 'Severity', 'State'
+      ],
+      user: [
+        'Business Unit', 'Department', 'Last Login',
+        'Privilege Level', 'Role', 'Status'
+      ],
+      cve: [
+        'CVE ID', 'CVSSv3 Score', 'Exploit Maturity',
+        'Published Date', 'Severity', 'Vendor'
+      ]
+    };
+
+    const attributeValues = {
+      'Type': ['Server', 'Workstation', 'Mobile', 'Network', 'Printer', 'Scanner', 'Others'],
+      'Infrastructure Type': ['On-Premises', 'Cloud', 'Hybrid', 'Container', 'Virtual Machine'],
+      'Asset Criticality': ['Critical', 'High', 'Medium', 'Low'],
+      'Severity': ['Critical', 'High', 'Medium', 'Low', 'Informational'],
+      'Business Unit': ['Engineering', 'Finance', 'HR', 'Infrastructure', 'Legal', 'Operations', 'Sales', 'Security'],
+      'Status': ['Active', 'Inactive', 'Decommissioned', 'Under Review'],
+      'Compliance': ['GDPR', 'HIPAA', 'ISO 27001', 'PCI DSS', 'SOC 2'],
+      'Environment': ['Development', 'Production', 'Staging', 'Testing'],
+      'Purpose': ['Analytics', 'Authentication', 'Database', 'File Storage', 'Load Balancer', 'Web Server'],
+      'Privilege Level': ['Admin', 'Operator', 'Read-Only', 'Super Admin'],
+      'Role': ['Analyst', 'Developer', 'Engineer', 'Manager', 'Owner'],
+      'State': ['Active', 'Fixed', 'Accepted Risk', 'In Progress'],
+      'Exploit Available': ['Yes', 'No'],
+      'Patch Available': ['Yes', 'No'],
+      'Exploit Maturity': ['Functional', 'High', 'Proof of Concept', 'Unproven'],
+    };
+
+    // ── State ──
+    let selectedEntity = 'host';
+    let selectedAttribute = null;
+    let incExcMode = 'include';
+    let sortAsc = true;
+    let checkedValues = {};     // { entity+attr+value: bool }
+    let appliedFilters = [];    // [{ entity, attribute, values, mode }]
+
+    // ══════════════════════════════════════════════════
+    //  POPUP OPEN / CLOSE
+    // ══════════════════════════════════════════════════
+    function openFilterPopup() {
+      document.getElementById('filterPopupOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // Default: select host entity + first attribute
+      selectEntity('host', false);
+      if (entityAttributes['host'].length) {
+        selectAttribute(entityAttributes['host'][0]);
+      }
+      drawConnections();
+    }
+
+    function closeFilterPopup() {
+      document.getElementById('filterPopupOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function overlayClickClose(e) {
+      if (e.target === document.getElementById('filterPopupOverlay')) closeFilterPopup();
+    }
+
+    // Esc key close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeFilterPopup();
+    });
+
+    // ══════════════════════════════════════════════════
+    //  ENTITY SELECTION
+    // ══════════════════════════════════════════════════
+    function selectEntity(entityKey, updateAttr = true) {
+      // Update node styles
+      document.querySelectorAll('.ds-entity-node').forEach(n => {
+        n.classList.toggle('selected', n.dataset.entity === entityKey);
+      });
+      selectedEntity = entityKey;
+
+      // Update attribute panel header
+      const label = entityKey.charAt(0).toUpperCase() + entityKey.slice(1);
+      document.getElementById('attrPanelEntityLabel').textContent = label;
+
+      // Repopulate attributes
+      selectedAttribute = null;
+      document.getElementById('attrSearch').value = '';
+      renderAttributes(entityAttributes[entityKey] || []);
+
+      // Clear values panel
+      document.getElementById('valuesGrid').innerHTML = '<div style="padding:24px 16px;color:var(--shell-text-muted);font-size:12px;">Select an attribute to view values.</div>';
+      document.getElementById('valueSearch').value = '';
+
+      if (updateAttr && (entityAttributes[entityKey] || []).length) {
+        selectAttribute(entityAttributes[entityKey][0]);
+      }
+    }
+
+    // ══════════════════════════════════════════════════
+    //  ATTRIBUTE SELECTION
+    // ══════════════════════════════════════════════════
+    function renderAttributes(attrs) {
+      const list = document.getElementById('attrList');
+      list.innerHTML = '';
+      if (!attrs.length) {
+        list.innerHTML = '<div style="padding:16px;color:var(--shell-text-muted);font-size:12px;">No attributes found.</div>';
+        return;
+      }
+      attrs.forEach(attr => {
+        const el = document.createElement('label');
+        el.className = 'ds-filter-attr-option' + (attr === selectedAttribute ? ' selected' : '');
+        el.setAttribute('data-attr', attr);
+        el.innerHTML = `
+          <input type="radio" name="attr-sel" ${attr === selectedAttribute ? 'checked' : ''}>
+          ${attr}
+          ${attr === selectedAttribute ? '<span class="ds-filter-attr-dot"></span>' : ''}
+        `;
+        el.addEventListener('click', () => selectAttribute(attr));
+        list.appendChild(el);
+      });
+    }
+
+    function filterAttributes(query) {
+      const q = query.toLowerCase();
+      const all = entityAttributes[selectedEntity] || [];
+      const filtered = all.filter(a => a.toLowerCase().includes(q));
+      renderAttributes(filtered);
+    }
+
+    function selectAttribute(attr) {
+      selectedAttribute = attr;
+      // Highlight in list
+      document.querySelectorAll('.ds-filter-attr-option').forEach(el => {
+        const isSelected = el.dataset.attr === attr;
+        el.classList.toggle('selected', isSelected);
+        const radio = el.querySelector('input[type="radio"]');
+        if (radio) radio.checked = isSelected;
+        // Dot indicator
+        let dot = el.querySelector('.ds-filter-attr-dot');
+        if (isSelected && !dot) {
+          dot = document.createElement('span');
+          dot.className = 'ds-filter-attr-dot';
+          el.appendChild(dot);
+        } else if (!isSelected && dot) {
+          dot.remove();
+        }
+      });
+      // Load values
+      const values = getValuesForAttribute(attr);
+      renderValues(values);
+      document.getElementById('valueSearch').value = '';
+      document.getElementById('selectAllCheck').checked = false;
+    }
+
+    function getValuesForAttribute(attr) {
+      return attributeValues[attr] || ['Value A', 'Value B', 'Value C', 'Value D', 'Value E', 'Value F'];
+    }
+
+    // ══════════════════════════════════════════════════
+    //  VALUES PANEL
+    // ══════════════════════════════════════════════════
+    function renderValues(values) {
+      const grid = document.getElementById('valuesGrid');
+      grid.innerHTML = '';
+      const displayValues = sortAsc ? [...values].sort() : [...values].sort().reverse();
+
+      displayValues.forEach(val => {
+        const key = `${selectedEntity}::${selectedAttribute}::${val}`;
+        const isChecked = !!checkedValues[key];
+        const el = document.createElement('div');
+        el.className = 'ds-filter-value-option' + (isChecked ? ' checked' : '');
+        el.setAttribute('data-value', val);
+        el.setAttribute('data-key', key);
+        el.innerHTML = `
+          <div class="ds-filter-value-checkbox">
+            ${isChecked ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>` : ''}
+          </div>
+          <span class="ds-filter-value-name">${val}</span>
+        `;
+        el.addEventListener('click', () => toggleValue(key, val, el));
+        grid.appendChild(el);
+      });
+    }
+
+    function toggleValue(key, val, el) {
+      checkedValues[key] = !checkedValues[key];
+      const isChecked = checkedValues[key];
+      el.classList.toggle('checked', isChecked);
+      const box = el.querySelector('.ds-filter-value-checkbox');
+      box.innerHTML = isChecked
+        ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>`
+        : '';
+      // Update select-all checkbox state
+      const values = getValuesForAttribute(selectedAttribute);
+      const allChecked = values.every(v => !!checkedValues[`${selectedEntity}::${selectedAttribute}::${v}`]);
+      document.getElementById('selectAllCheck').checked = allChecked;
+    }
+
+    function filterValues(query) {
+      const q = query.toLowerCase();
+      const values = getValuesForAttribute(selectedAttribute).filter(v => v.toLowerCase().includes(q));
+      renderValues(values);
+    }
+
+    function toggleSelectAll(checked) {
+      if (!selectedAttribute) return;
+      const values = getValuesForAttribute(selectedAttribute);
+      values.forEach(v => {
+        checkedValues[`${selectedEntity}::${selectedAttribute}::${v}`] = checked;
+      });
+      renderValues(values);
+    }
+
+    function toggleSort() {
+      sortAsc = !sortAsc;
+      document.getElementById('sortLabel').textContent = sortAsc ? 'A-Z' : 'Z-A';
+      if (selectedAttribute) renderValues(getValuesForAttribute(selectedAttribute));
+    }
+
+    function setIncExc(mode) {
+      incExcMode = mode;
+      document.getElementById('incBtn').classList.toggle('active', mode === 'include');
+      document.getElementById('excBtn').classList.toggle('active', mode === 'exclude');
+    }
+
+    // ══════════════════════════════════════════════════
+    //  APPLY FILTER
+    // ══════════════════════════════════════════════════
+    function applyFilter() {
+      // Collect all checked values grouped by entity+attribute
+      const groups = {};
+      Object.entries(checkedValues).forEach(([key, checked]) => {
+        if (!checked) return;
+        const [entity, attr, val] = key.split('::');
+        const gKey = `${entity}::${attr}`;
+        if (!groups[gKey]) groups[gKey] = { entity, attr, values: [], mode: incExcMode };
+        groups[gKey].values.push(val);
+      });
+
+      appliedFilters = Object.values(groups);
+      renderActiveFilters();
+      closeFilterPopup();
+
+      if (appliedFilters.length > 0) {
+        showToast(`${appliedFilters.reduce((n, g) => n + g.values.length, 0)} filter(s) applied`, 'success');
+      }
+    }
+
+    function renderActiveFilters() {
+      const bar = document.getElementById('activeFiltersBar');
+      const chipsContainer = document.getElementById('activeFilterChips');
+      chipsContainer.innerHTML = '';
+
+      if (appliedFilters.length === 0) {
+        bar.classList.add('hidden');
+        return;
+      }
+      bar.classList.remove('hidden');
+
+      appliedFilters.forEach((f, idx) => {
+        f.values.forEach(val => {
+          const chip = document.createElement('div');
+          chip.className = 'ds-filter-chip-active';
+          chip.innerHTML = `
+            <span class="ds-chip-active-key">${f.attr}:</span>
+            <span class="ds-chip-active-value">${val}</span>
+            <button class="ds-chip-active-close" onclick="removeFilterValue(${idx},'${val}')" aria-label="Remove filter">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          `;
+          chipsContainer.appendChild(chip);
+        });
+      });
+    }
+
+    function removeFilterValue(groupIdx, val) {
+      const group = appliedFilters[groupIdx];
+      if (!group) return;
+      group.values = group.values.filter(v => v !== val);
+      // Also uncheck in state
+      checkedValues[`${group.entity}::${group.attr}::${val}`] = false;
+      if (group.values.length === 0) appliedFilters.splice(groupIdx, 1);
+      renderActiveFilters();
+    }
+
+    function clearAllFilters() {
+      checkedValues = {};
+      appliedFilters = [];
+      renderActiveFilters();
+      showToast('All filters cleared', 'info');
+    }
+
+    // ══════════════════════════════════════════════════
+    //  ENTITY GRAPH — draw SVG connection lines
+    // ══════════════════════════════════════════════════
+    function drawConnections() {
+      const canvas = document.getElementById('filterEntitiesCanvas');
+      const svg = document.getElementById('entityConnectionsSvg');
+      const { width, height } = canvas.getBoundingClientRect();
+      svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+      svg.innerHTML = '';
+
+      const nodeIds = ['node-host', 'node-app', 'node-user', 'node-vuln', 'node-cve'];
+      const centerNodeId = 'node-host';
+      const centerEl = document.getElementById(centerNodeId);
+      if (!centerEl) return;
+
+      const centerRect = centerEl.getBoundingClientRect();
+      const canvasRect = canvas.getBoundingClientRect();
+      const cx = centerRect.left - canvasRect.left + centerRect.width / 2;
+      const cy = centerRect.top - canvasRect.top + centerRect.height / 2;
+
+      nodeIds.filter(id => id !== centerNodeId).forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const nx = r.left - canvasRect.left + r.width / 2;
+        const ny = r.top - canvasRect.top + r.height / 2;
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+        line.setAttribute('x2', nx); line.setAttribute('y2', ny);
+        line.setAttribute('stroke', 'var(--ctrl-border)');
+        line.setAttribute('stroke-width', '1.5');
+        line.setAttribute('stroke-dasharray', '4 4');
+        svg.appendChild(line);
+      });
+    }
+
+    window.addEventListener('resize', drawConnections);
+
+    // ══════════════════════════════════════════════════
+    //  ADD ENTITY (placeholder)
+    // ══════════════════════════════════════════════════
+    function showAddEntityModal() {
+      showToast('Entity management panel coming soon', 'info');
+    }
+
+    // ══════════════════════════════════════════════════
+    //  TOAST
+    // ══════════════════════════════════════════════════
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `ds-toast ${type}`;
+      const icon = {
+        success: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`,
+        info: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
+      };
+      toast.innerHTML = `
+        ${icon[type] || ''}
+        <span>${message}</span>
+        <button class="ds-toast-dismiss" onclick="this.parentElement.remove()">×</button>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // ── Init on load ──
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAttributes(entityAttributes['host']);
+      renderValues(getValuesForAttribute('Type'));
+      selectedAttribute = 'Type';
+      // Mark Type as selected
+      setTimeout(() => {
+        const opts = document.querySelectorAll('.ds-filter-attr-option');
+        opts.forEach(o => {
+          if (o.dataset.attr === 'Type') {
+            o.classList.add('selected');
+            const r = o.querySelector('input[type="radio"]');
+            if (r) r.checked = true;
+          }
+        });
+      }, 10);
+    });
+  </script>
+
+</body>
+</html>

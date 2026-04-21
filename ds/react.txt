@@ -454,7 +454,7 @@ export function Shell({
       >
         {/* PAI logo — use actual SVG asset, never a placeholder box */}
         <img
-          src="https://design-system-2-0.pages.dev/icons/pai-logo.svg"
+          src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg"
           height={26}
           alt="Prevalent AI"
         />

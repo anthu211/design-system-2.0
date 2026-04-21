@@ -1,19 +1,21 @@
 Fetch these files first:
-1. https://design-system-2-0.pages.dev/ds/tokens/colors.json
-2. https://design-system-2-0.pages.dev/ds/tokens/spacing.json
+1. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
+2. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
 
 Then read $ARGUMENTS and fetch only what is needed:
 - Table/list → tables.json + badges.json
 - Form/input → inputs.json + modals.json
 - Button/action → buttons.json
 - Card/KPI → cards.json
-- Chart → fetch https://design-system-2-0.pages.dev/ds/charts/base.txt + only the chart type file needed:
+- Chart → fetch https://anthu211.github.io/design-system-2.0/ds/charts/base.txt + only the chart type file needed:
     bar=ds/charts/bar.txt · line=ds/charts/line.txt · multiline=ds/charts/multiline.txt · donut=ds/charts/donut.txt · hbar=ds/charts/hbar.txt · stacked=ds/charts/stacked.txt
 - Modal/dialog → modals.json
 - Badge/status → badges.json
 - Toast/alert → feedback.json
+- Detail drawer (row-click asset/entity detail panel) → drawer.json
+- Filter popup (multi-entity filter builder) → filters.json
 
-All JSON base URL: https://design-system-2-0.pages.dev/ds/components/
+All JSON base URL: https://anthu211.github.io/design-system-2.0/ds/components/
 
 Do not fetch files for components not in the request.
 

@@ -39,7 +39,7 @@
 })();
 
 // ─── Design System Version (single source of truth) ───
-var DS_VERSION = 'v2.1.93';
+var DS_VERSION = 'v2.1.103';
 (function() {
   var el = document.getElementById('whats-new-version');
   if (el) el.textContent = DS_VERSION + ' \u2014 Latest';
@@ -2208,7 +2208,7 @@ function resetFilterChips() {
 // ─── Download CLAUDE.md ───
 function downloadClaudeMd() {
   var btn = document.getElementById('claude-dl-btn') || document.querySelector('[onclick="downloadClaudeMd()"]');
-  fetch('https://design-system-2-0.pages.dev/CLAUDE.md')
+  fetch('https://anthu211.github.io/design-system-2.0/CLAUDE.md')
     .then(function(r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.text();
@@ -2230,7 +2230,7 @@ function downloadClaudeMd() {
       }
     })
     .catch(function() {
-      showToast('error', 'Download failed — try right-clicking and saving from: design-system-2-0.pages.dev/CLAUDE.md');
+      showToast('error', 'Download failed — try right-clicking and saving from: anthu211.github.io/design-system-2.0/CLAUDE.md');
     });
 }
 
@@ -2241,7 +2241,7 @@ function downloadClaudeSetup() {
     btn.disabled = true;
     btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Downloading…';
   }
-  fetch('https://design-system-2-0.pages.dev/setup/claude-setup.zip')
+  fetch('https://anthu211.github.io/design-system-2.0/setup/claude-setup.zip')
     .then(function(r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.blob();
@@ -2262,7 +2262,7 @@ function downloadClaudeSetup() {
       }
     })
     .catch(function() {
-      showToast('error', 'Download failed — try again or get it from: design-system-2-0.pages.dev/setup/claude-setup.zip');
+      showToast('error', 'Download failed — try again or get it from: anthu211.github.io/design-system-2.0/setup/claude-setup.zip');
       if (btn) { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download claude-setup.zip'; }
     });
 }
@@ -2273,8 +2273,8 @@ function copyAiPrompt() {
     'Build UI for Prevalent AI — B2B cybersecurity platform for enterprise security teams.',
     '',
     'Read these design system files fully before responding:',
-    'https://design-system-2-0.pages.dev/page-spec.txt',
-    'https://design-system-2-0.pages.dev/charts.txt',
+    'https://anthu211.github.io/design-system-2.0/page-spec.txt',
+    'https://anthu211.github.io/design-system-2.0/charts.txt',
     '',
     'REQUIRED — copy these verbatim, never rewrite or shorten:',
     '• Shell HTML template from page-spec.txt — full <style> block, full <script> block',
@@ -2369,7 +2369,7 @@ function copyShellTemplate() {
     '',
     '  <!-- TOPBAR — always #131313, never changes with theme -->',
     '  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">',
-    '    <img src="https://design-system-2-0.pages.dev/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
+    '    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
     '    <span style="flex:1;"></span>',
     '    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>',
     '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">',
@@ -3725,4 +3725,968 @@ function initStatesPage() {
     });
   });
   if (document.querySelector('#page-states.active')) initStatesPage();
+})();
+
+/* ══════════════════════════════════════════════════
+   DETAIL DRAWER — ds-drawer-* namespace
+   Triggered by table row clicks.
+   Populates header, sidebar stats, entity graph,
+   and General/Security field grids from row data.
+══════════════════════════════════════════════════ */
+(function() {
+
+  // ── Severity helpers ──
+  var SEV_BADGE = {
+    critical: 'danger', high: 'warning', medium: 'info', low: 'success'
+  };
+  var SEV_COLOR = {
+    critical: '#D12329', high: '#D98B1D', medium: '#6360D8', low: '#31A56D'
+  };
+
+  // ── Open / Close ──
+  window.openDetailDrawer = function(data) {
+    var overlay  = document.getElementById('ds-drawer-overlay');
+    var drawer   = document.getElementById('ds-drawer');
+    if (!overlay || !drawer) return;
+
+    // Populate header
+    document.getElementById('ds-drawer-title').textContent    = data.asset || 'Unknown';
+    document.getElementById('ds-drawer-type-badge').textContent = data.type  || 'Host';
+    document.getElementById('ds-drawer-score').textContent    = data.score || '—';
+
+    var sevBadge = document.getElementById('ds-drawer-sev-badge');
+    var sev = (data.sev || 'low').toLowerCase();
+    sevBadge.className = 'ds-badge ' + (SEV_BADGE[sev] || 'neutral');
+    sevBadge.textContent = sev.charAt(0).toUpperCase() + sev.slice(1);
+
+    // Populate General fields
+    var gf = document.getElementById('ds-drawer-general-fields');
+    if (gf) {
+      gf.innerHTML = dsDrawerField('Display Label', data.asset) +
+        dsDrawerField('OS', data.os || 'Linux') +
+        dsDrawerField('Data Source', '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>&nbsp;3 sources', true) +
+        dsDrawerField('Hardware Serial Name', 'SN' + Math.random().toString(36).substr(2,10).toUpperCase()) +
+        dsDrawerField('Business Unit', data.bu || '—') +
+        dsDrawerField('Role', 'Web Server, Database') +
+        dsDrawerField('FQDN', '<span class="ds-drawer-field-value accent">' + (data.asset.replace(/\.[^.]+$/, '') + '-local.acme.com') + '</span>', true) +
+        dsDrawerField('A&amp;D Device ID', '<span style="font-size:10px;">' + dsUUID() + '</span>', true) +
+        dsDrawerField('Type', data.type || 'Server') +
+        dsDrawerField('MAC Address', '<span style="font-family:monospace;">' + dsMac() + '</span>', true) +
+        dsDrawerField('Internet Facing', '<span class="true-val">True</span>', true) +
+        dsDrawerField('Environment', 'Production');
+    }
+
+    // Populate Security fields
+    var sf = document.getElementById('ds-drawer-security-fields');
+    if (sf) {
+      sf.innerHTML =
+        dsDrawerField('Defender Risk Score', '<span class="ds-drawer-field-pill high">High</span>', true) +
+        dsDrawerField('Defender Health Status', '<span class="ds-drawer-field-pill true">TRUE</span>', true) +
+        dsDrawerField('EDR Onboarding Status', '<span class="ds-drawer-field-pill true">TRUE</span>', true) +
+        dsDrawerField('VM Onboarding Status', '<span class="ds-drawer-field-pill true">TRUE</span>', true) +
+        dsDrawerField('FW Enabled', '<span class="ds-drawer-field-pill true">TRUE</span>', true);
+    }
+
+    // Activate first tab
+    dsDrawerTab(document.querySelector('#ds-drawer .ds-drawer-tab'), 'summary');
+
+    // Init traversal stack with the root entity
+    _travStack = [{ label: data.asset, type: data.type || 'Host' }];
+    dsDrawerBuildTraversal();
+
+    // Open
+    overlay.classList.add('open');
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Draw entity graph
+    setTimeout(dsDrawerDrawGraph, 60);
+  };
+
+  window.closeDetailDrawer = function() {
+    var overlay = document.getElementById('ds-drawer-overlay');
+    var drawer  = document.getElementById('ds-drawer');
+    if (overlay) overlay.classList.remove('open');
+    if (drawer)  drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.dsDrawerOverlayClick = function(e) {
+    if (e.target === document.getElementById('ds-drawer-overlay')) closeDetailDrawer();
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var d = document.getElementById('ds-drawer');
+      if (d && d.classList.contains('open')) closeDetailDrawer();
+    }
+  });
+
+  // ── Field builder ──
+  function dsDrawerField(label, value, raw) {
+    return '<div class="ds-drawer-field">' +
+      '<div class="ds-drawer-field-label">' + label + '</div>' +
+      '<div class="ds-drawer-field-value">' + (raw ? value : escHtml(String(value))) + '</div>' +
+      '</div>';
+  }
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function dsUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random()*16|0, v = c==='x'?r:(r&0x3|0x8);
+      return v.toString(16);
+    });
+  }
+  function dsMac() {
+    return Array.from({length:6},function(){return('0'+Math.floor(Math.random()*256).toString(16)).slice(-2).toUpperCase()}).join(':');
+  }
+
+  // ── Tabs ──
+  window.dsDrawerTab = function(btn, panelId) {
+    document.querySelectorAll('#ds-drawer .ds-drawer-tab').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    document.querySelectorAll('#ds-drawer .ds-drawer-tab-panel').forEach(function(p) {
+      p.classList.remove('active');
+    });
+    if (btn) btn.classList.add('active');
+    var panel = document.getElementById('ds-drawer-panel-' + panelId);
+    if (panel) panel.classList.add('active');
+    // Render SVG diagrams lazily
+    if (panelId === 'contributing') setTimeout(dsContribDraw, 60);
+    if (panelId === 'resolution')   setTimeout(dsEresDraw, 60);
+  };
+
+  // ── Attribute Timeline switcher ──
+  window.dsDrawerAttrTimeline = function(attr) {
+    var data = {
+      os:   [{date:'Jan 12, 2023',val:'Windows 10 Pro',muted:true},{date:'Mar 5, 2024',val:'Windows 11 Pro',changed:true},{date:'Jan 23, 2025',val:'Windows 11 Pro',muted:false}],
+      ip:   [{date:'Jan 12, 2023',val:'10.0.1.11',muted:true},{date:'Jun 3, 2023',val:'10.0.1.42',changed:true},{date:'Jan 23, 2025',val:'10.0.1.42',muted:false}],
+      fqdn: [{date:'Jan 12, 2023',val:'desktop-a7k2b.acme.com',muted:false},{date:'Jan 23, 2025',val:'desktop-a7k2b.acme.com',muted:false}],
+      bu:   [{date:'Jan 12, 2023',val:'Engineering',muted:true},{date:'Sep 1, 2023',val:'Finance',changed:true},{date:'Jan 23, 2025',val:'Finance',muted:false}]
+    };
+    var events = data[attr] || data.os;
+    var container = document.getElementById('ds-tl-attr-events');
+    if (!container) return;
+    container.innerHTML = events.map(function(e) {
+      return '<div class="ds-tl-event' + (e.muted ? ' muted' : '') + '">' +
+        '<div class="ds-tl-dot"></div>' +
+        '<div class="ds-tl-event-date">' + e.date + '</div>' +
+        '<div class="ds-tl-event-desc">' + e.val + (e.changed ? '<br><span style="font-size:9px;color:var(--shell-accent);">Changed</span>' : '') + '</div>' +
+        '</div>';
+    }).join('');
+  };
+
+  // ── Evolution tab scroll ──
+  window.dsEvoScroll = function(dir) {
+    var el = document.getElementById('ds-evo-table-scroll');
+    if (!el) return;
+    el.scrollBy({ left: dir * 160, behavior: 'smooth' });
+    setTimeout(function() {
+      var leftBtn  = document.getElementById('ds-evo-left');
+      var rightBtn = document.getElementById('ds-evo-right');
+      if (leftBtn)  leftBtn.style.display  = el.scrollLeft > 0 ? 'flex' : 'none';
+      if (rightBtn) rightBtn.style.display = el.scrollLeft + el.clientWidth < el.scrollWidth - 4 ? 'flex' : 'none';
+    }, 250);
+  };
+
+  // ── Contributing Sources Sankey ──
+  function dsContribDraw() {
+    var canvas = document.getElementById('ds-contrib-canvas');
+    var svg    = document.getElementById('ds-contrib-svg');
+    if (!canvas || !svg) return;
+    svg.innerHTML = '';
+    var W = canvas.offsetWidth, H = canvas.offsetHeight;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    // Helper: get node mid-right and mid-left points relative to canvas
+    function midRight(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.right - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+    function midLeft(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.left - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+
+    var connections = [
+      { from:'ds-cn-azure',    to:'ds-cn-unique',       color:'rgba(245,158,11,0.2)' },
+      { from:'ds-cn-azure',    to:'ds-cn-corroborated', color:'rgba(245,158,11,0.15)' },
+      { from:'ds-cn-defender', to:'ds-cn-unique',       color:'rgba(124,58,237,0.2)' },
+      { from:'ds-cn-defender', to:'ds-cn-corroborated', color:'rgba(124,58,237,0.15)' },
+      { from:'ds-cn-nvd',      to:'ds-cn-corroborated', color:'rgba(99,96,216,0.2)' },
+      { from:'ds-cn-unique',   to:'ds-cn-host',         color:'rgba(49,165,109,0.2)' },
+      { from:'ds-cn-unique',   to:'ds-cn-vuln',         color:'rgba(49,165,109,0.15)' },
+      { from:'ds-cn-corroborated','to':'ds-cn-host',    color:'rgba(59,130,246,0.2)' },
+      { from:'ds-cn-corroborated','to':'ds-cn-vuln',    color:'rgba(59,130,246,0.15)' }
+    ];
+
+    connections.forEach(function(c) {
+      var p1 = midRight(c.from), p2 = midLeft(c.to);
+      if (!p1 || !p2) return;
+      var cx = (p1.x + p2.x) / 2;
+      var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', 'M'+p1.x+','+p1.y+' C'+cx+','+p1.y+' '+cx+','+p2.y+' '+p2.x+','+p2.y);
+      path.setAttribute('fill','none');
+      path.setAttribute('stroke', c.color);
+      path.setAttribute('stroke-width','10');
+      svg.appendChild(path);
+    });
+  }
+
+  // ── Entity Resolution graph ──
+  function dsEresDraw() {
+    var canvas = document.getElementById('ds-eres-canvas');
+    var svg    = document.getElementById('ds-eres-svg');
+    if (!canvas || !svg) return;
+    svg.innerHTML = '';
+    var W = canvas.offsetWidth, H = canvas.offsetHeight;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    function midRight(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.right - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+    function midLeft(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.left - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+
+    // Keys → Fragments
+    var kf = [
+      { from:'ds-eres-ip',     to:'ds-eres-f1', color:'rgba(220,38,38,0.25)' },
+      { from:'ds-eres-ip',     to:'ds-eres-f2', color:'rgba(220,38,38,0.15)' },
+      { from:'ds-eres-host',   to:'ds-eres-f1', color:'rgba(220,38,38,0.2)' },
+      { from:'ds-eres-host',   to:'ds-eres-f2', color:'rgba(220,38,38,0.2)' },
+      { from:'ds-eres-host',   to:'ds-eres-f3', color:'rgba(220,38,38,0.15)' },
+      { from:'ds-eres-serial', to:'ds-eres-f1', color:'rgba(220,38,38,0.2)' },
+      { from:'ds-eres-mac',    to:'ds-eres-f2', color:'rgba(220,38,38,0.2)' }
+    ];
+    // Fragments → Resolved
+    var fr = [
+      { from:'ds-eres-f1', to:'ds-eres-resolved', color:'rgba(20,184,166,0.35)' },
+      { from:'ds-eres-f2', to:'ds-eres-resolved', color:'rgba(20,184,166,0.35)' },
+      { from:'ds-eres-f3', to:'ds-eres-resolved', color:'rgba(20,184,166,0.25)' }
+    ];
+
+    kf.concat(fr).forEach(function(c) {
+      var p1 = midRight(c.from), p2 = midLeft(c.to);
+      if (!p1 || !p2) return;
+      var cx = (p1.x + p2.x) / 2;
+      var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', 'M'+p1.x+','+p1.y+' C'+cx+','+p1.y+' '+cx+','+p2.y+' '+p2.x+','+p2.y);
+      path.setAttribute('fill','none');
+      path.setAttribute('stroke', c.color);
+      path.setAttribute('stroke-width','2');
+      svg.appendChild(path);
+    });
+  }
+
+  // ── Graph toggle ──
+  window.dsDrawerToggleGraph = function() {
+    var section = document.getElementById('ds-drawer-graph-section');
+    var toggle  = document.getElementById('ds-drawer-graph-toggle');
+    if (!section) return;
+    var collapsed = section.classList.toggle('collapsed');
+    if (toggle) {
+      toggle.innerHTML = collapsed
+        ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg> Expand'
+        : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg> Collapse';
+    }
+  };
+
+  // ── Dynamic traversal path ──
+  var _travStack = [];
+
+  var _travIcons = {
+    Host:          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+    Server:        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>',
+    Vulnerability: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+    Findings:      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+    Person:        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    Identity:      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    Application:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/></svg>',
+    Network:       '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+    Workstation:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+  };
+  function dsGetTravIcon(type) {
+    return _travIcons[type] || _travIcons.Host;
+  }
+
+  // Render the sidebar from _travStack
+  function dsDrawerBuildTraversal() {
+    var container = document.getElementById('ds-drawer-trav-nodes');
+    if (!container) return;
+    var html = '';
+    _travStack.forEach(function(node, i) {
+      var isLast = (i === _travStack.length - 1);
+      var canClick = !isLast; // clicking current node does nothing
+      if (i > 0) html += '<div class="ds-drawer-trav-gap"></div>';
+      html +=
+        '<div class="ds-drawer-trav-node' + (isLast ? ' active' : ' past') + '"' +
+        ' title="' + node.label + '"' +
+        (canClick ? ' onclick="dsDrawerTravClick(' + i + ')"' : '') +
+        '>' +
+        '<div class="ds-drawer-trav-circle">' + dsGetTravIcon(node.type) + '</div>' +
+        '<span class="ds-drawer-trav-label">' + node.type + '</span>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // Click on traversal node at index → truncate everything below it
+  window.dsDrawerTravClick = function(index) {
+    if (index >= _travStack.length - 1) return; // already current
+    _travStack = _travStack.slice(0, index + 1);
+    dsDrawerBuildTraversal();
+    // Update drawer header to reflect new current entity
+    var current = _travStack[_travStack.length - 1];
+    var titleEl = document.getElementById('ds-drawer-title');
+    if (titleEl) titleEl.textContent = current.label;
+    var typeEl = document.getElementById('ds-drawer-type-badge');
+    if (typeEl) typeEl.textContent = current.type;
+  };
+
+  // Push a new entity onto the traversal stack (called from graph node clicks)
+  window.dsDrawerPushTrav = function(label, type) {
+    // Don't push duplicate of current top
+    if (_travStack.length > 0) {
+      var top = _travStack[_travStack.length - 1];
+      if (top.label === label && top.type === type) return;
+    }
+    _travStack.push({ label: label, type: type });
+    dsDrawerBuildTraversal();
+    // Update drawer header
+    var titleEl = document.getElementById('ds-drawer-title');
+    if (titleEl) titleEl.textContent = label;
+    var typeEl = document.getElementById('ds-drawer-type-badge');
+    if (typeEl) typeEl.textContent = type;
+    // Scroll sidebar to bottom so new node is visible
+    var sidebar = document.getElementById('ds-drawer-sidebar');
+    if (sidebar) sidebar.scrollTop = sidebar.scrollHeight;
+  };
+
+  // ── Entity relationship graph — zoom/pan state ──
+  var _graphScale = 1, _graphTx = 0, _graphTy = 0;
+  var _graphDragging = false, _graphDragStart = null;
+  var _graphDragMoved = false; // true if pointer moved while dragging (suppress node click)
+
+  function dsGraphApplyTransform() {
+    var g = document.getElementById('ds-drawer-graph-group');
+    if (g) g.setAttribute('transform', 'translate('+_graphTx+','+_graphTy+') scale('+_graphScale+')');
+  }
+
+  window.dsGraphZoom = function(delta) {
+    var canvas = document.getElementById('ds-drawer-graph-canvas');
+    if (!canvas) return;
+    var W = canvas.offsetWidth, H = canvas.offsetHeight;
+    var newScale = Math.min(4, Math.max(0.3, _graphScale + delta));
+    // Zoom toward center of canvas
+    var originX = W / 2, originY = H / 2;
+    _graphTx = originX - (originX - _graphTx) * (newScale / _graphScale);
+    _graphTy = originY - (originY - _graphTy) * (newScale / _graphScale);
+    _graphScale = newScale;
+    dsGraphApplyTransform();
+  };
+
+  window.dsGraphReset = function() {
+    _graphScale = 1; _graphTx = 0; _graphTy = 0;
+    dsGraphApplyTransform();
+  };
+
+  function dsGraphInitInteraction() {
+    var canvas = document.getElementById('ds-drawer-graph-canvas');
+    if (!canvas || canvas._graphInteractionBound) return;
+    canvas._graphInteractionBound = true;
+
+    // Mouse wheel zoom
+    canvas.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var rect = canvas.getBoundingClientRect();
+      var mx = e.clientX - rect.left;
+      var my = e.clientY - rect.top;
+      var delta = e.deltaY < 0 ? 0.15 : -0.15;
+      var newScale = Math.min(4, Math.max(0.3, _graphScale + delta));
+      _graphTx = mx - (mx - _graphTx) * (newScale / _graphScale);
+      _graphTy = my - (my - _graphTy) * (newScale / _graphScale);
+      _graphScale = newScale;
+      dsGraphApplyTransform();
+    }, { passive: false });
+
+    // Drag to pan
+    canvas.addEventListener('mousedown', function(e) {
+      if (e.button !== 0) return;
+      _graphDragging = true;
+      _graphDragMoved = false;
+      _graphDragStart = { x: e.clientX - _graphTx, y: e.clientY - _graphTy };
+      canvas.classList.add('dragging');
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!_graphDragging || !_graphDragStart) return;
+      _graphDragMoved = true;
+      _graphTx = e.clientX - _graphDragStart.x;
+      _graphTy = e.clientY - _graphDragStart.y;
+      dsGraphApplyTransform();
+    });
+    window.addEventListener('mouseup', function() {
+      if (!_graphDragging) return;
+      _graphDragging = false;
+      _graphDragStart = null;
+      var canvas2 = document.getElementById('ds-drawer-graph-canvas');
+      if (canvas2) canvas2.classList.remove('dragging');
+      // Reset _graphDragMoved after a tick so click handlers can check it
+      setTimeout(function() { _graphDragMoved = false; }, 10);
+    });
+
+    // Touch pan
+    var _touchStart = null;
+    canvas.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 1) {
+        _touchStart = { x: e.touches[0].clientX - _graphTx, y: e.touches[0].clientY - _graphTy };
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 1 && _touchStart) {
+        e.preventDefault();
+        _graphTx = e.touches[0].clientX - _touchStart.x;
+        _graphTy = e.touches[0].clientY - _touchStart.y;
+        dsGraphApplyTransform();
+      }
+    }, { passive: false });
+    canvas.addEventListener('touchend', function() { _touchStart = null; }, { passive: true });
+  }
+
+  // ── Entity relationship graph — horizontal left-to-right flow ──
+  function dsDrawerDrawGraph() {
+    var svg    = document.getElementById('ds-drawer-graph-svg');
+    var canvas = document.getElementById('ds-drawer-graph-canvas');
+    var g      = document.getElementById('ds-drawer-graph-group');
+    if (!svg || !canvas || !g) return;
+
+    var W = canvas.offsetWidth || 700;
+    var H = 300;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    g.innerHTML = '';
+
+    _graphScale = 1; _graphTx = 0; _graphTy = 0;
+    dsGraphApplyTransform();
+
+    var NS = 'http://www.w3.org/2000/svg';
+    function mkEl(tag) { return document.createElementNS(NS, tag); }
+
+    // ── Icon paths (24×24 viewBox) ──
+    var ICONS = {
+      globe:   'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 0v20M2 12h20M12 2C8.5 6.5 8.5 17.5 12 22M12 2c3.5 4.5 3.5 15.5 0 20',
+      grid:    'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
+      monitor: 'M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8 21h8M12 17v4',
+      server:  'M4 2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM4 14h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2zM6 7h.01M6 18h.01',
+      person:  'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+      shield:  'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 8v4M12 16h.01',
+      search:  'M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z',
+      network: 'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18',
+      vm:      'M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8 21h8M12 17v4M7 8h10M7 12h6',
+    };
+
+    // ── Entity type → style map ──
+    var TYPE_STYLE = {
+      Host:          { icon: 'monitor', fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Server:        { icon: 'server',  fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Workstation:   { icon: 'monitor', fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Network:       { icon: 'network', fill: '#5A8FC4', ring: 'rgba(90,143,196,0.25)'  },
+      Scanner:       { icon: 'search',  fill: '#8B82C4', ring: 'rgba(139,130,196,0.25)' },
+      Person:        { icon: 'person',  fill: '#7A95B8', ring: 'rgba(122,149,184,0.25)' },
+      Identity:      { icon: 'person',  fill: '#7A95B8', ring: 'rgba(122,149,184,0.25)' },
+      Account:       { icon: 'person',  fill: '#7A95B8', ring: 'rgba(122,149,184,0.25)' },
+      Vulnerability: { icon: 'shield',  fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Findings:      { icon: 'search',  fill: '#9B8EC4', ring: 'rgba(155,142,196,0.25)' },
+      Application:   { icon: 'grid',    fill: '#B09060', ring: 'rgba(176,144,96,0.25)'  },
+    };
+
+    // ── Helpers ──
+    function drawIcon(parent, iconKey, cx, cy, nodeR) {
+      var d = ICONS[iconKey] || ICONS.monitor;
+      var iconSize = nodeR * 1.05;
+      var s = iconSize / 12;
+      var grp = mkEl('g');
+      grp.setAttribute('transform', 'translate('+(cx-12*s)+','+(cy-12*s)+') scale('+s+')');
+      grp.style.pointerEvents = 'none';
+      var p = mkEl('path');
+      p.setAttribute('d', d);
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', 'rgba(255,255,255,0.88)');
+      p.setAttribute('stroke-width', String(1.8 / s));
+      p.setAttribute('stroke-linecap', 'round');
+      p.setAttribute('stroke-linejoin', 'round');
+      grp.appendChild(p);
+      parent.appendChild(grp);
+    }
+
+    function drawNode(parent, cx, cy, r, style, typeLabel, instanceLabel) {
+      // Outer glow ring
+      var ring = mkEl('circle');
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
+      ring.setAttribute('r', r + 5);
+      ring.setAttribute('fill', style.ring || 'rgba(99,96,216,0.15)');
+      ring.setAttribute('stroke', 'none');
+      parent.appendChild(ring);
+      // Main circle
+      var circ = mkEl('circle');
+      circ.setAttribute('cx', cx); circ.setAttribute('cy', cy);
+      circ.setAttribute('r', r);
+      circ.setAttribute('fill', style.fill);
+      circ.setAttribute('stroke', 'none');
+      parent.appendChild(circ);
+      // Icon
+      drawIcon(parent, style.icon, cx, cy, r * 0.52);
+      // Type label below
+      var lbl = mkEl('text');
+      lbl.setAttribute('x', cx); lbl.setAttribute('y', cy + r + 14);
+      lbl.setAttribute('text-anchor', 'middle');
+      lbl.setAttribute('font-size', '10');
+      lbl.setAttribute('font-weight', '600');
+      lbl.setAttribute('fill', 'var(--shell-text)');
+      lbl.setAttribute('font-family', 'Inter,sans-serif');
+      lbl.style.pointerEvents = 'none';
+      lbl.textContent = typeLabel;
+      parent.appendChild(lbl);
+      // Instance sub-label
+      if (instanceLabel) {
+        var sub = mkEl('text');
+        sub.setAttribute('x', cx); sub.setAttribute('y', cy + r + 26);
+        sub.setAttribute('text-anchor', 'middle');
+        sub.setAttribute('font-size', '8.5');
+        sub.setAttribute('fill', 'var(--shell-text-muted)');
+        sub.setAttribute('font-family', 'Inter,sans-serif');
+        sub.style.pointerEvents = 'none';
+        // Truncate long hostnames
+        var short = instanceLabel.length > 22 ? instanceLabel.substring(0, 20) + '…' : instanceLabel;
+        sub.textContent = short;
+        parent.appendChild(sub);
+      }
+      return circ;
+    }
+
+    function drawCountBadge(parent, cx, cy, nodeR, count) {
+      var badgeR = count > 9 ? 10 : 8;
+      var bx = cx + nodeR * 0.6, by = cy - nodeR * 0.6;
+      var bc = mkEl('circle');
+      bc.setAttribute('cx', bx); bc.setAttribute('cy', by);
+      bc.setAttribute('r', badgeR);
+      bc.setAttribute('fill', 'var(--card-bg)');
+      bc.setAttribute('stroke', 'var(--shell-border)');
+      bc.setAttribute('stroke-width', '1');
+      parent.appendChild(bc);
+      var bt = mkEl('text');
+      bt.setAttribute('x', bx); bt.setAttribute('y', by + 3.5);
+      bt.setAttribute('text-anchor', 'middle');
+      bt.setAttribute('font-size', '8');
+      bt.setAttribute('font-weight', '700');
+      bt.setAttribute('fill', 'var(--shell-text)');
+      bt.setAttribute('font-family', 'Inter,sans-serif');
+      bt.style.pointerEvents = 'none';
+      bt.textContent = count;
+      parent.appendChild(bt);
+    }
+
+    function drawCurve(parent, x1, y1, x2, y2, color, sw) {
+      var cpx = (x1 + x2) / 2;
+      var path = mkEl('path');
+      path.setAttribute('d', 'M'+x1+','+y1+' C'+cpx+','+y1+' '+cpx+','+y2+' '+x2+','+y2);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', color);
+      path.setAttribute('stroke-width', sw || '1.5');
+      path.setAttribute('stroke-linecap', 'round');
+      parent.appendChild(path);
+    }
+
+    // ── Layout constants ──
+    var cy   = H / 2;
+    var rL   = 26;  // left-path node radius
+    var rC   = 30;  // center (current entity) radius
+    var rR   = 22;  // right (related) node radius
+    var padL = 48;
+    var padR = 72;  // leave room for zoom panel
+
+    // X positions: distribute 3 left-chain nodes across ~55% of width
+    var xI  = padL + rL;                      // Internet
+    var xA  = padL + rL + (W * 0.18);         // Application Endpoint
+    var xC  = padL + rL + (W * 0.36);         // Current entity
+    var xR  = W - padR - rR;                  // Right nodes column
+
+    // Current entity data
+    var curNode  = _travStack.length ? _travStack[_travStack.length - 1] : { label: 'Entity', type: 'Host' };
+    var curStyle = TYPE_STYLE[curNode.type] || TYPE_STYLE.Host;
+
+    // Right-side related nodes
+    var rightNodes = [
+      { type: 'Person',        label: 'Person',        instance: null,         badge: 1,  color: '#7A95B8', ring: 'rgba(122,149,184,0.22)', line: 'rgba(122,149,184,0.5)',  lw: 1.5 },
+      { type: 'Account',       label: 'Account',       instance: null,         badge: 2,  color: '#7A95B8', ring: 'rgba(122,149,184,0.22)', line: 'rgba(122,149,184,0.5)',  lw: 1.8 },
+      { type: 'Vulnerability', label: 'Vulnerability', instance: null,         badge: 8,  color: '#C4728A', ring: 'rgba(196,114,138,0.22)', line: 'rgba(196,114,138,0.55)', lw: 2.0 },
+      { type: 'Findings',      label: 'Findings',      instance: null,         badge: 43, color: '#9B8EC4', ring: 'rgba(155,142,196,0.22)', line: 'rgba(155,142,196,0.55)', lw: 2.2 },
+    ];
+
+    // Vertical spread for right nodes
+    var spread = H * 0.70;
+    var rTop   = (H - spread) / 2;
+    var rStep  = spread / (rightNodes.length - 1);
+    rightNodes.forEach(function(n, i) { n.cy = rTop + i * rStep; });
+
+    // ── 1. Draw connection curves (behind everything) ──
+    // Left chain: Internet → App Endpoint → Current entity
+    drawCurve(g, xI + rL, cy, xA - rL, cy, 'rgba(140,160,200,0.45)', 2);
+    drawCurve(g, xA + rL, cy, xC - rC, cy, 'rgba(140,160,200,0.45)', 2);
+    // Fan-out: current entity → each right node
+    rightNodes.forEach(function(n) {
+      drawCurve(g, xC + rC, cy, xR - rR, n.cy, n.line, n.lw);
+    });
+
+    // ── 2. Draw static left-chain nodes ──
+    drawNode(g, xI, cy, rL,
+      { fill: '#4A6B42', ring: 'rgba(74,107,66,0.2)', icon: 'globe' },
+      'Internet', null);
+    drawNode(g, xA, cy, rL,
+      { fill: '#B09060', ring: 'rgba(176,144,96,0.2)', icon: 'grid' },
+      'Application', 'Endpoint');
+
+    // ── 3. Draw current entity (center) ──
+    drawNode(g, xC, cy, rC, curStyle, curNode.type, curNode.label);
+
+    // ── 4. Draw right related nodes (clickable) ──
+    rightNodes.forEach(function(n) {
+      var nStyle = { fill: n.color, ring: n.ring, icon: (TYPE_STYLE[n.type] || {}).icon || 'search' };
+
+      // Invisible large hit area (drawn first, behind everything)
+      var hit = mkEl('circle');
+      hit.setAttribute('cx', xR); hit.setAttribute('cy', n.cy);
+      hit.setAttribute('r', rR + 10);
+      hit.setAttribute('fill', 'transparent');
+      hit.style.cursor = 'pointer';
+      g.appendChild(hit);
+
+      // Visual node
+      drawNode(g, xR, n.cy, rR, nStyle, n.label, n.instance);
+
+      // Count badge
+      if (n.badge !== null) drawCountBadge(g, xR, n.cy, rR, n.badge);
+
+      // Hover: brighten ring
+      function hoverOn() {
+        hit.setAttribute('fill', n.ring);
+      }
+      function hoverOff() {
+        hit.setAttribute('fill', 'transparent');
+      }
+      hit.addEventListener('mouseenter', hoverOn);
+      hit.addEventListener('mouseleave', hoverOff);
+
+      // Click → push traversal
+      hit.addEventListener('click', function(e) {
+        if (_graphDragMoved) return;
+        e.stopPropagation();
+        dsDrawerPushTrav(n.label + (n.badge > 1 ? ' ×'+n.badge : ''), n.type);
+      });
+    });
+
+    dsGraphInitInteraction();
+  }
+
+  // ── Wire up demo table rows ──
+  document.addEventListener('click', function(e) {
+    var row = e.target.closest('.drawer-demo-row');
+    if (!row) return;
+    openDetailDrawer({
+      asset: row.dataset.asset,
+      type:  row.dataset.type,
+      bu:    row.dataset.bu,
+      os:    row.dataset.os,
+      score: row.dataset.score,
+      sev:   row.dataset.sev
+    });
+  });
+
+
+})();
+
+/* ══════════════════════════════════════════════════
+   FILTER POPUP — ds-fp-* namespace
+══════════════════════════════════════════════════ */
+(function() {
+  // ── Data ──
+  var FP_ATTRS = {
+    host:          ['Asset Criticality','Business Unit','Compliance','Display Label','Infrastructure Type','Purpose','Score','Type'],
+    application:   ['Application Name','Business Unit','Compliance','Environment','Framework','Owner','Risk Level','Status'],
+    vulnerability: ['CVSSv3 Score','Category','Exploit Available','First Seen','Last Seen','Patch Available','Severity','State'],
+    user:          ['Business Unit','Department','Last Login','Privilege Level','Role','Status'],
+    cve:           ['CVE ID','CVSSv3 Score','Exploit Maturity','Published Date','Severity','Vendor']
+  };
+  var FP_VALS = {
+    'Type':               ['Server','Workstation','Mobile','Network','Printer','Scanner','Others'],
+    'Infrastructure Type':['On-Premises','Cloud','Hybrid','Container','Virtual Machine'],
+    'Asset Criticality':  ['Critical','High','Medium','Low'],
+    'Severity':           ['Critical','High','Medium','Low','Informational'],
+    'Business Unit':      ['Engineering','Finance','HR','Infrastructure','Legal','Operations','Sales','Security'],
+    'Status':             ['Active','Inactive','Decommissioned','Under Review'],
+    'Compliance':         ['GDPR','HIPAA','ISO 27001','PCI DSS','SOC 2'],
+    'Environment':        ['Development','Production','Staging','Testing'],
+    'Purpose':            ['Analytics','Authentication','Database','File Storage','Load Balancer','Web Server'],
+    'Privilege Level':    ['Admin','Operator','Read-Only','Super Admin'],
+    'Role':               ['Analyst','Developer','Engineer','Manager','Owner'],
+    'State':              ['Active','Fixed','Accepted Risk','In Progress'],
+    'Exploit Available':  ['Yes','No'],
+    'Patch Available':    ['Yes','No'],
+    'Exploit Maturity':   ['Functional','High','Proof of Concept','Unproven']
+  };
+
+  // ── State ──
+  var fp = {
+    entity: 'host',
+    attr:   null,
+    mode:   'include',
+    sortAsc: true,
+    checked: {},       // key = "entity::attr::val" → bool
+    applied: []        // [{entity,attr,values,mode}]
+  };
+
+  // ── Open / Close ──
+  window.openDsFilterPopup = function() {
+    document.getElementById('ds-fp-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    dsFpSelectEntity('host', true);
+    setTimeout(dsFpDrawLines, 60);
+  };
+  window.closeDsFilterPopup = function() {
+    document.getElementById('ds-fp-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  window.dsFpOverlayClick = function(e) {
+    if (e.target === document.getElementById('ds-fp-overlay')) closeDsFilterPopup();
+  };
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('ds-fp-overlay').classList.contains('open')) {
+      closeDsFilterPopup();
+    }
+  });
+
+  // ── Entity selection ──
+  window.dsFpSelectEntity = function(key, autoAttr) {
+    fp.entity = key;
+    document.querySelectorAll('.ds-fp-node').forEach(function(n) {
+      n.classList.toggle('active', n.dataset.entity === key);
+    });
+    var label = key.charAt(0).toUpperCase() + key.slice(1);
+    document.getElementById('ds-fp-entity-label').textContent = label;
+    document.getElementById('ds-fp-attr-search').value = '';
+    fp.attr = null;
+    dsFpRenderAttrs(FP_ATTRS[key] || []);
+    dsFpClearValGrid();
+    if (autoAttr !== false && (FP_ATTRS[key] || []).length) {
+      dsFpSelectAttr((FP_ATTRS[key] || [])[0]);
+    }
+  };
+
+  // ── Attribute list ──
+  function dsFpRenderAttrs(list) {
+    var el = document.getElementById('ds-fp-attr-list');
+    el.innerHTML = '';
+    if (!list.length) {
+      el.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--shell-text-muted);">No attributes found.</div>';
+      return;
+    }
+    list.forEach(function(attr) {
+      var row = document.createElement('label');
+      row.className = 'ds-fp-attr-opt' + (attr === fp.attr ? ' active' : '');
+      row.dataset.attr = attr;
+      row.innerHTML = '<input type="radio" name="ds-fp-attr"' + (attr === fp.attr ? ' checked' : '') + '> ' + attr +
+        (attr === fp.attr ? '<span class="ds-fp-attr-dot"></span>' : '');
+      row.addEventListener('click', function() { dsFpSelectAttr(attr); });
+      el.appendChild(row);
+    });
+  }
+
+  window.dsFpFilterAttrs = function(q) {
+    var all = FP_ATTRS[fp.entity] || [];
+    dsFpRenderAttrs(q ? all.filter(function(a) { return a.toLowerCase().indexOf(q.toLowerCase()) > -1; }) : all);
+  };
+
+  window.dsFpSelectAttr = function(attr) {
+    fp.attr = attr;
+    document.querySelectorAll('.ds-fp-attr-opt').forEach(function(o) {
+      var sel = o.dataset.attr === attr;
+      o.classList.toggle('active', sel);
+      var r = o.querySelector('input[type="radio"]');
+      if (r) r.checked = sel;
+      var dot = o.querySelector('.ds-fp-attr-dot');
+      if (sel && !dot) { var d = document.createElement('span'); d.className = 'ds-fp-attr-dot'; o.appendChild(d); }
+      else if (!sel && dot) dot.remove();
+    });
+    document.getElementById('ds-fp-val-search').value = '';
+    document.getElementById('ds-fp-sel-all').checked = false;
+    dsFpRenderVals(dsFpGetVals(attr));
+  };
+
+  // ── Values ──
+  function dsFpGetVals(attr) {
+    return FP_VALS[attr] || ['Value A','Value B','Value C','Value D','Value E','Value F'];
+  }
+
+  function dsFpRenderVals(list) {
+    var grid = document.getElementById('ds-fp-val-grid');
+    grid.innerHTML = '';
+    var sorted = fp.sortAsc ? list.slice().sort() : list.slice().sort().reverse();
+    sorted.forEach(function(val) {
+      var key = fp.entity + '::' + fp.attr + '::' + val;
+      var checked = !!fp.checked[key];
+      var item = document.createElement('div');
+      item.className = 'ds-fp-val-opt' + (checked ? ' checked' : '');
+      item.dataset.key = key;
+      item.innerHTML = '<div class="ds-fp-val-box">' +
+        (checked ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '') +
+        '</div><span class="ds-fp-val-name">' + val + '</span>';
+      item.addEventListener('click', function() { dsFpToggleVal(key, val, item); });
+      grid.appendChild(item);
+    });
+  }
+
+  function dsFpToggleVal(key, val, item) {
+    fp.checked[key] = !fp.checked[key];
+    var c = fp.checked[key];
+    item.classList.toggle('checked', c);
+    item.querySelector('.ds-fp-val-box').innerHTML = c
+      ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'
+      : '';
+    // sync select-all checkbox
+    var all = dsFpGetVals(fp.attr);
+    var allChecked = all.every(function(v) { return !!fp.checked[fp.entity + '::' + fp.attr + '::' + v]; });
+    document.getElementById('ds-fp-sel-all').checked = allChecked;
+  }
+
+  function dsFpClearValGrid() {
+    var g = document.getElementById('ds-fp-val-grid');
+    if (g) g.innerHTML = '<div style="padding:24px 16px;font-size:12px;color:var(--shell-text-muted);">Select an attribute to view values.</div>';
+  }
+
+  window.dsFpFilterVals = function(q) {
+    if (!fp.attr) return;
+    var all = dsFpGetVals(fp.attr);
+    dsFpRenderVals(q ? all.filter(function(v) { return v.toLowerCase().indexOf(q.toLowerCase()) > -1; }) : all);
+  };
+
+  window.dsFpSelectAll = function(checked) {
+    if (!fp.attr) return;
+    dsFpGetVals(fp.attr).forEach(function(v) {
+      fp.checked[fp.entity + '::' + fp.attr + '::' + v] = checked;
+    });
+    dsFpRenderVals(dsFpGetVals(fp.attr));
+  };
+
+  window.dsFpToggleSort = function() {
+    fp.sortAsc = !fp.sortAsc;
+    document.getElementById('ds-fp-sort-lbl').textContent = fp.sortAsc ? 'A-Z' : 'Z-A';
+    if (fp.attr) dsFpRenderVals(dsFpGetVals(fp.attr));
+  };
+
+  window.dsFpSetMode = function(mode) {
+    fp.mode = mode;
+    document.getElementById('ds-fp-inc').classList.toggle('active', mode === 'include');
+    document.getElementById('ds-fp-exc').classList.toggle('active', mode === 'exclude');
+  };
+
+  // ── Apply ──
+  window.dsFpApply = function() {
+    var groups = {};
+    Object.keys(fp.checked).forEach(function(key) {
+      if (!fp.checked[key]) return;
+      var parts = key.split('::');
+      var gk = parts[0] + '::' + parts[1];
+      if (!groups[gk]) groups[gk] = { entity: parts[0], attr: parts[1], values: [], mode: fp.mode };
+      groups[gk].values.push(parts[2]);
+    });
+    fp.applied = Object.values ? Object.values(groups) : Object.keys(groups).map(function(k) { return groups[k]; });
+    dsFpRenderChips();
+    closeDsFilterPopup();
+    var total = fp.applied.reduce(function(n, g) { return n + g.values.length; }, 0);
+    if (total > 0) showToast('success', total + ' filter(s) applied');
+  };
+
+  function dsFpRenderChips() {
+    var bar = document.getElementById('ds-fp-active-bar');
+    var row = document.getElementById('ds-fp-chip-row');
+    if (!bar || !row) return;
+    row.innerHTML = '';
+    if (!fp.applied.length) { bar.classList.add('hidden'); return; }
+    bar.classList.remove('hidden');
+    fp.applied.forEach(function(g, gi) {
+      g.values.forEach(function(val) {
+        var chip = document.createElement('div');
+        chip.className = 'ds-fp-chip';
+        chip.innerHTML = '<span class="ds-fp-chip-key">' + g.attr + ':</span>' +
+          '<span class="ds-fp-chip-value">' + val + '</span>' +
+          '<button class="ds-fp-chip-x" title="Remove">' +
+          '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+        chip.querySelector('.ds-fp-chip-x').addEventListener('click', function() {
+          dsFpRemoveVal(gi, val);
+        });
+        row.appendChild(chip);
+      });
+    });
+  }
+
+  function dsFpRemoveVal(gi, val) {
+    var g = fp.applied[gi];
+    if (!g) return;
+    fp.checked[g.entity + '::' + g.attr + '::' + val] = false;
+    g.values = g.values.filter(function(v) { return v !== val; });
+    if (!g.values.length) fp.applied.splice(gi, 1);
+    dsFpRenderChips();
+  }
+
+  window.dsFpClearAll = function() {
+    fp.checked = {};
+    fp.applied = [];
+    dsFpRenderChips();
+    showToast('info', 'All filters cleared');
+  };
+
+  // ── SVG connection lines ──
+  function dsFpDrawLines() {
+    var canvas = document.getElementById('ds-fp-canvas');
+    var svg = document.getElementById('ds-fp-svg');
+    if (!canvas || !svg) return;
+    var cr = canvas.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + cr.width + ' ' + cr.height);
+    svg.innerHTML = '';
+    var center = document.querySelector('.ds-fp-node[data-entity="host"]');
+    if (!center) return;
+    var ccr = center.getBoundingClientRect();
+    var cx = ccr.left - cr.left + ccr.width / 2;
+    var cy = ccr.top  - cr.top  + ccr.height / 2;
+    document.querySelectorAll('.ds-fp-node:not([data-entity="host"])').forEach(function(node) {
+      var nr = node.getBoundingClientRect();
+      var nx = nr.left - cr.left + nr.width / 2;
+      var ny = nr.top  - cr.top  + nr.height / 2;
+      var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', nx); line.setAttribute('y2', ny);
+      line.setAttribute('stroke', 'var(--ctrl-border)');
+      line.setAttribute('stroke-width', '1.5');
+      line.setAttribute('stroke-dasharray', '4 4');
+      svg.appendChild(line);
+    });
+  }
+  window.addEventListener('resize', function() {
+    if (document.getElementById('ds-fp-overlay').classList.contains('open')) dsFpDrawLines();
+  });
 })();
