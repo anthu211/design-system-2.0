@@ -1,6 +1,6 @@
 Fetch ALL of these URLs fully before doing anything:
-1. https://pai-ux.netlify.app/ds/rules.json
-2. https://pai-ux.netlify.app/ds/core.txt
+1. https://anthu211.github.io/design-system-2.0/ds/rules.json
+2. https://anthu211.github.io/design-system-2.0/ds/core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 

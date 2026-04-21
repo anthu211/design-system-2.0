@@ -1,9 +1,9 @@
 #!/bin/bash
 # Prevalent AI — Claude Code Setup
 # Via zip:  bash claude-setup/install.sh
-# Via curl: curl -fsSLk https://pai-ux.netlify.app/setup/install.sh | bash
+# Via curl: curl -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash
 
-BASE="https://pai-ux.netlify.app"
+BASE="https://anthu211.github.io/design-system-2.0"
 
 mkdir -p .claude/commands
 

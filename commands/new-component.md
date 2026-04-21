@@ -1,13 +1,13 @@
 Fetch these files first:
-1. https://pai-ux.netlify.app/ds/tokens/colors.json
-2. https://pai-ux.netlify.app/ds/tokens/spacing.json
+1. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
+2. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
 
 Then read $ARGUMENTS and fetch only what is needed:
 - Table/list → tables.json + badges.json
 - Form/input → inputs.json + modals.json
 - Button/action → buttons.json
 - Card/KPI → cards.json
-- Chart → fetch https://pai-ux.netlify.app/ds/charts/base.txt + only the chart type file needed:
+- Chart → fetch https://anthu211.github.io/design-system-2.0/ds/charts/base.txt + only the chart type file needed:
     bar=ds/charts/bar.txt · line=ds/charts/line.txt · multiline=ds/charts/multiline.txt · donut=ds/charts/donut.txt · hbar=ds/charts/hbar.txt · stacked=ds/charts/stacked.txt
 - Modal/dialog → modals.json
 - Badge/status → badges.json
@@ -15,7 +15,7 @@ Then read $ARGUMENTS and fetch only what is needed:
 - Detail drawer (row-click asset/entity detail panel) → drawer.json
 - Filter popup (multi-entity filter builder) → filters.json
 
-All JSON base URL: https://pai-ux.netlify.app/ds/components/
+All JSON base URL: https://anthu211.github.io/design-system-2.0/ds/components/
 
 Do not fetch files for components not in the request.
 
