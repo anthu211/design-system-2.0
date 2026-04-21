@@ -2208,7 +2208,7 @@ function resetFilterChips() {
 // ─── Download CLAUDE.md ───
 function downloadClaudeMd() {
   var btn = document.getElementById('claude-dl-btn') || document.querySelector('[onclick="downloadClaudeMd()"]');
-  fetch('https://pai-ux.netlify.app/CLAUDE.md')
+  fetch('https://anthu211.github.io/design-system-2.0/CLAUDE.md')
     .then(function(r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.text();
@@ -2230,7 +2230,7 @@ function downloadClaudeMd() {
       }
     })
     .catch(function() {
-      showToast('error', 'Download failed — try right-clicking and saving from: pai-ux.netlify.app/CLAUDE.md');
+      showToast('error', 'Download failed — try right-clicking and saving from: anthu211.github.io/design-system-2.0/CLAUDE.md');
     });
 }
 
@@ -2241,7 +2241,7 @@ function downloadClaudeSetup() {
     btn.disabled = true;
     btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Downloading…';
   }
-  fetch('https://pai-ux.netlify.app/setup/claude-setup.zip')
+  fetch('https://anthu211.github.io/design-system-2.0/setup/claude-setup.zip')
     .then(function(r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.blob();
@@ -2262,7 +2262,7 @@ function downloadClaudeSetup() {
       }
     })
     .catch(function() {
-      showToast('error', 'Download failed — try again or get it from: pai-ux.netlify.app/setup/claude-setup.zip');
+      showToast('error', 'Download failed — try again or get it from: anthu211.github.io/design-system-2.0/setup/claude-setup.zip');
       if (btn) { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download claude-setup.zip'; }
     });
 }
@@ -2273,8 +2273,8 @@ function copyAiPrompt() {
     'Build UI for Prevalent AI — B2B cybersecurity platform for enterprise security teams.',
     '',
     'Read these design system files fully before responding:',
-    'https://pai-ux.netlify.app/page-spec.txt',
-    'https://pai-ux.netlify.app/charts.txt',
+    'https://anthu211.github.io/design-system-2.0/page-spec.txt',
+    'https://anthu211.github.io/design-system-2.0/charts.txt',
     '',
     'REQUIRED — copy these verbatim, never rewrite or shorten:',
     '• Shell HTML template from page-spec.txt — full <style> block, full <script> block',
@@ -2369,7 +2369,7 @@ function copyShellTemplate() {
     '',
     '  <!-- TOPBAR — always #131313, never changes with theme -->',
     '  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">',
-    '    <img src="https://pai-ux.netlify.app/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
+    '    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
     '    <span style="flex:1;"></span>',
     '    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>',
     '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">',
@@ -3790,10 +3790,9 @@ function initStatesPage() {
     // Activate first tab
     dsDrawerTab(document.querySelector('#ds-drawer .ds-drawer-tab'), 'summary');
 
-    // Activate list item
-    document.querySelectorAll('#ds-drawer-list .ds-drawer-list-item').forEach(function(el, i) {
-      el.classList.toggle('active', i === 0);
-    });
+    // Init traversal stack with the root entity
+    _travStack = [{ label: data.asset, type: data.type || 'Host' }];
+    dsDrawerBuildTraversal();
 
     // Open
     overlay.classList.add('open');
@@ -3854,7 +3853,147 @@ function initStatesPage() {
     if (btn) btn.classList.add('active');
     var panel = document.getElementById('ds-drawer-panel-' + panelId);
     if (panel) panel.classList.add('active');
+    // Render SVG diagrams lazily
+    if (panelId === 'contributing') setTimeout(dsContribDraw, 60);
+    if (panelId === 'resolution')   setTimeout(dsEresDraw, 60);
   };
+
+  // ── Attribute Timeline switcher ──
+  window.dsDrawerAttrTimeline = function(attr) {
+    var data = {
+      os:   [{date:'Jan 12, 2023',val:'Windows 10 Pro',muted:true},{date:'Mar 5, 2024',val:'Windows 11 Pro',changed:true},{date:'Jan 23, 2025',val:'Windows 11 Pro',muted:false}],
+      ip:   [{date:'Jan 12, 2023',val:'10.0.1.11',muted:true},{date:'Jun 3, 2023',val:'10.0.1.42',changed:true},{date:'Jan 23, 2025',val:'10.0.1.42',muted:false}],
+      fqdn: [{date:'Jan 12, 2023',val:'desktop-a7k2b.acme.com',muted:false},{date:'Jan 23, 2025',val:'desktop-a7k2b.acme.com',muted:false}],
+      bu:   [{date:'Jan 12, 2023',val:'Engineering',muted:true},{date:'Sep 1, 2023',val:'Finance',changed:true},{date:'Jan 23, 2025',val:'Finance',muted:false}]
+    };
+    var events = data[attr] || data.os;
+    var container = document.getElementById('ds-tl-attr-events');
+    if (!container) return;
+    container.innerHTML = events.map(function(e) {
+      return '<div class="ds-tl-event' + (e.muted ? ' muted' : '') + '">' +
+        '<div class="ds-tl-dot"></div>' +
+        '<div class="ds-tl-event-date">' + e.date + '</div>' +
+        '<div class="ds-tl-event-desc">' + e.val + (e.changed ? '<br><span style="font-size:9px;color:var(--shell-accent);">Changed</span>' : '') + '</div>' +
+        '</div>';
+    }).join('');
+  };
+
+  // ── Evolution tab scroll ──
+  window.dsEvoScroll = function(dir) {
+    var el = document.getElementById('ds-evo-table-scroll');
+    if (!el) return;
+    el.scrollBy({ left: dir * 160, behavior: 'smooth' });
+    setTimeout(function() {
+      var leftBtn  = document.getElementById('ds-evo-left');
+      var rightBtn = document.getElementById('ds-evo-right');
+      if (leftBtn)  leftBtn.style.display  = el.scrollLeft > 0 ? 'flex' : 'none';
+      if (rightBtn) rightBtn.style.display = el.scrollLeft + el.clientWidth < el.scrollWidth - 4 ? 'flex' : 'none';
+    }, 250);
+  };
+
+  // ── Contributing Sources Sankey ──
+  function dsContribDraw() {
+    var canvas = document.getElementById('ds-contrib-canvas');
+    var svg    = document.getElementById('ds-contrib-svg');
+    if (!canvas || !svg) return;
+    svg.innerHTML = '';
+    var W = canvas.offsetWidth, H = canvas.offsetHeight;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    // Helper: get node mid-right and mid-left points relative to canvas
+    function midRight(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.right - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+    function midLeft(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.left - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+
+    var connections = [
+      { from:'ds-cn-azure',    to:'ds-cn-unique',       color:'rgba(245,158,11,0.2)' },
+      { from:'ds-cn-azure',    to:'ds-cn-corroborated', color:'rgba(245,158,11,0.15)' },
+      { from:'ds-cn-defender', to:'ds-cn-unique',       color:'rgba(124,58,237,0.2)' },
+      { from:'ds-cn-defender', to:'ds-cn-corroborated', color:'rgba(124,58,237,0.15)' },
+      { from:'ds-cn-nvd',      to:'ds-cn-corroborated', color:'rgba(99,96,216,0.2)' },
+      { from:'ds-cn-unique',   to:'ds-cn-host',         color:'rgba(49,165,109,0.2)' },
+      { from:'ds-cn-unique',   to:'ds-cn-vuln',         color:'rgba(49,165,109,0.15)' },
+      { from:'ds-cn-corroborated','to':'ds-cn-host',    color:'rgba(59,130,246,0.2)' },
+      { from:'ds-cn-corroborated','to':'ds-cn-vuln',    color:'rgba(59,130,246,0.15)' }
+    ];
+
+    connections.forEach(function(c) {
+      var p1 = midRight(c.from), p2 = midLeft(c.to);
+      if (!p1 || !p2) return;
+      var cx = (p1.x + p2.x) / 2;
+      var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', 'M'+p1.x+','+p1.y+' C'+cx+','+p1.y+' '+cx+','+p2.y+' '+p2.x+','+p2.y);
+      path.setAttribute('fill','none');
+      path.setAttribute('stroke', c.color);
+      path.setAttribute('stroke-width','10');
+      svg.appendChild(path);
+    });
+  }
+
+  // ── Entity Resolution graph ──
+  function dsEresDraw() {
+    var canvas = document.getElementById('ds-eres-canvas');
+    var svg    = document.getElementById('ds-eres-svg');
+    if (!canvas || !svg) return;
+    svg.innerHTML = '';
+    var W = canvas.offsetWidth, H = canvas.offsetHeight;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    function midRight(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.right - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+    function midLeft(id) {
+      var el = document.getElementById(id);
+      if (!el) return null;
+      var cr = canvas.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      return { x: er.left - cr.left, y: er.top + er.height / 2 - cr.top };
+    }
+
+    // Keys → Fragments
+    var kf = [
+      { from:'ds-eres-ip',     to:'ds-eres-f1', color:'rgba(220,38,38,0.25)' },
+      { from:'ds-eres-ip',     to:'ds-eres-f2', color:'rgba(220,38,38,0.15)' },
+      { from:'ds-eres-host',   to:'ds-eres-f1', color:'rgba(220,38,38,0.2)' },
+      { from:'ds-eres-host',   to:'ds-eres-f2', color:'rgba(220,38,38,0.2)' },
+      { from:'ds-eres-host',   to:'ds-eres-f3', color:'rgba(220,38,38,0.15)' },
+      { from:'ds-eres-serial', to:'ds-eres-f1', color:'rgba(220,38,38,0.2)' },
+      { from:'ds-eres-mac',    to:'ds-eres-f2', color:'rgba(220,38,38,0.2)' }
+    ];
+    // Fragments → Resolved
+    var fr = [
+      { from:'ds-eres-f1', to:'ds-eres-resolved', color:'rgba(20,184,166,0.35)' },
+      { from:'ds-eres-f2', to:'ds-eres-resolved', color:'rgba(20,184,166,0.35)' },
+      { from:'ds-eres-f3', to:'ds-eres-resolved', color:'rgba(20,184,166,0.25)' }
+    ];
+
+    kf.concat(fr).forEach(function(c) {
+      var p1 = midRight(c.from), p2 = midLeft(c.to);
+      if (!p1 || !p2) return;
+      var cx = (p1.x + p2.x) / 2;
+      var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      path.setAttribute('d', 'M'+p1.x+','+p1.y+' C'+cx+','+p1.y+' '+cx+','+p2.y+' '+p2.x+','+p2.y);
+      path.setAttribute('fill','none');
+      path.setAttribute('stroke', c.color);
+      path.setAttribute('stroke-width','2');
+      svg.appendChild(path);
+    });
+  }
 
   // ── Graph toggle ──
   window.dsDrawerToggleGraph = function() {
@@ -3869,115 +4008,399 @@ function initStatesPage() {
     }
   };
 
-  // ── Sidebar pagination ──
-  document.addEventListener('click', function(e) {
-    var btn = e.target.closest('.ds-drawer-pg-btn');
-    if (!btn || !btn.closest('.ds-drawer-list-pagination')) return;
-    btn.closest('.ds-drawer-list-pagination').querySelectorAll('.ds-drawer-pg-btn').forEach(function(b) {
-      b.classList.remove('active');
-    });
-    btn.classList.add('active');
-  });
+  // ── Dynamic traversal path ──
+  var _travStack = [];
 
-  // ── Sidebar list item click ──
-  document.addEventListener('click', function(e) {
-    var item = e.target.closest('#ds-drawer-list .ds-drawer-list-item');
-    if (!item) return;
-    document.querySelectorAll('#ds-drawer-list .ds-drawer-list-item').forEach(function(el) {
-      el.classList.remove('active');
-    });
-    item.classList.add('active');
-  });
+  var _travIcons = {
+    Host:          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+    Server:        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>',
+    Vulnerability: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+    Findings:      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+    Person:        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    Identity:      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+    Application:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/></svg>',
+    Network:       '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+    Workstation:   '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+  };
+  function dsGetTravIcon(type) {
+    return _travIcons[type] || _travIcons.Host;
+  }
 
-  // ── Entity relationship graph (SVG) ──
-  function dsDrawerDrawGraph() {
-    var svg = document.getElementById('ds-drawer-graph-svg');
+  // Render the sidebar from _travStack
+  function dsDrawerBuildTraversal() {
+    var container = document.getElementById('ds-drawer-trav-nodes');
+    if (!container) return;
+    var html = '';
+    _travStack.forEach(function(node, i) {
+      var isLast = (i === _travStack.length - 1);
+      var canClick = !isLast; // clicking current node does nothing
+      if (i > 0) html += '<div class="ds-drawer-trav-gap"></div>';
+      html +=
+        '<div class="ds-drawer-trav-node' + (isLast ? ' active' : ' past') + '"' +
+        ' title="' + node.label + '"' +
+        (canClick ? ' onclick="dsDrawerTravClick(' + i + ')"' : '') +
+        '>' +
+        '<div class="ds-drawer-trav-circle">' + dsGetTravIcon(node.type) + '</div>' +
+        '<span class="ds-drawer-trav-label">' + node.type + '</span>' +
+        '</div>';
+    });
+    container.innerHTML = html;
+  }
+
+  // Click on traversal node at index → truncate everything below it
+  window.dsDrawerTravClick = function(index) {
+    if (index >= _travStack.length - 1) return; // already current
+    _travStack = _travStack.slice(0, index + 1);
+    dsDrawerBuildTraversal();
+    // Update drawer header to reflect new current entity
+    var current = _travStack[_travStack.length - 1];
+    var titleEl = document.getElementById('ds-drawer-title');
+    if (titleEl) titleEl.textContent = current.label;
+    var typeEl = document.getElementById('ds-drawer-type-badge');
+    if (typeEl) typeEl.textContent = current.type;
+  };
+
+  // Push a new entity onto the traversal stack (called from graph node clicks)
+  window.dsDrawerPushTrav = function(label, type) {
+    // Don't push duplicate of current top
+    if (_travStack.length > 0) {
+      var top = _travStack[_travStack.length - 1];
+      if (top.label === label && top.type === type) return;
+    }
+    _travStack.push({ label: label, type: type });
+    dsDrawerBuildTraversal();
+    // Update drawer header
+    var titleEl = document.getElementById('ds-drawer-title');
+    if (titleEl) titleEl.textContent = label;
+    var typeEl = document.getElementById('ds-drawer-type-badge');
+    if (typeEl) typeEl.textContent = type;
+    // Scroll sidebar to bottom so new node is visible
+    var sidebar = document.getElementById('ds-drawer-sidebar');
+    if (sidebar) sidebar.scrollTop = sidebar.scrollHeight;
+  };
+
+  // ── Entity relationship graph — zoom/pan state ──
+  var _graphScale = 1, _graphTx = 0, _graphTy = 0;
+  var _graphDragging = false, _graphDragStart = null;
+  var _graphDragMoved = false; // true if pointer moved while dragging (suppress node click)
+
+  function dsGraphApplyTransform() {
+    var g = document.getElementById('ds-drawer-graph-group');
+    if (g) g.setAttribute('transform', 'translate('+_graphTx+','+_graphTy+') scale('+_graphScale+')');
+  }
+
+  window.dsGraphZoom = function(delta) {
     var canvas = document.getElementById('ds-drawer-graph-canvas');
-    if (!svg || !canvas) return;
-    var W = canvas.offsetWidth || 600;
-    var H = 200;
+    if (!canvas) return;
+    var W = canvas.offsetWidth, H = canvas.offsetHeight;
+    var newScale = Math.min(4, Math.max(0.3, _graphScale + delta));
+    // Zoom toward center of canvas
+    var originX = W / 2, originY = H / 2;
+    _graphTx = originX - (originX - _graphTx) * (newScale / _graphScale);
+    _graphTy = originY - (originY - _graphTy) * (newScale / _graphScale);
+    _graphScale = newScale;
+    dsGraphApplyTransform();
+  };
+
+  window.dsGraphReset = function() {
+    _graphScale = 1; _graphTx = 0; _graphTy = 0;
+    dsGraphApplyTransform();
+  };
+
+  function dsGraphInitInteraction() {
+    var canvas = document.getElementById('ds-drawer-graph-canvas');
+    if (!canvas || canvas._graphInteractionBound) return;
+    canvas._graphInteractionBound = true;
+
+    // Mouse wheel zoom
+    canvas.addEventListener('wheel', function(e) {
+      e.preventDefault();
+      var rect = canvas.getBoundingClientRect();
+      var mx = e.clientX - rect.left;
+      var my = e.clientY - rect.top;
+      var delta = e.deltaY < 0 ? 0.15 : -0.15;
+      var newScale = Math.min(4, Math.max(0.3, _graphScale + delta));
+      _graphTx = mx - (mx - _graphTx) * (newScale / _graphScale);
+      _graphTy = my - (my - _graphTy) * (newScale / _graphScale);
+      _graphScale = newScale;
+      dsGraphApplyTransform();
+    }, { passive: false });
+
+    // Drag to pan
+    canvas.addEventListener('mousedown', function(e) {
+      if (e.button !== 0) return;
+      _graphDragging = true;
+      _graphDragMoved = false;
+      _graphDragStart = { x: e.clientX - _graphTx, y: e.clientY - _graphTy };
+      canvas.classList.add('dragging');
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!_graphDragging || !_graphDragStart) return;
+      _graphDragMoved = true;
+      _graphTx = e.clientX - _graphDragStart.x;
+      _graphTy = e.clientY - _graphDragStart.y;
+      dsGraphApplyTransform();
+    });
+    window.addEventListener('mouseup', function() {
+      if (!_graphDragging) return;
+      _graphDragging = false;
+      _graphDragStart = null;
+      var canvas2 = document.getElementById('ds-drawer-graph-canvas');
+      if (canvas2) canvas2.classList.remove('dragging');
+      // Reset _graphDragMoved after a tick so click handlers can check it
+      setTimeout(function() { _graphDragMoved = false; }, 10);
+    });
+
+    // Touch pan
+    var _touchStart = null;
+    canvas.addEventListener('touchstart', function(e) {
+      if (e.touches.length === 1) {
+        _touchStart = { x: e.touches[0].clientX - _graphTx, y: e.touches[0].clientY - _graphTy };
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchmove', function(e) {
+      if (e.touches.length === 1 && _touchStart) {
+        e.preventDefault();
+        _graphTx = e.touches[0].clientX - _touchStart.x;
+        _graphTy = e.touches[0].clientY - _touchStart.y;
+        dsGraphApplyTransform();
+      }
+    }, { passive: false });
+    canvas.addEventListener('touchend', function() { _touchStart = null; }, { passive: true });
+  }
+
+  // ── Entity relationship graph — horizontal left-to-right flow ──
+  function dsDrawerDrawGraph() {
+    var svg    = document.getElementById('ds-drawer-graph-svg');
+    var canvas = document.getElementById('ds-drawer-graph-canvas');
+    var g      = document.getElementById('ds-drawer-graph-group');
+    if (!svg || !canvas || !g) return;
+
+    var W = canvas.offsetWidth || 700;
+    var H = 300;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-    svg.innerHTML = '';
+    g.innerHTML = '';
 
-    var cx = W * 0.42, cy = H / 2;
-    var nodes = [
-      { label: 'Findings',      count: 1,  angle: -60 },
-      { label: 'Vulnerability', count: 1,  angle: 0   },
-      { label: 'Person',        count: 1,  angle: 50  },
-      { label: 'Application',   count: 25, angle: 120 },
-      { label: 'Identity',      count: 2,  angle: 200 },
-    ];
-    var radius = Math.min(W * 0.28, 130);
-    var nodeR  = 22;
-    var centerR = 28;
+    _graphScale = 1; _graphTx = 0; _graphTy = 0;
+    dsGraphApplyTransform();
 
-    // Draw connections first (behind nodes)
-    nodes.forEach(function(n) {
-      var rad = (n.angle * Math.PI) / 180;
-      var nx = cx + radius * Math.cos(rad);
-      var ny = cy + radius * Math.sin(rad);
+    var NS = 'http://www.w3.org/2000/svg';
+    function mkEl(tag) { return document.createElementNS(NS, tag); }
 
-      // Bezier curve
-      var path = document.createElementNS('http://www.w3.org/2000/svg','path');
-      var mx = (cx + nx) / 2 + (ny - cy) * 0.15;
-      var my = (cy + ny) / 2 - (nx - cx) * 0.15;
-      path.setAttribute('d', 'M'+cx+','+cy+' Q'+mx+','+my+' '+nx+','+ny);
-      path.setAttribute('stroke', 'var(--ctrl-border)');
-      path.setAttribute('stroke-width', '1.5');
+    // ── Icon paths (24×24 viewBox) ──
+    var ICONS = {
+      globe:   'M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm0 0v20M2 12h20M12 2C8.5 6.5 8.5 17.5 12 22M12 2c3.5 4.5 3.5 15.5 0 20',
+      grid:    'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
+      monitor: 'M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8 21h8M12 17v4',
+      server:  'M4 2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM4 14h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2zM6 7h.01M6 18h.01',
+      person:  'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+      shield:  'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM12 8v4M12 16h.01',
+      search:  'M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z',
+      network: 'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18',
+      vm:      'M20 3H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8 21h8M12 17v4M7 8h10M7 12h6',
+    };
+
+    // ── Entity type → style map ──
+    var TYPE_STYLE = {
+      Host:          { icon: 'monitor', fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Server:        { icon: 'server',  fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Workstation:   { icon: 'monitor', fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Network:       { icon: 'network', fill: '#5A8FC4', ring: 'rgba(90,143,196,0.25)'  },
+      Scanner:       { icon: 'search',  fill: '#8B82C4', ring: 'rgba(139,130,196,0.25)' },
+      Person:        { icon: 'person',  fill: '#7A95B8', ring: 'rgba(122,149,184,0.25)' },
+      Identity:      { icon: 'person',  fill: '#7A95B8', ring: 'rgba(122,149,184,0.25)' },
+      Account:       { icon: 'person',  fill: '#7A95B8', ring: 'rgba(122,149,184,0.25)' },
+      Vulnerability: { icon: 'shield',  fill: '#C4728A', ring: 'rgba(196,114,138,0.25)' },
+      Findings:      { icon: 'search',  fill: '#9B8EC4', ring: 'rgba(155,142,196,0.25)' },
+      Application:   { icon: 'grid',    fill: '#B09060', ring: 'rgba(176,144,96,0.25)'  },
+    };
+
+    // ── Helpers ──
+    function drawIcon(parent, iconKey, cx, cy, nodeR) {
+      var d = ICONS[iconKey] || ICONS.monitor;
+      var iconSize = nodeR * 1.05;
+      var s = iconSize / 12;
+      var grp = mkEl('g');
+      grp.setAttribute('transform', 'translate('+(cx-12*s)+','+(cy-12*s)+') scale('+s+')');
+      grp.style.pointerEvents = 'none';
+      var p = mkEl('path');
+      p.setAttribute('d', d);
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', 'rgba(255,255,255,0.88)');
+      p.setAttribute('stroke-width', String(1.8 / s));
+      p.setAttribute('stroke-linecap', 'round');
+      p.setAttribute('stroke-linejoin', 'round');
+      grp.appendChild(p);
+      parent.appendChild(grp);
+    }
+
+    function drawNode(parent, cx, cy, r, style, typeLabel, instanceLabel) {
+      // Outer glow ring
+      var ring = mkEl('circle');
+      ring.setAttribute('cx', cx); ring.setAttribute('cy', cy);
+      ring.setAttribute('r', r + 5);
+      ring.setAttribute('fill', style.ring || 'rgba(99,96,216,0.15)');
+      ring.setAttribute('stroke', 'none');
+      parent.appendChild(ring);
+      // Main circle
+      var circ = mkEl('circle');
+      circ.setAttribute('cx', cx); circ.setAttribute('cy', cy);
+      circ.setAttribute('r', r);
+      circ.setAttribute('fill', style.fill);
+      circ.setAttribute('stroke', 'none');
+      parent.appendChild(circ);
+      // Icon
+      drawIcon(parent, style.icon, cx, cy, r * 0.52);
+      // Type label below
+      var lbl = mkEl('text');
+      lbl.setAttribute('x', cx); lbl.setAttribute('y', cy + r + 14);
+      lbl.setAttribute('text-anchor', 'middle');
+      lbl.setAttribute('font-size', '10');
+      lbl.setAttribute('font-weight', '600');
+      lbl.setAttribute('fill', 'var(--shell-text)');
+      lbl.setAttribute('font-family', 'Inter,sans-serif');
+      lbl.style.pointerEvents = 'none';
+      lbl.textContent = typeLabel;
+      parent.appendChild(lbl);
+      // Instance sub-label
+      if (instanceLabel) {
+        var sub = mkEl('text');
+        sub.setAttribute('x', cx); sub.setAttribute('y', cy + r + 26);
+        sub.setAttribute('text-anchor', 'middle');
+        sub.setAttribute('font-size', '8.5');
+        sub.setAttribute('fill', 'var(--shell-text-muted)');
+        sub.setAttribute('font-family', 'Inter,sans-serif');
+        sub.style.pointerEvents = 'none';
+        // Truncate long hostnames
+        var short = instanceLabel.length > 22 ? instanceLabel.substring(0, 20) + '…' : instanceLabel;
+        sub.textContent = short;
+        parent.appendChild(sub);
+      }
+      return circ;
+    }
+
+    function drawCountBadge(parent, cx, cy, nodeR, count) {
+      var badgeR = count > 9 ? 10 : 8;
+      var bx = cx + nodeR * 0.6, by = cy - nodeR * 0.6;
+      var bc = mkEl('circle');
+      bc.setAttribute('cx', bx); bc.setAttribute('cy', by);
+      bc.setAttribute('r', badgeR);
+      bc.setAttribute('fill', 'var(--card-bg)');
+      bc.setAttribute('stroke', 'var(--shell-border)');
+      bc.setAttribute('stroke-width', '1');
+      parent.appendChild(bc);
+      var bt = mkEl('text');
+      bt.setAttribute('x', bx); bt.setAttribute('y', by + 3.5);
+      bt.setAttribute('text-anchor', 'middle');
+      bt.setAttribute('font-size', '8');
+      bt.setAttribute('font-weight', '700');
+      bt.setAttribute('fill', 'var(--shell-text)');
+      bt.setAttribute('font-family', 'Inter,sans-serif');
+      bt.style.pointerEvents = 'none';
+      bt.textContent = count;
+      parent.appendChild(bt);
+    }
+
+    function drawCurve(parent, x1, y1, x2, y2, color, sw) {
+      var cpx = (x1 + x2) / 2;
+      var path = mkEl('path');
+      path.setAttribute('d', 'M'+x1+','+y1+' C'+cpx+','+y1+' '+cpx+','+y2+' '+x2+','+y2);
       path.setAttribute('fill', 'none');
-      svg.appendChild(path);
+      path.setAttribute('stroke', color);
+      path.setAttribute('stroke-width', sw || '1.5');
+      path.setAttribute('stroke-linecap', 'round');
+      parent.appendChild(path);
+    }
 
-      // Count badge on line
-      var bx = cx + (nx - cx) * 0.5;
-      var by = cy + (ny - cy) * 0.5;
-      var badge = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      badge.setAttribute('cx', bx); badge.setAttribute('cy', by);
-      badge.setAttribute('r', '10'); badge.setAttribute('fill', 'var(--card-bg)');
-      badge.setAttribute('stroke', 'var(--ctrl-border)'); badge.setAttribute('stroke-width','1');
-      svg.appendChild(badge);
-      var badgeText = document.createElementNS('http://www.w3.org/2000/svg','text');
-      badgeText.setAttribute('x', bx); badgeText.setAttribute('y', by+4);
-      badgeText.setAttribute('text-anchor','middle');
-      badgeText.setAttribute('font-size','9'); badgeText.setAttribute('fill','var(--shell-text-muted)');
-      badgeText.setAttribute('font-family','Inter,sans-serif'); badgeText.setAttribute('font-weight','600');
-      badgeText.textContent = n.count;
-      svg.appendChild(badgeText);
+    // ── Layout constants ──
+    var cy   = H / 2;
+    var rL   = 26;  // left-path node radius
+    var rC   = 30;  // center (current entity) radius
+    var rR   = 22;  // right (related) node radius
+    var padL = 48;
+    var padR = 72;  // leave room for zoom panel
+
+    // X positions: distribute 3 left-chain nodes across ~55% of width
+    var xI  = padL + rL;                      // Internet
+    var xA  = padL + rL + (W * 0.18);         // Application Endpoint
+    var xC  = padL + rL + (W * 0.36);         // Current entity
+    var xR  = W - padR - rR;                  // Right nodes column
+
+    // Current entity data
+    var curNode  = _travStack.length ? _travStack[_travStack.length - 1] : { label: 'Entity', type: 'Host' };
+    var curStyle = TYPE_STYLE[curNode.type] || TYPE_STYLE.Host;
+
+    // Right-side related nodes
+    var rightNodes = [
+      { type: 'Person',        label: 'Person',        instance: null,         badge: 1,  color: '#7A95B8', ring: 'rgba(122,149,184,0.22)', line: 'rgba(122,149,184,0.5)',  lw: 1.5 },
+      { type: 'Account',       label: 'Account',       instance: null,         badge: 2,  color: '#7A95B8', ring: 'rgba(122,149,184,0.22)', line: 'rgba(122,149,184,0.5)',  lw: 1.8 },
+      { type: 'Vulnerability', label: 'Vulnerability', instance: null,         badge: 8,  color: '#C4728A', ring: 'rgba(196,114,138,0.22)', line: 'rgba(196,114,138,0.55)', lw: 2.0 },
+      { type: 'Findings',      label: 'Findings',      instance: null,         badge: 43, color: '#9B8EC4', ring: 'rgba(155,142,196,0.22)', line: 'rgba(155,142,196,0.55)', lw: 2.2 },
+    ];
+
+    // Vertical spread for right nodes
+    var spread = H * 0.70;
+    var rTop   = (H - spread) / 2;
+    var rStep  = spread / (rightNodes.length - 1);
+    rightNodes.forEach(function(n, i) { n.cy = rTop + i * rStep; });
+
+    // ── 1. Draw connection curves (behind everything) ──
+    // Left chain: Internet → App Endpoint → Current entity
+    drawCurve(g, xI + rL, cy, xA - rL, cy, 'rgba(140,160,200,0.45)', 2);
+    drawCurve(g, xA + rL, cy, xC - rC, cy, 'rgba(140,160,200,0.45)', 2);
+    // Fan-out: current entity → each right node
+    rightNodes.forEach(function(n) {
+      drawCurve(g, xC + rC, cy, xR - rR, n.cy, n.line, n.lw);
     });
 
-    // Center node
-    var cCircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    cCircle.setAttribute('cx', cx); cCircle.setAttribute('cy', cy);
-    cCircle.setAttribute('r', centerR); cCircle.setAttribute('fill','var(--shell-accent)');
-    svg.appendChild(cCircle);
-    var cRing = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    cRing.setAttribute('cx', cx); cRing.setAttribute('cy', cy);
-    cRing.setAttribute('r', centerR + 5);
-    cRing.setAttribute('fill','none'); cRing.setAttribute('stroke','rgba(99,96,216,0.3)'); cRing.setAttribute('stroke-width','3');
-    svg.insertBefore(cRing, cCircle);
+    // ── 2. Draw static left-chain nodes ──
+    drawNode(g, xI, cy, rL,
+      { fill: '#4A6B42', ring: 'rgba(74,107,66,0.2)', icon: 'globe' },
+      'Internet', null);
+    drawNode(g, xA, cy, rL,
+      { fill: '#B09060', ring: 'rgba(176,144,96,0.2)', icon: 'grid' },
+      'Application', 'Endpoint');
 
-    // Draw remote nodes
-    nodes.forEach(function(n) {
-      var rad = (n.angle * Math.PI) / 180;
-      var nx = cx + radius * Math.cos(rad);
-      var ny = cy + radius * Math.sin(rad);
+    // ── 3. Draw current entity (center) ──
+    drawNode(g, xC, cy, rC, curStyle, curNode.type, curNode.label);
 
-      var circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
-      circle.setAttribute('cx', nx); circle.setAttribute('cy', ny);
-      circle.setAttribute('r', nodeR); circle.setAttribute('fill','var(--card-bg)');
-      circle.setAttribute('stroke','var(--ctrl-border)'); circle.setAttribute('stroke-width','1.5');
-      svg.appendChild(circle);
+    // ── 4. Draw right related nodes (clickable) ──
+    rightNodes.forEach(function(n) {
+      var nStyle = { fill: n.color, ring: n.ring, icon: (TYPE_STYLE[n.type] || {}).icon || 'search' };
 
-      // Label below node
-      var lx = nx;
-      var ly = ny + nodeR + 12;
-      var lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
-      lbl.setAttribute('x', lx); lbl.setAttribute('y', ly);
-      lbl.setAttribute('text-anchor','middle');
-      lbl.setAttribute('font-size','9'); lbl.setAttribute('fill','var(--shell-text-muted)');
-      lbl.setAttribute('font-family','Inter,sans-serif');
-      lbl.textContent = n.label;
-      svg.appendChild(lbl);
+      // Invisible large hit area (drawn first, behind everything)
+      var hit = mkEl('circle');
+      hit.setAttribute('cx', xR); hit.setAttribute('cy', n.cy);
+      hit.setAttribute('r', rR + 10);
+      hit.setAttribute('fill', 'transparent');
+      hit.style.cursor = 'pointer';
+      g.appendChild(hit);
+
+      // Visual node
+      drawNode(g, xR, n.cy, rR, nStyle, n.label, n.instance);
+
+      // Count badge
+      if (n.badge !== null) drawCountBadge(g, xR, n.cy, rR, n.badge);
+
+      // Hover: brighten ring
+      function hoverOn() {
+        hit.setAttribute('fill', n.ring);
+      }
+      function hoverOff() {
+        hit.setAttribute('fill', 'transparent');
+      }
+      hit.addEventListener('mouseenter', hoverOn);
+      hit.addEventListener('mouseleave', hoverOff);
+
+      // Click → push traversal
+      hit.addEventListener('click', function(e) {
+        if (_graphDragMoved) return;
+        e.stopPropagation();
+        dsDrawerPushTrav(n.label + (n.badge > 1 ? ' ×'+n.badge : ''), n.type);
+      });
     });
+
+    dsGraphInitInteraction();
   }
 
   // ── Wire up demo table rows ──
@@ -3994,7 +4417,6 @@ function initStatesPage() {
     });
   });
 
-  window.dsDrawerSidebarTab = function() {};
 
 })();
 

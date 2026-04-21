@@ -9,7 +9,7 @@
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src https://fonts.gstatic.com;
   img-src 'self' data: https:;
-  connect-src 'self' https://pai-ux.netlify.app https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms;
+  connect-src 'self' https://anthu211.github.io/design-system-2.0 https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms;
 ">
 <title>Design System – Prevalent AI</title>
 <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
@@ -4304,13 +4304,13 @@
     <div class="page" id="page-drawer">
       <div class="page-header">
         <h1>Detail Drawer</h1>
-        <p>Right-side sliding panel for viewing asset details. Triggered by clicking any table row or list item. Contains entity stats, relationship graph, tabbed content, and structured data fields.</p>
+        <p>Right-side sliding panel for viewing entity details. Opens on table row click. Contains a dynamic traversal path sidebar, zoomable entity relationship graph, and 6 tabs of structured content — Summary, Timeline, Evolution, Derivation, Contributing Sources, and Entity Resolution.</p>
       </div>
 
       <!-- Live demo -->
       <div class="comp-section">
         <div class="comp-section-title">Live Demo — click any row</div>
-        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">Click any table row to open the detail drawer. The dim backdrop sits behind it. Tabs, entity graph, and field grid are all interactive.</p>
+        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">Click any table row to open the detail drawer. Then click a node in the entity graph to navigate to that entity — the traversal path in the left sidebar grows. Click any past traversal node to backtrack. Mouse-wheel or +/− buttons to zoom the graph; drag to pan.</p>
 
         <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
           <div style="padding:10px 16px;border-bottom:1px solid var(--shell-border);display:flex;align-items:center;gap:8px;">
@@ -4365,46 +4365,63 @@
       <div class="comp-section">
         <div class="comp-section-title">Anatomy</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
           <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
             <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Header</div>
-            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Entity title + type badge + severity badge + exposure score + View Score Simulation link + Collapse button. Always top of panel.</div>
+            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">
+              Entity title + type badge + severity badge + exposure score + "View Score Simulation" link. Title and type badge update when navigating via the traversal path. Close (×) and open-in-full-page actions always visible.
+            </div>
           </div>
+
           <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Left Sidebar (220px)</div>
-            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Entity relation stat cards (entity type, count, resolved %). Below: paginated list of related entity names.</div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Traversal Path Sidebar (64px)</div>
+            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">
+              Vertical line with entity icon nodes. Starts with just the root entity on open. Grows downward as the user navigates into related entities by clicking graph nodes — each hop appends a new node. Clicking any <em>past</em> node (above current) truncates the path back to that point and restores that entity as the current view.
+            </div>
           </div>
+
           <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Entity Graph (collapsible)</div>
-            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Radial SVG graph showing connections to related entity types (Findings, Vulnerability, Person, Identity, Application). Collapsible via "Collapse" toggle.</div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Entity Relationship Graph (collapsible)</div>
+            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">
+              Radial SVG canvas showing the current entity at center, with related entity types as surrounding nodes (Findings, Vulnerability, Person, Application, Network, Identity). Edge badges show relationship counts.<br><br>
+              <strong>Zoom:</strong> +/− buttons or mouse wheel (cursor-anchored). <strong>Pan:</strong> click-drag anywhere on the canvas. <strong>Reset:</strong> ↺ button restores 1× at origin.<br><br>
+              <strong>Clicking a node</strong> pushes that entity onto the traversal path and updates the drawer header. Collapsible via the Collapse toggle to give more vertical space to tab content.
+            </div>
           </div>
+
           <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Tabbed Content</div>
-            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Tabs: Summary · Timeline · Evolution · Derivation · Contributing Sources · Entity Resolution. Summary shows General and Security &amp; Compliance field grids.</div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Tabbed Content (6 tabs)</div>
+            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">
+              <strong>Summary</strong> — General + Security &amp; Compliance field sections, each in a bordered card. 3-column field grid, label above value, no individual cell borders.<br>
+              <strong>Timeline</strong> — Lifetime Updates horizontal dot timeline + Attribute Timeline with dropdown to switch attribute.<br>
+              <strong>Evolution</strong> — Comparison table: Resolved column vs per-source columns. View Changes toggle. Scrollable with left/right arrows.<br>
+              <strong>Derivation</strong> — Derivation rules applied to this entity (risk score formula, BU assignment).<br>
+              <strong>Contributing Sources</strong> — Sankey flow: sources → contribution type → entity type.<br>
+              <strong>Entity Resolution</strong> — 3-column bezier graph: Resolution Keys → Fragments → Resolved entity.
+            </div>
           </div>
+
         </div>
       </div>
 
       <!-- Data field grid -->
       <div class="comp-section">
         <div class="comp-section-title">Data Field Grid</div>
-        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">4-column grid inside each section. Label (10px uppercase) above value (12px). Borders between cells on 4pt grid.</p>
-        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
-          <div class="ds-drawer-section-head" style="border-bottom:1px solid var(--shell-border);">
+        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">3-column grid inside a bordered section card. Label (10px, regular weight, muted) above value (12px). No individual cell borders — clean reading flow.</p>
+        <div class="ds-drawer-section" style="margin:0;">
+          <div class="ds-drawer-section-head">
             <div class="ds-drawer-section-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
             General
           </div>
           <div class="ds-drawer-fields">
             <div class="ds-drawer-field"><div class="ds-drawer-field-label">Display Label</div><div class="ds-drawer-field-value">support-portal.acme.com</div></div>
             <div class="ds-drawer-field"><div class="ds-drawer-field-label">OS</div><div class="ds-drawer-field-value">CentOS 8</div></div>
-            <div class="ds-drawer-field"><div class="ds-drawer-field-label">Data Source</div><div class="ds-drawer-field-value"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg> 3 sources</div></div>
-            <div class="ds-drawer-field"><div class="ds-drawer-field-label">Hardware Serial Name</div><div class="ds-drawer-field-value">SN1234567890</div></div>
+            <div class="ds-drawer-field"><div class="ds-drawer-field-label">Data Source</div><div class="ds-drawer-field-value">3 sources</div></div>
+            <div class="ds-drawer-field"><div class="ds-drawer-field-label">Hardware Serial</div><div class="ds-drawer-field-value">SN1234567890</div></div>
             <div class="ds-drawer-field"><div class="ds-drawer-field-label">Business Unit</div><div class="ds-drawer-field-value">Customer Service</div></div>
             <div class="ds-drawer-field"><div class="ds-drawer-field-label">Role</div><div class="ds-drawer-field-value">Web Server, Database</div></div>
             <div class="ds-drawer-field"><div class="ds-drawer-field-label">FQDN</div><div class="ds-drawer-field-value accent">support-local.acme.com</div></div>
-            <div class="ds-drawer-field"><div class="ds-drawer-field-label">A&amp;D Device ID</div><div class="ds-drawer-field-value" style="font-size:10px;">12345678-90ab-cdef-1234-567890abcdef</div></div>
             <div class="ds-drawer-field"><div class="ds-drawer-field-label">Type</div><div class="ds-drawer-field-value">Server</div></div>
-            <div class="ds-drawer-field"><div class="ds-drawer-field-label">MAC Address</div><div class="ds-drawer-field-value" style="font-family:monospace;">00:1A:2B:3C:4D:5E</div></div>
-            <div class="ds-drawer-field"><div class="ds-drawer-field-label">Internet Facing</div><div class="ds-drawer-field-value true-val">True</div></div>
             <div class="ds-drawer-field"><div class="ds-drawer-field-label">Environment</div><div class="ds-drawer-field-value">Production</div></div>
           </div>
         </div>
@@ -4417,21 +4434,26 @@
           <div>
             <div style="font-size:11px;font-weight:700;color:#31A56D;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Do</div>
             <ul style="font-size:12px;color:var(--shell-text-2);line-height:2;padding-left:16px;">
-              <li>Trigger on table row click — entire row is clickable</li>
+              <li>Trigger on table row click — entire row is the hit target</li>
               <li>Show dim backdrop (rgba 0,0,0,0.45) behind the panel</li>
-              <li>Slide in with cubic-bezier(.4,0,.2,1) .28s transition</li>
-              <li>Allow close via Escape key or backdrop click</li>
-              <li>Keep entity graph collapsible to maximise field space</li>
-              <li>Use 4-column field grid in Summary tab</li>
+              <li>Slide in with <code>cubic-bezier(.4,0,.2,1) .28s</code> transition</li>
+              <li>Close on Escape key or backdrop click</li>
+              <li>Traversal path starts fresh on every drawer open — root entity only</li>
+              <li>Clicking a graph node pushes it onto the traversal path</li>
+              <li>Clicking a past traversal node truncates the path back to that point</li>
+              <li>Collapse the entity graph when the user needs more content height</li>
+              <li>Use 3-column field grid inside bordered section cards in Summary tab</li>
             </ul>
           </div>
           <div>
             <div style="font-size:11px;font-weight:700;color:#D12329;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Don't</div>
             <ul style="font-size:12px;color:var(--shell-text-2);line-height:2;padding-left:16px;">
-              <li>Never use a full-page modal for asset detail — use this drawer</li>
-              <li>Never remove the sidebar — it gives entity relationship context</li>
-              <li>Never put destructive actions in the drawer without a confirm modal</li>
-              <li>Never show the drawer without loading state if data is async</li>
+              <li>Never use a full-page modal for entity detail — always use this drawer</li>
+              <li>Never pre-populate the traversal with a fixed list — it must reflect actual navigation</li>
+              <li>Never remove the traversal sidebar — it provides critical navigation context</li>
+              <li>Never make the current (bottom) traversal node clickable — it's already active</li>
+              <li>Never put destructive actions in the drawer without a confirmation modal</li>
+              <li>Never show tab content without an empty/loading state for async data</li>
             </ul>
           </div>
         </div>
@@ -5830,9 +5852,9 @@
         </button>
       </div>
       <pre class="ai-prompt-body">Fetch ALL of these URLs fully before writing any code:
-1. https://pai-ux.netlify.app/ds/core.md
-2. https://pai-ux.netlify.app/ds/page-spec.md
-3. https://pai-ux.netlify.app/ds/charts/charts.md
+1. https://anthu211.github.io/design-system-2.0/ds/core.md
+2. https://anthu211.github.io/design-system-2.0/ds/page-spec.md
+3. https://anthu211.github.io/design-system-2.0/ds/charts/charts.md
 
 ---
 
@@ -5858,9 +5880,9 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         </button>
       </div>
       <pre class="ai-prompt-body">Fetch ALL of these URLs fully before writing any code:
-1. https://pai-ux.netlify.app/ds/core.md
-2. https://pai-ux.netlify.app/ds/page-spec.md
-3. https://pai-ux.netlify.app/ds/charts/charts.md
+1. https://anthu211.github.io/design-system-2.0/ds/core.md
+2. https://anthu211.github.io/design-system-2.0/ds/page-spec.md
+3. https://anthu211.github.io/design-system-2.0/ds/charts/charts.md
 
 ---
 
@@ -5886,8 +5908,8 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         </button>
       </div>
       <pre class="ai-prompt-body">Fetch ALL of these URLs fully before writing any code:
-1. https://pai-ux.netlify.app/ds/core.md
-2. https://pai-ux.netlify.app/ds/components/charts.json
+1. https://anthu211.github.io/design-system-2.0/ds/core.md
+2. https://anthu211.github.io/design-system-2.0/ds/components/charts.json
 
 ---
 
@@ -5963,8 +5985,8 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
         <button class="ds-cs-hero-alt" onclick="var s=document.getElementById('curl-alt');var o=s.style.display==='block';s.style.display=o?'none':'block';this.textContent=o?'On a network without SSL restrictions? Use curl →':'Hide curl command'">On a network without SSL restrictions? Use curl →</button>
         <div id="curl-alt" style="display:none;margin-top:12px;">
           <div class="ds-cs-hero-cmd">
-            <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSLk https://pai-ux.netlify.app/setup/install.sh | bash</span>
-            <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('curl -fsSLk https://pai-ux.netlify.app/setup/install.sh | bash').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+            <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash</span>
+            <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('curl -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
           </div>
         </div>
       </div>
@@ -6517,63 +6539,10 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
   <!-- Body -->
   <div class="ds-drawer-body">
 
-    <!-- Left sidebar -->
-    <div class="ds-drawer-sidebar">
-      <div class="ds-drawer-sidebar-inner">
-        <!-- Stat cards — populated by JS -->
-        <div class="ds-drawer-stat-card" onclick="dsDrawerSidebarTab('account')">
-          <div class="ds-drawer-stat-label">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Account
-          </div>
-          <div class="ds-drawer-stat-count">15,301</div>
-          <div class="ds-drawer-stat-sub">Resolved 15,301 (99.69%)</div>
-          <div class="ds-drawer-stat-bar"><div class="ds-drawer-stat-bar-fill" style="width:99.69%"></div></div>
-        </div>
-        <div class="ds-drawer-stat-card" onclick="dsDrawerSidebarTab('container')">
-          <div class="ds-drawer-stat-label">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-            Container
-          </div>
-          <div class="ds-drawer-stat-count">358</div>
-          <div class="ds-drawer-stat-sub">Resolved 358 (100%)</div>
-          <div class="ds-drawer-stat-bar"><div class="ds-drawer-stat-bar-fill full" style="width:100%"></div></div>
-        </div>
-        <div class="ds-drawer-stat-card" onclick="dsDrawerSidebarTab('network')">
-          <div class="ds-drawer-stat-label">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
-            Network Interface
-          </div>
-          <div class="ds-drawer-stat-count">3,303</div>
-          <div class="ds-drawer-stat-sub">Resolved 3,303 (100%)</div>
-          <div class="ds-drawer-stat-bar"><div class="ds-drawer-stat-bar-fill full" style="width:100%"></div></div>
-        </div>
-      </div>
-
-      <div class="ds-drawer-list-header">
-        Details <span class="ds-drawer-list-count">(745,373)</span>
-        <button class="ds-icon-btn" style="width:20px;height:20px;" title="Search list">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </button>
-      </div>
-      <div class="ds-drawer-list-items" id="ds-drawer-list">
-        <div class="ds-drawer-list-item active"><span class="ds-drawer-list-dot"></span>support-portal.acme.com</div>
-        <div class="ds-drawer-list-item"><span class="ds-drawer-list-dot"></span>JANE LEWIS</div>
-        <div class="ds-drawer-list-item"><span class="ds-drawer-list-dot"></span>DESKTOP-FNQGOHD</div>
-        <div class="ds-drawer-list-item"><span class="ds-drawer-list-dot"></span>DESKTOP-4FH5873</div>
-        <div class="ds-drawer-list-item"><span class="ds-drawer-list-dot"></span>inf-portal.acme.com</div>
-        <div class="ds-drawer-list-item"><span class="ds-drawer-list-dot"></span>DESKTOP-P587SHK</div>
-        <div class="ds-drawer-list-item"><span class="ds-drawer-list-dot"></span>api-gateway-01.prod</div>
-        <div class="ds-drawer-list-item"><span class="ds-drawer-list-dot"></span>db-cluster-main.int</div>
-      </div>
-      <div class="ds-drawer-list-pagination">
-        Show:
-        <button class="ds-drawer-pg-btn active">10</button>
-        <button class="ds-drawer-pg-btn">25</button>
-        <button class="ds-drawer-pg-btn">50</button>
-        <button class="ds-drawer-pg-btn">100</button>
-        <button class="ds-drawer-pg-btn">All</button>
-      </div>
+    <!-- Left sidebar — traversal path, rendered dynamically by JS -->
+    <div class="ds-drawer-sidebar" id="ds-drawer-sidebar">
+      <div class="ds-drawer-traversal-line"></div>
+      <div id="ds-drawer-trav-nodes"></div>
     </div>
 
     <!-- Main content -->
@@ -6590,9 +6559,21 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
           </button>
         </div>
         <div class="ds-drawer-graph-canvas" id="ds-drawer-graph-canvas">
-          <svg class="ds-drawer-graph-svg" id="ds-drawer-graph-svg" viewBox="0 0 600 200">
-            <!-- Rendered by JS -->
+          <svg class="ds-drawer-graph-svg" id="ds-drawer-graph-svg" viewBox="0 0 600 300">
+            <g id="ds-drawer-graph-group"><!-- Rendered by JS --></g>
           </svg>
+          <!-- Zoom controls — right-side overlay, matching screenshot -->
+          <div class="ds-graph-zoom-panel">
+            <button class="ds-graph-zoom-btn" onclick="dsGraphZoom(0.25)" title="Zoom in">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </button>
+            <button class="ds-graph-zoom-btn" onclick="dsGraphZoom(-0.25)" title="Zoom out">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </button>
+            <button class="ds-graph-zoom-btn" onclick="dsGraphReset()" title="Pan / Reset">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l-3 3 3 3M9 5l3-3 3 3M15 19l-3 3-3-3M19 9l3 3-3 3M2 12h20M12 2v20"/></svg>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -6638,21 +6619,296 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
           </div>
         </div>
 
-        <!-- Other tab panels (placeholder) -->
+        <!-- Timeline tab -->
         <div class="ds-drawer-tab-panel" id="ds-drawer-panel-timeline">
-          <div style="padding:32px 16px;text-align:center;color:var(--shell-text-muted);font-size:13px;">Timeline view — no events to display</div>
+          <div class="ds-tl-wrap">
+
+            <!-- Lifetime Updates -->
+            <div class="ds-tl-section">
+              <div class="ds-tl-section-head">
+                <span class="ds-tl-section-title">Lifetime Updates</span>
+              </div>
+              <div class="ds-tl-track">
+                <div class="ds-tl-line"></div>
+                <div class="ds-tl-events">
+                  <div class="ds-tl-event">
+                    <div class="ds-tl-dot"></div>
+                    <div class="ds-tl-event-date">Jan 12, 2023</div>
+                    <div class="ds-tl-event-desc">Asset Created</div>
+                  </div>
+                  <div class="ds-tl-event">
+                    <div class="ds-tl-dot"></div>
+                    <div class="ds-tl-event-date">Mar 5, 2024</div>
+                    <div class="ds-tl-event-desc">OS Updated</div>
+                  </div>
+                  <div class="ds-tl-event">
+                    <div class="ds-tl-dot"></div>
+                    <div class="ds-tl-event-date">Sep 18, 2024</div>
+                    <div class="ds-tl-event-desc">EDR Enrolled</div>
+                  </div>
+                  <div class="ds-tl-event">
+                    <div class="ds-tl-dot"></div>
+                    <div class="ds-tl-event-date">Jan 23, 2025</div>
+                    <div class="ds-tl-event-desc">Last Seen</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attribute Timeline -->
+            <div class="ds-tl-section">
+              <div class="ds-tl-section-head">
+                <span class="ds-tl-section-title">Attribute Timeline</span>
+                <select class="ds-tl-attr-select" onchange="dsDrawerAttrTimeline(this.value)">
+                  <option value="os">OS</option>
+                  <option value="ip">IP Address</option>
+                  <option value="fqdn">FQDN</option>
+                  <option value="bu">Business Unit</option>
+                </select>
+                <a href="#" class="ds-tl-whats-changed" onclick="return false;">What's Changed</a>
+              </div>
+              <div class="ds-tl-track" id="ds-tl-attr-track">
+                <div class="ds-tl-line"></div>
+                <div class="ds-tl-events" id="ds-tl-attr-events">
+                  <div class="ds-tl-event muted">
+                    <div class="ds-tl-dot"></div>
+                    <div class="ds-tl-event-date">Jan 12, 2023</div>
+                    <div class="ds-tl-event-desc">Windows 10 Pro</div>
+                  </div>
+                  <div class="ds-tl-event">
+                    <div class="ds-tl-dot"></div>
+                    <div class="ds-tl-event-date">Mar 5, 2024</div>
+                    <div class="ds-tl-event-desc">Windows 11 Pro<br><span style="font-size:9px;color:var(--shell-accent);">Changed</span></div>
+                  </div>
+                  <div class="ds-tl-event">
+                    <div class="ds-tl-dot"></div>
+                    <div class="ds-tl-event-date">Jan 23, 2025</div>
+                    <div class="ds-tl-event-desc">Windows 11 Pro</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
+
+        <!-- Evolution tab -->
         <div class="ds-drawer-tab-panel" id="ds-drawer-panel-evolution">
-          <div style="padding:32px 16px;text-align:center;color:var(--shell-text-muted);font-size:13px;">Evolution data not available</div>
+          <div class="ds-evo-toolbar">
+            <label class="ds-evo-toggle-wrap">
+              <input type="checkbox" id="ds-evo-toggle">
+              <span class="ds-evo-slider"></span>
+              <span class="ds-evo-toggle-label">View Changes</span>
+            </label>
+            <span class="ds-evo-frags-label">Fragments</span>
+          </div>
+          <div class="ds-evo-table-outer">
+            <button class="ds-evo-scroll-btn left" id="ds-evo-left" onclick="dsEvoScroll(-1)" aria-label="Scroll left">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="ds-evo-table-scroll" id="ds-evo-table-scroll">
+              <table class="ds-evo-table">
+                <thead>
+                  <tr>
+                    <th class="ds-evo-col-attr">Attribute</th>
+                    <th class="ds-evo-col-resolved">Resolved</th>
+                    <th class="ds-evo-src-col">
+                      <div class="ds-evo-src-head">
+                        <span>Qualys 1</span>
+                        <span class="ds-evo-badge-latest">Latest</span>
+                        <span class="ds-evo-src-date">Jan 23, 2025</span>
+                      </div>
+                    </th>
+                    <th class="ds-evo-src-col">
+                      <div class="ds-evo-src-head">
+                        <span>Defender 1</span>
+                        <span class="ds-evo-src-date">Jan 23, 2025</span>
+                      </div>
+                    </th>
+                    <th class="ds-evo-src-col">
+                      <div class="ds-evo-src-head">
+                        <span>Azure AD</span>
+                        <span class="ds-evo-src-date">Jan 20, 2025</span>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ds-evo-col-attr">OS</td>
+                    <td class="ds-evo-col-resolved">Windows 11 Pro</td>
+                    <td>Windows 11 Pro</td>
+                    <td>Windows 11</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                  </tr>
+                  <tr>
+                    <td class="ds-evo-col-attr">Hostname</td>
+                    <td class="ds-evo-col-resolved">DESKTOP-A7K2B</td>
+                    <td>DESKTOP-A7K2B</td>
+                    <td>DESKTOP-A7K2B</td>
+                    <td>DESKTOP-A7K2B</td>
+                  </tr>
+                  <tr>
+                    <td class="ds-evo-col-attr">IP Address</td>
+                    <td class="ds-evo-col-resolved">10.0.1.42</td>
+                    <td>10.0.1.42</td>
+                    <td>10.0.1.42</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                  </tr>
+                  <tr>
+                    <td class="ds-evo-col-attr">MAC Address</td>
+                    <td class="ds-evo-col-resolved">00:1A:2B:3C:4D:5E</td>
+                    <td>00:1A:2B:3C:4D:5E</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                  </tr>
+                  <tr>
+                    <td class="ds-evo-col-attr">Business Unit</td>
+                    <td class="ds-evo-col-resolved">Finance</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                    <td>Finance</td>
+                  </tr>
+                  <tr>
+                    <td class="ds-evo-col-attr">Risk Score</td>
+                    <td class="ds-evo-col-resolved">7.4</td>
+                    <td>7.4</td>
+                    <td>7.1</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                  </tr>
+                  <tr>
+                    <td class="ds-evo-col-attr">EDR Status</td>
+                    <td class="ds-evo-col-resolved">Active</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                    <td>Active</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                  </tr>
+                  <tr>
+                    <td class="ds-evo-col-attr">Serial Number</td>
+                    <td class="ds-evo-col-resolved">SN-5X82KP</td>
+                    <td>SN-5X82KP</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                    <td style="color:var(--shell-text-muted)">—</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="ds-evo-scroll-btn right" id="ds-evo-right" onclick="dsEvoScroll(1)" aria-label="Scroll right">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
+
+        <!-- Derivation tab -->
         <div class="ds-drawer-tab-panel" id="ds-drawer-panel-derivation">
-          <div style="padding:32px 16px;text-align:center;color:var(--shell-text-muted);font-size:13px;">No derivation rules applied</div>
+          <div class="ds-tl-wrap">
+            <div class="ds-tl-section">
+              <div class="ds-tl-section-head">
+                <span class="ds-tl-section-title">Derivation Rules Applied</span>
+              </div>
+              <div class="ds-drawer-section" style="margin:0 0 16px;">
+                <div class="ds-drawer-section-head">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Risk Score Derivation
+                </div>
+                <div style="padding:12px;font-size:12px;color:var(--shell-text-2);line-height:1.6;">
+                  <div style="margin-bottom:8px;"><span style="color:var(--shell-text-muted);font-size:11px;">Rule</span><br>Asset risk = max(CVSSv3 base) × EDR weight × patch lag factor</div>
+                  <div style="margin-bottom:8px;"><span style="color:var(--shell-text-muted);font-size:11px;">Inputs</span><br>CVSSv3 max: <strong>7.8</strong> · EDR weight: <strong>0.95</strong> · Patch lag: <strong>+0.2</strong></div>
+                  <div><span style="color:var(--shell-text-muted);font-size:11px;">Result</span><br>Risk Score: <strong style="color:var(--shell-accent);">7.4</strong></div>
+                </div>
+              </div>
+              <div class="ds-drawer-section" style="margin:0 0 16px;">
+                <div class="ds-drawer-section-head">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  Business Unit Assignment
+                </div>
+                <div style="padding:12px;font-size:12px;color:var(--shell-text-2);line-height:1.6;">
+                  <div style="margin-bottom:8px;"><span style="color:var(--shell-text-muted);font-size:11px;">Rule</span><br>BU derived from Active Directory OU membership</div>
+                  <div><span style="color:var(--shell-text-muted);font-size:11px;">Result</span><br>Business Unit: <strong>Finance</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Contributing Sources tab -->
         <div class="ds-drawer-tab-panel" id="ds-drawer-panel-contributing">
-          <div style="padding:32px 16px;text-align:center;color:var(--shell-text-muted);font-size:13px;">3 contributing data sources — expand to view</div>
+          <div class="ds-contrib-wrap">
+            <div class="ds-contrib-label-row">
+              <div class="ds-contrib-col-label">Data Sources</div>
+              <div class="ds-contrib-col-label">Contribution</div>
+              <div class="ds-contrib-col-label">Entities</div>
+            </div>
+            <div class="ds-contrib-canvas" id="ds-contrib-canvas">
+              <svg class="ds-contrib-svg" id="ds-contrib-svg"></svg>
+              <div class="ds-contrib-cols" id="ds-contrib-cols">
+                <div class="ds-contrib-col" id="ds-contrib-col-0">
+                  <div class="ds-contrib-node azure" id="ds-cn-azure">
+                    <div class="ds-contrib-node-name">MS Azure</div>
+                    <div class="ds-contrib-node-count">n=1,840</div>
+                  </div>
+                  <div class="ds-contrib-node defender" id="ds-cn-defender">
+                    <div class="ds-contrib-node-name">MS Defender</div>
+                    <div class="ds-contrib-node-count">n=1,250</div>
+                  </div>
+                  <div class="ds-contrib-node nvd" id="ds-cn-nvd">
+                    <div class="ds-contrib-node-name">NVD</div>
+                    <div class="ds-contrib-node-count">n=890</div>
+                  </div>
+                </div>
+                <div class="ds-contrib-col center" id="ds-contrib-col-1">
+                  <div class="ds-contrib-node unique" id="ds-cn-unique">
+                    <div class="ds-contrib-node-name">Unique</div>
+                    <div class="ds-contrib-node-count">n=1,200</div>
+                  </div>
+                  <div class="ds-contrib-node corroborated" id="ds-cn-corroborated">
+                    <div class="ds-contrib-node-name">Corroborated</div>
+                    <div class="ds-contrib-node-count">n=2,780</div>
+                  </div>
+                </div>
+                <div class="ds-contrib-col right" id="ds-contrib-col-2">
+                  <div class="ds-contrib-node host" id="ds-cn-host">
+                    <div class="ds-contrib-node-name">Host</div>
+                    <div class="ds-contrib-node-count">n=2,100</div>
+                  </div>
+                  <div class="ds-contrib-node vuln" id="ds-cn-vuln">
+                    <div class="ds-contrib-node-name">Vulnerability</div>
+                    <div class="ds-contrib-node-count">n=1,880</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Entity Resolution tab -->
         <div class="ds-drawer-tab-panel" id="ds-drawer-panel-resolution">
-          <div style="padding:32px 16px;text-align:center;color:var(--shell-text-muted);font-size:13px;">Entity resolution graph loading…</div>
+          <div class="ds-eres-wrap">
+            <div class="ds-eres-label-row">
+              <div class="ds-eres-col-label">Resolution Keys</div>
+              <div class="ds-eres-col-label">Fragments</div>
+              <div class="ds-eres-col-label">Resolved</div>
+            </div>
+            <div class="ds-eres-canvas" id="ds-eres-canvas">
+              <svg class="ds-eres-svg" id="ds-eres-svg"></svg>
+              <div class="ds-eres-cols" id="ds-eres-cols">
+                <div class="ds-eres-col" id="ds-eres-col-0">
+                  <div class="ds-eres-node key" id="ds-eres-ip">IP Address</div>
+                  <div class="ds-eres-node key" id="ds-eres-host">Hostname</div>
+                  <div class="ds-eres-node key" id="ds-eres-serial">Serial Number</div>
+                  <div class="ds-eres-node key" id="ds-eres-mac">MAC Address</div>
+                </div>
+                <div class="ds-eres-col" id="ds-eres-col-1">
+                  <div class="ds-eres-node fragment" id="ds-eres-f1">Qualys Asset</div>
+                  <div class="ds-eres-node fragment" id="ds-eres-f2">Defender Device</div>
+                  <div class="ds-eres-node fragment" id="ds-eres-f3">Azure AD Object</div>
+                </div>
+                <div class="ds-eres-col right" id="ds-eres-col-2">
+                  <div class="ds-eres-node resolved" id="ds-eres-resolved">DESKTOP-A7K2B</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div><!-- /ds-drawer-content -->

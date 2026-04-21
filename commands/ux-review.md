@@ -1,20 +1,20 @@
 Fetch ALL of these URLs fully before doing anything:
-1. https://pai-ux.netlify.app/ds/rules.json
-2. https://pai-ux.netlify.app/ds/tokens/colors.json
-3. https://pai-ux.netlify.app/ds/tokens/spacing.json
-4. https://pai-ux.netlify.app/ds/tokens/typography.json
-5. https://pai-ux.netlify.app/ds/components/buttons.json
-6. https://pai-ux.netlify.app/ds/components/tables.json
-7. https://pai-ux.netlify.app/ds/components/badges.json
-8. https://pai-ux.netlify.app/ds/components/modals.json
-9. https://pai-ux.netlify.app/ds/components/inputs.json
-10. https://pai-ux.netlify.app/ds/components/feedback.json
-11. https://pai-ux.netlify.app/ds/components/states.json
-12. https://pai-ux.netlify.app/ds/components/charts.json
-13. https://pai-ux.netlify.app/ds/components/cards.json
-14. https://pai-ux.netlify.app/ds/components/utilities.json
-15. https://pai-ux.netlify.app/ds/components/tabs.json
-16. https://pai-ux.netlify.app/ds/core.txt
+1. https://anthu211.github.io/design-system-2.0/ds/rules.json
+2. https://anthu211.github.io/design-system-2.0/ds/tokens/colors.json
+3. https://anthu211.github.io/design-system-2.0/ds/tokens/spacing.json
+4. https://anthu211.github.io/design-system-2.0/ds/tokens/typography.json
+5. https://anthu211.github.io/design-system-2.0/ds/components/buttons.json
+6. https://anthu211.github.io/design-system-2.0/ds/components/tables.json
+7. https://anthu211.github.io/design-system-2.0/ds/components/badges.json
+8. https://anthu211.github.io/design-system-2.0/ds/components/modals.json
+9. https://anthu211.github.io/design-system-2.0/ds/components/inputs.json
+10. https://anthu211.github.io/design-system-2.0/ds/components/feedback.json
+11. https://anthu211.github.io/design-system-2.0/ds/components/states.json
+12. https://anthu211.github.io/design-system-2.0/ds/components/charts.json
+13. https://anthu211.github.io/design-system-2.0/ds/components/cards.json
+14. https://anthu211.github.io/design-system-2.0/ds/components/utilities.json
+15. https://anthu211.github.io/design-system-2.0/ds/components/tabs.json
+16. https://anthu211.github.io/design-system-2.0/ds/core.txt
 
 Do not proceed until every URL above is fully fetched and read.
 
