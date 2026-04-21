@@ -12,6 +12,8 @@ Then read $ARGUMENTS and fetch only what is needed:
 - Modal/dialog → modals.json
 - Badge/status → badges.json
 - Toast/alert → feedback.json
+- Detail drawer (row-click asset/entity detail panel) → drawer.json
+- Filter popup (multi-entity filter builder) → filters.json
 
 All JSON base URL: https://pai-ux.netlify.app/ds/components/
 

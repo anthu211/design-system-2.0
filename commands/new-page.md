@@ -25,6 +25,8 @@ Then read $ARGUMENTS (or ask "What is this page called and who is its primary us
 - Toasts / callouts / error states on page → fetch https://pai-ux.netlify.app/ds/components/feedback.json
 - Tabs on page → fetch https://pai-ux.netlify.app/ds/components/tabs.json
 - Tooltip / accordion / progress / steps / avatar / skeleton on page → fetch https://pai-ux.netlify.app/ds/components/utilities.json
+- Detail drawer (row-click asset detail panel) on page → fetch https://pai-ux.netlify.app/ds/components/drawer.json
+- Filter popup (multi-entity filter builder) on page → fetch https://pai-ux.netlify.app/ds/components/filters.json
 
 Do not fetch files for components the page does not need.
 

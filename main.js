@@ -3728,6 +3728,277 @@ function initStatesPage() {
 })();
 
 /* ══════════════════════════════════════════════════
+   DETAIL DRAWER — ds-drawer-* namespace
+   Triggered by table row clicks.
+   Populates header, sidebar stats, entity graph,
+   and General/Security field grids from row data.
+══════════════════════════════════════════════════ */
+(function() {
+
+  // ── Severity helpers ──
+  var SEV_BADGE = {
+    critical: 'danger', high: 'warning', medium: 'info', low: 'success'
+  };
+  var SEV_COLOR = {
+    critical: '#D12329', high: '#D98B1D', medium: '#6360D8', low: '#31A56D'
+  };
+
+  // ── Open / Close ──
+  window.openDetailDrawer = function(data) {
+    var overlay  = document.getElementById('ds-drawer-overlay');
+    var drawer   = document.getElementById('ds-drawer');
+    if (!overlay || !drawer) return;
+
+    // Populate header
+    document.getElementById('ds-drawer-title').textContent    = data.asset || 'Unknown';
+    document.getElementById('ds-drawer-type-badge').textContent = data.type  || 'Host';
+    document.getElementById('ds-drawer-score').textContent    = data.score || '—';
+
+    var sevBadge = document.getElementById('ds-drawer-sev-badge');
+    var sev = (data.sev || 'low').toLowerCase();
+    sevBadge.className = 'ds-badge ' + (SEV_BADGE[sev] || 'neutral');
+    sevBadge.textContent = sev.charAt(0).toUpperCase() + sev.slice(1);
+
+    // Populate General fields
+    var gf = document.getElementById('ds-drawer-general-fields');
+    if (gf) {
+      gf.innerHTML = dsDrawerField('Display Label', data.asset) +
+        dsDrawerField('OS', data.os || 'Linux') +
+        dsDrawerField('Data Source', '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>&nbsp;3 sources', true) +
+        dsDrawerField('Hardware Serial Name', 'SN' + Math.random().toString(36).substr(2,10).toUpperCase()) +
+        dsDrawerField('Business Unit', data.bu || '—') +
+        dsDrawerField('Role', 'Web Server, Database') +
+        dsDrawerField('FQDN', '<span class="ds-drawer-field-value accent">' + (data.asset.replace(/\.[^.]+$/, '') + '-local.acme.com') + '</span>', true) +
+        dsDrawerField('A&amp;D Device ID', '<span style="font-size:10px;">' + dsUUID() + '</span>', true) +
+        dsDrawerField('Type', data.type || 'Server') +
+        dsDrawerField('MAC Address', '<span style="font-family:monospace;">' + dsMac() + '</span>', true) +
+        dsDrawerField('Internet Facing', '<span class="true-val">True</span>', true) +
+        dsDrawerField('Environment', 'Production');
+    }
+
+    // Populate Security fields
+    var sf = document.getElementById('ds-drawer-security-fields');
+    if (sf) {
+      sf.innerHTML =
+        dsDrawerField('Defender Risk Score', '<span class="ds-drawer-field-pill high">High</span>', true) +
+        dsDrawerField('Defender Health Status', '<span class="ds-drawer-field-pill true">TRUE</span>', true) +
+        dsDrawerField('EDR Onboarding Status', '<span class="ds-drawer-field-pill true">TRUE</span>', true) +
+        dsDrawerField('VM Onboarding Status', '<span class="ds-drawer-field-pill true">TRUE</span>', true) +
+        dsDrawerField('FW Enabled', '<span class="ds-drawer-field-pill true">TRUE</span>', true);
+    }
+
+    // Activate first tab
+    dsDrawerTab(document.querySelector('#ds-drawer .ds-drawer-tab'), 'summary');
+
+    // Activate list item
+    document.querySelectorAll('#ds-drawer-list .ds-drawer-list-item').forEach(function(el, i) {
+      el.classList.toggle('active', i === 0);
+    });
+
+    // Open
+    overlay.classList.add('open');
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Draw entity graph
+    setTimeout(dsDrawerDrawGraph, 60);
+  };
+
+  window.closeDetailDrawer = function() {
+    var overlay = document.getElementById('ds-drawer-overlay');
+    var drawer  = document.getElementById('ds-drawer');
+    if (overlay) overlay.classList.remove('open');
+    if (drawer)  drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.dsDrawerOverlayClick = function(e) {
+    if (e.target === document.getElementById('ds-drawer-overlay')) closeDetailDrawer();
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var d = document.getElementById('ds-drawer');
+      if (d && d.classList.contains('open')) closeDetailDrawer();
+    }
+  });
+
+  // ── Field builder ──
+  function dsDrawerField(label, value, raw) {
+    return '<div class="ds-drawer-field">' +
+      '<div class="ds-drawer-field-label">' + label + '</div>' +
+      '<div class="ds-drawer-field-value">' + (raw ? value : escHtml(String(value))) + '</div>' +
+      '</div>';
+  }
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function dsUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random()*16|0, v = c==='x'?r:(r&0x3|0x8);
+      return v.toString(16);
+    });
+  }
+  function dsMac() {
+    return Array.from({length:6},function(){return('0'+Math.floor(Math.random()*256).toString(16)).slice(-2).toUpperCase()}).join(':');
+  }
+
+  // ── Tabs ──
+  window.dsDrawerTab = function(btn, panelId) {
+    document.querySelectorAll('#ds-drawer .ds-drawer-tab').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    document.querySelectorAll('#ds-drawer .ds-drawer-tab-panel').forEach(function(p) {
+      p.classList.remove('active');
+    });
+    if (btn) btn.classList.add('active');
+    var panel = document.getElementById('ds-drawer-panel-' + panelId);
+    if (panel) panel.classList.add('active');
+  };
+
+  // ── Graph toggle ──
+  window.dsDrawerToggleGraph = function() {
+    var section = document.getElementById('ds-drawer-graph-section');
+    var toggle  = document.getElementById('ds-drawer-graph-toggle');
+    if (!section) return;
+    var collapsed = section.classList.toggle('collapsed');
+    if (toggle) {
+      toggle.innerHTML = collapsed
+        ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg> Expand'
+        : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg> Collapse';
+    }
+  };
+
+  // ── Sidebar pagination ──
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.ds-drawer-pg-btn');
+    if (!btn || !btn.closest('.ds-drawer-list-pagination')) return;
+    btn.closest('.ds-drawer-list-pagination').querySelectorAll('.ds-drawer-pg-btn').forEach(function(b) {
+      b.classList.remove('active');
+    });
+    btn.classList.add('active');
+  });
+
+  // ── Sidebar list item click ──
+  document.addEventListener('click', function(e) {
+    var item = e.target.closest('#ds-drawer-list .ds-drawer-list-item');
+    if (!item) return;
+    document.querySelectorAll('#ds-drawer-list .ds-drawer-list-item').forEach(function(el) {
+      el.classList.remove('active');
+    });
+    item.classList.add('active');
+  });
+
+  // ── Entity relationship graph (SVG) ──
+  function dsDrawerDrawGraph() {
+    var svg = document.getElementById('ds-drawer-graph-svg');
+    var canvas = document.getElementById('ds-drawer-graph-canvas');
+    if (!svg || !canvas) return;
+    var W = canvas.offsetWidth || 600;
+    var H = 200;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.innerHTML = '';
+
+    var cx = W * 0.42, cy = H / 2;
+    var nodes = [
+      { label: 'Findings',      count: 1,  angle: -60 },
+      { label: 'Vulnerability', count: 1,  angle: 0   },
+      { label: 'Person',        count: 1,  angle: 50  },
+      { label: 'Application',   count: 25, angle: 120 },
+      { label: 'Identity',      count: 2,  angle: 200 },
+    ];
+    var radius = Math.min(W * 0.28, 130);
+    var nodeR  = 22;
+    var centerR = 28;
+
+    // Draw connections first (behind nodes)
+    nodes.forEach(function(n) {
+      var rad = (n.angle * Math.PI) / 180;
+      var nx = cx + radius * Math.cos(rad);
+      var ny = cy + radius * Math.sin(rad);
+
+      // Bezier curve
+      var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+      var mx = (cx + nx) / 2 + (ny - cy) * 0.15;
+      var my = (cy + ny) / 2 - (nx - cx) * 0.15;
+      path.setAttribute('d', 'M'+cx+','+cy+' Q'+mx+','+my+' '+nx+','+ny);
+      path.setAttribute('stroke', 'var(--ctrl-border)');
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('fill', 'none');
+      svg.appendChild(path);
+
+      // Count badge on line
+      var bx = cx + (nx - cx) * 0.5;
+      var by = cy + (ny - cy) * 0.5;
+      var badge = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      badge.setAttribute('cx', bx); badge.setAttribute('cy', by);
+      badge.setAttribute('r', '10'); badge.setAttribute('fill', 'var(--card-bg)');
+      badge.setAttribute('stroke', 'var(--ctrl-border)'); badge.setAttribute('stroke-width','1');
+      svg.appendChild(badge);
+      var badgeText = document.createElementNS('http://www.w3.org/2000/svg','text');
+      badgeText.setAttribute('x', bx); badgeText.setAttribute('y', by+4);
+      badgeText.setAttribute('text-anchor','middle');
+      badgeText.setAttribute('font-size','9'); badgeText.setAttribute('fill','var(--shell-text-muted)');
+      badgeText.setAttribute('font-family','Inter,sans-serif'); badgeText.setAttribute('font-weight','600');
+      badgeText.textContent = n.count;
+      svg.appendChild(badgeText);
+    });
+
+    // Center node
+    var cCircle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    cCircle.setAttribute('cx', cx); cCircle.setAttribute('cy', cy);
+    cCircle.setAttribute('r', centerR); cCircle.setAttribute('fill','var(--shell-accent)');
+    svg.appendChild(cCircle);
+    var cRing = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    cRing.setAttribute('cx', cx); cRing.setAttribute('cy', cy);
+    cRing.setAttribute('r', centerR + 5);
+    cRing.setAttribute('fill','none'); cRing.setAttribute('stroke','rgba(99,96,216,0.3)'); cRing.setAttribute('stroke-width','3');
+    svg.insertBefore(cRing, cCircle);
+
+    // Draw remote nodes
+    nodes.forEach(function(n) {
+      var rad = (n.angle * Math.PI) / 180;
+      var nx = cx + radius * Math.cos(rad);
+      var ny = cy + radius * Math.sin(rad);
+
+      var circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      circle.setAttribute('cx', nx); circle.setAttribute('cy', ny);
+      circle.setAttribute('r', nodeR); circle.setAttribute('fill','var(--card-bg)');
+      circle.setAttribute('stroke','var(--ctrl-border)'); circle.setAttribute('stroke-width','1.5');
+      svg.appendChild(circle);
+
+      // Label below node
+      var lx = nx;
+      var ly = ny + nodeR + 12;
+      var lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+      lbl.setAttribute('x', lx); lbl.setAttribute('y', ly);
+      lbl.setAttribute('text-anchor','middle');
+      lbl.setAttribute('font-size','9'); lbl.setAttribute('fill','var(--shell-text-muted)');
+      lbl.setAttribute('font-family','Inter,sans-serif');
+      lbl.textContent = n.label;
+      svg.appendChild(lbl);
+    });
+  }
+
+  // ── Wire up demo table rows ──
+  document.addEventListener('click', function(e) {
+    var row = e.target.closest('.drawer-demo-row');
+    if (!row) return;
+    openDetailDrawer({
+      asset: row.dataset.asset,
+      type:  row.dataset.type,
+      bu:    row.dataset.bu,
+      os:    row.dataset.os,
+      score: row.dataset.score,
+      sev:   row.dataset.sev
+    });
+  });
+
+  window.dsDrawerSidebarTab = function() {};
+
+})();
+
+/* ══════════════════════════════════════════════════
    FILTER POPUP — ds-fp-* namespace
 ══════════════════════════════════════════════════ */
 (function() {
