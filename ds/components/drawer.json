@@ -1,0 +1,154 @@
+{
+  "component": "detail-drawer",
+  "description": "Right-side sliding panel for viewing asset/entity details. Triggered by clicking any table row or list item. Wide panel (860px) with dim backdrop, sidebar stats, entity relationship graph, tabbed content, and structured data field grids.",
+  "tokens": {
+    "width":           "min(860px, 90vw)",
+    "border_radius":   "8px 0 0 8px",
+    "transition":      "transform .28s cubic-bezier(.4,0,.2,1)",
+    "overlay_bg":      "rgba(0,0,0,0.45) + backdrop-filter:blur(1px)",
+    "z_index_overlay": "600",
+    "z_index_drawer":  "601",
+    "sidebar_width":   "220px",
+    "graph_height":    "200px",
+    "field_columns":   4
+  },
+  "trigger": {
+    "element":   "any table row (.drawer-demo-row) or list item",
+    "event":     "click on entire row — never a button inside the row",
+    "cursor":    "pointer on tr",
+    "data_attrs": ["data-asset", "data-type", "data-bu", "data-os", "data-score", "data-sev"]
+  },
+  "structure": {
+    "overlay": "div.ds-drawer-overlay (fixed, full-screen, click to close)",
+    "drawer":  "div.ds-drawer (fixed right panel, slides from right)",
+    "header":  "ds-drawer-header > ds-drawer-title-row",
+    "body":    "ds-drawer-body = ds-drawer-sidebar + ds-drawer-main",
+    "sidebar": "220px fixed left strip",
+    "main":    "flex:1 — graph section + tabs + content"
+  },
+  "header": {
+    "title":           "ds-drawer-title — entity hostname/name, max-width:280px, overflow ellipsis",
+    "type_badge":      "ds-badge neutral — entity type (Host, Application, etc.)",
+    "severity_badge":  "ds-badge [danger|warning|info|success] — maps to score severity",
+    "score":           "ds-drawer-score-val — large 22px 700 number (exposure score)",
+    "score_link":      "ds-drawer-score-link — 'View Score Simulation ↗' accent link",
+    "actions":         "icon button (open full page) + Collapse button (closes drawer)"
+  },
+  "sidebar": {
+    "stat_cards": {
+      "structure":  "ds-drawer-stat-card > ds-drawer-stat-label + ds-drawer-stat-count + ds-drawer-stat-sub + ds-drawer-stat-bar",
+      "bar_fill":   "ds-drawer-stat-bar-fill — accent color; add .full class for 100% (green)",
+      "clickable":  true,
+      "examples":   ["Account", "Container", "Network Interface"]
+    },
+    "list": {
+      "header":     "ds-drawer-list-header with count and search icon",
+      "items":      "ds-drawer-list-item — dot + entity name, active state = accent",
+      "pagination": "ds-drawer-list-pagination — 10/25/50/100/All page-size buttons",
+      "active_class": "ds-drawer-list-item.active"
+    }
+  },
+  "entity_graph": {
+    "structure":   "ds-drawer-graph-section > ds-drawer-graph-header + ds-drawer-graph-canvas",
+    "canvas":      "200px tall, dot-grid background (16px grid), SVG overlay",
+    "svg_content": "Center entity node (accent, 28px radius) + radial remote nodes (22px) + bezier paths + count badges on paths",
+    "collapsible": "Toggle via ds-drawer-graph-toggle button, adds .collapsed class to section",
+    "header":      "'Entity Relationship Summary' + info icon + Collapse/Expand toggle"
+  },
+  "tabs": {
+    "bar_class":   "ds-drawer-tabs (overflow-x:auto, scrollbar hidden)",
+    "tab_class":   "ds-drawer-tab",
+    "active_class":"ds-drawer-tab.active",
+    "panels":      ["Summary", "Timeline", "Evolution", "Derivation", "Contributing Sources", "Entity Resolution"],
+    "panel_id_pattern": "ds-drawer-panel-{slug}"
+  },
+  "field_grid": {
+    "class":       "ds-drawer-fields",
+    "columns":     4,
+    "field":       "ds-drawer-field > ds-drawer-field-label + ds-drawer-field-value",
+    "label_style": "10px uppercase 600 muted — attribute name",
+    "value_style": "12px shell-text-2 — the actual value",
+    "value_variants": {
+      "accent":    "color:var(--shell-accent) — links, FQDNs",
+      "true-val":  "color:#31A56D font-weight:600 — boolean true states",
+      "false-val": "color:var(--shell-text-muted) — boolean false"
+    },
+    "status_pills": {
+      "high":     "ds-drawer-field-pill high — amber bg/text",
+      "critical": "ds-drawer-field-pill critical — red bg/text",
+      "true":     "ds-drawer-field-pill true — green bg/text"
+    },
+    "border": "right and bottom on each cell, none on last column / last row"
+  },
+  "sections": {
+    "General": ["Display Label", "OS", "Data Source", "Hardware Serial Name", "Business Unit", "Role", "FQDN", "A&D Device ID", "Type", "MAC Address", "Internet Facing", "Environment", "Infrastructure Type"],
+    "Security and Compliance": ["Defender Risk Score", "Defender Health Status", "EDR Onboarding Status", "VM Onboarding Status", "FW Enabled"]
+  },
+  "classes": {
+    "ds-drawer-overlay":       "Full-screen dim backdrop",
+    "ds-drawer":               "Main panel (slides from right)",
+    "ds-drawer-header":        "Title row container",
+    "ds-drawer-title-row":     "Flex row: title + badges + score + actions",
+    "ds-drawer-title":         "Entity name (ellipsis at 280px)",
+    "ds-drawer-score-block":   "Severity badge + score number + link",
+    "ds-drawer-score-val":     "22px 700 exposure score",
+    "ds-drawer-score-link":    "Accent 'View Score Simulation' link",
+    "ds-drawer-collapse-btn":  "Top-right collapse/close button",
+    "ds-drawer-body":          "flex row: sidebar + main",
+    "ds-drawer-sidebar":       "220px left sidebar",
+    "ds-drawer-stat-card":     "Entity type stat card (count + bar)",
+    "ds-drawer-stat-label":    "Entity type icon + name",
+    "ds-drawer-stat-count":    "18px 700 count",
+    "ds-drawer-stat-sub":      "10px resolved text",
+    "ds-drawer-stat-bar":      "3px progress bar container",
+    "ds-drawer-stat-bar-fill": "Filled portion (accent) — add .full for green",
+    "ds-drawer-list-header":   "Section label + count + search icon",
+    "ds-drawer-list-items":    "Scrollable entity list",
+    "ds-drawer-list-item":     "Single entity row (dot + name)",
+    "ds-drawer-list-pagination": "Page-size button row",
+    "ds-drawer-pg-btn":        "10/25/50/100/All size button",
+    "ds-drawer-main":          "flex:1 content area",
+    "ds-drawer-graph-section": "Collapsible graph container",
+    "ds-drawer-graph-header":  "Graph title + toggle",
+    "ds-drawer-graph-toggle":  "Collapse/Expand text button",
+    "ds-drawer-graph-canvas":  "200px SVG canvas (dot-grid bg)",
+    "ds-drawer-tabs":          "Scrollable tab bar",
+    "ds-drawer-tab":           "Individual tab button",
+    "ds-drawer-content":       "Scrollable tab content area",
+    "ds-drawer-tab-panel":     "Single tab panel (display:none by default)",
+    "ds-drawer-section":       "Content section with header + field grid",
+    "ds-drawer-section-head":  "Section icon + uppercase title",
+    "ds-drawer-section-icon":  "20px icon box",
+    "ds-drawer-fields":        "4-column CSS grid",
+    "ds-drawer-field":         "Single field cell (label + value)",
+    "ds-drawer-field-label":   "10px uppercase muted attribute name",
+    "ds-drawer-field-value":   "12px value text",
+    "ds-drawer-field-pill":    "Status pill (high/critical/true variants)"
+  },
+  "interactions": {
+    "open":            "click .drawer-demo-row → openDetailDrawer(data) → overlay + drawer get .open class",
+    "close":           ["Escape key", "Click overlay backdrop", "Collapse button"],
+    "tab_switch":      "dsDrawerTab(btn, panelId) — removes .active from all, adds to clicked",
+    "graph_toggle":    "dsDrawerToggleGraph() — adds .collapsed to graph section, swaps button icon/text",
+    "sidebar_click":   "stat card click = filter list; list item click = highlight active row",
+    "pagination":      "page-size button click = toggle .active within .ds-drawer-list-pagination"
+  },
+  "do": [
+    "Trigger on full row click — entire <tr> is clickable with cursor:pointer",
+    "Always show dim backdrop (rgba 0,0,0,0.45) behind the drawer",
+    "Use cubic-bezier(.4,0,.2,1) 0.28s for slide transition",
+    "Entity graph must be collapsible — default expanded",
+    "Render field grid with 4 columns — exactly 4 border-separated cells per row",
+    "Label in field is always 10px uppercase muted above value",
+    "Close on Escape key and backdrop click",
+    "Use ds-badge severity classes matching score: danger/warning/info/success"
+  ],
+  "dont": [
+    "Never use a full-screen modal for asset detail — always this drawer",
+    "Never omit the sidebar entity stats — gives critical relationship context",
+    "Never put the entity graph outside the collapsible graph section",
+    "Never hardcode hex colors — all CSS variables",
+    "Never remove tabs — even if only Summary is implemented, show all 6 tabs",
+    "Never trigger drawer on action button clicks (edit, delete) — only on row click"
+  ]
+}

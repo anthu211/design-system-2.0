@@ -6,9 +6,9 @@ Paste into `.cursor/rules/prevalent-ai.mdc` or use as a system prompt in Cursor 
 
 ```
 Fetch ALL of these URLs fully before writing any code:
-1. https://pai-ux.netlify.app/ds/core.txt
-2. https://pai-ux.netlify.app/ds/page-spec.txt
-3. https://pai-ux.netlify.app/ds/charts/charts.txt
+1. https://anthu211.github.io/design-system-2.0/ds/core.txt
+2. https://anthu211.github.io/design-system-2.0/ds/page-spec.txt
+3. https://anthu211.github.io/design-system-2.0/ds/charts/charts.txt
 
 ---
 
