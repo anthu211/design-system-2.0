@@ -176,7 +176,8 @@
       "Bash(cp \"/Users/ananthusunil/PAI Edits/design-system/commands/new-component.md\" \"/Users/ananthusunil/PAI Edits/design-system/.claude/commands/new-component.md\")",
       "Bash(npx --yes serve . -l 3000)",
       "Bash(node -e ':*)",
-      "Bash(curl -s \"https://api.github.com/repos/prevalent-ai/ux-pai/pulls?state=open\")"
+      "Bash(curl -s \"https://api.github.com/repos/prevalent-ai/ux-pai/pulls?state=open\")",
+      "Bash(awk -F: '{print $1, $3}')"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",

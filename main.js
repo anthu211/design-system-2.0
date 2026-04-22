@@ -49,11 +49,12 @@ var DS_VERSION = 'v2.1.103';
 
 // ─── Top nav view switching ───
 var dsLayout = document.querySelector('.ds-layout');
-document.querySelectorAll('.ds-topnav-item').forEach(function(btn) {
+var _topnavItems = document.querySelectorAll('.ds-topnav-item');
+_topnavItems.forEach(function(btn) {
   btn.addEventListener('click', function() {
     var targetPage = btn.dataset.page;
     // Mark active tab
-    document.querySelectorAll('.ds-topnav-item').forEach(function(b) { b.classList.remove('active'); });
+    _topnavItems.forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
     // Switch to view-ds
     document.querySelectorAll('.ds-view').forEach(function(v) { v.classList.remove('active'); });
@@ -77,26 +78,21 @@ document.querySelectorAll('.ds-topnav-item').forEach(function(btn) {
 });
 
 // ─── Global theme ───
-function updateLogo() {
-  // Logo is always white (topbar is always black)
-}
-
+var _globalThemeBtns = document.querySelectorAll('.theme-btn-global');
 (function() {
   var saved = localStorage.getItem('ds-theme') || 'light';
   if (saved === 'light') document.documentElement.classList.add('theme-light');
-  updateLogo(saved);
-  document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
+  _globalThemeBtns.forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.globalTheme === saved);
   });
 })();
 
-document.querySelectorAll('.theme-btn-global').forEach(function(btn) {
+_globalThemeBtns.forEach(function(btn) {
   btn.addEventListener('click', function() {
     var theme = btn.dataset.globalTheme;
     document.documentElement.classList.toggle('theme-light', theme === 'light');
     localStorage.setItem('ds-theme', theme);
-    updateLogo(theme);
-    document.querySelectorAll('.theme-btn-global').forEach(function(b) {
+    _globalThemeBtns.forEach(function(b) {
       b.classList.toggle('active', b.dataset.globalTheme === theme);
     });
     // Sync Colors page local toggle
@@ -473,11 +469,11 @@ document.querySelectorAll('.ds-textarea-field[data-max]').forEach(function(ta) {
 
 // ─── Charts ───
 // RAG scheme — severity/criticality only (Critical → High → Medium → Low)
-var CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
+const CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
 // Normal scheme — non-RAG colours for category/entity breakdowns
-var CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
+const CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
 // Default fallback (kept for backward compat)
-var CHART_COLORS = CHART_COLORS_NORMAL;
+const CHART_COLORS = CHART_COLORS_NORMAL;
 
 // ─── Chart Tooltip ───────────────────────────────────────────────────────────
 var _ctEl = null;
@@ -518,11 +514,14 @@ function positionChartTooltip(e) {
 
 function hideChartTooltip() { var el = _ct(); if (el) el.style.display = 'none'; }
 
+// Converts polar coordinates to Cartesian. 0° = top (12 o'clock); angles increase clockwise.
 function polarToCartesian(cx, cy, r, angleDeg) {
   var rad = (angleDeg - 90) * Math.PI / 180;
   return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
 }
 
+// Returns an SVG arc path string from startAngle to endAngle (degrees, clockwise from top).
+// Used by buildDonutChart to draw individual donut segments.
 function describeArc(cx, cy, r, startAngle, endAngle) {
   var start = polarToCartesian(cx, cy, r, endAngle);
   var end = polarToCartesian(cx, cy, r, startAngle);
@@ -729,6 +728,8 @@ function buildLineChart(containerId, data, labels) {
   });
 }
 
+// Builds a multi-series line chart with optional reference line, axis labels, and hover tooltips.
+// Each series in `series` is { label, values[], color }. `labels` are the x-axis tick labels.
 // opts: { refLine: { value, color, label }, yAxisLabel, xAxisLabel, stat: { value, label } }
 function buildMultiLineChart(containerId, series, labels, opts) {
   opts = opts || {};
@@ -1730,15 +1731,18 @@ function dsMsInverse(listId, countId) {
 }
 
 // ─── Toast ───
+// Shared icon SVG strings for all toast types — used by showToast and showDemoToast
+var TOAST_ICONS = {
+  success: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+  error:   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+  warning: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  info:    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+};
+
 function showToast(type, message) {
   var container = document.getElementById('toast-container');
   if (!container) return;
-  var icons = {
-    success: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
-    error:   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
-    warning: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-    info:    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
-  };
+  var icons = TOAST_ICONS;
   var toast = document.createElement('div');
   toast.className = 'ds-toast ' + type;
   toast.innerHTML = (icons[type] || '') + '<span>' + message + '</span><button class="ds-toast-dismiss" onclick="this.closest(\'.ds-toast\').remove()">×</button>';
@@ -1755,12 +1759,7 @@ function showToast(type, message) {
 function showDemoToast(type, message) {
   var container = document.getElementById('toast-demo-container');
   if (!container) return;
-  var icons = {
-    success: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
-    error:   '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
-    warning: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
-    info:    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
-  };
+  var icons = TOAST_ICONS;
   var toast = document.createElement('div');
   toast.className = 'ds-toast ' + type;
   toast.style.animation = 'ds-toast-drop 250ms ease';
@@ -2580,6 +2579,9 @@ function closeCmdPalette() {
   _cmdOpen = false;
 }
 
+// Scores a search index item against a query string.
+// Returns 2 if the full query is a substring match, 1 if any individual word matches, 0 for no match.
+// Searches across item title (t), description (d), keywords (k), and category (cat).
 function fuzzyScore(item, query) {
   var q = query.toLowerCase();
   var haystack = (item.t + ' ' + item.d + ' ' + item.k + ' ' + item.cat).toLowerCase();
