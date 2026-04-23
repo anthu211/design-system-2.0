@@ -316,6 +316,19 @@
       </div>
     </div>
 
+    <div class="nav-section nav-accordion" data-acc="ai-components">
+      <div class="nav-section-label nav-acc-toggle" data-target="ai-components">
+        AI Components
+        <svg class="nav-acc-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="nav-acc-body" id="acc-ai-components">
+        <div class="nav-item" data-page="navigator">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Navigator
+        </div>
+      </div>
+    </div>
+
     <div class="nav-section nav-accordion" data-acc="templates">
       <div class="nav-section-label nav-acc-toggle" data-target="templates">
         Templates
@@ -606,6 +619,20 @@
       <div class="ds-home-card-title">Charts</div>
       <div class="ds-home-card-desc">Bar, line, and donut charts with SVG axes and labels.</div>
     </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=drawer]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.08);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="18" y1="9" x2="21" y2="9"/><line x1="18" y1="12" x2="21" y2="12"/><line x1="18" y1="15" x2="21" y2="15"/></svg>
+      </div>
+      <div class="ds-home-card-title">Detail Drawer</div>
+      <div class="ds-home-card-desc">Entity detail panel with tab panels, traversal path, and relationship graph.</div>
+    </div>
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=filter]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(46,168,168,0.1);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ea8a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      </div>
+      <div class="ds-home-card-title">Filter</div>
+      <div class="ds-home-card-desc">Multi-criteria filter builder with entity selectors and applied filter chips.</div>
+    </div>
     <div class="ds-home-card" onclick="document.querySelector('[data-page=forms]').click()">
       <div class="ds-home-card-icon" style="background:rgba(49,165,109,0.1);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31A56D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -689,6 +716,17 @@
       </div>
       <div class="ds-home-card-title">Tooltip</div>
       <div class="ds-home-card-desc">Contextual hints on hover for icons and truncated content.</div>
+    </div>
+  </div>
+
+  <div class="ds-home-section-title">AI Components</div>
+  <div class="ds-home-grid">
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=navigator]').click()">
+      <div class="ds-home-card-icon" style="background:rgba(99,96,216,0.12);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="ds-home-card-title">Navigator</div>
+      <div class="ds-home-card-desc">AI analytics interface — chat home, composer, conversation thread, results panel, and project management.</div>
     </div>
   </div>
 </div>
@@ -5939,55 +5977,66 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
 
     <!-- ── INSTALL HERO ── -->
     <div class="ds-cs-hero">
-      <div class="ds-cs-hero-eyebrow">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        3 steps · no network required
-      </div>
-      <div style="display:flex;flex-direction:column;gap:16px;margin-top:4px;">
 
-        <!-- Step 1 -->
-        <div style="display:flex;align-items:center;gap:16px;">
-          <span class="ds-cs-zip-num">1</span>
-          <button id="claude-setup-dl-btn" onclick="downloadClaudeSetup()" style="display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:44px;background:rgba(99,96,216,0.9);color:#fff;border:none;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.01em;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download claude-setup.zip
-          </button>
+      <!-- Card A: Download (no network) -->
+      <div class="ds-cs-install-card">
+        <div class="ds-cs-install-card-header">
+          <span class="ds-cs-method-badge ds-cs-method-badge--dl">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </span>
+          <span class="ds-cs-install-card-sub">No network required &middot; 3 steps</span>
         </div>
+        <div class="ds-cs-steps">
 
-        <!-- Step 2 -->
-        <div style="display:flex;align-items:flex-start;gap:16px;">
-          <span class="ds-cs-zip-num">2</span>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <div style="font-size:11px;color:var(--shell-muted);margin-bottom:2px;">In terminal, go to your project root and unzip:</div>
-            <div class="ds-cs-hero-cmd">
-              <code class="ds-cs-hero-cmd-text" style="font-size:12px;"><span style="color:#9ca3af;">unzip</span> ~/Downloads/claude-setup.zip</code>
-              <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/claude-setup.zip').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+          <div class="ds-cs-step">
+            <span class="ds-cs-zip-num">1</span>
+            <div class="ds-cs-step-content">
+              <div class="ds-cs-step-label">Download the installer</div>
+              <button id="claude-setup-dl-btn" onclick="downloadClaudeSetup()" class="ds-cs-dl-btn">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download claude-setup.zip
+              </button>
             </div>
           </div>
-        </div>
 
-        <!-- Step 3 -->
-        <div style="display:flex;align-items:flex-start;gap:16px;">
-          <span class="ds-cs-zip-num">3</span>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <div style="font-size:11px;color:var(--shell-muted);margin-bottom:2px;">Run the installer from your project root:</div>
-            <div class="ds-cs-hero-cmd">
-              <code class="ds-cs-hero-cmd-text" style="font-size:12px;"><span style="color:#9ca3af;">bash</span> claude-setup/install.sh</code>
-              <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('bash claude-setup/install.sh').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+          <div class="ds-cs-step">
+            <span class="ds-cs-zip-num">2</span>
+            <div class="ds-cs-step-content">
+              <div class="ds-cs-step-label">Unzip into your project root</div>
+              <div class="ds-cs-hero-cmd">
+                <code class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">unzip</span> ~/Downloads/claude-setup.zip</code>
+                <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/claude-setup.zip').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+              </div>
             </div>
           </div>
-        </div>
 
+          <div class="ds-cs-step">
+            <span class="ds-cs-zip-num">3</span>
+            <div class="ds-cs-step-content">
+              <div class="ds-cs-step-label">Run the installer</div>
+              <div class="ds-cs-hero-cmd">
+                <code class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">bash</span> claude-setup/install.sh</code>
+                <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('bash claude-setup/install.sh').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      <!-- curl alternative -->
-      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--shell-border);">
-        <button class="ds-cs-hero-alt" onclick="var s=document.getElementById('curl-alt');var o=s.style.display==='block';s.style.display=o?'none':'block';this.textContent=o?'On a network without SSL restrictions? Use curl →':'Hide curl command'">On a network without SSL restrictions? Use curl →</button>
-        <div id="curl-alt" style="display:none;margin-top:12px;">
-          <div class="ds-cs-hero-cmd">
-            <span class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash</span>
-            <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('curl -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
-          </div>
+      <!-- OR Divider -->
+      <div class="ds-cs-method-sep"><span>or</span></div>
+
+      <!-- Card B: curl -->
+      <div class="ds-cs-install-card ds-cs-install-card--curl">
+        <div class="ds-cs-install-card-header">
+          <span class="ds-cs-method-badge ds-cs-method-badge--curl">curl</span>
+          <span class="ds-cs-install-card-sub">On a network without SSL restrictions &middot; one-line install</span>
+        </div>
+        <div class="ds-cs-hero-cmd">
+          <code class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash</code>
+          <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('curl -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
         </div>
       </div>
 
@@ -6366,6 +6415,386 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
 
   </div>
 </div><!-- /page-docs -->
+
+<!-- NAVIGATOR PAGE -->
+<div class="page" id="page-navigator">
+  <div class="page-sub-header">
+    <div class="page-sub-header-left">
+      <h1 class="page-title">Navigator</h1>
+      <p class="page-subtitle">AI analytics interface components — chat home, composer, conversation thread, analysis results, and project management.</p>
+    </div>
+  </div>
+  <div class="page-content">
+
+    <!-- ── HOME EMPTY STATE ── -->
+    <div class="comp-section-title">Home — Empty State</div>
+    <div class="nav-home-demo">
+      <div class="nav-home-inner">
+        <h2 class="nav-home-greeting">What can I do for you, Natalie?</h2>
+        <p class="nav-home-sub">Discover insights with our advanced intelligence capabilities and ask questions relevant to your data</p>
+        <div class="nav-entity-chips">
+          <div class="nav-entity-chip">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            13,456 Vulnerability
+          </div>
+          <div class="nav-entity-chip">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            9,016 Device
+          </div>
+          <div class="nav-entity-chip">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            19,245 Cloud
+          </div>
+          <div class="nav-entity-chip">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            6,324 Application
+          </div>
+          <div class="nav-entity-chip">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            10,234 Identity
+          </div>
+        </div>
+        <div class="nav-composer-wrap">
+          <div class="nav-composer-box">
+            <div class="nav-composer-top">
+              <span class="nav-composer-placeholder">Ask about vulnerable assets, threats, or risk levels</span>
+            </div>
+            <div class="nav-composer-bottom">
+              <div class="nav-composer-hint">
+                <span class="nav-composer-hint-key">/</span>
+                <span>to edit widgets</span>
+              </div>
+              <div class="nav-composer-right">
+                <div class="nav-composer-mode" data-nav-mode>
+                  <svg class="nav-mode-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>
+                  <span class="nav-mode-label">Analysis</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  <div class="nav-mode-dropdown">
+                    <div class="nav-mode-option nav-mode-option--active" data-mode="Analysis">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>
+                      Analysis
+                    </div>
+                    <div class="nav-mode-option" data-mode="Research">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      Research
+                    </div>
+                    <div class="nav-mode-option" data-mode="Summary">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                      Summary
+                    </div>
+                    <div class="nav-mode-option" data-mode="Compare">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>
+                      Compare
+                    </div>
+                  </div>
+                </div>
+                <button class="nav-composer-send">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COMPOSER STATES ── -->
+    <div class="comp-section-title" style="margin-top:32px;">Chat Composer</div>
+    <div style="display:flex;flex-direction:row;gap:16px;align-items:flex-start;">
+
+      <!-- Default -->
+      <div>
+        <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:8px;font-weight:600;">Default</div>
+        <div class="nav-composer-box nav-composer-box--standalone">
+          <div class="nav-composer-top">
+            <span class="nav-composer-placeholder">Ask about vulnerable assets, threats, or risk levels</span>
+          </div>
+          <div class="nav-composer-bottom">
+            <div class="nav-composer-hint">
+              <span class="nav-composer-hint-key">/</span>
+              <span>to edit widgets</span>
+            </div>
+            <div class="nav-composer-right">
+              <div class="nav-composer-mode" data-nav-mode>
+                <svg class="nav-mode-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>
+                <span class="nav-mode-label">Analysis</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <div class="nav-mode-dropdown">
+                  <div class="nav-mode-option nav-mode-option--active" data-mode="Analysis">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>
+                    Analysis
+                  </div>
+                  <div class="nav-mode-option" data-mode="Research">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    Research
+                  </div>
+                  <div class="nav-mode-option" data-mode="Summary">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Summary
+                  </div>
+                  <div class="nav-mode-option" data-mode="Compare">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>
+                    Compare
+                  </div>
+                </div>
+              </div>
+              <button class="nav-composer-send nav-composer-send--inactive">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- With entity filter chip -->
+      <div>
+        <div style="font-size:11px;color:var(--shell-text-muted);margin-bottom:8px;font-weight:600;">With entity filter</div>
+        <div class="nav-composer-box nav-composer-box--standalone">
+          <div class="nav-composer-top">
+            <div class="nav-composer-body">
+              <span class="nav-composer-filter-chip">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                13,456 Vulnerability
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </span>
+              <span class="nav-composer-typed">show me vulnerable assets</span>
+            </div>
+          </div>
+          <div class="nav-composer-bottom">
+            <div class="nav-composer-hint">
+              <span class="nav-composer-hint-key">/</span>
+              <span>to edit widgets</span>
+            </div>
+            <div class="nav-composer-right">
+              <div class="nav-composer-mode" data-nav-mode>
+                <svg class="nav-mode-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>
+                <span class="nav-mode-label">Analysis</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <div class="nav-mode-dropdown">
+                  <div class="nav-mode-option nav-mode-option--active" data-mode="Analysis">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>
+                    Analysis
+                  </div>
+                  <div class="nav-mode-option" data-mode="Research">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    Research
+                  </div>
+                  <div class="nav-mode-option" data-mode="Summary">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    Summary
+                  </div>
+                  <div class="nav-mode-option" data-mode="Compare">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>
+                    Compare
+                  </div>
+                </div>
+              </div>
+              <button class="nav-composer-send">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── CONVERSATION THREAD ── -->
+    <div class="comp-section-title" style="margin-top:32px;">Conversation Thread</div>
+    <div class="nav-thread-demo" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:20px 24px;display:flex;flex-direction:column;gap:20px;">
+
+      <!-- User question -->
+      <div class="nav-msg-row nav-msg-row--user">
+        <div class="nav-msg-bubble nav-msg-bubble--user">
+          Show me hosts with critical vulnerabilities
+        </div>
+        <div class="nav-msg-avatar">N</div>
+      </div>
+
+      <!-- AI response -->
+      <div class="nav-msg-row">
+        <div class="nav-ai-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div class="nav-msg-bubble">
+            I'll help you identify vulnerable assets. Let me analyze your request…
+          </div>
+          <div class="nav-steps">
+            <div class="nav-steps-label">Navigating request…</div>
+            <div class="nav-step nav-step--done">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Identifying query type and applying severity "critical"
+            </div>
+            <div class="nav-step nav-step--done">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Executing knowledge graph query
+            </div>
+            <div class="nav-step nav-step--active">
+              <div class="nav-step-spinner"></div>
+              Formatting results with affected asset count
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explore Further -->
+      <div class="nav-explore">
+        <div class="nav-explore-label">Explore Further</div>
+        <div class="nav-explore-item">Which of these are exposed?</div>
+        <div class="nav-explore-item">Do any of these have active exploits in the wild?</div>
+        <div class="nav-explore-item">Have these hosts been previously flagged in incident reports?</div>
+      </div>
+
+    </div>
+
+    <!-- ── ANALYSIS RESULTS PANEL ── -->
+    <div class="comp-section-title" style="margin-top:32px;">Analysis Results Panel</div>
+    <div class="nav-results-panel">
+
+      <!-- Results header -->
+      <div class="nav-results-header">
+        <div class="nav-results-badge">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Analysis Results
+        </div>
+        <div class="nav-results-header-actions">
+          <button class="t-outline" style="font-size:11px;padding:5px 12px;">+ Add to Workspace</button>
+          <button class="t-outline" style="font-size:11px;padding:5px 12px;">Active Filters</button>
+        </div>
+      </div>
+      <div class="nav-results-summary">Of the 43 hosts with critical vulnerabilities, 9 are internet exposed — this represents a significant security risk.</div>
+
+      <!-- Severity KPI row -->
+      <div class="nav-sev-row">
+        <div class="nav-sev-card nav-sev-card--critical">
+          <div class="nav-sev-label">Critical</div>
+          <div class="nav-sev-value">120,321</div>
+          <div class="nav-sev-delta nav-sev-delta--up">↑ 12%</div>
+        </div>
+        <div class="nav-sev-card nav-sev-card--high">
+          <div class="nav-sev-label">High</div>
+          <div class="nav-sev-value">30,321</div>
+          <div class="nav-sev-delta nav-sev-delta--up">↑ 8%</div>
+        </div>
+        <div class="nav-sev-card nav-sev-card--medium">
+          <div class="nav-sev-label">Medium</div>
+          <div class="nav-sev-value">5,321</div>
+          <div class="nav-sev-delta nav-sev-delta--down">↓ 3%</div>
+        </div>
+        <div class="nav-sev-card nav-sev-card--low">
+          <div class="nav-sev-label">Low</div>
+          <div class="nav-sev-value">123,321</div>
+          <div class="nav-sev-delta nav-sev-delta--down">↓ 54%</div>
+        </div>
+      </div>
+
+      <!-- Results table -->
+      <div class="ds-table-wrap" style="margin-top:16px;">
+        <table class="ds-table">
+          <thead><tr>
+            <th>Hostname</th>
+            <th>Critical Vuln</th>
+            <th>Services Exposed</th>
+            <th>Last Seen</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>PROD-WEB-01</td><td><span class="ds-badge ds-badge-red">12</span></td><td style="font-size:11px;color:var(--shell-text-muted);">HTTP80, HTTPS443</td><td style="font-size:11px;color:var(--shell-text-muted);">2 hours ago</td></tr>
+            <tr><td>APP-GT-07</td><td><span class="ds-badge ds-badge-red">9</span></td><td style="font-size:11px;color:var(--shell-text-muted);">HTTP80, HTTPS443</td><td style="font-size:11px;color:var(--shell-text-muted);">2 hours ago</td></tr>
+            <tr><td>LEGACY-APP-02</td><td><span class="ds-badge ds-badge-orange">6</span></td><td style="font-size:11px;color:var(--shell-text-muted);">HTTP80, FTP21</td><td style="font-size:11px;color:var(--shell-text-muted);">3 hours ago</td></tr>
+            <tr><td>API-GATEWAY-01</td><td><span class="ds-badge ds-badge-orange">4</span></td><td style="font-size:11px;color:var(--shell-text-muted);">HTTPS443</td><td style="font-size:11px;color:var(--shell-text-muted);">30 min ago</td></tr>
+            <tr><td>CUSTOMER-PORTAL</td><td><span class="ds-badge ds-badge-yellow">4</span></td><td style="font-size:11px;color:var(--shell-text-muted);">HTTPS443, SSH22</td><td style="font-size:11px;color:var(--shell-text-muted);">1 hour ago</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Immediate Risk Assessment -->
+      <div class="nav-risk-box">
+        <div class="nav-risk-title">Immediate Risk Assessment</div>
+        <ul class="nav-risk-list">
+          <li>3 hosts have RCE vulnerabilities with public exploits available</li>
+          <li>2 hosts are running services with default credentials</li>
+          <li>All 9 hosts should be prioritized for immediate patching</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ── PROJECT MANAGEMENT ── -->
+    <div class="comp-section-title" style="margin-top:32px;">Project Management</div>
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:0;border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
+
+      <!-- Project Sidebar -->
+      <div class="nav-proj-sidebar">
+        <div class="nav-proj-action">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          New Thread
+          <span class="nav-proj-shortcut">⌘T</span>
+        </div>
+        <div class="nav-proj-action">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Search
+          <span class="nav-proj-shortcut">⌘F</span>
+        </div>
+        <div class="nav-proj-action">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Discover
+          <span class="nav-proj-shortcut">⌘I</span>
+        </div>
+        <div class="nav-proj-divider"></div>
+        <div class="nav-proj-action nav-proj-action--primary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Project
+        </div>
+        <div class="nav-proj-label">History</div>
+        <div class="nav-proj-thread nav-proj-thread--active">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Hosts with Critical Vul…
+        </div>
+        <div class="nav-proj-thread">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Vulnerable Hosts
+        </div>
+        <div class="nav-proj-thread">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Critical Vulnerabilities…
+        </div>
+        <div class="nav-proj-thread">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Critical Issues on imp…
+        </div>
+        <div class="nav-proj-thread">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Exposure
+        </div>
+      </div>
+
+      <!-- Project Detail -->
+      <div class="nav-proj-detail">
+        <h3 class="nav-proj-title">New Project</h3>
+        <p class="nav-proj-desc">Description of what this project is for and how to use it</p>
+        <div class="nav-proj-instructions">
+          <div class="nav-proj-instructions-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Add instructions
+          </div>
+          <textarea class="nav-proj-textarea" placeholder="Ask about vulnerable assets, threats, or risk levels"></textarea>
+          <div class="nav-proj-textarea-hint">Details may vary over time and are subject to revision.</div>
+        </div>
+        <div class="nav-proj-threads-section">
+          <div class="nav-proj-threads-title">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Threads
+          </div>
+          <div class="nav-proj-threads-sub">Browse all threads in this project and jump into any conversation.</div>
+          <div class="nav-proj-threads-empty">No threads yet. Start your first conversation to begin this project.</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /page-content -->
+</div><!-- /page-navigator -->
 
   </main>
 

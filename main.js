@@ -4692,3 +4692,46 @@ function initStatesPage() {
     if (document.getElementById('ds-fp-overlay').classList.contains('open')) dsFpDrawLines();
   });
 })();
+
+// ── Navigator: Mode dropdown ──
+(function() {
+  var MODE_ICONS = {
+    Analysis: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>',
+    Research:  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+    Summary:   '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+    Compare:   '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>'
+  };
+
+  function initNavMode(btn) {
+    var dropdown = btn.querySelector('.nav-mode-dropdown');
+    var label    = btn.querySelector('.nav-mode-label');
+    var icon     = btn.querySelector('.nav-mode-icon');
+    if (!dropdown) return;
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dropdown.classList.toggle('is-open');
+    });
+
+    dropdown.querySelectorAll('.nav-mode-option').forEach(function(opt) {
+      opt.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var mode = opt.getAttribute('data-mode');
+        label.textContent = mode;
+        icon.innerHTML = MODE_ICONS[mode] || '';
+        dropdown.querySelectorAll('.nav-mode-option').forEach(function(o) {
+          o.classList.toggle('nav-mode-option--active', o === opt);
+        });
+        dropdown.classList.remove('is-open');
+      });
+    });
+  }
+
+  document.querySelectorAll('[data-nav-mode]').forEach(initNavMode);
+
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.nav-mode-dropdown.is-open').forEach(function(d) {
+      d.classList.remove('is-open');
+    });
+  });
+})();
