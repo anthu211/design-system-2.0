@@ -495,7 +495,6 @@
         </div>
         <div class="ds-ov-card-preview">
           <code style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:rgba(255,255,255,0.7);line-height:1.8;display:block;">curl -fsSLk install.sh | bash</code>
-          <code style="font-family:'SF Mono','Fira Code',monospace;font-size:10px;color:rgba(255,255,255,0.55);line-height:1.8;display:block;">npm install -g @anthropic-ai/claude-code</code>
           <div style="display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;">
             <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/new-page</span>
             <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:44px;background:rgba(255,255,255,0.15);color:#fff;">/ux-review</span>
@@ -6029,34 +6028,16 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
       <!-- OR Divider -->
       <div class="ds-cs-method-sep"><span>or</span></div>
 
-      <!-- Card B: curl (macOS / Linux) -->
+      <!-- Card B: curl -->
       <div class="ds-cs-install-card ds-cs-install-card--curl">
         <div class="ds-cs-install-card-header">
           <span class="ds-cs-method-badge ds-cs-method-badge--curl">curl</span>
-          <span class="ds-cs-install-card-sub">macOS &amp; Linux &middot; one-line install</span>
+          <span class="ds-cs-install-card-sub">On a network without SSL restrictions &middot; one-line install</span>
         </div>
         <div class="ds-cs-hero-cmd">
           <code class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">curl</span> -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash</code>
           <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('curl -fsSLk https://anthu211.github.io/design-system-2.0/setup/install.sh | bash').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
         </div>
-      </div>
-
-      <div class="ds-cs-method-sep"><span>or</span></div>
-
-      <!-- Card C: Windows PowerShell -->
-      <div class="ds-cs-install-card ds-cs-install-card--win">
-        <div class="ds-cs-install-card-header">
-          <span class="ds-cs-method-badge ds-cs-method-badge--win">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-            Windows
-          </span>
-          <span class="ds-cs-install-card-sub">PowerShell &middot; requires Node 18+</span>
-        </div>
-        <div class="ds-cs-hero-cmd">
-          <code class="ds-cs-hero-cmd-text"><span style="color:#9ca3af;">npm</span> install -g @anthropic-ai/claude-code</code>
-          <button class="ds-cs-hero-copy" onclick="navigator.clipboard.writeText('npm install -g @anthropic-ai/claude-code').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
-        </div>
-        <p class="ds-cs-win-note">Do <strong>not</strong> use PowerShell's <code>curl</code> — it is an alias for <code>Invoke-WebRequest</code> and does not support Unix flags. Use npm instead.</p>
       </div>
 
     </div>
