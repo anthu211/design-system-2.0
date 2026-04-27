@@ -39,7 +39,7 @@
 })();
 
 // ─── Design System Version (single source of truth) ───
-var DS_VERSION = 'v2.1.108';
+var DS_VERSION = 'v2.1.111';
 (function() {
   var el = document.getElementById('whats-new-version');
   if (el) el.textContent = DS_VERSION + ' \u2014 Latest';
@@ -4690,6 +4690,16 @@ function initStatesPage() {
   }
   window.addEventListener('resize', function() {
     if (document.getElementById('ds-fp-overlay').classList.contains('open')) dsFpDrawLines();
+  });
+})();
+
+// ── Navigator: Reasoning block collapse/expand ──
+(function() {
+  document.querySelectorAll('[data-reasoning-toggle]').forEach(function(header) {
+    header.addEventListener('click', function(e) {
+      if (e.target.closest('.nav-reasoning-menu')) return;
+      header.closest('.nav-reasoning').classList.toggle('nav-reasoning--collapsed');
+    });
   });
 })();
 

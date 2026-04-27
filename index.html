@@ -6191,7 +6191,7 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
       </div>
     </div>
     <div class="card" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:24px 28px;">
-      <div id="whats-new-version" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--shell-accent);margin-bottom:20px;">v2.1.108 — Latest</div>
+      <div id="whats-new-version" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--shell-accent);margin-bottom:20px;">v2.1.111 — Latest</div>
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
           <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(49,165,109,0.12);color:#31A56D;white-space:nowrap;flex-shrink:0;margin-top:1px;">New</span>
@@ -6603,47 +6603,125 @@ Do not finish until every BUILD CHECKLIST item in the fetched files is complete.
     <div class="comp-section-title" style="margin-top:32px;">Conversation Thread</div>
     <div class="nav-thread-demo" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:20px 24px;display:flex;flex-direction:column;gap:20px;">
 
-      <!-- User question -->
+      <!-- Exchange 1: User -->
       <div class="nav-msg-row nav-msg-row--user">
-        <div class="nav-msg-bubble nav-msg-bubble--user">
-          Show me hosts with critical vulnerabilities
-        </div>
+        <div class="nav-msg-bubble nav-msg-bubble--user">Show me hosts with critical vulnerabilities</div>
         <div class="nav-msg-avatar">N</div>
       </div>
 
-      <!-- AI response -->
+      <!-- Exchange 1: AI + completed reasoning -->
       <div class="nav-msg-row">
         <div class="nav-ai-badge">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <div style="flex:1;">
-          <div class="nav-msg-bubble">
-            I'll help you identify vulnerable assets. Let me analyze your request…
+        <div class="nav-msg-body">
+          <div class="nav-msg-bubble">I'll help you identify vulnerable assets. Let me analyze your request…</div>
+          <div class="nav-reasoning">
+            <div class="nav-reasoning-header" data-reasoning-toggle>
+              <div class="nav-reasoning-header-left">
+                <svg class="nav-reasoning-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                Navigating request…
+              </div>
+              <button class="nav-reasoning-menu">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+              </button>
+            </div>
+            <div class="nav-reasoning-body">
+              <div class="nav-step-row" style="--step-delay:0.05s">
+                <div class="nav-step-track">
+                  <div class="nav-step-dot nav-step-dot--done"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div class="nav-step-line"></div>
+                </div>
+                <div class="nav-step-content">Entity identified: <span class="nav-step-token">"hosts"</span></div>
+              </div>
+              <div class="nav-step-row" style="--step-delay:0.35s">
+                <div class="nav-step-track">
+                  <div class="nav-step-dot nav-step-dot--done"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                  <div class="nav-step-line"></div>
+                </div>
+                <div class="nav-step-content">Filter applied: <span class="nav-step-token">vulnerability_severity = "critical"</span></div>
+              </div>
+              <div class="nav-step-row" style="--step-delay:0.65s">
+                <div class="nav-step-track">
+                  <div class="nav-step-dot nav-step-dot--done"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+                </div>
+                <div class="nav-step-content">Executing knowledge graph query</div>
+              </div>
+            </div>
           </div>
-          <div class="nav-steps">
-            <div class="nav-steps-label">Navigating request…</div>
-            <div class="nav-step nav-step--done">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Identifying query type and applying severity "critical"
+        </div>
+      </div>
+
+      <!-- Exchange 2: User with View in Canvas -->
+      <div class="nav-msg-row nav-msg-row--user">
+        <div class="nav-msg-user-stack">
+          <div class="nav-msg-bubble nav-msg-bubble--user">Which of these are exposed?</div>
+          <button class="nav-canvas-btn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            View in Canvas
+          </button>
+        </div>
+        <div class="nav-msg-avatar">N</div>
+      </div>
+
+      <!-- Exchange 2: AI + in-progress reasoning -->
+      <div class="nav-msg-row">
+        <div class="nav-ai-badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="nav-msg-body">
+          <div class="nav-msg-bubble">Let me check which of these vulnerable hosts are exposed. I'll analyze that now…</div>
+          <div class="nav-reasoning nav-reasoning--active">
+            <div class="nav-reasoning-header" data-reasoning-toggle>
+              <div class="nav-reasoning-header-left">
+                <svg class="nav-reasoning-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                Navigating request…
+              </div>
+              <button class="nav-reasoning-menu">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+              </button>
             </div>
-            <div class="nav-step nav-step--done">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              Executing knowledge graph query
-            </div>
-            <div class="nav-step nav-step--active">
-              <div class="nav-step-spinner"></div>
-              Formatting results with affected asset count
+            <div class="nav-reasoning-body">
+              <div class="nav-step-row" style="--step-delay:0.1s">
+                <div class="nav-step-track">
+                  <div class="nav-step-dot nav-step-dot--active"></div>
+                  <div class="nav-step-line"></div>
+                </div>
+                <div class="nav-step-content nav-step-content--active">Interpreting user intent and identifying key concepts</div>
+              </div>
+              <div class="nav-step-row" style="--step-delay:0.45s">
+                <div class="nav-step-track">
+                  <div class="nav-step-dot nav-step-dot--active"></div>
+                  <div class="nav-step-line"></div>
+                </div>
+                <div class="nav-step-content nav-step-content--active">Detecting ambiguity in the term "critical issues"</div>
+              </div>
+              <div class="nav-step-row" style="--step-delay:0.8s">
+                <div class="nav-step-track">
+                  <div class="nav-step-dot nav-step-dot--active"></div>
+                </div>
+                <div class="nav-step-content nav-step-content--active">Re-querying with combined criteria</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Explore Further -->
-      <div class="nav-explore">
-        <div class="nav-explore-label">Explore Further</div>
-        <div class="nav-explore-item">Which of these are exposed?</div>
-        <div class="nav-explore-item">Do any of these have active exploits in the wild?</div>
-        <div class="nav-explore-item">Have these hosts been previously flagged in incident reports?</div>
+      <div class="nav-explore-further">
+        <div class="nav-explore-further-label">Explore Further</div>
+        <div class="nav-explore-q">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Which of these are exposed?
+        </div>
+        <div class="nav-explore-q">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Do any of these have active exploits in the wild?
+        </div>
+        <div class="nav-explore-q">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Have these hosts been previously flagged in incident reports?
+        </div>
       </div>
 
     </div>
