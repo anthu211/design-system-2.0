@@ -4693,6 +4693,16 @@ function initStatesPage() {
   });
 })();
 
+// ── Navigator: Reasoning block collapse/expand ──
+(function() {
+  document.querySelectorAll('[data-reasoning-toggle]').forEach(function(header) {
+    header.addEventListener('click', function(e) {
+      if (e.target.closest('.nav-reasoning-menu')) return;
+      header.closest('.nav-reasoning').classList.toggle('nav-reasoning--collapsed');
+    });
+  });
+})();
+
 // ── Navigator: Mode dropdown ──
 (function() {
   var MODE_ICONS = {
