@@ -232,10 +232,6 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
           Detail Drawer
         </div>
-        <div class="nav-item" data-page="filter">
-          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-          Filter Popup
-        </div>
         <div class="nav-item" data-page="forms">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           Form Controls
@@ -559,7 +555,7 @@
       <div class="ds-home-card-title">Detail Drawer</div>
       <div class="ds-home-card-desc">Entity detail panel with tab panels, traversal path, and relationship graph.</div>
     </div>
-    <div class="ds-home-card" onclick="document.querySelector('[data-page=filter]').click()">
+    <div class="ds-home-card" onclick="document.querySelector('[data-page=panels]').click()">
       <div class="ds-home-card-icon" style="background:rgba(46,168,168,0.1);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2ea8a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
       </div>
@@ -3940,6 +3936,94 @@
         <p>Right-side drawer panels, filter bars with active indicators, and applied filter chip displays.</p>
       </div>
 
+      <!-- Filter Popup -->
+      <div class="comp-section">
+        <div class="comp-section-title">Filter Popup</div>
+        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">Advanced multi-entity filter builder. Opens as a full overlay with an entity graph canvas, attribute selection, and a values panel. Click <strong>Filter</strong> below to trigger it.</p>
+
+        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
+          <div style="padding:10px 16px;border-bottom:1px solid var(--shell-border);display:flex;align-items:center;gap:8px;background:var(--card-bg);">
+            <div>
+              <div style="font-size:12px;font-weight:500;color:var(--shell-text);">Hosts</div>
+              <div style="font-size:11px;color:var(--shell-text-muted);">Asset Management / <span style="color:var(--shell-accent);">Hosts</span></div>
+            </div>
+            <span style="flex:1;"></span>
+            <button class="ds-filter-btn" onclick="openDsFilterPopup()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              Filter
+            </button>
+            <button class="ds-btn sz-sm t-outline" style="gap:4px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export
+            </button>
+          </div>
+          <div class="ds-fp-active-bar hidden" id="ds-fp-active-bar">
+            <span style="font-size:11px;font-weight:600;color:var(--shell-text-muted);margin-right:4px;">Filters:</span>
+            <div id="ds-fp-chip-row" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+            <button onclick="dsFpClearAll()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-family:inherit;font-size:11px;color:var(--shell-text-muted);padding:2px 6px;border-radius:4px;" onmouseover="this.style.background='var(--shell-hover)'" onmouseout="this.style.background='none'">Clear all</button>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="ds-table">
+              <thead>
+                <tr><th>Hostname</th><th>Type</th><th>Business Unit</th><th>Score</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td style="font-weight:500;">srv-prod-001.internal</td><td><span class="ds-badge neutral dot">Server</span></td><td>Infrastructure</td><td style="font-weight:600;color:#D12329;">8.7</td><td><span class="ds-badge danger dot">Critical</span></td></tr>
+                <tr><td style="font-weight:500;">workstation-42.corp</td><td><span class="ds-badge neutral dot">Workstation</span></td><td>Engineering</td><td style="font-weight:600;color:#D98B1D;">6.2</td><td><span class="ds-badge warning dot">High</span></td></tr>
+                <tr><td style="font-weight:500;">net-switch-floor3.local</td><td><span class="ds-badge neutral dot">Network</span></td><td>Operations</td><td style="font-weight:600;color:#6360D8;">4.1</td><td><span class="ds-badge info dot">Medium</span></td></tr>
+                <tr><td style="font-weight:500;">scanner-dc-02.internal</td><td><span class="ds-badge neutral dot">Scanner</span></td><td>Security</td><td style="font-weight:600;color:#31A56D;">1.8</td><td><span class="ds-badge success dot">Low</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chart-doc" style="margin-top:16px;">
+          <div class="chart-doc-block">
+            <div class="chart-doc-block-title">Panel 1 — Entity Graph</div>
+            <p style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Dot-grid canvas (280px). Circular entity nodes with SVG icon + label. Selected node: accent fill + glow ring. SVG dashed lines connect nodes to the center entity.</p>
+          </div>
+          <div class="chart-doc-block">
+            <div class="chart-doc-block-title">Panel 2 — Attribute Selection</div>
+            <p style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Radio list (260px). One attribute selected at a time. Active item: left accent border + dot indicator. Search input filters the list.</p>
+          </div>
+          <div class="chart-doc-block">
+            <div class="chart-doc-block-title">Panel 3 — Values</div>
+            <p style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">2-column checkbox grid (flex:1). Include/Exclude segmented toggle. Select All as Pattern. A-Z/Z-A sort. Value search. Upload Values.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Active Filter Preview Panel -->
+      <div class="comp-section">
+        <div class="comp-section-title">Active Filter Preview Panel</div>
+        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:14px;">Click <strong>Active Filters</strong> to open the full-width preview drawer — shows all applied filters in a nested entity tree with relationship context and connector lines.</p>
+        <div class="comp-row" style="gap:12px;align-items:center;">
+          <button class="ds-filter-count-btn" onclick="openPanel('afp-panel')">
+            Active Filters
+            <span class="ds-filter-count">5</span>
+          </button>
+        </div>
+        <div class="chart-doc" style="margin-top:16px;">
+          <div class="chart-doc-block">
+            <div class="chart-doc-block-title">Structure</div>
+            <ul>
+              <li>Entity chip → "where" label → filter condition chips</li>
+              <li>Nested relation chips indented with gray connector lines</li>
+              <li>Sub-entity ("Finding") inherits its own filter context</li>
+              <li>Implicit Filters toggle controls contextual system filters</li>
+            </ul>
+          </div>
+          <div class="chart-doc-block">
+            <div class="chart-doc-block-title">Filter Chip Anatomy</div>
+            <ul>
+              <li>Field label (bold) · colon · [INCLUDE/EXCLUDE] · values</li>
+              <li>Multi-select values render in accent color</li>
+              <li>[OR] modifier appears between operator and value</li>
+              <li>Width: 560px · slides in over content with dim overlay</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       <!-- Filter Bar + Sticky Panel Demo -->
       <div class="comp-section">
         <div class="comp-section-title">Filter Bar &amp; Sticky Panel</div>
@@ -3961,13 +4045,22 @@
                 </button>
                 <div class="ds-active-filters-popover">
                   <div class="ds-active-filters-popover-title">Applied Filters</div>
-                  <div class="ds-filter-chips" style="flex-direction:column;align-items:flex-start;gap:6px;">
-                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-                      <span style="font-size:12px;color:var(--shell-text);white-space:nowrap;">Show</span>
-                      <div class="ds-filter-chip"><span class="ds-chip-key">Entity</span><span class="ds-chip-value">Host</span></div>
-                      <span class="ds-filter-connector">where</span>
-                      <div class="ds-filter-chip"><span class="ds-chip-key">VM Onboarding</span><span class="ds-chip-value">False</span></div>
-                      <div class="ds-filter-chip"><span class="ds-chip-key">Severity</span><span class="ds-chip-value">Critical</span><span class="ds-chip-value">High</span></div>
+                  <div class="afp-entity-block">
+                    <div class="afp-entity-chip">Host</div>
+                    <div class="afp-where">where</div>
+                    <div class="afp-conditions">
+                      <div class="afp-cond-chip">
+                        <span class="afp-cond-field">VM Onboarding</span>
+                        <span class="afp-cond-colon">:</span>
+                        <span class="afp-cond-op">[INCLUDE]</span>
+                        <span class="afp-cond-val">False</span>
+                      </div>
+                      <div class="afp-cond-chip">
+                        <span class="afp-cond-field">Severity</span>
+                        <span class="afp-cond-colon">:</span>
+                        <span class="afp-cond-op">[INCLUDE]</span>
+                        <span class="afp-cond-val afp-cond-val-accent">Critical, High</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -4075,52 +4168,22 @@
         </div>
       </div>
 
-      <!-- Applied Filter Chips -->
+      <!-- Overlay Drawer (modal/widget settings use case) -->
       <div class="comp-section">
-        <div class="comp-section-title">Applied Filter Chips</div>
+        <div class="comp-section-title">Overlay Drawer</div>
         <div class="comp-card">
-          <div class="comp-card-header">Active filter display</div>
-          <div class="ds-filter-chips" id="demo-chips">
-            <span style="font-size:12px;color:var(--shell-text);white-space:nowrap;">Show</span>
-            <div class="ds-filter-chip">
-              <span class="ds-chip-key">Entity</span>
-              <span class="ds-chip-value">Host</span>
-              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
-            </div>
-            <span class="ds-filter-connector">where</span>
-            <div class="ds-filter-chip">
-              <span class="ds-chip-key">VM Onboarding Status</span>
-              <span class="ds-chip-value">False</span>
-              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
-            </div>
-            <div class="ds-filter-chip">
-              <span class="ds-chip-key">Severity</span>
-              <span class="ds-chip-value">Critical</span>
-              <span class="ds-chip-value">High</span>
-              <button class="ds-chip-close" onclick="removeChip(this)" title="Remove">×</button>
-            </div>
-          </div>
-          <div style="margin-top:16px;">
-            <button class="ds-btn t-outline sz-sm" onclick="resetFilterChips()">Reset demo</button>
+          <div class="comp-card-header">Widget settings — full overlay panel</div>
+          <div class="comp-row">
+            <button class="ds-btn t-primary sz-md" onclick="openPanel('demo-panel')">Open Widget Settings Panel</button>
+            <span style="font-size:12px;color:var(--shell-text-muted);">Slides in from right with backdrop overlay</span>
           </div>
           <div class="chart-doc">
             <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Anatomy</div>
+              <div class="chart-doc-block-title">Use for</div>
               <ul>
-                <li>Chip bg: shell-raised, 8px radius</li>
-                <li>Key label: 12px medium, muted color</li>
-                <li>Value pill: ctrl-bg, 4px radius</li>
-                <li>Multiple values can stack in one chip</li>
-                <li>Close ×: 18px circle button</li>
-              </ul>
-            </div>
-            <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Connectors</div>
-              <ul>
-                <li>"Show" — plain text, primary color</li>
-                <li>"where" — accent color (#6360D8)</li>
-                <li>Plain conjunctions link filter groups</li>
-                <li>Each group is a self-contained chip</li>
+                <li>Widget configuration, settings requiring focus</li>
+                <li>When interaction with the page should be blocked</li>
+                <li>Click backdrop or × to dismiss</li>
               </ul>
             </div>
           </div>
@@ -4247,27 +4310,7 @@
         </div>
       </div>
 
-      <!-- Overlay Drawer (modal/widget settings use case) -->
-      <div class="comp-section">
-        <div class="comp-section-title">Overlay Drawer</div>
-        <div class="comp-card">
-          <div class="comp-card-header">Widget settings — full overlay panel</div>
-          <div class="comp-row">
-            <button class="ds-btn t-primary sz-md" onclick="openPanel('demo-panel')">Open Widget Settings Panel</button>
-            <span style="font-size:12px;color:var(--shell-text-muted);">Slides in from right with backdrop overlay</span>
-          </div>
-          <div class="chart-doc">
-            <div class="chart-doc-block">
-              <div class="chart-doc-block-title">Use for</div>
-              <ul>
-                <li>Widget configuration, settings requiring focus</li>
-                <li>When interaction with the page should be blocked</li>
-                <li>Click backdrop or × to dismiss</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+
     </div>
 
 
@@ -4425,113 +4468,6 @@
               <li>Never make the current (bottom) traversal node clickable — it's already active</li>
               <li>Never put destructive actions in the drawer without a confirmation modal</li>
               <li>Never show tab content without an empty/loading state for async data</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <!-- FILTER POPUP PAGE -->
-    <div class="page" id="page-filter">
-      <div class="page-header">
-        <h1>Filter Popup</h1>
-        <p>Advanced multi-entity filter builder. Opens as a full overlay with an entity graph canvas, attribute selection, and a values panel. Click <strong>Filter</strong> below to trigger it.</p>
-      </div>
-
-      <!-- Live demo -->
-      <div class="comp-section">
-        <div class="comp-section-title">Live Demo</div>
-        <p style="font-size:13px;color:var(--shell-text-muted);margin-bottom:16px;">
-          The Filter button lives in the sub-header, top-right. Click it to open the full 3-panel popup. Select an entity → pick an attribute → check values → Apply.
-        </p>
-
-        <!-- Mock sub-header bar -->
-        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;overflow:hidden;">
-          <div style="padding:10px 16px;border-bottom:1px solid var(--shell-border);display:flex;align-items:center;gap:8px;background:var(--card-bg);">
-            <div>
-              <div style="font-size:12px;font-weight:500;color:var(--shell-text);">Hosts</div>
-              <div style="font-size:11px;color:var(--shell-text-muted);">Asset Management / <span style="color:var(--shell-accent);">Hosts</span></div>
-            </div>
-            <span style="flex:1;"></span>
-            <button class="ds-filter-btn" onclick="openDsFilterPopup()">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-              Filter
-            </button>
-            <button class="ds-btn sz-sm t-outline" style="gap:4px;">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Export
-            </button>
-          </div>
-
-          <!-- Active filters bar -->
-          <div class="ds-fp-active-bar hidden" id="ds-fp-active-bar">
-            <span style="font-size:11px;font-weight:600;color:var(--shell-text-muted);margin-right:4px;">Filters:</span>
-            <div id="ds-fp-chip-row" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
-            <button onclick="dsFpClearAll()" style="margin-left:auto;background:none;border:none;cursor:pointer;font-family:inherit;font-size:11px;color:var(--shell-text-muted);padding:2px 6px;border-radius:4px;" onmouseover="this.style.background='var(--shell-hover)'" onmouseout="this.style.background='none'">Clear all</button>
-          </div>
-
-          <!-- Mini table -->
-          <div style="overflow-x:auto;">
-            <table class="ds-table">
-              <thead>
-                <tr>
-                  <th>Hostname</th><th>Type</th><th>Business Unit</th><th>Score</th><th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td style="font-weight:500;">srv-prod-001.internal</td><td><span class="ds-badge neutral dot">Server</span></td><td>Infrastructure</td><td style="font-weight:600;color:#D12329;">8.7</td><td><span class="ds-badge danger dot">Critical</span></td></tr>
-                <tr><td style="font-weight:500;">workstation-42.corp</td><td><span class="ds-badge neutral dot">Workstation</span></td><td>Engineering</td><td style="font-weight:600;color:#D98B1D;">6.2</td><td><span class="ds-badge warning dot">High</span></td></tr>
-                <tr><td style="font-weight:500;">net-switch-floor3.local</td><td><span class="ds-badge neutral dot">Network</span></td><td>Operations</td><td style="font-weight:600;color:#6360D8;">4.1</td><td><span class="ds-badge info dot">Medium</span></td></tr>
-                <tr><td style="font-weight:500;">scanner-dc-02.internal</td><td><span class="ds-badge neutral dot">Scanner</span></td><td>Security</td><td style="font-weight:600;color:#31A56D;">1.8</td><td><span class="ds-badge success dot">Low</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Anatomy -->
-      <div class="comp-section">
-        <div class="comp-section-title">Anatomy</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
-          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Panel 1 — Entity Graph</div>
-            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Dot-grid canvas (280px). Circular entity nodes with SVG icon + label. Selected node: accent fill + glow ring. SVG dashed lines connect nodes to the center entity.</div>
-          </div>
-          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Panel 2 — Attribute Selection</div>
-            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">Radio list (260px). One attribute selected at a time. Active item: left accent border + dot indicator. Search input filters the list.</div>
-          </div>
-          <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:16px;">
-            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--shell-accent);margin-bottom:8px;">Panel 3 — Values</div>
-            <div style="font-size:12px;color:var(--shell-text-2);line-height:1.7;">2-column checkbox grid (flex:1). Include/Exclude segmented toggle. Select All as Pattern. A-Z/Z-A sort. Value search. Upload Values.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Rules -->
-      <div class="comp-section">
-        <div class="comp-section-title">Rules</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#31A56D;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Do</div>
-            <ul style="font-size:12px;color:var(--shell-text-2);line-height:2;padding-left:16px;">
-              <li>Filter button: top-right of sub-header, adjacent to Export</li>
-              <li>Use the 3-panel layout — entity graph is always leftmost</li>
-              <li>Values always use checkboxes (multi-select)</li>
-              <li>Apply button commits — never auto-apply on check</li>
-              <li>Active filter chips appear immediately below sub-header</li>
-              <li>Close on Escape key and backdrop click</li>
-            </ul>
-          </div>
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#D12329;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Don't</div>
-            <ul style="font-size:12px;color:var(--shell-text-2);line-height:2;padding-left:16px;">
-              <li>Never use a simple dropdown instead of the full popup</li>
-              <li>Never hide the entity graph panel</li>
-              <li>Never use radio buttons for values</li>
-              <li>Never show values panel without an attribute selected</li>
-              <li>Never auto-apply filters on checkbox change</li>
             </ul>
           </div>
         </div>
@@ -6687,6 +6623,153 @@
 </div><!-- /page-navigator -->
 
   </main>
+
+  <!-- ACTIVE FILTER PREVIEW PANEL -->
+  <div class="ds-panel-overlay" id="afp-panel-overlay" onclick="closePanel('afp-panel')"></div>
+  <div class="ds-panel afp-panel" id="afp-panel">
+    <div class="ds-panel-header">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--shell-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      <span class="ds-panel-title">Active Filter Preview</span>
+      <label class="afp-implicit-toggle" onclick="dsToggle(this.querySelector('.ds-toggle'))">
+        <div class="ds-toggle on"><div class="ds-toggle-thumb"></div></div>
+        <span>Implicit Filters</span>
+      </label>
+      <button class="ds-icon-btn" onclick="closePanel('afp-panel')" title="Close">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="ds-panel-body" style="display:flex;flex-direction:column;gap:24px;">
+
+      <!-- Entity: Host -->
+      <div class="afp-entity-block">
+        <div class="afp-entity-chip">Host</div>
+        <div class="afp-where">where</div>
+        <div class="afp-conditions">
+          <div class="afp-cond-chip">
+            <span class="afp-cond-field">Activity Status</span>
+            <span class="afp-cond-colon">:</span>
+            <span class="afp-cond-op">[INCLUDE]</span>
+            <span class="afp-cond-val">Active</span>
+          </div>
+          <div class="afp-cond-chip">
+            <span class="afp-cond-field">Cloud Provider</span>
+            <span class="afp-cond-colon">:</span>
+            <span class="afp-cond-op">[INCLUDE]</span>
+            <span class="afp-cond-val afp-cond-val-accent">AWS, Azure</span>
+          </div>
+        </div>
+        <!-- Nested: Host Has Finding -->
+        <div class="afp-nested-group">
+          <div class="afp-connector-line"></div>
+          <div class="afp-nested-content">
+            <div class="afp-relation-chip">Host Has Finding</div>
+            <div class="afp-no-filters">No filters applied</div>
+            <!-- Sub-nested: Finding -->
+            <div class="afp-nested-group">
+              <div class="afp-connector-line"></div>
+              <div class="afp-nested-content">
+                <div class="afp-entity-chip">Finding</div>
+                <div class="afp-where">where</div>
+                <div class="afp-conditions">
+                  <div class="afp-cond-chip">
+                    <span class="afp-cond-field">Activity Status</span>
+                    <span class="afp-cond-colon">:</span>
+                    <span class="afp-cond-op">[INCLUDE]</span>
+                    <span class="afp-cond-val">Active</span>
+                  </div>
+                  <div class="afp-cond-chip">
+                    <span class="afp-cond-field">Contributed To</span>
+                    <span class="afp-cond-colon">:</span>
+                    <span class="afp-cond-op">[INCLUDE]</span>
+                    <span class="afp-cond-op">[OR]</span>
+                    <span class="afp-cond-val afp-cond-val-accent">Exposure</span>
+                  </div>
+                </div>
+                <div class="afp-conditions" style="margin-top:8px;">
+                  <div class="afp-cond-chip">
+                    <span class="afp-cond-field">Status</span>
+                    <span class="afp-cond-colon">:</span>
+                    <span class="afp-cond-op">[INCLUDE]</span>
+                    <span class="afp-cond-val">Open</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entity: Storage -->
+      <div class="afp-entity-block">
+        <div class="afp-entity-chip">Storage</div>
+        <div class="afp-where">where</div>
+        <div class="afp-conditions">
+          <div class="afp-cond-chip">
+            <span class="afp-cond-field">Activity Status</span>
+            <span class="afp-cond-colon">:</span>
+            <span class="afp-cond-op">[INCLUDE]</span>
+            <span class="afp-cond-val">Active</span>
+          </div>
+          <div class="afp-cond-chip">
+            <span class="afp-cond-field">Cloud Provider</span>
+            <span class="afp-cond-colon">:</span>
+            <span class="afp-cond-op">[INCLUDE]</span>
+            <span class="afp-cond-val afp-cond-val-accent">AWS, Azure</span>
+          </div>
+        </div>
+        <!-- Nested: Storage Has Finding -->
+        <div class="afp-nested-group">
+          <div class="afp-connector-line"></div>
+          <div class="afp-nested-content">
+            <div class="afp-relation-chip">Storage Has Finding</div>
+            <div class="afp-no-filters">No filters applied</div>
+            <!-- Sub-nested: Finding -->
+            <div class="afp-nested-group">
+              <div class="afp-connector-line"></div>
+              <div class="afp-nested-content">
+                <div class="afp-entity-chip">Finding</div>
+                <div class="afp-where">where</div>
+                <div class="afp-conditions">
+                  <div class="afp-cond-chip">
+                    <span class="afp-cond-field">Activity Status</span>
+                    <span class="afp-cond-colon">:</span>
+                    <span class="afp-cond-op">[INCLUDE]</span>
+                    <span class="afp-cond-val">Active</span>
+                  </div>
+                  <div class="afp-cond-chip">
+                    <span class="afp-cond-field">Contributed To</span>
+                    <span class="afp-cond-colon">:</span>
+                    <span class="afp-cond-op">[INCLUDE]</span>
+                    <span class="afp-cond-op">[OR]</span>
+                    <span class="afp-cond-val afp-cond-val-accent">Exposure</span>
+                  </div>
+                </div>
+                <div class="afp-conditions" style="margin-top:8px;">
+                  <div class="afp-cond-chip">
+                    <span class="afp-cond-field">Status</span>
+                    <span class="afp-cond-colon">:</span>
+                    <span class="afp-cond-op">[INCLUDE]</span>
+                    <span class="afp-cond-val">Open</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="ds-panel-footer" style="justify-content:flex-end;gap:8px;">
+      <button class="ds-btn sz-sm afp-btn-reset" onclick="closePanel('afp-panel');showToast('info','Filters have been reset')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.51"/></svg>
+        Reset Filters
+      </button>
+      <button class="ds-btn sz-sm afp-btn-save" onclick="closePanel('afp-panel');showToast('success','Filter saved successfully')">
+        Save Filter
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </button>
+    </div>
+  </div>
 
   <!-- SIDE PANEL DEMO -->
   <div class="ds-panel-overlay" id="demo-panel-overlay" onclick="closePanel('demo-panel')"></div>
