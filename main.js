@@ -2204,43 +2204,15 @@ function resetFilterChips() {
 })();
 
 
-// ─── Download CLAUDE.md ───
-function downloadClaudeMd() {
-  var btn = document.getElementById('claude-dl-btn') || document.querySelector('[onclick="downloadClaudeMd()"]');
-  fetch('https://anthu211.github.io/design-system-2.0/CLAUDE.md')
-    .then(function(r) {
-      if (!r.ok) throw new Error('fetch failed');
-      return r.text();
-    })
-    .then(function(text) {
-      var blob = new Blob([text], { type: 'text/plain' });
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'CLAUDE.md';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(a.href);
-      showToast('success', 'CLAUDE.md downloaded — place it in your project root and run: claude');
-      if (btn) {
-        var orig = btn.innerHTML;
-        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Downloaded!';
-        setTimeout(function() { btn.innerHTML = orig; }, 2500);
-      }
-    })
-    .catch(function() {
-      showToast('error', 'Download failed — try right-clicking and saving from: anthu211.github.io/design-system-2.0/CLAUDE.md');
-    });
-}
 
 // ─── Download Full Claude Setup (claude-setup.zip) ───
 function downloadClaudeSetup() {
   var btn = document.getElementById('claude-setup-dl-btn');
-  if (btn) {
-    btn.disabled = true;
-    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg> Downloading…';
-  }
-  fetch('https://anthu211.github.io/design-system-2.0/setup/claude-setup.zip')
+  var spinSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>';
+  var dlSvg = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+  var okSvg  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  if (btn) { btn.disabled = true; btn.innerHTML = spinSvg + ' Downloading…'; }
+  fetch('https://anthu211.github.io/design-system-2.0/setup/ds.zip')
     .then(function(r) {
       if (!r.ok) throw new Error('fetch failed');
       return r.blob();
@@ -2248,80 +2220,22 @@ function downloadClaudeSetup() {
     .then(function(blob) {
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = 'claude-setup.zip';
+      a.download = 'ds.zip';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(a.href);
-      showToast('success', 'claude-setup.zip downloaded — unzip in your project root and run: claude');
+      showToast('success', 'ds.zip downloaded — unzip into your project\'s .claude/commands/ folder, then open Claude Code');
       if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Downloaded!';
-        setTimeout(function() { btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download claude-setup.zip'; btn.disabled = false; }, 3000);
+        btn.innerHTML = okSvg + ' Downloaded!';
+        setTimeout(function() { btn.innerHTML = dlSvg + ' Download ds.zip'; btn.disabled = false; }, 3000);
       }
     })
     .catch(function() {
-      showToast('error', 'Download failed — try again or get it from: anthu211.github.io/design-system-2.0/setup/claude-setup.zip');
-      if (btn) { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download claude-setup.zip'; }
+      showToast('error', 'Download failed — check your connection and try again');
+      if (btn) { btn.disabled = false; btn.innerHTML = dlSvg + ' Download ds.zip'; }
     });
 }
-
-// ─── Copy AI Prompt for Claude Code ───
-function copyAiPrompt() {
-  var prompt = [
-    'Build UI for Prevalent AI — B2B cybersecurity platform for enterprise security teams.',
-    '',
-    'Read these design system files fully before responding:',
-    'https://anthu211.github.io/design-system-2.0/page-spec.txt',
-    'https://anthu211.github.io/design-system-2.0/charts.txt',
-    '',
-    'REQUIRED — copy these verbatim, never rewrite or shorten:',
-    '• Shell HTML template from page-spec.txt — full <style> block, full <script> block',
-    '• shellNavToggle() JS — left nav collapse/expand (id="shell-nav", id="shell-nav-btn" required)',
-    '• Chart JS from charts.txt — buildVerticalBarChart / buildLineChart / buildMultiLineChart / buildDonutChart / buildStackedBarChart',
-    '• Tooltip JS — showChartTooltip / positionChartTooltip / hideChartTooltip + <div id="chart-tooltip"> at end of <body>',
-    '• Init charts: document.addEventListener("DOMContentLoaded", function() { setTimeout(initCharts, 60); })',
-    '',
-    'REQUIRED interactions — all must work:',
-    '• Left nav collapses and expands via shellNavToggle()',
-    '• Every chart shows hover tooltip (segment, bar, dot, row)',
-    '• Table row actions visible on tr:hover via CSS only — never style="display:flex" inline',
-    '• Filter chips use .ds-filter-chip > .ds-chip-key + .ds-chip-value + .ds-chip-close',
-    '• Toasts: success/info auto-dismiss 3s, error/warning persist until dismissed',
-    '',
-    'Persona (keep one, delete rest): ciso · grc · security-architect · security-engineer · soc-analyst',
-    '',
-    'Describe the screen you want to build:',
-  ].join('\n');
-
-  function onCopied() {
-    showToast('success', 'Prompt copied — paste it into any AI coding tool to get started');
-    var btn = document.querySelector('[onclick="copyAiPrompt()"]');
-    if (btn) {
-      var orig = btn.innerHTML;
-      btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-      btn.style.background = '#31a56d';
-      setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
-    }
-  }
-
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(prompt).then(onCopied).catch(function() {
-      var ta = document.createElement('textarea');
-      ta.value = prompt; ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
-      onCopied();
-    });
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = prompt; ta.style.position = 'fixed'; ta.style.opacity = '0';
-    document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
-    onCopied();
-  }
-}
-
 
 // ─── Copy Screen Shell Template ───
 function copyShellTemplate() {
@@ -2368,7 +2282,7 @@ function copyShellTemplate() {
     '',
     '  <!-- TOPBAR — always #131313, never changes with theme -->',
     '  <div style="height:52px;background:#131313;border-bottom:1px solid #272727;display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100;">',
-    '    <img src="https://anthu211.github.io/design-system-2.0/icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
+    '    <img src="icons/pai-logo.svg" style="height:26px;" alt="Prevalent AI">',
     '    <span style="flex:1;"></span>',
     '    <span style="font-size:12px;color:#9ca3af;">Last Updated: 2h ago</span>',
     '    <button style="background:none;border:none;color:#9ca3af;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">',
@@ -3022,29 +2936,6 @@ if (document.querySelector('#page-buttons.active')) {
     _dsMsSync(listId, countId);
   });
 })();
-
-// ─── AI Setup page: copy prompt ───
-function copyPrompt(cardId, btn) {
-  var card = document.getElementById(cardId);
-  if (!card) return;
-  var pre = card.querySelector('.ai-prompt-body');
-  if (!pre) return;
-  // Decode HTML entities before copying
-  var ta = document.createElement('textarea');
-  ta.value = pre.textContent;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  document.execCommand('copy');
-  document.body.removeChild(ta);
-  btn.classList.add('copied');
-  btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
-  setTimeout(function() {
-    btn.classList.remove('copied');
-    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
-  }, 2000);
-}
 
 // ═══════════════════════════════════════════════════════════════════
 // 1.1 — GENERIC COMPONENT PLAYGROUND ENGINE
@@ -4693,35 +4584,73 @@ function initStatesPage() {
   });
 })();
 
-// ── Navigator: Mode dropdown ──
+// ── Navigator: Reasoning block collapse/expand ──
 (function() {
-  var MODE_ICONS = {
-    Analysis: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="4" height="18"/><rect x="10" y="8" width="4" height="13"/><rect x="17" y="13" width="4" height="8"/></svg>',
-    Research:  '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
-    Summary:   '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
-    Compare:   '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>'
-  };
+  document.querySelectorAll('[data-reasoning-toggle]').forEach(function(header) {
+    header.addEventListener('click', function(e) {
+      if (e.target.closest('.nav-reasoning-menu')) return;
+      header.closest('.nav-reasoning').classList.toggle('nav-reasoning--collapsed');
+    });
+  });
+})();
 
-  function initNavMode(btn) {
-    var dropdown = btn.querySelector('.nav-mode-dropdown');
-    var label    = btn.querySelector('.nav-mode-label');
-    var icon     = btn.querySelector('.nav-mode-icon');
+// ── Navigator: Mode panel (Agentic / Interactive + Depth of Analysis) ──
+(function() {
+  function initNavMode(pill) {
+    var dropdown = pill.querySelector('.nav-mode-dropdown');
+    var label    = pill.querySelector('.nav-mode-label');
     if (!dropdown) return;
 
-    btn.addEventListener('click', function(e) {
+    // Toggle panel open/close on pill click
+    pill.addEventListener('click', function(e) {
       e.stopPropagation();
       dropdown.classList.toggle('is-open');
     });
 
-    dropdown.querySelectorAll('.nav-mode-option').forEach(function(opt) {
+    // Mode option selection (radio)
+    dropdown.querySelectorAll('.nav-mode-panel-opt').forEach(function(opt) {
       opt.addEventListener('click', function(e) {
         e.stopPropagation();
-        var mode = opt.getAttribute('data-mode');
-        label.textContent = mode;
-        icon.innerHTML = MODE_ICONS[mode] || '';
-        dropdown.querySelectorAll('.nav-mode-option').forEach(function(o) {
-          o.classList.toggle('nav-mode-option--active', o === opt);
+        dropdown.querySelectorAll('.nav-mode-panel-opt').forEach(function(o) {
+          o.classList.remove('nav-mode-panel-opt--on');
+          o.querySelector('.nav-mode-radio').classList.remove('nav-mode-radio--on');
         });
+        opt.classList.add('nav-mode-panel-opt--on');
+        opt.querySelector('.nav-mode-radio').classList.add('nav-mode-radio--on');
+      });
+    });
+
+    // Depth segmented control
+    dropdown.querySelectorAll('[data-nav-depth]').forEach(function(ctrl) {
+      var fill = ctrl.querySelector('.nav-mode-depth-fill');
+      ctrl.querySelectorAll('.nav-mode-depth-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          ctrl.querySelectorAll('.nav-mode-depth-btn').forEach(function(b) {
+            b.classList.remove('nav-mode-depth-btn--on');
+          });
+          btn.classList.add('nav-mode-depth-btn--on');
+          var idx = parseInt(btn.getAttribute('data-di'), 10);
+          fill.style.left  = (idx * 33.33) + '%';
+          fill.style.width = '33.33%';
+        });
+      });
+    });
+
+    // Cancel — close without applying
+    dropdown.querySelectorAll('[data-nav-mode-cancel]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdown.classList.remove('is-open');
+      });
+    });
+
+    // Apply — update pill label and close
+    dropdown.querySelectorAll('[data-nav-mode-apply]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var active = dropdown.querySelector('.nav-mode-panel-opt--on');
+        if (active) label.textContent = active.getAttribute('data-mode');
         dropdown.classList.remove('is-open');
       });
     });
