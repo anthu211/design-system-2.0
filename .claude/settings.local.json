@@ -193,7 +193,14 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(git push *)",
-      "Bash(git ls-remote *)"
+      "Bash(git ls-remote *)",
+      "Bash(git log *)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)",
+      "Bash(git stash *)",
+      "Bash(git pull *)",
+      "Bash(awk 'NR>=1 && NR<=5 || /page-filter/')",
+      "Bash(awk 'NR>=4467 && NR<=4470' \"/Users/ananthusunil/PAI Edits/design-system/index.html\")"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
