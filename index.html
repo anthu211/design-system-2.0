@@ -5737,77 +5737,115 @@
   <div class="page-sub-header">
     <div class="page-sub-header-left">
       <h1 class="page-title">Claude Setup</h1>
-      <p class="page-subtitle">Add the Prevalent AI design system to Claude Code — no network calls, everything self-contained.</p>
+      <p class="page-subtitle">Add Prevalent AI tools to Claude Code in minutes.</p>
     </div>
   </div>
   <div class="page-content">
+    <div class="cs-grid">
 
-    <div class="cs-install-wrap">
-
-      <!-- Download ZIP -->
-      <div class="cs-method-card" style="border-radius:4px;">
-        <div class="cs-method-label">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download
+      <!-- ── Design System ── -->
+      <div class="cs-card">
+        <div class="cs-card-head">
+          <div class="cs-card-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <div>
+            <div class="cs-card-name">Design System</div>
+            <div class="cs-card-tagline">Build UI pages, components &amp; patterns from Claude Code.</div>
+          </div>
         </div>
-        <div class="cs-steps">
-          <div class="cs-step"><span class="cs-num">1</span><div>
-            <div class="cs-step-label">Download the command file</div>
-            <button id="claude-setup-dl-btn" onclick="downloadClaudeSetup()" class="cs-dl-btn">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download ds.zip
-            </button>
-          </div></div>
-          <div class="cs-step"><span class="cs-num">2</span><div>
-            <div class="cs-step-label">Place it in your project</div>
-            <div class="cs-cmd">
-              <code>unzip ~/Downloads/ds.zip -d YOUR_PROJECT/.claude/commands/</code>
-              <button class="cs-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/ds.zip -d YOUR_PROJECT/.claude/commands/').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+
+        <button id="claude-setup-dl-btn" onclick="downloadClaudeSetup()" class="cs-dl-btn cs-dl-btn--full">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download ds.zip
+        </button>
+
+        <div class="cs-setup-steps">
+          <div class="cs-setup-step">
+            <span class="cs-sn">1</span>
+            <div>
+              <div class="cs-sn-label">Unzip into your project</div>
+              <div class="cs-cmd">
+                <code>unzip ~/Downloads/ds.zip -d YOUR_PROJECT/.claude/commands/</code>
+                <button class="cs-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/ds.zip -d YOUR_PROJECT/.claude/commands/').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+              </div>
             </div>
-          </div></div>
-          <div class="cs-step"><span class="cs-num cs-num--done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div>
-            <div class="cs-step-label" style="color:var(--shell-accent);">Open Claude Code — /ds is ready</div>
-            <div class="cs-cmd"><code><span style="color:var(--shell-accent);">claude</span></code></div>
-          </div></div>
+          </div>
+          <div class="cs-setup-step cs-setup-step--done">
+            <span class="cs-sn cs-sn--done"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div>
+              <div class="cs-sn-label" style="color:var(--shell-accent);">Open Claude Code — /ds is ready</div>
+              <div class="cs-cmd" style="display:inline-flex;width:auto;"><code><span style="color:var(--shell-accent);">claude</span></code></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-examples">
+          <div class="cs-examples-hdr">Commands</div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/ds</span> new page</span><span class="cs-ex-desc">Full HTML page</span></div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/ds</span> new component</span><span class="cs-ex-desc">Add to existing page</span></div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/ds</span> new react component</span><span class="cs-ex-desc">React / TypeScript</span></div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/ds</span> audit</span><span class="cs-ex-desc">Code-level DS audit</span></div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/ds</span> ux review</span><span class="cs-ex-desc">UX &amp; accessibility review</span></div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/ds</span> persona check</span><span class="cs-ex-desc">Persona conflict check</span></div>
         </div>
       </div>
 
-      <!-- Usage -->
-      <div class="cs-usage-card">
-        <div class="cs-method-label">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-          Usage
+      <!-- ── Document Generation ── -->
+      <div class="cs-card">
+        <div class="cs-card-head">
+          <div class="cs-card-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div>
+            <div class="cs-card-name">Document Generation</div>
+            <div class="cs-card-tagline">Generate branded .pptx and .docx from Claude Code.</div>
+          </div>
         </div>
-        <div class="cs-usage-grid">
-          <div class="cs-usage-row">
-            <span class="cs-usage-cmd"><span class="cs-usage-slash">/ds</span> new page <span class="cs-usage-arg">vulnerability management dashboard</span></span>
-            <span class="cs-usage-desc">Full HTML page</span>
+
+        <button id="docs-setup-dl-btn" onclick="downloadDocsSetup()" class="cs-dl-btn cs-dl-btn--full">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download docs.zip
+        </button>
+
+        <div class="cs-setup-steps">
+          <div class="cs-setup-step">
+            <span class="cs-sn">1</span>
+            <div>
+              <div class="cs-sn-label">Unzip into your project</div>
+              <div class="cs-cmd">
+                <code>unzip ~/Downloads/docs.zip -d YOUR_PROJECT/.claude/commands/</code>
+                <button class="cs-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/docs.zip -d YOUR_PROJECT/.claude/commands/').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+              </div>
+            </div>
           </div>
-          <div class="cs-usage-row">
-            <span class="cs-usage-cmd"><span class="cs-usage-slash">/ds</span> new component <span class="cs-usage-arg">filter bar on assets.html</span></span>
-            <span class="cs-usage-desc">Add to existing page</span>
+          <div class="cs-setup-step">
+            <span class="cs-sn">2</span>
+            <div>
+              <div class="cs-sn-label">Install Python dependencies</div>
+              <div class="cs-cmd">
+                <code>pip3 install python-pptx python-docx pillow</code>
+                <button class="cs-copy" onclick="navigator.clipboard.writeText('pip3 install python-pptx python-docx pillow').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+              </div>
+            </div>
           </div>
-          <div class="cs-usage-row">
-            <span class="cs-usage-cmd"><span class="cs-usage-slash">/ds</span> new react component <span class="cs-usage-arg">asset detail drawer</span></span>
-            <span class="cs-usage-desc">React / TypeScript</span>
+          <div class="cs-setup-step cs-setup-step--done">
+            <span class="cs-sn cs-sn--done"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <div>
+              <div class="cs-sn-label" style="color:var(--shell-accent);">Open Claude Code — /generate-deck and /generate-doc are ready</div>
+              <div class="cs-cmd" style="display:inline-flex;width:auto;"><code><span style="color:var(--shell-accent);">claude</span></code></div>
+            </div>
           </div>
-          <div class="cs-usage-row">
-            <span class="cs-usage-cmd"><span class="cs-usage-slash">/ds</span> audit <span class="cs-usage-arg">components/filter-popup.html</span></span>
-            <span class="cs-usage-desc">Code-level DS audit</span>
-          </div>
-          <div class="cs-usage-row">
-            <span class="cs-usage-cmd"><span class="cs-usage-slash">/ds</span> ux review <span class="cs-usage-arg">the navigator panel</span></span>
-            <span class="cs-usage-desc">UX + accessibility review</span>
-          </div>
-          <div class="cs-usage-row">
-            <span class="cs-usage-cmd"><span class="cs-usage-slash">/ds</span> persona check <span class="cs-usage-arg">bulk export feature</span></span>
-            <span class="cs-usage-desc">Persona conflict check</span>
-          </div>
+        </div>
+
+        <div class="cs-examples">
+          <div class="cs-examples-hdr">Commands</div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/generate-deck</span></span><span class="cs-ex-desc">Branded .pptx presentation</span></div>
+          <div class="cs-ex-row"><span class="cs-ex-cmd"><span class="cs-ex-slash">/generate-doc</span></span><span class="cs-ex-desc">Branded .docx document</span></div>
         </div>
       </div>
 
     </div>
-
   </div><!-- /page-content -->
 </div><!-- /page-claude-setup -->
 
