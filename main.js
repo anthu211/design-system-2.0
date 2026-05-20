@@ -39,7 +39,7 @@
 })();
 
 // ─── Design System Version (single source of truth) ───
-var DS_VERSION = 'v2.1.111';
+var DS_VERSION = 'v2.1.113';
 (function() {
   var el = document.getElementById('whats-new-version');
   if (el) el.textContent = DS_VERSION + ' \u2014 Latest';
@@ -2205,7 +2205,7 @@ function resetFilterChips() {
 
 
 
-// ─── Download Full Claude Setup (claude-setup.zip) ───
+// ─── Download Design System Setup (ds.zip) ───
 function downloadClaudeSetup() {
   var btn = document.getElementById('claude-setup-dl-btn');
   var spinSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>';
@@ -2234,6 +2234,38 @@ function downloadClaudeSetup() {
     .catch(function() {
       showToast('error', 'Download failed — check your connection and try again');
       if (btn) { btn.disabled = false; btn.innerHTML = dlSvg + ' Download ds.zip'; }
+    });
+}
+
+// ─── Download Document Generation Setup (docs.zip) ───
+function downloadDocsSetup() {
+  var btn = document.getElementById('docs-setup-dl-btn');
+  var spinSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>';
+  var dlSvg = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+  var okSvg  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  if (btn) { btn.disabled = true; btn.innerHTML = spinSvg + ' Downloading…'; }
+  fetch('https://anthu211.github.io/design-system-2.0/setup/docs.zip')
+    .then(function(r) {
+      if (!r.ok) throw new Error('fetch failed');
+      return r.blob();
+    })
+    .then(function(blob) {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'docs.zip';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      showToast('success', 'docs.zip downloaded — unzip into your project\'s .claude/commands/ folder, then open Claude Code');
+      if (btn) {
+        btn.innerHTML = okSvg + ' Downloaded!';
+        setTimeout(function() { btn.innerHTML = dlSvg + ' Download docs.zip'; btn.disabled = false; }, 3000);
+      }
+    })
+    .catch(function() {
+      showToast('error', 'Download failed — check your connection and try again');
+      if (btn) { btn.disabled = false; btn.innerHTML = dlSvg + ' Download docs.zip'; }
     });
 }
 
