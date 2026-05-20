@@ -200,7 +200,19 @@
       "Bash(git stash *)",
       "Bash(git pull *)",
       "Bash(awk 'NR>=1 && NR<=5 || /page-filter/')",
-      "Bash(awk 'NR>=4467 && NR<=4470' \"/Users/ananthusunil/PAI Edits/design-system/index.html\")"
+      "Bash(awk 'NR>=4467 && NR<=4470' \"/Users/ananthusunil/PAI Edits/design-system/index.html\")",
+      "Bash(pip3 install *)",
+      "Bash(chmod +x \"/Users/ananthusunil/PAI Edits/design-system/document-skills/downloads/setup.sh\")",
+      "Bash(unzip -l \"/Users/ananthusunil/PAI Edits/design-system/setup/claude-setup.zip\")",
+      "Bash(curl -sv http://localhost:5174/)",
+      "Bash(curl -s http://localhost:5173/)",
+      "Bash(npx vite *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5200/)",
+      "Bash(unzip -l ds.zip)",
+      "Bash(unzip -l docs.zip)",
+      "Bash(zip -j \"/Users/ananthusunil/PAI Edits/design-system/setup/docs.zip\" generate-deck.md generate-doc.md)",
+      "Bash(unzip -l \"/Users/ananthusunil/PAI Edits/design-system/setup/docs.zip\")",
+      "Bash(curl -s http://localhost:5200/)"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",

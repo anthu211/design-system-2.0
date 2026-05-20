@@ -2811,40 +2811,23 @@ html.theme-light .ds-home-stat-divider { background: rgba(0,0,0,0.08); }
 }
 
 /* ── Claude Setup ── */
-.cs-install-wrap { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
-.cs-method-card {
+.cs-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.cs-card {
   background: var(--card-bg); border: 1px solid var(--card-border);
-  border-radius: 4px; padding: 20px 24px;
+  border-radius: 4px; padding: 24px;
+  display: flex; flex-direction: column; gap: 20px;
 }
-.cs-method-label {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--shell-text-muted); margin-bottom: 16px;
-}
-.cs-steps { display: flex; flex-direction: column; gap: 16px; }
-.cs-step { display: flex; align-items: flex-start; gap: 14px; }
-.cs-num {
-  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+.cs-card-head { display: flex; align-items: flex-start; gap: 12px; }
+.cs-card-icon {
+  width: 34px; height: 34px; border-radius: 6px; flex-shrink: 0;
+  background: rgba(99,96,216,0.08); border: 1px solid rgba(99,96,216,0.18);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700;
-  background: var(--shell-raised); border: 1px solid var(--card-border);
-  color: var(--shell-text-muted); margin-top: 1px;
+  color: var(--shell-accent);
 }
-.cs-num--done { background: var(--shell-accent); border-color: var(--shell-accent); color: #fff; }
-.cs-step-label { font-size: 12px; font-weight: 600; color: var(--shell-text); margin-bottom: 6px; }
-.cs-cmd {
-  display: flex; align-items: center; gap: 8px;
-  background: var(--shell-raised); border: 1px solid var(--card-border);
-  border-radius: 4px; padding: 7px 10px;
-  font-size: 12px; font-family: 'SF Mono','Fira Code',monospace;
-}
-.cs-cmd code { flex: 1; color: var(--shell-text); background: none; border: none; padding: 0; font-size: inherit; font-family: inherit; }
-.cs-copy {
-  font-size: 10px; font-weight: 600; color: var(--shell-text-muted);
-  background: none; border: none; cursor: pointer; padding: 2px 6px;
-  border-radius: 3px; transition: background 0.12s, color 0.12s; flex-shrink: 0;
-}
-.cs-copy:hover { background: rgba(99,96,216,0.12); color: var(--shell-accent); }
+.cs-card-name { font-size: 14px; font-weight: 700; color: var(--shell-text); margin-bottom: 3px; }
+.cs-card-tagline { font-size: 12px; color: var(--shell-text-muted); line-height: 1.5; }
 .cs-dl-btn {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 7px 14px; border-radius: 44px;
@@ -2852,22 +2835,46 @@ html.theme-light .ds-home-stat-divider { background: rgba(0,0,0,0.08); }
   font-size: 12px; font-weight: 600; border: none; cursor: pointer;
   transition: opacity 0.15s;
 }
+.cs-dl-btn--full { width: 100%; justify-content: center; padding: 9px 14px; }
 .cs-dl-btn:hover { opacity: 0.88; }
 .cs-dl-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.cs-usage-card {
-  background: var(--card-bg); border: 1px solid var(--card-border);
-  border-radius: 4px; padding: 20px 24px;
+.cs-setup-steps { display: flex; flex-direction: column; gap: 14px; }
+.cs-setup-step { display: flex; align-items: flex-start; gap: 12px; }
+.cs-sn {
+  width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  background: var(--shell-raised); border: 1px solid var(--card-border);
+  color: var(--shell-text-muted);
 }
-.cs-usage-grid { display: flex; flex-direction: column; gap: 0; }
-.cs-usage-row {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
-  padding: 8px 0; border-bottom: 1px solid var(--table-border);
+.cs-sn--done { background: var(--shell-accent); border-color: var(--shell-accent); color: #fff; }
+.cs-sn-label { font-size: 12px; font-weight: 600; color: var(--shell-text); margin-bottom: 6px; }
+.cs-cmd {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  background: var(--shell-raised); border: 1px solid var(--card-border);
+  border-radius: 4px; padding: 7px 10px;
+  font-size: 11px; font-family: 'SF Mono','Fira Code',monospace;
 }
-.cs-usage-row:last-child { border-bottom: none; }
-.cs-usage-cmd { font-size: 12px; font-family: 'SF Mono','Fira Code',monospace; color: var(--shell-text); flex: 1; min-width: 0; }
-.cs-usage-slash { color: var(--shell-accent); font-weight: 700; }
-.cs-usage-arg { color: var(--shell-text-muted); }
-.cs-usage-desc { font-size: 11px; color: var(--shell-text-muted); white-space: nowrap; flex-shrink: 0; }
+.cs-cmd code { flex: 1; color: var(--shell-text); background: none; border: none; padding: 0; font-size: inherit; font-family: inherit; word-break: break-all; }
+.cs-copy {
+  font-size: 10px; font-weight: 600; color: var(--shell-text-muted);
+  background: none; border: none; cursor: pointer; padding: 2px 6px;
+  border-radius: 3px; transition: background 0.12s, color 0.12s; flex-shrink: 0;
+}
+.cs-copy:hover { background: rgba(99,96,216,0.12); color: var(--shell-accent); }
+.cs-examples { border-top: 1px solid var(--card-border); padding-top: 16px; }
+.cs-examples-hdr {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--shell-text-muted); margin-bottom: 10px;
+}
+.cs-ex-row {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 6px 0; border-bottom: 1px solid var(--table-border);
+}
+.cs-ex-row:last-child { border-bottom: none; }
+.cs-ex-cmd { font-size: 12px; font-family: 'SF Mono','Fira Code',monospace; color: var(--shell-text); }
+.cs-ex-slash { color: var(--shell-accent); font-weight: 700; }
+.cs-ex-desc { font-size: 11px; color: var(--shell-text-muted); white-space: nowrap; flex-shrink: 0; }
 
 .ds-home-section-title {
   font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
