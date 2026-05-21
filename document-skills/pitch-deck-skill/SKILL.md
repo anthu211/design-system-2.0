@@ -149,14 +149,36 @@ Every slide **except slide 1 (cover) and the last slide (back cover)** must have
 
 ```python
 from pptx import Presentation
-from pptx.util import Pt
+from pptx.util import Pt, Emu
 from pptx.dml.color import RGBColor
 import copy, lxml.etree as etree
 
 TEMPLATE = "document-skills/pitch-deck-skill/templates/Template_PAI_Presentation (2).pptx"
 
+def remove_all_slides(prs):
+    """
+    Delete every slide from the loaded template before adding generated content.
+
+    MANDATORY — call this immediately after Presentation(TEMPLATE).
+    The template already contains 8 placeholder slides. If you skip this step,
+    generated slides are appended AFTER the template slides, so the output reads:
+    8 template slides → generated content (wrong order + slide numbers start at 9).
+    """
+    sldIdLst = prs.slides._sldIdLst
+    rId_attr = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id'
+    for i in range(len(prs.slides) - 1, -1, -1):
+        rId = sldIdLst[i].get(rId_attr)
+        prs.part.drop_rel(rId)
+        del sldIdLst[i]
+
+
 def generate_deck(output_path, deck_data):
     prs = Presentation(TEMPLATE)  # always load template, never Presentation()
+
+    # REQUIRED: remove template slides before adding generated ones.
+    # Skipping this causes template slides to appear before generated content
+    # and makes slide numbers start at 9 instead of 1.
+    remove_all_slides(prs)
 
     # Map layout names for lookup
     layouts = {layout.name: layout for layout in prs.slide_layouts}
@@ -168,7 +190,7 @@ def generate_deck(output_path, deck_data):
         for ph in slide.placeholders:
             idx = ph.placeholder_format.idx
             if idx == 4:
-                continue  # slide number — leave as auto-field
+                continue  # slide number — leave as auto-field; PowerPoint populates it
             if idx in slide_spec.get("content", {}):
                 # Set text per run to preserve formatting
                 tf = ph.text_frame
@@ -182,8 +204,9 @@ def generate_deck(output_path, deck_data):
 
 **Rules for python-pptx:**
 - Always open with `Presentation(TEMPLATE)` — never `Presentation()`.
+- **Always call `remove_all_slides(prs)` immediately after loading the template.** This is not optional — every generated deck must start from zero slides so template placeholder slides don't precede the output.
 - Set text via runs, not `placeholder.text = ...` — direct assignment destroys run-level formatting.
-- For placeholder idx=4 (slide number), skip — it is an auto PowerPoint field.
+- For placeholder idx=4 (slide number): skip — it is an auto PowerPoint field that populates correctly only when the slide is the sole source of numbering (i.e., after template slides are removed).
 - For custom layouts (idx=10), write bold callout text respecting the 32–44pt size hint.
 - For charts: apply the series color order from this file's Brand palette section.
 - Never modify `prs.slide_master` or `prs.slide_layouts`.

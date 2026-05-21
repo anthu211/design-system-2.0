@@ -18,7 +18,7 @@ $ARGUMENTS
 
 1. Read `document-skills/pitch-deck-skill/SKILL.md`
 2. Plan the slides — layout name, placeholder idx, content for each
-3. Write the complete python-pptx script
+3. Write the complete python-pptx script — include the `remove_all_slides()` helper from SKILL.md and call it immediately after `Presentation(TEMPLATE)`, before any `add_slide()` call. This is mandatory: the template already contains 8 slides, and skipping removal causes them to appear before generated content with slide numbers starting at 9.
 4. Run it with Bash
 5. Confirm the output file path
 
