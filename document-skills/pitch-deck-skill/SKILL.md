@@ -155,36 +155,43 @@ import lxml.etree as etree
 
 TEMPLATE = "document-skills/pitch-deck-skill/templates/Template_PAI_Presentation (2).pptx"
 
-def prepare_template(prs):
+def prepare_template(prs, tmp_path):
     """
-    Remove the 6 middle content slides, keeping slide[0] (cover) and slide[-1] (back cover).
+    Strip the 6 middle content slides, keeping slide[0] (cover) and slide[-1] (back cover).
+    Saves to tmp_path and returns a freshly-loaded Presentation.
 
-    MANDATORY — call this immediately after Presentation(TEMPLATE).
+    MANDATORY — call this immediately after Presentation(TEMPLATE) and use the returned
+    object for all subsequent work. Do NOT continue using the original prs object.
 
     WHY the cover and back cover must be preserved:
     The PAI logo on both slides is a picture shape placed directly on the slide element,
     NOT inside the layout. Deleting those slides and recreating them with add_slide()
     produces a blank slide with only layout background images — the logo disappears.
-    The only safe way to keep the logo is to leave those two slides untouched.
 
-    After this call the presentation has exactly 2 slides: [cover, back_cover].
-    All new content slides are inserted between them using insert_slide_at().
+    WHY the save+reload is required:
+    Dropping relationships leaves orphaned slide parts in python-pptx's in-memory cache.
+    When new slides are later added, python-pptx reuses freed slot names (e.g. slide8.xml),
+    colliding with the back cover's filename. The zip ends up with two slide8.xml entries
+    and the back cover is lost on reload. Saving and reloading flushes the orphaned parts
+    so new slides get non-conflicting names.
+
+    After reload the presentation has exactly 2 slides: [cover, back_cover].
+    Insert all content slides between them using insert_slide_at().
     """
-    sldIdLst = prs.slides._sldIdLst
     rId_attr = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id'
+    sldIdLst = prs.slides._sldIdLst
     total = len(prs.slides)
-    for i in range(total - 2, 0, -1):  # from second-to-last down to index 1
+    for i in range(total - 2, 0, -1):
         rId = sldIdLst[i].get(rId_attr)
         prs.part.drop_rel(rId)
         del sldIdLst[i]
+    prs.save(tmp_path)
+    return Presentation(tmp_path)   # reload — orphaned parts are gone
 
 
 def insert_slide_at(prs, index, layout):
-    """
-    Add a new slide from layout and move it to position index.
-    Use this for every interior slide so content sits between cover and back cover.
-    """
-    slide = prs.slides.add_slide(layout)   # appended at end
+    """Add a new slide from layout and move it to position index."""
+    slide = prs.slides.add_slide(layout)
     sldIdLst = prs.slides._sldIdLst
     last = sldIdLst[-1]
     sldIdLst.remove(last)
@@ -193,17 +200,20 @@ def insert_slide_at(prs, index, layout):
 
 
 def generate_deck(output_path, deck_data):
+    import os
+    tmp = output_path.replace('.pptx', '_tmp.pptx')
+
     prs = Presentation(TEMPLATE)  # always load template, never Presentation()
 
-    # REQUIRED: strip middle slides, preserve cover + back cover with their logo images.
-    # Skipping this causes the 6 template placeholder slides to appear in the output.
-    prepare_template(prs)
-    # prs now has 2 slides: index 0 = cover, index 1 = back cover
+    # REQUIRED: strip middle slides, preserve cover + back cover, flush orphaned parts.
+    # Returns a clean reloaded prs — use this object for everything below.
+    prs = prepare_template(prs, tmp)
+    # prs now has exactly 2 slides: index 0 = cover (logo), index 1 = back cover (logo)
 
     layouts = {layout.name: layout for layout in prs.slide_layouts}
 
-    # deck_data["slides"] contains only INTERIOR slides — do NOT include cover or back cover.
-    # They are already present from the template. Insert each new slide before the back cover.
+    # deck_data["slides"] must contain ONLY interior slides.
+    # Do NOT include cover or back cover — they are already in the template.
     for i, slide_spec in enumerate(deck_data["slides"], start=1):
         layout = layouts[slide_spec["layout"]]
         slide = insert_slide_at(prs, i, layout)
@@ -220,6 +230,7 @@ def generate_deck(output_path, deck_data):
                 run.text = slide_spec["content"][idx]
 
     prs.save(output_path)
+    os.remove(tmp)
 ```
 
 **Rules for python-pptx:**
