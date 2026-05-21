@@ -5764,10 +5764,17 @@
           <div class="cs-setup-step">
             <span class="cs-sn">1</span>
             <div>
-              <div class="cs-sn-label">Unzip into your project</div>
+              <div class="cs-sn-label">Move <code style="font-size:11px;background:var(--shell-raised);border:1px solid var(--card-border);border-radius:3px;padding:1px 5px;">ds.zip</code> into your project folder</div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-top:4px;">Drag it from Downloads into the project root in Finder.</div>
+            </div>
+          </div>
+          <div class="cs-setup-step">
+            <span class="cs-sn">2</span>
+            <div>
+              <div class="cs-sn-label">Run in your project terminal</div>
               <div class="cs-cmd">
-                <code>unzip ~/Downloads/ds.zip -d YOUR_PROJECT/.claude/commands/</code>
-                <button class="cs-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/ds.zip -d YOUR_PROJECT/.claude/commands/').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+                <code>mkdir -p .claude/commands &amp;&amp; unzip -j ds.zip -d .claude/commands/ &amp;&amp; rm ds.zip</code>
+                <button class="cs-copy" onclick="navigator.clipboard.writeText('mkdir -p .claude/commands && unzip -j ds.zip -d .claude/commands/ && rm ds.zip').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
               </div>
             </div>
           </div>
@@ -5812,10 +5819,17 @@
           <div class="cs-setup-step">
             <span class="cs-sn">1</span>
             <div>
-              <div class="cs-sn-label">Unzip into your project</div>
+              <div class="cs-sn-label">Move <code style="font-size:11px;background:var(--shell-raised);border:1px solid var(--card-border);border-radius:3px;padding:1px 5px;">docs.zip</code> into your project folder</div>
+              <div style="font-size:11px;color:var(--shell-text-muted);margin-top:4px;">Drag it from Downloads into the project root in Finder.</div>
+            </div>
+          </div>
+          <div class="cs-setup-step">
+            <span class="cs-sn">2</span>
+            <div>
+              <div class="cs-sn-label">Run in your project terminal</div>
               <div class="cs-cmd">
-                <code>unzip ~/Downloads/docs.zip -d YOUR_PROJECT/.claude/commands/</code>
-                <button class="cs-copy" onclick="navigator.clipboard.writeText('unzip ~/Downloads/docs.zip -d YOUR_PROJECT/.claude/commands/').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
+                <code>unzip docs.zip &amp;&amp; rm docs.zip</code>
+                <button class="cs-copy" onclick="navigator.clipboard.writeText('unzip docs.zip && rm docs.zip').then(function(){this.textContent='Copied';var t=this;setTimeout(function(){t.textContent='Copy'},2000)}.bind(this))">Copy</button>
               </div>
             </div>
           </div>
@@ -5868,7 +5882,7 @@
       </div>
     </div>
     <div class="card" style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:4px;padding:24px 28px;">
-      <div id="whats-new-version" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--shell-accent);margin-bottom:20px;">v2.1.113 — Latest</div>
+      <div id="whats-new-version" style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--shell-accent);margin-bottom:20px;">v2.1.122 — Latest</div>
       <div style="display:flex;flex-direction:column;gap:12px;">
         <div style="display:flex;align-items:flex-start;gap:12px;font-size:13px;color:var(--shell-text-2);">
           <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;background:rgba(49,165,109,0.12);color:#31A56D;white-space:nowrap;flex-shrink:0;margin-top:1px;">New</span>

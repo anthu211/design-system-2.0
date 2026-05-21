@@ -44,9 +44,11 @@ Two files are in `templates/`:
 4. **Brand colors only.** Any manually inserted shapes or chart series must use the template palette defined in this file. Never use Office theme defaults and never substitute web design system colors (#6360D8 etc.) — those belong to the web platform only.
 5. **Font: Calibri.** The template embeds Calibri Light (headings) and Calibri (body). Never substitute another font.
 6. **Logo: image only.** The logo is baked into the slide master and cover image — do not add a second copy or type "Prevalent AI" as text.
-7. **Slide number format.** The template uses `<  [n]` as the slide number prefix — this is the brand style; do not remove or reformat it.
-8. **Bullet discipline.** Maximum 5 bullets per slide. Maximum 10 words per bullet. No sub-bullets beyond one level.
-9. **Confirmation before overwrite.** If generating would overwrite an existing file, confirm with the user first.
+7. **Cover slide = logo only. MANDATORY.** Slide 1 MUST use `4_Custom Layout`. Add NO text, NO textboxes, NO additional shapes. The PAI logo and background are baked into the layout — do not touch them. Any text on the cover slide is a hard violation.
+8. **Slide 2 = purple title slide. MANDATORY.** The second slide (deck title / agenda heading) MUST use `11_Custom Layout` or `3_Custom Layout` — both have a dark purple background. Place the deck title in `idx=10`. Never use a white-background layout for slide 2.
+9. **Pagination: bottom-right on every non-cover slide. MANDATORY.** Every slide except the cover and back cover must include the slide number placeholder (`idx=4`) at position `left=8.566", top=5.622", w=1.086", h=0.333"` with the format `<  [n]`. Do NOT skip, delete, or reposition this placeholder. Do NOT set it manually — it is an auto PowerPoint field; just ensure it is present on the slide.
+10. **Bullet discipline.** Maximum 5 bullets per slide. Maximum 10 words per bullet. No sub-bullets beyond one level.
+11. **Confirmation before overwrite.** If generating would overwrite an existing file, confirm with the user first.
 
 ---
 
@@ -131,12 +133,15 @@ Use this order when building a deck from scratch:
 
 | Position | Layout to use | Content |
 |---|---|---|
-| First | `4_Custom Layout` | Cover — picture-based, do not modify; swap cover image if provided |
-| Second | `Title (1 line) and Bullets (1 column)` | Disclaimer or Agenda |
-| Section break | `8_Custom Layout` or `11_Custom Layout` | Section divider — place section title in idx=10 |
-| Content slides | `Title (1 line) and Bullets (1 column)` | Title (idx=0) + bullets (idx=12) |
-| Content + space | `Blank with Title (1 line)` | Title (idx=0) + freeform content |
-| Last | `4_Custom Layout` | Back cover — picture-based, do not modify |
+| **Slide 1 — Cover** | `4_Custom Layout` | **Logo only. No text, no shapes. MANDATORY.** The PAI logo and background are baked in — do not touch. |
+| **Slide 2 — Title** | `11_Custom Layout` or `3_Custom Layout` | **Purple background. MANDATORY.** Place deck title/heading in `idx=10`. |
+| Section break | `8_Custom Layout` or `11_Custom Layout` | Section divider — place section title in `idx=10` |
+| Content slides | `Title (1 line) and Bullets (1 column)` | Title (`idx=0`) + bullets (`idx=12`) |
+| Content + space | `Blank with Title (1 line)` | Title (`idx=0`) + freeform content |
+| **Last — Back cover** | `4_Custom Layout` | **Logo only. No text, no shapes. MANDATORY.** Same rule as slide 1. |
+
+### Pagination rule
+Every slide **except slide 1 (cover) and the last slide (back cover)** must have `idx=4` present. Do not set it manually — it auto-populates as `<  [n]`. Position: `left=8.566", top=5.622"`, bottom-right corner.
 
 ---
 
@@ -144,14 +149,36 @@ Use this order when building a deck from scratch:
 
 ```python
 from pptx import Presentation
-from pptx.util import Pt
+from pptx.util import Pt, Emu
 from pptx.dml.color import RGBColor
 import copy, lxml.etree as etree
 
 TEMPLATE = "document-skills/pitch-deck-skill/templates/Template_PAI_Presentation (2).pptx"
 
+def remove_all_slides(prs):
+    """
+    Delete every slide from the loaded template before adding generated content.
+
+    MANDATORY — call this immediately after Presentation(TEMPLATE).
+    The template already contains 8 placeholder slides. If you skip this step,
+    generated slides are appended AFTER the template slides, so the output reads:
+    8 template slides → generated content (wrong order + slide numbers start at 9).
+    """
+    sldIdLst = prs.slides._sldIdLst
+    rId_attr = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id'
+    for i in range(len(prs.slides) - 1, -1, -1):
+        rId = sldIdLst[i].get(rId_attr)
+        prs.part.drop_rel(rId)
+        del sldIdLst[i]
+
+
 def generate_deck(output_path, deck_data):
     prs = Presentation(TEMPLATE)  # always load template, never Presentation()
+
+    # REQUIRED: remove template slides before adding generated ones.
+    # Skipping this causes template slides to appear before generated content
+    # and makes slide numbers start at 9 instead of 1.
+    remove_all_slides(prs)
 
     # Map layout names for lookup
     layouts = {layout.name: layout for layout in prs.slide_layouts}
@@ -163,7 +190,7 @@ def generate_deck(output_path, deck_data):
         for ph in slide.placeholders:
             idx = ph.placeholder_format.idx
             if idx == 4:
-                continue  # slide number — leave as auto-field
+                continue  # slide number — leave as auto-field; PowerPoint populates it
             if idx in slide_spec.get("content", {}):
                 # Set text per run to preserve formatting
                 tf = ph.text_frame
@@ -177,8 +204,9 @@ def generate_deck(output_path, deck_data):
 
 **Rules for python-pptx:**
 - Always open with `Presentation(TEMPLATE)` — never `Presentation()`.
+- **Always call `remove_all_slides(prs)` immediately after loading the template.** This is not optional — every generated deck must start from zero slides so template placeholder slides don't precede the output.
 - Set text via runs, not `placeholder.text = ...` — direct assignment destroys run-level formatting.
-- For placeholder idx=4 (slide number), skip — it is an auto PowerPoint field.
+- For placeholder idx=4 (slide number): skip — it is an auto PowerPoint field that populates correctly only when the slide is the sole source of numbering (i.e., after template slides are removed).
 - For custom layouts (idx=10), write bold callout text respecting the 32–44pt size hint.
 - For charts: apply the series color order from this file's Brand palette section.
 - Never modify `prs.slide_master` or `prs.slide_layouts`.
