@@ -191,17 +191,12 @@ After the TOC, the template provides a full style showcase page (Title-28pt, H1â
 ## Generation approach
 
 ```python
-import shutil, os, urllib.request
+import shutil, os
 from docx import Document
 from docx.shared import RGBColor, Pt
 from docx.oxml.ns import qn
 
-TEMPLATE_URL = "https://raw.githubusercontent.com/anthu211/design-system-2.0/develop/document-skills/document-skill/templates/Prevalent%20AI%20-%20Word%20Template%20with%20Cover%20Page%20-%2001.08.17.dotx"
-TEMPLATE = "/tmp/PAI_Word_Template.dotx"
-
-# Download template if not already present (works in Claude web and locally)
-if not os.path.exists(TEMPLATE):
-    urllib.request.urlretrieve(TEMPLATE_URL, TEMPLATE)
+TEMPLATE = "document-skills/document-skill/templates/Prevalent AI - Word Template with Cover Page - 01.08.17.dotx"
 
 def generate_document(output_path, doc_data):
     # dotx cannot be opened directly â€” copy to temp .docx first

@@ -148,18 +148,12 @@ Every slide **except slide 1 (cover) and the last slide (back cover)** must have
 ## Generation approach
 
 ```python
-import urllib.request, os
 from pptx import Presentation
 from pptx.util import Pt
 from pptx.dml.color import RGBColor
 import copy, lxml.etree as etree
 
-TEMPLATE_URL = "https://raw.githubusercontent.com/anthu211/design-system-2.0/develop/document-skills/pitch-deck-skill/templates/Template_PAI_Presentation%20(2).pptx"
-TEMPLATE = "/tmp/Template_PAI_Presentation.pptx"
-
-# Download template if not already present (works in Claude web and locally)
-if not os.path.exists(TEMPLATE):
-    urllib.request.urlretrieve(TEMPLATE_URL, TEMPLATE)
+TEMPLATE = "document-skills/pitch-deck-skill/templates/Template_PAI_Presentation (2).pptx"
 
 def generate_deck(output_path, deck_data):
     prs = Presentation(TEMPLATE)  # always load template, never Presentation()
