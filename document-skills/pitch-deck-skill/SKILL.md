@@ -151,48 +151,68 @@ Every slide **except slide 1 (cover) and the last slide (back cover)** must have
 from pptx import Presentation
 from pptx.util import Pt, Emu
 from pptx.dml.color import RGBColor
-import copy, lxml.etree as etree
+import lxml.etree as etree
 
 TEMPLATE = "document-skills/pitch-deck-skill/templates/Template_PAI_Presentation (2).pptx"
 
-def remove_all_slides(prs):
+def prepare_template(prs):
     """
-    Delete every slide from the loaded template before adding generated content.
+    Remove the 6 middle content slides, keeping slide[0] (cover) and slide[-1] (back cover).
 
     MANDATORY — call this immediately after Presentation(TEMPLATE).
-    The template already contains 8 placeholder slides. If you skip this step,
-    generated slides are appended AFTER the template slides, so the output reads:
-    8 template slides → generated content (wrong order + slide numbers start at 9).
+
+    WHY the cover and back cover must be preserved:
+    The PAI logo on both slides is a picture shape placed directly on the slide element,
+    NOT inside the layout. Deleting those slides and recreating them with add_slide()
+    produces a blank slide with only layout background images — the logo disappears.
+    The only safe way to keep the logo is to leave those two slides untouched.
+
+    After this call the presentation has exactly 2 slides: [cover, back_cover].
+    All new content slides are inserted between them using insert_slide_at().
     """
     sldIdLst = prs.slides._sldIdLst
     rId_attr = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id'
-    for i in range(len(prs.slides) - 1, -1, -1):
+    total = len(prs.slides)
+    for i in range(total - 2, 0, -1):  # from second-to-last down to index 1
         rId = sldIdLst[i].get(rId_attr)
         prs.part.drop_rel(rId)
         del sldIdLst[i]
 
 
+def insert_slide_at(prs, index, layout):
+    """
+    Add a new slide from layout and move it to position index.
+    Use this for every interior slide so content sits between cover and back cover.
+    """
+    slide = prs.slides.add_slide(layout)   # appended at end
+    sldIdLst = prs.slides._sldIdLst
+    last = sldIdLst[-1]
+    sldIdLst.remove(last)
+    sldIdLst.insert(index, last)
+    return slide
+
+
 def generate_deck(output_path, deck_data):
     prs = Presentation(TEMPLATE)  # always load template, never Presentation()
 
-    # REQUIRED: remove template slides before adding generated ones.
-    # Skipping this causes template slides to appear before generated content
-    # and makes slide numbers start at 9 instead of 1.
-    remove_all_slides(prs)
+    # REQUIRED: strip middle slides, preserve cover + back cover with their logo images.
+    # Skipping this causes the 6 template placeholder slides to appear in the output.
+    prepare_template(prs)
+    # prs now has 2 slides: index 0 = cover, index 1 = back cover
 
-    # Map layout names for lookup
     layouts = {layout.name: layout for layout in prs.slide_layouts}
 
-    for slide_spec in deck_data["slides"]:
+    # deck_data["slides"] contains only INTERIOR slides — do NOT include cover or back cover.
+    # They are already present from the template. Insert each new slide before the back cover.
+    for i, slide_spec in enumerate(deck_data["slides"], start=1):
         layout = layouts[slide_spec["layout"]]
-        slide = prs.slides.add_slide(layout)
+        slide = insert_slide_at(prs, i, layout)
 
         for ph in slide.placeholders:
             idx = ph.placeholder_format.idx
             if idx == 4:
-                continue  # slide number — leave as auto-field; PowerPoint populates it
+                continue  # slide number — auto-field, leave untouched
             if idx in slide_spec.get("content", {}):
-                # Set text per run to preserve formatting
                 tf = ph.text_frame
                 tf.clear()
                 p = tf.paragraphs[0]
@@ -204,21 +224,14 @@ def generate_deck(output_path, deck_data):
 
 **Rules for python-pptx:**
 - Always open with `Presentation(TEMPLATE)` — never `Presentation()`.
-- **Always call `remove_all_slides(prs)` immediately after loading the template.** This is not optional — every generated deck must start from zero slides so template placeholder slides don't precede the output.
+- **Always call `prepare_template(prs)` immediately after loading.** This preserves the cover and back cover (which carry the PAI logo as a slide-level picture shape) while clearing the 6 filler content slides.
+- **Never include cover or back cover in `deck_data["slides"]`.** Those slides already exist in the template. Only list interior slides in the data structure.
+- **Always use `insert_slide_at(prs, i, layout)` for interior slides**, not `prs.slides.add_slide()` directly — plain `add_slide()` appends after the back cover.
 - Set text via runs, not `placeholder.text = ...` — direct assignment destroys run-level formatting.
-- For placeholder idx=4 (slide number): skip — it is an auto PowerPoint field that populates correctly only when the slide is the sole source of numbering (i.e., after template slides are removed).
+- For placeholder idx=4 (slide number): skip — it is an auto PowerPoint field.
 - For custom layouts (idx=10), write bold callout text respecting the 32–44pt size hint.
 - For charts: apply the series color order from this file's Brand palette section.
 - Never modify `prs.slide_master` or `prs.slide_layouts`.
-- To duplicate a content slide (e.g., one per section), deep-copy the slide XML:
-
-```python
-def duplicate_slide(prs, slide_index):
-    template_slide = prs.slides[slide_index]
-    xml_str = etree.tostring(template_slide._element, pretty_print=True)
-    new_el = etree.fromstring(xml_str)
-    prs.slides._sldIdLst.append(new_el)  # simplified — use proper rId wiring in practice
-```
 
 ---
 
