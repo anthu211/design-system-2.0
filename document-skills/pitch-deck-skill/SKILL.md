@@ -189,13 +189,55 @@ def prepare_template(prs, tmp_path):
     return Presentation(tmp_path)   # reload — orphaned parts are gone
 
 
+def add_slide_number(slide):
+    """
+    Stamp the slide-number placeholder onto a new slide, matching the template style.
+
+    Template content slides carry a slide-level <p:ph type="sldNum" idx="4"> shape
+    with the '< [n]' prefix and a slidenum field. New slides created with add_slide()
+    only inherit the layout's placeholder, which some viewers don't render. Adding it
+    explicitly at the slide level ensures '< [n]' appears bottom-right on every slide.
+
+    Call this on every interior slide immediately after insert_slide_at().
+    Do NOT call it on cover or back-cover slides.
+    """
+    import uuid
+    from lxml import etree
+
+    field_id = '{' + str(uuid.uuid4()).upper() + '}'
+    sp_xml = (
+        '<p:sp xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" '
+        'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">'
+        '<p:nvSpPr>'
+          '<p:cNvPr id="99" name="Slide Number Placeholder"/>'
+          '<p:cNvSpPr><a:spLocks noGrp="1"/></p:cNvSpPr>'
+          '<p:nvPr><p:ph type="sldNum" sz="quarter" idx="4"/></p:nvPr>'
+        '</p:nvSpPr>'
+        '<p:spPr/>'
+        '<p:txBody>'
+          '<a:bodyPr/><a:lstStyle/>'
+          '<a:p>'
+            '<a:r><a:rPr lang="en-US"/><a:t>&lt;  </a:t></a:r>'
+            f'<a:fld id="{field_id}" type="slidenum">'
+              '<a:rPr lang="en-US" smtClean="0"/><a:pPr/>'
+              '<a:t>‹#›</a:t>'
+            '</a:fld>'
+            '<a:endParaRPr lang="en-US"/>'
+          '</a:p>'
+        '</p:txBody>'
+        '</p:sp>'
+    )
+    slide.shapes._spTree.append(etree.fromstring(sp_xml))
+
+
 def insert_slide_at(prs, index, layout):
-    """Add a new slide from layout and move it to position index."""
+    """Add a new slide from layout, move it to position index, stamp slide number."""
     slide = prs.slides.add_slide(layout)
     sldIdLst = prs.slides._sldIdLst
     last = sldIdLst[-1]
     sldIdLst.remove(last)
     sldIdLst.insert(index, last)
+    add_slide_number(slide)   # stamp '< [n]' placeholder on every interior slide
     return slide
 
 
