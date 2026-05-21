@@ -63,7 +63,7 @@ document-skills/document-skill/templates/Prevalent AI - Word Template with Cover
 | Role | Hex | Usage |
 |---|---|---|
 | Primary dark (dk1) | `#372355` | Cover title, primary headings |
-| Dark purple (accent1) | `#4D2E58` | H1–H4 headings, subtitles, table headings bg |
+| Dark purple (accent1) | `#4D2E58` | H1–H4 headings, subtitles |
 | Medium purple (accent2) | `#81718F` | Supporting text on dark backgrounds |
 | Slate (accent3) | `#959AA8` | H3 headings, captions, TOC heading |
 | Light slate (accent4) | `#C4C6CE` | Subtle fills, borders |
@@ -143,8 +143,10 @@ Use these exact style names when applying or matching styles in python-docx.
 
 | Style name | Size | Color | Usage |
 |---|---|---|---|
-| `Table Heading - 10pt` | 10pt (Calibri Light) | `#FFFFFF` | Table column headers (white text on dark header row) |
-| `Table Heading - 8 pt` | 8pt | — | Dense table headers |
+| `Table Heading - 10pt` | 10pt (Calibri Light) | `#FFFFFF` white text | Table column headers — white text, `#372355` background fill |
+| `Table Heading - 8 pt` | 8pt | `#FFFFFF` white text | Dense table headers — white text, `#372355` background fill |
+
+**Table header fill: `#372355` — this is the ONLY correct color for table header row backgrounds.** Do not use `#4D2E58` or any other purple variant for table headers.
 
 ### Utility styles
 
@@ -236,7 +238,31 @@ def generate_document(output_path, doc_data):
 - Always copy the `.dotx` to a `.docx` before opening — never open the template directly.
 - Replace text by iterating `para.runs` — never set `para.text` directly.
 - Add new paragraphs with `doc.add_paragraph(text, style="<style name>")` using the style names from this file.
-- For table header rows, apply `#4D2E58` background fill with white (`#FFFFFF`) text using `Table Heading - 10pt` style.
+- For tables, always set the table style to `Prevalent AI Table Style` — this applies the `#372355` header fill automatically to the first row.
+- For table header cells, apply paragraph style `Table Heading - 10pt` (white text). The cell background fill MUST be `#372355`. Set it explicitly on each header cell using the XML snippet below — do not rely on theme colors, do not use `#4D2E58`.
+
+```python
+from docx.oxml.ns import qn
+from lxml import etree
+
+def set_cell_bg(cell, hex_color):
+    """Set table cell background fill to a solid RGB hex color."""
+    tc = cell._tc
+    tcPr = tc.find(qn('w:tcPr'))
+    if tcPr is None:
+        tcPr = etree.SubElement(tc, qn('w:tcPr'))
+    shd = tcPr.find(qn('w:shd'))
+    if shd is None:
+        shd = etree.SubElement(tcPr, qn('w:shd'))
+    shd.set(qn('w:val'), 'clear')
+    shd.set(qn('w:color'), 'auto')
+    shd.set(qn('w:fill'), hex_color)  # e.g. '372355'
+
+# Usage: apply to every cell in the header row
+for cell in table.rows[0].cells:
+    set_cell_bg(cell, '372355')
+    cell.paragraphs[0].style = doc.styles['Table Heading - 10pt']
+```
 - Delete the style-showcase section from the template before saving if it is not needed in the output.
 - Never modify the cover page image or logo shapes.
 
