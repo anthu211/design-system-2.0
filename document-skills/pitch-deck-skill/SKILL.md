@@ -44,9 +44,11 @@ Two files are in `templates/`:
 4. **Brand colors only.** Any manually inserted shapes or chart series must use the template palette defined in this file. Never use Office theme defaults and never substitute web design system colors (#6360D8 etc.) — those belong to the web platform only.
 5. **Font: Calibri.** The template embeds Calibri Light (headings) and Calibri (body). Never substitute another font.
 6. **Logo: image only.** The logo is baked into the slide master and cover image — do not add a second copy or type "Prevalent AI" as text.
-7. **Slide number format.** The template uses `<  [n]` as the slide number prefix — this is the brand style; do not remove or reformat it.
-8. **Bullet discipline.** Maximum 5 bullets per slide. Maximum 10 words per bullet. No sub-bullets beyond one level.
-9. **Confirmation before overwrite.** If generating would overwrite an existing file, confirm with the user first.
+7. **Cover slide = logo only. MANDATORY.** Slide 1 MUST use `4_Custom Layout`. Add NO text, NO textboxes, NO additional shapes. The PAI logo and background are baked into the layout — do not touch them. Any text on the cover slide is a hard violation.
+8. **Slide 2 = purple title slide. MANDATORY.** The second slide (deck title / agenda heading) MUST use `11_Custom Layout` or `3_Custom Layout` — both have a dark purple background. Place the deck title in `idx=10`. Never use a white-background layout for slide 2.
+9. **Pagination: bottom-right on every non-cover slide. MANDATORY.** Every slide except the cover and back cover must include the slide number placeholder (`idx=4`) at position `left=8.566", top=5.622", w=1.086", h=0.333"` with the format `<  [n]`. Do NOT skip, delete, or reposition this placeholder. Do NOT set it manually — it is an auto PowerPoint field; just ensure it is present on the slide.
+10. **Bullet discipline.** Maximum 5 bullets per slide. Maximum 10 words per bullet. No sub-bullets beyond one level.
+11. **Confirmation before overwrite.** If generating would overwrite an existing file, confirm with the user first.
 
 ---
 
@@ -131,12 +133,15 @@ Use this order when building a deck from scratch:
 
 | Position | Layout to use | Content |
 |---|---|---|
-| First | `4_Custom Layout` | Cover — picture-based, do not modify; swap cover image if provided |
-| Second | `Title (1 line) and Bullets (1 column)` | Disclaimer or Agenda |
-| Section break | `8_Custom Layout` or `11_Custom Layout` | Section divider — place section title in idx=10 |
-| Content slides | `Title (1 line) and Bullets (1 column)` | Title (idx=0) + bullets (idx=12) |
-| Content + space | `Blank with Title (1 line)` | Title (idx=0) + freeform content |
-| Last | `4_Custom Layout` | Back cover — picture-based, do not modify |
+| **Slide 1 — Cover** | `4_Custom Layout` | **Logo only. No text, no shapes. MANDATORY.** The PAI logo and background are baked in — do not touch. |
+| **Slide 2 — Title** | `11_Custom Layout` or `3_Custom Layout` | **Purple background. MANDATORY.** Place deck title/heading in `idx=10`. |
+| Section break | `8_Custom Layout` or `11_Custom Layout` | Section divider — place section title in `idx=10` |
+| Content slides | `Title (1 line) and Bullets (1 column)` | Title (`idx=0`) + bullets (`idx=12`) |
+| Content + space | `Blank with Title (1 line)` | Title (`idx=0`) + freeform content |
+| **Last — Back cover** | `4_Custom Layout` | **Logo only. No text, no shapes. MANDATORY.** Same rule as slide 1. |
+
+### Pagination rule
+Every slide **except slide 1 (cover) and the last slide (back cover)** must have `idx=4` present. Do not set it manually — it auto-populates as `<  [n]`. Position: `left=8.566", top=5.622"`, bottom-right corner.
 
 ---
 
