@@ -61,15 +61,15 @@
       "usage": ["severity-badge", "chart-series"]
     },
     "color-severity-high": {
-      "raw": "#D98B1D", "bg": "#FEF3C7",
-      "badge_class": "ds-badge warning",
-      "tailwind": "text-[#D98B1D] bg-[#FEF3C7]",
+      "raw": "#E15252", "bg": "#FFF0F0",
+      "badge_class": "ds-badge high",
+      "tailwind": "text-[#E15252] bg-[#FFF0F0]",
       "usage": ["severity-badge", "chart-series"]
     },
     "color-severity-medium": {
-      "raw": "#6360D8", "bg": "#f0f0fc",
-      "badge_class": "ds-badge info",
-      "tailwind": "text-[#6360D8] bg-[#f0f0fc]",
+      "raw": "#D98B1D", "bg": "#FEF3C7",
+      "badge_class": "ds-badge warning",
+      "tailwind": "text-[#D98B1D] bg-[#FEF3C7]",
       "usage": ["severity-badge", "chart-series"]
     },
     "color-severity-low": {

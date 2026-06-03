@@ -9,7 +9,7 @@ strokeWidth = outerRadius × 0.12  (thin ring — NOT 0.28)
 Center label: total in font-size:22px font-weight:700, subtitle font-size:11px
 ```
 
-**Severity color order (always):** Critical `#D12329` → High `#D98B1D` → Medium `#6760d8` → Low `#31A56D`
+**Severity color order (always):** Critical `#D12329` → High `#E15252` → Medium `#D98B1D` → Low `#31A56D`
 
 ```html
 <div style="display:inline-flex;align-items:center;gap:24px;">
@@ -23,8 +23,8 @@ Center label: total in font-size:22px font-weight:700, subtitle font-size:11px
   <!-- Legend -->
   <div class="chart-legend" style="flex-direction:column;">
     <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#D12329;"></span>Critical</div>
-    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#D98B1D;"></span>High</div>
-    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#6760d8;"></span>Medium</div>
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#E15252;"></span>High</div>
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#D98B1D;"></span>Medium</div>
     <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#31A56D;"></span>Low</div>
   </div>
 </div>
@@ -49,7 +49,7 @@ function buildDonutChart(containerId, data, size) {
   var r = outerR - strokeW / 2;
   var total = data.reduce(function(s, d) { return s + d.value; }, 0);
   var startAngle = 0;
-  var COLORS = ['#D12329', '#D98B1D', '#6760d8', '#31A56D'];
+  var COLORS = ['#D12329', '#E15252', '#D98B1D', '#31A56D'];
 
   var paths = data.map(function(d, i) {
     var sweep    = (d.value / total) * 360;

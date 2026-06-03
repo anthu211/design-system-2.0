@@ -53,12 +53,12 @@ export const colors = {
       bg: '#F9EEEE',
     },
     high: {
-      text: '#D98B1D',
-      bg: '#FEF3C7',
+      text: '#E15252',
+      bg: '#FFF0F0',
     },
     medium: {
-      text: '#6360D8',
-      bg: '#f0f0fc',
+      text: '#D98B1D',
+      bg: '#FEF3C7',
     },
     low: {
       text: '#31A56D',

@@ -66,13 +66,24 @@ _topnavItems.forEach(function(btn) {
       dsLayout.classList.add('no-sidebar');
     }
     // Navigate to the target page
-    var navItem = document.querySelector('.nav-item[data-page="' + targetPage + '"]');
-    if (navItem) {
-      navItem.click();
-    } else {
+    if (targetPage === 'overview') {
+      // Overview: show the full component catalog (page-home) without sidebar
       document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-      var page = document.getElementById('page-' + targetPage);
-      if (page) page.classList.add('active');
+      var ovPage = document.getElementById('page-home');
+      if (ovPage) ovPage.classList.add('active');
+    } else if (targetPage === 'home') {
+      // Design System: default to Brand page
+      var brandNav = document.querySelector('.nav-item[data-page="brand"]');
+      if (brandNav) brandNav.click();
+    } else {
+      var navItem = document.querySelector('.nav-item[data-page="' + targetPage + '"]');
+      if (navItem) {
+        navItem.click();
+      } else {
+        document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+        var page = document.getElementById('page-' + targetPage);
+        if (page) page.classList.add('active');
+      }
     }
   });
 });
@@ -553,7 +564,7 @@ function buildDonutChart(containerId, data, size, colors) {
     var pct = Math.round(d.value / total * 100) + '%';
     path.addEventListener('mouseover', function(e) {
       showChartTooltip(e, d.label, [
-        { label: 'Value', value: d.value.toLocaleString(), color: color, active: false },
+        { label: 'Value', value: d.value.toLocaleString(), color: color, active: true },
         { label: 'Share', value: pct, color: color, active: true }
       ], color);
     });
@@ -830,7 +841,7 @@ function buildMultiLineChart(containerId, series, labels, opts) {
     var i = parseInt(rect.dataset.mli);
     rect.addEventListener('mouseover', function(e) {
       var rows = series.map(function(s) {
-        return { label: s.label, value: s.values[i].toLocaleString(), color: s.color, active: false };
+        return { label: s.label, value: s.values[i].toLocaleString(), color: s.color, active: true };
       });
       showChartTooltip(e, labels[i], rows, series[0].color);
     });
@@ -904,10 +915,10 @@ function buildStackedBarChart(containerId, rows, xLabel) {
   el.querySelectorAll('rect[data-label]').forEach(function(r) {
     r.addEventListener('mouseover', function(e) {
       showChartTooltip(e, r.dataset.label, [
-        { label: 'Critical', value: r.dataset.critical + '%', color: '#d12329', active: false },
-        { label: 'High',     value: r.dataset.high     + '%', color: '#e15252', active: false },
-        { label: 'Medium',   value: r.dataset.medium   + '%', color: '#d98b1d', active: false },
-        { label: 'Low',      value: r.dataset.low      + '%', color: '#31a56d', active: true  }
+        { label: 'Critical', value: r.dataset.critical + '%', color: '#d12329', active: true },
+        { label: 'High',     value: r.dataset.high     + '%', color: '#e15252', active: true },
+        { label: 'Medium',   value: r.dataset.medium   + '%', color: '#d98b1d', active: true },
+        { label: 'Low',      value: r.dataset.low      + '%', color: '#31a56d', active: true }
       ], '#d12329');
     });
     r.addEventListener('mousemove', positionChartTooltip);
@@ -924,7 +935,7 @@ function initCharts() {
       { label: 'Low',      values: [8,  10, 12, 16, 18, 20] }
     ],
     ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    ['#D12329', '#D98B1D', '#6760d8', '#31A56D']
+    ['#D12329', '#e15252', '#D98B1D', '#31A56D']
   );
   buildDonutChart('donut-chart-1', [
     { label: 'Critical', value: 12 },

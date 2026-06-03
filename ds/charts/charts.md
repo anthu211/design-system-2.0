@@ -58,12 +58,12 @@ Use **only** for severity/risk data (Critical → High → Medium → Low). Neve
 | Severity | Hex | Token |
 |----------|-----|-------|
 | Critical | `#D12329` | `--status-danger` |
-| High | `#D98B1D` | `--status-warning` |
-| Medium | `#F5B700` | — |
+| High | `#E15252` | `--status-warning` |
+| Medium | `#D98B1D` | — |
 | Low | `#31A56D` | `--status-success` |
 
 ```js
-var CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
+var CHART_COLORS_RAG = ['#D12329', '#E15252', '#D98B1D', '#31A56D'];
 buildDonutChart('my-donut', data, 180, CHART_COLORS_RAG);
 ```
 
@@ -101,7 +101,7 @@ buildDonutChart('my-donut', data, 180, CHART_COLORS_NORMAL); // default
 | X-axis label | `text-anchor: middle` · 6px below bottom axis |
 | Y-tick count | 4–5 ticks — never more than 6 |
 | Chart padding | `top: 16` · `right: 16` · `bottom: 36` · `left: 44` |
-| Severity series | RAG scheme: Critical `#D12329` · High `#D98B1D` · Medium `#F5B700` · Low `#31A56D` |
+| Severity series | RAG scheme: Critical `#D12329` · High `#E15252` · Medium `#D98B1D` · Low `#31A56D` |
 | Single-series | Always use accent `#6760d8` for line/bars |
 
 **Init timing:** Always call chart functions inside `setTimeout(initCharts, 60)` so elements have rendered width before SVG is drawn.
@@ -126,7 +126,7 @@ Grid lines:  horizontal only, solid stroke
 Hover:       opacity 0.7 via CSS class chart-bar:hover
 ```
 
-Series colors (in order): `#D12329` · `#D98B1D` · `#6760d8` · `#31A56D`
+Series colors (in order): `#D12329` · `#E15252` · `#D98B1D` · `#31A56D`
 
 ```html
 <div id="vbar-chart" style="width:100%;"></div>
@@ -206,7 +206,7 @@ buildVerticalBarChart('vbar-chart',
     { label: 'Low',      values: [8,  10, 12, 16, 18, 20] }
   ],
   ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  ['#D12329', '#D98B1D', '#6760d8', '#31A56D']
+  ['#D12329', '#E15252', '#D98B1D', '#31A56D']
 );
 </script>
 ```
@@ -415,7 +415,7 @@ strokeWidth = outerRadius × 0.12  (thin ring — NOT 0.28)
 Center label: total in font-size:22px font-weight:700, subtitle font-size:11px
 ```
 
-**Severity color order (always):** Critical `#D12329` → High `#D98B1D` → Medium `#6760d8` → Low `#31A56D`
+**Severity color order (always):** Critical `#D12329` → High `#E15252` → Medium `#D98B1D` → Low `#31A56D`
 
 ```html
 <div style="display:inline-flex;align-items:center;gap:24px;">
@@ -429,8 +429,8 @@ Center label: total in font-size:22px font-weight:700, subtitle font-size:11px
   <!-- Legend -->
   <div class="chart-legend" style="flex-direction:column;">
     <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#D12329;"></span>Critical</div>
-    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#D98B1D;"></span>High</div>
-    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#6760d8;"></span>Medium</div>
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#E15252;"></span>High</div>
+    <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#E15252;"></span>Medium</div>
     <div class="chart-legend-item"><span class="chart-legend-dot" style="background:#31A56D;"></span>Low</div>
   </div>
 </div>
@@ -455,7 +455,7 @@ function buildDonutChart(containerId, data, size) {
   var r = outerR - strokeW / 2;
   var total = data.reduce(function(s, d) { return s + d.value; }, 0);
   var startAngle = 0;
-  var COLORS = ['#D12329', '#D98B1D', '#6760d8', '#31A56D'];
+  var COLORS = ['#D12329', '#E15252', '#D98B1D', '#31A56D'];
 
   var paths = data.map(function(d, i) {
     var sweep    = (d.value / total) * 360;
@@ -510,7 +510,7 @@ This chart uses CSS flex — no SVG. Width is set as a percentage of the contain
   </div>
   <div class="css-hbar-row">
     <span class="css-hbar-label">Auth</span>
-    <div class="css-hbar" style="width:62%;background:#D98B1D;"></div>
+    <div class="css-hbar" style="width:62%;background:#E15252;"></div>
     <span class="css-hbar-val">62</span>
   </div>
   <div class="css-hbar-row">
@@ -520,7 +520,7 @@ This chart uses CSS flex — no SVG. Width is set as a percentage of the contain
   </div>
   <div class="css-hbar-row">
     <span class="css-hbar-label">CSRF</span>
-    <div class="css-hbar" style="width:41%;background:#D98B1D;"></div>
+    <div class="css-hbar" style="width:41%;background:#E15252;"></div>
     <span class="css-hbar-val">41</span>
   </div>
 </div>
@@ -558,10 +558,10 @@ Use alongside any chart to explain series colors:
     <span class="chart-legend-dot" style="background:#D12329;"></span>Critical
   </div>
   <div class="chart-legend-item">
-    <span class="chart-legend-dot" style="background:#D98B1D;"></span>High
+    <span class="chart-legend-dot" style="background:#E15252;"></span>High
   </div>
   <div class="chart-legend-item">
-    <span class="chart-legend-dot" style="background:#6760d8;"></span>Medium
+    <span class="chart-legend-dot" style="background:#E15252;"></span>Medium
   </div>
   <div class="chart-legend-item">
     <span class="chart-legend-dot" style="background:#31A56D;"></span>Low

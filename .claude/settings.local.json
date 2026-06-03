@@ -232,13 +232,36 @@
       "Bash(curl -sI \"https://raw.githubusercontent.com/anthu211/design-system-2.0/develop/document-skills/pitch-deck-skill/templates/Template_PAI_Presentation%20\\(2\\).pptx\")",
       "Bash(curl -sI \"https://raw.githubusercontent.com/anthu211/design-system-2.0/develop/document-skills/document-skill/templates/Prevalent%20AI%20-%20Word%20Template%20with%20Cover%20Page%20-%2001.08.17.dotx\")",
       "Bash(rm \"/Users/ananthusunil/Desktop/PAI Claude Web Setup/Template_PAI_Presentation.pptx\" \"/Users/ananthusunil/Desktop/PAI Claude Web Setup/PAI_Word_Template.dotx\")",
-      "Bash(zip -u setup/docs.zip .claude/commands/generate-deck.md .claude/commands/generate-doc.md document-skills/pitch-deck-skill/SKILL.md document-skills/document-skill/SKILL.md)"
+      "Bash(zip -u setup/docs.zip .claude/commands/generate-deck.md .claude/commands/generate-doc.md document-skills/pitch-deck-skill/SKILL.md document-skills/document-skill/SKILL.md)",
+      "Bash(rm '/Users/ananthusunil/Desktop/PAI Claude Web Setup/brand-tokens.md' '/Users/ananthusunil/Desktop/PAI Claude Web Setup/document-SKILL.md' '/Users/ananthusunil/Desktop/PAI Claude Web Setup/pitch-deck-SKILL.md')",
+      "Bash(cp '/Users/ananthusunil/PAI Edits/design-system/document-skills/pitch-deck-skill/SKILL.md' '/Users/ananthusunil/Desktop/PAI Claude Web Setup/pitch-deck-SKILL.md')",
+      "Bash(cp '/Users/ananthusunil/PAI Edits/design-system/document-skills/document-skill/SKILL.md' '/Users/ananthusunil/Desktop/PAI Claude Web Setup/document-SKILL.md')",
+      "Bash(cp '/Users/ananthusunil/PAI Edits/design-system/document-skills/shared/brand-tokens.md' '/Users/ananthusunil/Desktop/PAI Claude Web Setup/brand-tokens.md')",
+      "Bash(cp '/Users/ananthusunil/PAI Edits/design-system/document-skills/shared/voice-and-tone.md' '/Users/ananthusunil/Desktop/PAI Claude Web Setup/voice-and-tone.md')",
+      "Bash(convert --version)",
+      "Bash(libreoffice --version)",
+      "Bash(soffice --version)",
+      "Bash(mkdir -p \"/Users/ananthusunil/Desktop/Skills for powerpoint\")",
+      "Bash(cp \"/Users/ananthusunil/Desktop/PAI Claude Web Setup/Template_PAI_Presentation.pptx\" \"/Users/ananthusunil/Desktop/Skills for powerpoint/Template_PAI_Presentation.pptx\" && echo \"Copied\" || echo \"Copy failed\")",
+      "Bash(node -e \"console.log\\(require\\('./backend/node_modules/qs/package.json'\\).version\\)\")",
+      "Bash(unzip -o \"/Users/ananthusunil/Downloads/prevalent-ai-branding.skill\" -d prevalent-ai-branding-extracted)",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs kill -9)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:3000/)",
+      "Bash(mkdir -p /tmp/pai-brand-extract)",
+      "Bash(unzip -o \"/Users/ananthusunil/Downloads/PAI Presentation Identity/PAI_Identity_2026.pptx\" \"ppt/media/*\" -d .)",
+      "Bash(cp '/Users/ananthusunil/Downloads/ChatGPT Image Jun 2, 2026, 12_06_20 PM.png' '/Users/ananthusunil/PAI Edits/design-system/icons/brand-moodboard.png')",
+      "Bash(cp '/Users/ananthusunil/Downloads/ChatGPT Image Jun 2, 2026, 12_03_02 PM.png' '/Users/ananthusunil/PAI Edits/design-system/icons/brand-coin-dark.png')",
+      "Bash(cp '/Users/ananthusunil/Downloads/ChatGPT Image Jun 2, 2026, 12_15_08 PM.png' '/Users/ananthusunil/PAI Edits/design-system/icons/brand-coin-blue.png')"
     ],
     "additionalDirectories": [
       "/Users/ananthusunil/PAI Edits/design-system/.claude",
       "/Users/ananthusunil/PAI Edits/design-system/.claude/commands",
       "/private/tmp",
-      "/Users/ananthusunil/PAI Edits/design-system"
+      "/Users/ananthusunil/PAI Edits/design-system",
+      "/Users/ananthusunil/Desktop/Skills for powerpoint",
+      "/Users/ananthusunil/Desktop/PAI Claude Web Setup"
     ]
   }
 }
