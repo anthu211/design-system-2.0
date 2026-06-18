@@ -15,14 +15,36 @@
         "warning": "persist until manually dismissed",
         "error":   "persist until manually dismissed"
       },
+      "imperative_api": {
+        "function": "showToast(type, message, duration?)",
+        "usage": "showToast('success', 'Saved.') — available globally in HTML pages via the shell script block",
+        "example_js": "showToast('success', 'Filters applied successfully');\nshowToast('error', 'Failed to save changes');\nshowToast('warning', 'Session expiring in 5 minutes');\nshowToast('info', 'Report generating…');"
+      },
+      "jsx_api": {
+        "description": "JSX-compatible pattern for React apps. Wrap the app in ToastProvider at the root; call useToast() hook anywhere inside.",
+        "provider_placement": "Place <ToastProvider> at app root — once, outside all routes. Never nest multiple providers.",
+        "structure": {
+          "ToastProvider": "Context provider — wraps app root. Manages toast queue (max 3).",
+          "ToastViewport": "Fixed bottom-right container — renders inside ToastProvider.",
+          "Toast": "Individual toast item — rendered by the provider from the queue.",
+          "useToast": "Hook — returns { toast } function. Call toast({ type, message }) anywhere in the tree."
+        },
+        "example_usage": "// App root:\n<ToastProvider>\n  <App />\n  <ToastViewport />\n</ToastProvider>\n\n// Inside any component:\nconst { toast } = useToast();\ntoast({ type: 'success', message: 'Saved.' });\ntoast({ type: 'error', message: 'Failed.' });",
+        "radix_note": "For React: use Radix UI Toast primitives (ToastProvider, ToastRoot, ToastTitle, ToastAction, ToastViewport). Map DS variant classes onto Radix root.",
+        "react_example": "import * as Toast from '@radix-ui/react-toast';\n// Provider at root:\n<Toast.Provider swipeDirection=\"right\">\n  {children}\n  <Toast.Viewport className=\"ds-toast-container\" />\n</Toast.Provider>\n// Toast item:\n<Toast.Root className=\"ds-toast success\">\n  <Toast.Title>{message}</Toast.Title>\n  <Toast.Action asChild altText=\"Dismiss\"><button className=\"ds-toast-dismiss\">×</button></Toast.Action>\n</Toast.Root>"
+      },
       "do": [
         "Use for transient operation feedback (saved, deleted, failed).",
-        "Persist error and warning toasts — never auto-dismiss them."
+        "Persist error and warning toasts — never auto-dismiss them.",
+        "For React: use ToastProvider at app root; call useToast() inside components.",
+        "For HTML pages: use showToast() imperative function from the shell script."
       ],
       "dont": [
         "Never use toasts for decisions or destructive confirmations — use modals.",
         "Never auto-dismiss error or warning toasts.",
-        "Never stack more than 3 toasts."
+        "Never stack more than 3 toasts.",
+        "Never place ToastProvider inside a component — always at app root.",
+        "Never mix imperative showToast() and JSX ToastProvider in the same app."
       ],
       "example_html": {
         "success": "<div class=\"ds-toast success\"><span>Saved.</span><button class=\"ds-toast-dismiss\">×</button></div>",

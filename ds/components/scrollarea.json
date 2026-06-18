@@ -1,0 +1,46 @@
+{
+  "component": "scrollarea",
+  "description": "Custom-styled scroll container that replaces native browser scrollbars. Provides consistent, on-brand scrollbars across browsers. Use anywhere content can overflow its container.",
+  "structure": "ds-scroll-area > ds-scroll-viewport + ds-scroll-bar > ds-scroll-thumb",
+  "tokens": {
+    "scrollbar_width":   "6px",
+    "scrollbar_track":   "transparent",
+    "scrollbar_thumb":   "var(--shell-elevated)",
+    "scrollbar_thumb_hover": "var(--shell-text-muted)",
+    "scrollbar_radius":  "3px",
+    "scrollbar_margin":  "2px",
+    "viewport_radius":   "inherit"
+  },
+  "css": ".ds-scroll-area { position:relative; overflow:hidden; } .ds-scroll-viewport { width:100%; height:100%; overflow:scroll; scrollbar-width:none; -ms-overflow-style:none; } .ds-scroll-viewport::-webkit-scrollbar { display:none; } .ds-scroll-bar { position:absolute; display:flex; user-select:none; touch-action:none; padding:2px; border-radius:3px; transition:background 160ms ease; } .ds-scroll-bar.ds-scroll-bar--vertical { top:0; right:0; width:10px; height:100%; flex-direction:column; } .ds-scroll-bar.ds-scroll-bar--horizontal { bottom:0; left:0; height:10px; width:100%; flex-direction:row; } .ds-scroll-bar:hover { background:var(--shell-hover); } .ds-scroll-thumb { flex:1; background:var(--shell-elevated); border-radius:3px; position:relative; cursor:pointer; transition:background 160ms; } .ds-scroll-thumb::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:100%; height:100%; min-width:44px; min-height:44px; } .ds-scroll-thumb:hover,.ds-scroll-bar:hover .ds-scroll-thumb { background:var(--shell-text-muted); }",
+  "example_html": {
+    "vertical": "<div class=\"ds-scroll-area\" style=\"height:300px;\">\n  <div class=\"ds-scroll-viewport\">\n    <!-- scrollable content -->\n  </div>\n  <div class=\"ds-scroll-bar ds-scroll-bar--vertical\" aria-hidden=\"true\">\n    <div class=\"ds-scroll-thumb\"></div>\n  </div>\n</div>",
+    "both_axes": "<div class=\"ds-scroll-area\" style=\"height:300px;width:100%;\">\n  <div class=\"ds-scroll-viewport\">\n    <!-- wide + tall content -->\n  </div>\n  <div class=\"ds-scroll-bar ds-scroll-bar--vertical\" aria-hidden=\"true\">\n    <div class=\"ds-scroll-thumb\"></div>\n  </div>\n  <div class=\"ds-scroll-bar ds-scroll-bar--horizontal\" aria-hidden=\"true\">\n    <div class=\"ds-scroll-thumb\"></div>\n  </div>\n</div>"
+  },
+  "native_fallback": {
+    "description": "Minimal CSS-only approach for non-critical surfaces where Radix ScrollArea is unavailable.",
+    "css": "/* Apply to the scrollable element directly */ .ds-native-scroll { overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--shell-elevated) transparent; } .ds-native-scroll::-webkit-scrollbar { width:6px; } .ds-native-scroll::-webkit-scrollbar-track { background:transparent; } .ds-native-scroll::-webkit-scrollbar-thumb { background:var(--shell-elevated); border-radius:3px; } .ds-native-scroll::-webkit-scrollbar-thumb:hover { background:var(--shell-text-muted); }"
+  },
+  "use_cases": [
+    "PAICustomLegends — horizontal scroll for long legend lists",
+    "Filter drawer attribute/value panels — vertical scroll",
+    "Detail drawer body — vertical scroll within fixed-height panel",
+    "Multi-select dropdown with many options",
+    "Code/log viewer panels"
+  ],
+  "do": [
+    "Always set an explicit height or max-height on ds-scroll-area — it needs a constrained container.",
+    "Use ds-native-scroll CSS class for simple use cases where Radix is not available.",
+    "aria-hidden='true' on scrollbar elements — they are decorative.",
+    "Keep scrollbar track transparent — only the thumb should be visible."
+  ],
+  "dont": [
+    "Never set overflow:auto on the shell content area — the DS shell already handles page scroll.",
+    "Never use custom scrollbars inside the topbar or nav.",
+    "Never hide scrollbars entirely when content overflows — users need to know more content exists."
+  ],
+  "react": {
+    "library": "Radix UI ScrollArea",
+    "components": ["ScrollArea.Root", "ScrollArea.Viewport", "ScrollArea.Scrollbar", "ScrollArea.Thumb", "ScrollArea.Corner"],
+    "example": "import * as ScrollArea from '@radix-ui/react-scroll-area';\n<ScrollArea.Root className=\"ds-scroll-area\" style={{height:'300px'}}>\n  <ScrollArea.Viewport className=\"ds-scroll-viewport\">\n    {/* content */}\n  </ScrollArea.Viewport>\n  <ScrollArea.Scrollbar className=\"ds-scroll-bar ds-scroll-bar--vertical\" orientation=\"vertical\">\n    <ScrollArea.Thumb className=\"ds-scroll-thumb\" />\n  </ScrollArea.Scrollbar>\n  <ScrollArea.Corner />\n</ScrollArea.Root>"
+  }
+}

@@ -13,7 +13,23 @@
     "t-tertiary":  { "bg": "transparent","color": "var(--shell-text-muted)", "use": "Low-emphasis actions" },
     "t-danger":    { "bg": "#dc2626",   "color": "#ffffff", "hover_bg": "#b91c1c", "use": "Destructive confirm — only inside modal footer" },
     "t-success":   { "bg": "#31A56D",   "color": "#ffffff", "use": "Positive confirmation actions" },
-    "t-special":   { "bg": "transparent","color": "var(--shell-text)", "use": "Navigator button in topbar only" }
+    "t-special":   { "bg": "transparent","color": "var(--shell-text)", "use": "Navigator button in topbar only" },
+    "t-neutral":   { "bg": "var(--shell-raised)", "color": "var(--shell-text-muted)", "border": "1px solid var(--shell-border)", "hover_bg": "var(--shell-elevated)", "use": "Non-colored secondary actions — toolbar items, tag-like buttons where accent/color would be distracting" }
+  },
+  "anchor_link": {
+    "description": "SPA-safe navigation link. Use Button asChild pattern — renders as <a> but styled as a button or plain link depending on context.",
+    "rule": "Never use raw <a> tags inside nav without this pattern — SPA routing must be preserved.",
+    "variants": {
+      "nav-link": "Unstyled anchor inside left nav — use inline nav-row/nav-sub classes from shell",
+      "inline-link": "Inline text link — color:var(--shell-accent), no underline by default, underline on hover",
+      "button-link": "Button-styled anchor — wrap ds-btn classes on an <a> tag"
+    },
+    "example_html": {
+      "nav": "<a href=\"/path\" class=\"nav-sub\" style=\"color:var(--shell-text-muted);\"><!-- icon + label --></a>",
+      "inline": "<a href=\"/path\" style=\"color:var(--shell-accent);text-decoration:none;\" onmouseover=\"this.style.textDecoration='underline'\" onmouseout=\"this.style.textDecoration='none'\">Link text</a>",
+      "button": "<a href=\"/path\" class=\"ds-btn sz-md t-outline\">Go to page</a>"
+    },
+    "react": "Use router Link component (react-router-dom or Next.js) — never navigate with window.location"
   },
   "icon_button": {
     "class": "ds-icon-btn",
@@ -53,7 +69,8 @@
     "danger":    "<button class=\"ds-btn sz-md t-danger\">Delete</button>",
     "special":   "<button class=\"ds-btn sz-sm t-special\"><span class=\"btn-text\">Navigator</span></button>",
     "icon":      "<button class=\"ds-icon-btn\" title=\"Edit\"><!-- 14×14 SVG --></button>",
-    "disabled":  "<button class=\"ds-btn sz-md t-primary\" disabled style=\"opacity:0.4;cursor:not-allowed;\">Save</button>"
+    "disabled":  "<button class=\"ds-btn sz-md t-primary\" disabled style=\"opacity:0.4;cursor:not-allowed;\">Save</button>",
+    "neutral":   "<button class=\"ds-btn sz-md t-neutral\">More options</button>"
   },
   "react": {
     "border_radius": "rounded-[44px]",

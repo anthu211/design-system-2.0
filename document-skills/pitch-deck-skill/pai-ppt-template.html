@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prevalent AI — PowerPoint Template Reference</title>
+<style>
+  /* ============================================================
+     BRAND TOKENS
+     Palette from theme1.xml "Prevalent AI 18-04"
+     Slide size: 10" × 6.25" (16:10) | Calibri / Calibri Light
+  ============================================================ */
+  :root {
+    --dk1:    #372355; /* Primary brand dark — headings, dark backgrounds */
+    --lt1:    #FFFFFF; /* Light — text on dark, slide bg */
+    --dk2:    #000000; /* Black — body text */
+    --lt2:    #E9E8EC; /* Light gray — dividers, subtle fills */
+    --a1:     #4D2E58; /* accent1 — Dark purple */
+    --a2:     #81718F; /* accent2 — Medium purple */
+    --a3:     #959AA8; /* accent3 — Slate */
+    --a4:     #C4C6CE; /* accent4 — Light slate */
+    --a5:     #BB4728; /* accent5 — Deep red-orange */
+    --a6:     #D25B30; /* accent6 — Orange-red */
+    --bg-off: #F2F2F2; /* bg1 @ 95% lum — cover/back cover bg */
+
+    /* Slide canvas: 10" × 6.25" rendered at 80px/inch */
+    --sw: 800px;
+    --sh: 500px;
+
+    /* Pixel positions (80px per inch) */
+    --title-top:     26px;   /* y=0.326" */
+    --title-h:       28px;   /* h=0.351" */
+    --sep-top:       58px;   /* y=0.729" separator line */
+    --body-top:      91px;   /* y=1.137" standard body */
+    --body-top-disc: 71px;   /* y=0.885" disclaimer body */
+    --callout-top:  140px;   /* y=1.754" callout/section text */
+    --callout-h:    219px;   /* h=2.741" */
+    --logo-tl-x:     24px;   /* x=0.305" logo top-left (section slides) */
+    --logo-tl-y:     16px;   /* y=0.202" */
+    --logo-bl-x:     24px;   /* x=0.305" logo bottom-left (master/content) */
+    --logo-bl-y:    442px;   /* y=5.523" */
+    --logo-sz:       42px;   /* size=0.529" */
+    --snum-x:       685px;   /* x=8.566" slide number */
+    --snum-y:       450px;   /* y=5.622" */
+    --lm:            44px;   /* left margin 0.55" */
+    --content-w:    712px;   /* 8.899" title/body width */
+    --body-w:       702px;   /* 8.77" body width */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Calibri', Arial, sans-serif;
+    background: #1A1A1A;
+    color: #E0E0E0;
+    padding: 40px 60px 80px;
+  }
+
+  h1 { font-size: 28px; font-weight: 300; color: #fff; margin-bottom: 6px; }
+  h2 { font-size: 13px; font-weight: 400; color: var(--a4); text-transform: uppercase;
+       letter-spacing: 2px; margin: 48px 0 20px; }
+  .subtitle { font-size: 13px; color: var(--a3); margin-bottom: 40px; }
+
+  /* ── Palette chips ──────────────────────────────────────── */
+  .palette { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .chip {
+    display: flex; align-items: center; gap: 8px;
+    background: #2A2A2A; border-radius: 4px; padding: 6px 12px;
+    font-size: 11px; color: #ccc;
+  }
+  .chip-swatch {
+    width: 18px; height: 18px; border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .chip-name { font-weight: 600; color: #fff; }
+
+  /* ── Slide grid ─────────────────────────────────────────── */
+  .slide-row {
+    display: flex; flex-wrap: wrap; gap: 32px; margin-bottom: 48px;
+  }
+  .slide-wrap {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .slide-label {
+    font-size: 10px; color: var(--a3); text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .slide-num-badge {
+    font-size: 9px; background: #333; color: #aaa;
+    padding: 2px 6px; border-radius: 2px; display: inline-block; margin-bottom: 4px;
+  }
+
+  /* ── Core slide canvas ──────────────────────────────────── */
+  .slide {
+    width: var(--sw);
+    height: var(--sh);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Calibri', Arial, sans-serif;
+    background: var(--lt1);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+  }
+
+  /* ── Logo components ───────────────────────────────────── */
+  .logo-tl { /* Top-left logo for section/custom layouts */
+    position: absolute;
+    left: var(--logo-tl-x); top: var(--logo-tl-y);
+    width: var(--logo-sz); height: var(--logo-sz);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-bl { /* Bottom-left logo from master (content slides) */
+    position: absolute;
+    left: var(--logo-bl-x); bottom: 16px;
+    width: var(--logo-sz); height: var(--logo-sz);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-tl svg, .logo-bl svg { width: 100%; height: auto; }
+
+  /* ── Slide number placeholder ───────────────────────────── */
+  .slide-num {
+    position: absolute;
+    left: var(--snum-x); top: var(--snum-y);
+    width: 87px; height: 27px;
+    font-size: 8px; color: var(--a3);
+    display: flex; align-items: center;
+    font-family: 'Calibri', Arial, sans-serif;
+  }
+
+  /* ── Content layout elements ─────────────────────────────── */
+  .title-zone {
+    position: absolute;
+    left: var(--lm); top: var(--title-top);
+    width: var(--content-w); height: var(--title-h);
+    font-family: 'Calibri Light', 'Calibri', Arial, sans-serif;
+    font-size: 18px; font-weight: 300;
+    color: var(--dk1);
+    display: flex; align-items: center;
+    white-space: nowrap; overflow: hidden;
+  }
+  .title-zone.placeholder { color: var(--a4); font-style: italic; font-size: 14px; }
+
+  .separator {
+    position: absolute;
+    left: 0; top: var(--sep-top);
+    width: 100%; height: 1px;
+    background: var(--lt2);
+    border: none;
+  }
+  /* Dashed version matching template's lgDash style */
+  .separator-dashed {
+    position: absolute;
+    left: 0; top: var(--sep-top);
+    width: 100%;
+    border-top: 1px dashed var(--lt2);
+  }
+
+  .body-zone {
+    position: absolute;
+    left: var(--lm); top: var(--body-top);
+    width: var(--content-w); bottom: 60px;
+    font-size: 11px; line-height: 1.5;
+    color: var(--dk2);
+  }
+  .body-zone.placeholder {
+    color: var(--a4); font-style: italic;
+  }
+  .body-zone ul { padding-left: 16px; }
+  .body-zone ul li { margin-bottom: 4px; }
+
+  .body-zone-disclaimer {
+    position: absolute;
+    left: var(--lm); top: var(--body-top-disc);
+    width: var(--body-w); bottom: 60px;
+    font-size: 9px; line-height: 1.55;
+    color: var(--dk2);
+  }
+
+  /* ── Callout text zone (section/divider slides) ─────────── */
+  .callout-zone {
+    position: absolute;
+    left: var(--lm); top: var(--callout-top);
+    width: 673px; /* 8.407" × 80 */
+    height: var(--callout-h);
+    display: flex; align-items: center;
+  }
+  .callout-text {
+    font-family: 'Calibri', Arial, sans-serif;
+    font-weight: 700; color: var(--lt1);
+    line-height: 1.15;
+  }
+  .callout-text.sz-38 { font-size: 32px; }
+  .callout-text.sz-44 { font-size: 36px; }
+  .callout-text.sz-32 { font-size: 27px; }
+  .callout-text.placeholder { color: rgba(255,255,255,0.3); font-size: 14px; font-weight: 400; font-style: italic; }
+
+  /* ── Cover slide ─────────────────────────────────────────── */
+  .cover-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #2B1A42 0%, var(--dk1) 40%, var(--a1) 100%);
+  }
+  .cover-logo-wrap {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .cover-logo-wrap svg { width: 280px; height: auto; }
+  .cover-tagline {
+    font-size: 11px; color: rgba(255,255,255,0.5);
+    font-family: 'Calibri Light', Arial, sans-serif;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .cover-stripe {
+    position: absolute;
+    left: 0; top: 242px; /* y=3.019" × 80 */
+    width: 100%; height: 19px; /* h=0.233" × 80 */
+    background: linear-gradient(90deg, var(--a6) 0%, var(--a5) 100%);
+    opacity: 0.7;
+  }
+  .cover-bottom-bar {
+    position: absolute;
+    left: 0; bottom: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--a6) 0%, var(--a5) 50%, var(--a1) 100%);
+  }
+
+  /* ── Back cover ──────────────────────────────────────────── */
+  .back-logo {
+    position: absolute;
+    left: 63px; top: 54px; /* x=0.792", y=0.673" */
+    width: 71px; height: 71px; /* 0.891" × 80 */
+  }
+  .back-contact {
+    position: absolute;
+    left: 63px; top: 205px; /* x=0.792", y=2.568" */
+    width: 587px; height: 87px; /* 7.333" × 80, 1.082" × 80 */
+    font-family: 'Calibri Light', 'Calibri', Arial, sans-serif;
+    font-size: 10px; line-height: 1.7;
+    color: var(--dk1);
+  }
+
+  /* ── Multi-column layout helpers ─────────────────────────── */
+  .cols {
+    position: absolute;
+    left: var(--lm); top: var(--body-top);
+    bottom: 50px;
+    display: flex; gap: 16px;
+  }
+  .col-panel {
+    flex: 1;
+    background: var(--lt2);
+    border-radius: 2px;
+    padding: 8px;
+    font-size: 9px; color: var(--a2);
+    font-style: italic;
+    display: flex; align-items: flex-start;
+  }
+
+  /* ── Section decorative elements ─────────────────────────── */
+  .section-accent-line {
+    position: absolute;
+    left: 44px; top: 392px; /* below callout zone */
+    width: 80px; height: 3px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 1px;
+  }
+
+  /* small top-left logo for section slides wrapper */
+  .section-logo {
+    position: absolute;
+    left: 24px; top: 16px;
+    width: 42px; height: 42px;
+    display: flex; align-items: center;
+  }
+  .section-logo svg { width: 100%; height: auto; }
+
+  /* ── Two-column layout (2/3 + 1/3 and 1/3 + 2/3) ─────── */
+  .cols-23 { display: flex; gap: 16px; position: absolute; left: var(--lm); right: 44px; top: var(--body-top); bottom: 50px; }
+  .col-lg { flex: 2; background: var(--lt2); border-radius: 2px; padding: 8px; font-size: 9px; color: var(--a2); font-style: italic; }
+  .col-sm { flex: 1; background: var(--lt2); border-radius: 2px; padding: 8px; font-size: 9px; color: var(--a2); font-style: italic; }
+
+  /* ── PAI Table ───────────────────────────────────────────── */
+  .pai-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Calibri', Arial, sans-serif;
+    font-size: 11px;
+  }
+  .pai-table thead th {
+    background: var(--dk1);
+    color: var(--lt1);
+    font-weight: 700;
+    text-align: left;
+    padding: 7px 12px;
+  }
+  .pai-table .section-row td {
+    background: var(--a2);
+    color: var(--lt1);
+    font-weight: 700;
+    padding: 5px 12px;
+  }
+  .pai-table tbody tr:not(.section-row):nth-child(even) td {
+    background: #F0EEF5;
+  }
+  .pai-table tbody tr:not(.section-row):nth-child(odd) td {
+    background: var(--lt1);
+  }
+  .pai-table tbody tr:not(.section-row) td {
+    padding: 6px 12px;
+    color: var(--dk2);
+    border-bottom: 1px solid var(--lt2);
+  }
+  .pai-table tbody tr:not(.section-row) td:first-child {
+    font-weight: 700;
+    color: var(--dk1);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAI LOGOMARK SYMBOL — defined once, referenced everywhere
+     Source: icons/pai-logo.svg (paths 1-4, the circular mark only)
+     fill-rule="evenodd" on the ring path creates the donut shape
+============================================================ -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden;" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- White grid patterns for colored section slides -->
+    <pattern id="grid-wh-major" width="80" height="62.5" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 62.5" fill="none" stroke="white" stroke-width="0.75" stroke-opacity="0.15"/>
+    </pattern>
+    <pattern id="grid-wh-minor" width="20" height="15.625" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 15.625" fill="none" stroke="white" stroke-width="0.4" stroke-opacity="0.07"/>
+    </pattern>
+    <!-- Full wordmark: circular mark + "Prevalent AI" text -->
+    <symbol id="pai-wordmark" viewBox="0 0 172 28">
+      <path fill-rule="evenodd" d="M14.0003 23.2593C8.8871 23.2593 4.74205 19.1144 4.74183 14.0014C4.74183 8.88784 8.88678 4.74284 13.9999 4.74257C19.1134 4.74257 23.2585 8.88752 23.2587 14.0006C23.2587 19.1132 19.1139 23.2581 14.0007 23.2584M14.0003 4.00021C8.47705 4.00021 3.99989 8.47742 4 14.0002C4 19.523 8.47726 24.0001 14.0002 24C19.5228 24 24.0001 19.5228 24 13.9999C24 8.47699 19.5232 4.00011 14.0003 4.00021Z" fill="currentColor"/>
+      <path d="M16.6438 9.29042H16.0563C15.9766 9.27002 15.8918 9.28401 15.8238 9.32891C15.7557 9.37376 15.7112 9.44482 15.7018 9.52384L12.6616 18.4047C12.6457 18.4442 12.636 18.486 12.6328 18.5284C12.6329 18.6118 12.6747 18.7103 12.8743 18.7103H13.4678C13.5482 18.7305 13.6337 18.7162 13.7023 18.671C13.7708 18.6258 13.8158 18.5542 13.8257 18.4746L16.8545 9.59213C16.8702 9.553 16.88 9.51167 16.8832 9.46976C16.8832 9.38647 16.8418 9.28935 16.6441 9.28935" fill="currentColor"/>
+      <path d="M18.6899 13.0697C18.6183 13.0224 18.532 13.0013 18.4459 13.0096H17.9285C17.8424 13.0012 17.7561 13.0224 17.6848 13.0697C17.6288 13.1338 17.6029 13.2175 17.6137 13.3008V18.4209C17.6029 18.5042 17.6288 18.5881 17.6851 18.6522C17.7563 18.6995 17.8426 18.7208 17.9284 18.7121H18.4459C18.532 18.7206 18.6185 18.6994 18.6899 18.6521C18.7459 18.588 18.7716 18.5042 18.7609 18.4209V13.3008C18.7716 13.2175 18.7459 13.1338 18.6899 13.0697Z" fill="currentColor"/>
+      <path d="M12.4844 10.2036C12.4146 10.1114 12.3358 10.0259 12.2493 9.9482C11.785 9.5412 11.3059 9.3035 10.2299 9.29357L9.53121 9.29138H9.52689C9.49019 9.28978 9.45337 9.29346 9.41766 9.30211C9.34547 9.32496 9.27118 9.38551 9.32513 9.54649L9.39467 9.75247L9.48322 10.0154C9.49848 10.0844 9.53441 10.1475 9.58637 10.197C9.64652 10.2273 9.71418 10.2415 9.78184 10.2381H9.97211C10.6462 10.2381 11.096 10.3711 11.3875 10.657C11.6749 10.9377 11.8129 11.4233 11.8129 12.1415C11.8129 12.8597 11.6738 13.3452 11.3875 13.6262C11.096 13.912 10.6465 14.0452 9.97244 14.0452H9.78305C9.71495 14.0416 9.64718 14.0557 9.58671 14.086C9.53463 14.1355 9.49859 14.1985 9.48322 14.2675L9.39467 14.5304L9.32513 14.7365C9.27118 14.8972 9.34547 14.9586 9.41777 14.9808C9.45304 14.9895 9.48953 14.9931 9.52601 14.9916L10.2299 14.9894C11.3059 14.9793 11.785 14.7417 12.2493 14.3347C12.3358 14.257 12.4145 14.1714 12.4844 14.0793C12.8293 13.6352 12.9977 13.0018 12.9977 12.1401C12.9977 11.2783 12.8299 10.644 12.4844 10.2009" fill="currentColor"/>
+      <path d="M37.4031 13.9979H39.9355C40.8574 13.9979 41.513 13.8214 41.9021 13.4684C42.2913 13.1154 42.4858 12.5112 42.4858 11.6558V11.3787C42.4858 10.4642 42.2941 9.81946 41.9106 9.44452C41.5272 9.06956 40.8686 8.88162 39.9351 8.88071H37.4027L37.4031 13.9979ZM37.4031 15.1772V19.7041C37.4165 19.8033 37.3874 19.9035 37.3228 19.9817C37.2352 20.0373 37.1305 20.0618 37.0264 20.0512H36.3796C36.2757 20.0617 36.1711 20.0372 36.0837 19.9817C36.019 19.9035 35.99 19.8033 36.0032 19.7041V8.04757C35.9897 7.94849 36.0188 7.84835 36.0837 7.77051C36.1711 7.7149 36.2756 7.69021 36.3796 7.70054H39.8829C41.3074 7.70054 42.346 7.98661 42.999 8.5588C43.6521 9.13102 43.9782 10.0475 43.9776 11.3083V11.6554C43.9776 14.0026 42.6127 15.1763 39.8829 15.1763L37.4031 15.1772Z" fill="currentColor"/>
+      <path d="M62.3492 11.7949C60.7809 11.7949 59.9907 12.7953 59.9787 14.796H64.6121C64.674 14.0022 64.4829 13.2091 64.0643 12.5234C63.6557 12.0176 63.0113 11.7442 62.3492 11.7949ZM59.9787 15.9231V16.2528C59.9787 18.1608 60.7806 19.1146 62.3847 19.1143C63.4025 19.1143 64.079 18.7385 64.4143 17.9867C64.4449 17.8929 64.4971 17.8071 64.5671 17.7357C64.648 17.6983 64.7378 17.6826 64.8271 17.69H65.4737C65.5838 17.6815 65.6943 17.6971 65.7971 17.7357C65.8451 17.7662 65.8689 17.8443 65.8686 17.9698C65.8515 18.1896 65.7842 18.4029 65.6712 18.5944C65.5509 18.8317 65.4 19.0533 65.2218 19.2538C64.8879 19.5997 64.4719 19.8616 64.0095 20.017C63.4716 20.2068 62.9027 20.3009 62.3302 20.2945C61.2899 20.3588 60.2715 19.9857 59.537 19.2712C58.8365 18.4565 58.4862 17.4133 58.558 16.3566V15.0557C58.558 13.6568 58.8812 12.5842 59.5275 11.8379C60.2384 11.0648 61.279 10.6519 62.3473 10.719C64.8135 10.719 66.0468 12.0431 66.0471 14.6912V15.576C66.06 15.6753 66.0307 15.7754 65.9662 15.8536C65.8786 15.9091 65.7739 15.9336 65.6698 15.9231L59.9787 15.9231Z" fill="currentColor"/>
+      <path d="M71.7412 10.9643C71.8351 10.9561 71.9285 10.984 72.0011 11.042C72.0725 11.1259 72.1247 11.2234 72.154 11.3283L74.6504 18.6834L77.0753 11.3283C77.1001 11.2195 77.1525 11.1183 77.2276 11.0338C77.3029 10.9813 77.3951 10.9566 77.4875 10.9643H78.2423C78.4335 10.9643 78.5291 11.0338 78.5291 11.1728C78.5177 11.2437 78.4998 11.3135 78.4756 11.3813L75.5835 19.6724C75.5471 19.7849 75.4861 19.8885 75.4045 19.976C75.3216 20.0346 75.2195 20.0622 75.1172 20.0538H74.0756C73.9732 20.0625 73.8711 20.0349 73.7883 19.976C73.7062 19.8886 73.6449 19.785 73.6083 19.6724L70.7352 11.3813C70.7111 11.3134 70.6932 11.2437 70.6816 11.1728C70.6816 11.0356 70.7764 10.9643 70.969 10.9643L71.7412 10.9643Z" fill="currentColor"/>
+      <path d="M87.0055 15.6442C86.0837 15.6442 85.446 15.7829 85.0929 16.0603C84.7051 16.4199 84.5096 16.9315 84.5628 17.4481C84.5189 17.9107 84.7018 18.3665 85.0571 18.6796C85.5778 18.9824 86.1853 19.1161 86.7901 19.0614H86.9522C87.5078 19.1138 88.0602 18.9339 88.4695 18.5671C88.8159 18.1088 88.9788 17.5448 88.9277 16.9795V15.7997C88.5683 15.7537 88.2119 15.7162 87.8588 15.6872C87.5056 15.6583 87.2215 15.643 87.0066 15.6415M86.8987 14.4983C87.1382 14.4983 87.4438 14.5098 87.8152 14.5326C88.1867 14.5555 88.5579 14.5902 88.9287 14.6369V13.6131C88.9765 13.1124 88.811 12.6146 88.4703 12.2345C88.0449 11.9132 87.5083 11.7611 86.9705 11.8092C86.5294 11.7852 86.089 11.8654 85.687 12.0429C85.3683 12.2278 85.1241 12.5124 84.9954 12.8495C84.9607 12.9367 84.9129 13.0185 84.8534 13.0923C84.7722 13.1381 84.6774 13.1566 84.5841 13.1449L83.9374 13.1449C83.8276 13.1567 83.717 13.1322 83.6235 13.0754C83.56 13.0034 83.5305 12.9091 83.542 12.8152C83.5471 12.6305 83.5958 12.4495 83.6841 12.2857C83.7795 12.0953 83.9001 11.9175 84.043 11.7571C84.3589 11.4072 84.7601 11.1388 85.2104 10.9761C85.776 10.7873 86.3724 10.6991 86.9705 10.7159C88.1679 10.7159 89.0299 10.9386 89.5569 11.384C90.0839 11.8293 90.3474 12.5609 90.3471 13.5788V17.1349C90.3471 18.1869 90.0779 18.9643 89.5394 19.4669C89.001 19.9696 88.1389 20.221 86.953 20.221H86.6836C85.4623 20.221 84.5611 20.0043 83.9804 19.5708C83.3997 19.1373 83.1094 18.4346 83.1094 17.4628C83.1094 16.434 83.4147 15.6822 84.0253 15.2076C84.6361 14.7329 85.5938 14.4961 86.8987 14.497" fill="currentColor"/>
+      <path d="M107.155 11.795C105.587 11.795 104.797 12.7953 104.785 14.796H109.418C109.48 14.0022 109.289 13.2091 108.871 12.5234C108.462 12.0177 107.818 11.7443 107.155 11.795ZM104.785 15.9231V16.2528C104.785 18.1608 105.587 19.1146 107.191 19.1143C108.209 19.1143 108.886 18.7385 109.221 17.9867C109.252 17.893 109.304 17.8071 109.374 17.7357C109.455 17.6983 109.544 17.6825 109.634 17.69H110.281C110.39 17.6815 110.501 17.6971 110.604 17.7357C110.652 17.7662 110.676 17.8442 110.675 17.9698C110.658 18.1896 110.591 18.403 110.478 18.5944C110.358 18.8317 110.207 19.0533 110.029 19.2538C109.695 19.5997 109.279 19.8617 108.816 20.017C108.278 20.2068 107.71 20.3008 107.137 20.2945C106.097 20.3588 105.078 19.9857 104.344 19.2712C103.643 18.4565 103.293 17.4133 103.365 16.3566V15.0557C103.365 13.6568 103.688 12.5842 104.334 11.8379C105.045 11.0648 106.086 10.6519 107.154 10.719C109.62 10.719 110.853 12.0431 110.854 14.6912V15.576C110.867 15.6753 110.837 15.7754 110.773 15.8536C110.685 15.9091 110.581 15.9336 110.476 15.9231L104.785 15.9231Z" fill="currentColor"/>
+      <path d="M132.695 20.0521C132.049 20.1084 131.407 19.9081 130.917 19.4974C130.503 19.0052 130.303 18.377 130.36 17.7452V12.1076H129.192C129.061 12.1076 128.977 12.0843 128.941 12.0386C128.896 11.9529 128.877 11.8566 128.887 11.761V11.3097C128.877 11.2143 128.896 11.1182 128.941 11.0326C128.977 10.9869 129.061 10.9631 129.192 10.9631H130.36V8.75956C130.347 8.66018 130.376 8.56002 130.44 8.48151C130.528 8.42646 130.633 8.40214 130.737 8.41249H131.4C131.504 8.40214 131.609 8.42649 131.696 8.48151C131.761 8.55987 131.79 8.66015 131.777 8.75956V10.9626H133.629C133.76 10.9626 133.844 10.9858 133.881 11.0322C133.925 11.1177 133.944 11.2139 133.934 11.3092V11.7605C133.944 11.8561 133.925 11.9524 133.881 12.0381C133.844 12.0838 133.76 12.1072 133.629 12.1072H131.779V17.5193C131.747 17.8737 131.832 18.2286 132.022 18.5335C132.223 18.7521 132.519 18.865 132.821 18.8372H133.665C133.797 18.8372 133.881 18.8609 133.917 18.9067C133.961 18.9922 133.98 19.0883 133.97 19.1837V19.7064C133.98 19.802 133.961 19.8982 133.917 19.9839C133.881 20.0297 133.797 20.0535 133.665 20.0535L132.695 20.0521Z" fill="currentColor"/>
+      <path d="M152.327 15.4546H156.673L154.518 9.07124L152.327 15.4546ZM159.654 19.687C159.674 19.737 159.686 19.7896 159.691 19.8429C159.691 19.9816 159.595 20.0512 159.403 20.0515H158.595C158.494 20.0797 158.386 20.0631 158.299 20.0061C158.212 19.9492 158.156 19.8578 158.146 19.757L157.086 16.6691H151.913L150.871 19.757C150.861 19.8579 150.805 19.9492 150.719 20.0061C150.632 20.0631 150.523 20.0797 150.422 20.0515H149.668C149.477 20.0515 149.381 19.982 149.381 19.8429C149.385 19.7896 149.397 19.7371 149.416 19.687L153.53 8.08264C153.56 7.9741 153.615 7.87351 153.691 7.78812C153.777 7.72178 153.887 7.69064 153.997 7.70126L155.146 7.7013C155.257 7.69046 155.368 7.72495 155.451 7.79639C155.523 7.88112 155.578 7.97826 155.612 8.08264L159.654 19.687Z" fill="currentColor"/>
+      <path d="M167.298 8.84316C167.401 8.85587 167.504 8.82783 167.585 8.76543C167.643 8.68106 167.668 8.58007 167.657 8.47964V8.06812C167.668 7.96751 167.643 7.86641 167.585 7.78186C167.504 7.71958 167.401 7.69156 167.298 7.7041H163.928C163.825 7.69156 163.722 7.71958 163.641 7.78186C163.584 7.86652 163.558 7.96751 163.569 8.06812V8.47964C163.558 8.58004 163.584 8.68094 163.641 8.76543C163.722 8.82783 163.825 8.85587 163.928 8.84316H164.894V18.9098H163.928C163.825 18.8972 163.722 18.9252 163.641 18.9875C163.584 19.0722 163.558 19.1732 163.569 19.2738V19.688C163.558 19.7884 163.583 19.8893 163.641 19.9738C163.721 20.0365 163.825 20.0646 163.928 20.0516H167.298C167.401 20.0645 167.505 20.0364 167.585 19.9738C167.643 19.8895 167.668 19.7885 167.657 19.688V19.2738C167.668 19.1732 167.643 19.0721 167.585 18.9875C167.504 18.9252 167.401 18.8972 167.298 18.9098H166.333V8.84316H167.298Z" fill="currentColor"/>
+      <path d="M122.979 11.4993C122.357 10.9444 121.525 10.6622 120.68 10.7191C120.126 10.7097 119.577 10.8162 119.07 11.0314C118.613 11.2273 118.214 11.5317 117.912 11.9163V11.309C117.925 11.2098 117.896 11.1094 117.831 11.0315C117.818 11.0209 117.804 11.0119 117.788 11.0049C117.712 10.9675 117.626 10.9506 117.54 10.956H115.359C115.257 10.9434 115.153 10.9715 115.072 11.0338C115.015 11.1185 114.99 11.2195 115.001 11.32V11.7315C114.99 11.8319 115.015 11.9328 115.072 12.0174C115.153 12.0803 115.257 12.1086 115.359 12.0955H116.533V19.7043C116.52 19.8036 116.549 19.9039 116.614 19.9819C116.701 20.0374 116.806 20.062 116.91 20.0514H117.573C117.677 20.062 117.782 20.0376 117.869 19.9819C117.934 19.9041 117.964 19.8038 117.95 19.7043V14.3796C117.917 13.7295 118.145 13.0923 118.588 12.6013C119.031 12.1483 119.658 11.9043 120.303 11.9332C120.875 11.8823 121.443 12.0684 121.865 12.4453C122.229 12.9092 122.402 13.4869 122.35 14.0668V19.7043C122.337 19.8036 122.366 19.9038 122.431 19.9819C122.519 20.0375 122.623 20.0621 122.728 20.0514H123.39C123.494 20.062 123.599 20.0374 123.686 19.9819C123.751 19.9039 123.781 19.8037 123.768 19.7043V13.7723C123.828 12.9434 123.543 12.1255 122.977 11.4997" fill="currentColor"/>
+      <path d="M97.6315 19.7042C97.6449 19.8036 97.6155 19.9039 97.5502 19.9817C97.4628 20.0373 97.3583 20.0618 97.2541 20.0512H96.5914C96.4872 20.0619 96.3826 20.0374 96.2951 19.9817C96.2302 19.9037 96.2009 19.8035 96.2141 19.7042V8.04766C96.2008 7.94849 96.2301 7.84838 96.2951 7.77054C96.3826 7.71483 96.4872 7.69013 96.5914 7.70059H97.2542C97.3583 7.69022 97.4628 7.71498 97.5502 7.77054C97.6154 7.84827 97.6449 7.9484 97.6315 8.04766V19.7042Z" fill="currentColor"/>
+      <path d="M53.8535 11.0315C53.8176 10.9857 53.7338 10.9619 53.6021 10.9619H53.3683C52.814 10.9554 52.2713 11.1152 51.815 11.4192C51.3598 11.7191 51.0018 12.1371 50.782 12.625V11.8202C50.782 11.7946 50.7858 11.7676 50.7858 11.7375V11.3259C50.7966 11.2254 50.7712 11.1242 50.7138 11.0397C50.6328 10.9774 50.5292 10.9493 50.4265 10.9619H48.2426C48.14 10.9493 48.0365 10.9774 47.9557 11.0397C47.8983 11.1243 47.8727 11.2253 47.8832 11.3259V11.7375C47.8725 11.8379 47.8981 11.9389 47.9557 12.0232C48.0364 12.0856 48.14 12.1137 48.2426 12.101H49.4001V19.7016C49.3864 19.8008 49.4155 19.9012 49.4806 19.9791C49.5681 20.0348 49.6728 20.0593 49.7769 20.0486H50.4397C50.5438 20.0593 50.6484 20.0347 50.7356 19.9791C50.8009 19.9013 50.8304 19.801 50.817 19.7016V15.2785C50.8133 14.8769 50.8676 14.4767 50.9785 14.0896C51.0754 13.7477 51.2334 13.4247 51.4453 13.1353C51.636 12.8747 51.8847 12.6585 52.173 12.5024C52.4676 12.3488 52.7982 12.271 53.1331 12.2765H53.6003C53.732 12.2765 53.8161 12.2537 53.8516 12.2071C53.8965 12.1215 53.9151 12.0254 53.9052 11.93V11.3053C53.915 11.2098 53.8965 11.1135 53.8517 11.0278" fill="currentColor"/>
+    </symbol>
+    <symbol id="pai-mark" viewBox="0 0 28 28">
+      <!-- Ring (outer circle - inner circle = evenodd donut) -->
+      <path fill-rule="evenodd" d="M14.0003 23.2593C8.8871 23.2593 4.74205 19.1144 4.74183 14.0014C4.74183 8.88784 8.88678 4.74284 13.9999 4.74257C19.1134 4.74257 23.2585 8.88752 23.2587 14.0006C23.2587 19.1132 19.1139 23.2581 14.0007 23.2584M14.0003 4.00021C8.47705 4.00021 3.99989 8.47742 4 14.0002C4 19.523 8.47726 24.0001 14.0002 24C19.5228 24 24.0001 19.5228 24 13.9999C24 8.47699 19.5232 4.00011 14.0003 4.00021Z" fill="currentColor"/>
+      <!-- Diagonal slash -->
+      <path d="M16.6438 9.29042H16.0563C15.9766 9.27002 15.8918 9.28401 15.8238 9.32891C15.7557 9.37376 15.7112 9.44482 15.7018 9.52384L12.6616 18.4047C12.6457 18.4442 12.636 18.486 12.6328 18.5284C12.6329 18.6118 12.6747 18.7103 12.8743 18.7103H13.4678C13.5482 18.7305 13.6337 18.7162 13.7023 18.671C13.7708 18.6258 13.8158 18.5542 13.8257 18.4746L16.8545 9.59213C16.8702 9.553 16.88 9.51167 16.8832 9.46976C16.8832 9.38647 16.8418 9.28935 16.6441 9.28935" fill="currentColor"/>
+      <!-- Vertical I bar -->
+      <path d="M18.6899 13.0697C18.6183 13.0224 18.532 13.0013 18.4459 13.0096H17.9285C17.8424 13.0012 17.7561 13.0224 17.6848 13.0697C17.6288 13.1338 17.6029 13.2175 17.6137 13.3008V18.4209C17.6029 18.5042 17.6288 18.5881 17.6851 18.6522C17.7563 18.6995 17.8426 18.7208 17.9284 18.7121H18.4459C18.532 18.7206 18.6185 18.6994 18.6899 18.6521C18.7459 18.588 18.7716 18.5042 18.7609 18.4209V13.3008C18.7716 13.2175 18.7459 13.1338 18.6899 13.0697Z" fill="currentColor"/>
+      <!-- P / C bracket shape -->
+      <path d="M12.4844 10.2036C12.4146 10.1114 12.3358 10.0259 12.2493 9.9482C11.785 9.5412 11.3059 9.3035 10.2299 9.29357L9.53121 9.29138H9.52689C9.49019 9.28978 9.45337 9.29346 9.41766 9.30211C9.34547 9.32496 9.27118 9.38551 9.32513 9.54649L9.39467 9.75247L9.48322 10.0154C9.49848 10.0844 9.53441 10.1475 9.58637 10.197C9.64652 10.2273 9.71418 10.2415 9.78184 10.2381H9.97211C10.6462 10.2381 11.096 10.3711 11.3875 10.657C11.6749 10.9377 11.8129 11.4233 11.8129 12.1415C11.8129 12.8597 11.6738 13.3452 11.3875 13.6262C11.096 13.912 10.6465 14.0452 9.97244 14.0452H9.78305C9.71495 14.0416 9.64718 14.0557 9.58671 14.086C9.53463 14.1355 9.49859 14.1985 9.48322 14.2675L9.39467 14.5304L9.32513 14.7365C9.27118 14.8972 9.34547 14.9586 9.41777 14.9808C9.45304 14.9895 9.48953 14.9931 9.52601 14.9916L10.2299 14.9894C11.3059 14.9793 11.785 14.7417 12.2493 14.3347C12.3358 14.257 12.4145 14.1714 12.4844 14.0793C12.8293 13.6352 12.9977 13.0018 12.9977 12.1401C12.9977 11.2783 12.8299 10.644 12.4844 10.2009" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<h1>Prevalent AI — PowerPoint Template</h1>
+<p class="subtitle">Slide size: 10" × 6.25" (16:10) &nbsp;|&nbsp; Fonts: Calibri Light (headings) · Calibri (body) &nbsp;|&nbsp; 8 template slides · 35+ layouts</p>
+
+<!-- Brand palette -->
+<h2>Brand Palette</h2>
+<div class="palette">
+  <div class="chip"><div class="chip-swatch" style="background:#372355"></div><span class="chip-name">dk1 #372355</span> Primary dark / headings</div>
+  <div class="chip"><div class="chip-swatch" style="background:#FFFFFF;border:1px solid #555"></div><span class="chip-name">lt1 #FFFFFF</span> Slide background / text on dark</div>
+  <div class="chip"><div class="chip-swatch" style="background:#E9E8EC"></div><span class="chip-name">lt2 #E9E8EC</span> Dividers / subtle fills</div>
+  <div class="chip"><div class="chip-swatch" style="background:#4D2E58"></div><span class="chip-name">accent1 #4D2E58</span> Section headers</div>
+  <div class="chip"><div class="chip-swatch" style="background:#81718F"></div><span class="chip-name">accent2 #81718F</span> Supporting</div>
+  <div class="chip"><div class="chip-swatch" style="background:#959AA8"></div><span class="chip-name">accent3 #959AA8</span> Slate / tertiary</div>
+  <div class="chip"><div class="chip-swatch" style="background:#C4C6CE"></div><span class="chip-name">accent4 #C4C6CE</span> Light slate</div>
+  <div class="chip"><div class="chip-swatch" style="background:#BB4728"></div><span class="chip-name">accent5 #BB4728</span> Deep red-orange / alerts</div>
+  <div class="chip"><div class="chip-swatch" style="background:#D25B30"></div><span class="chip-name">accent6 #D25B30</span> Orange-red / emphasis</div>
+</div>
+<div class="palette" style="margin-top:-4px; font-size:11px; color:#666;">
+  <span>Chart series order: #372355 → #4D2E58 → #D25B30 → #BB4728 → #81718F → #959AA8</span>
+</div>
+
+<!-- ============================================================
+     SECTION 1: THE 8 TEMPLATE SLIDES
+============================================================ -->
+<h2>Template Slides (8 slides — as shipped)</h2>
+
+<div class="slide-row" style="flex-direction:column; gap:40px;">
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 1 — Cover (4_Custom Layout)
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 1 · 4_Custom Layout</div>
+  <div class="slide-label">Cover — light gray grid background, "Prevalent AI" centered, dashed horizontal rules with circle endpoints</div>
+  <div class="slide" style="background:#EFEFEF;">
+
+    <!-- Grid background (CSS, matches the blueprint-style WMF) -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grid-major" width="80" height="62.5" patternUnits="userSpaceOnUse">
+          <path d="M 80 0 L 0 0 0 62.5" fill="none" stroke="#D8D8D8" stroke-width="0.75"/>
+        </pattern>
+        <pattern id="grid-minor" width="20" height="15.625" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 15.625" fill="none" stroke="#E6E6E6" stroke-width="0.4"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid-minor)"/>
+      <rect width="100%" height="100%" fill="url(#grid-major)"/>
+    </svg>
+
+    <!-- Centered content: dashed rule + wordmark logo + dashed rule -->
+    <div style="position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);
+         display:flex;align-items:center;justify-content:center;gap:0;">
+
+      <!-- Left dashed rule + circle endpoint -->
+      <div style="display:flex;align-items:center;flex:1;min-width:0;">
+        <div style="flex:1;border-top:1.5px dashed #ABABAB;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;border:1.5px solid #ABABAB;
+             background:#EFEFEF;flex-shrink:0;margin:0 2px;"></div>
+      </div>
+
+      <!-- Prevalent AI wordmark SVG -->
+      <div style="padding:0 32px;flex-shrink:0;color:#2A2A2A;">
+        <svg width="300" height="49"><use href="#pai-wordmark"/></svg>
+      </div>
+
+      <!-- Right circle endpoint + dashed rule -->
+      <div style="display:flex;align-items:center;flex:1;min-width:0;">
+        <div style="width:8px;height:8px;border-radius:50%;border:1.5px solid #ABABAB;
+             background:#EFEFEF;flex-shrink:0;margin:0 2px;"></div>
+        <div style="flex:1;border-top:1.5px dashed #ABABAB;"></div>
+      </div>
+    </div>
+
+    <!-- RULE NOTE -->
+    <div style="position:absolute;bottom:10px;right:14px;font-size:8px;color:#ABABAB;font-style:italic;">
+      No text · No shapes · Design is baked into the layout WMF image
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 2 — Disclaimer (Title + Bullets, 1 column)
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 2 · Title (1 line) and Bullets (1 column)</div>
+  <div class="slide-label">Disclaimer — content slide, white background</div>
+  <div class="slide">
+    <!-- Title -->
+    <div class="title-zone">Disclaimer</div>
+    <!-- Dashed separator at y=0.729" -->
+    <div class="separator-dashed"></div>
+    <!-- Body text (starts at y=0.885" for this slide) -->
+    <div class="body-zone-disclaimer">
+      All advice given, or recommendations made in this document is given or are made in good faith on the
+      basis of the information provided and otherwise generally available or known to Prevalent AI Limited
+      at the time of writing. No advice given, or statements or recommendations made shall be in any
+      circumstances constitute or be deemed to constitute a warranty by Prevalent AI Limited as to the
+      accuracy of such advice, statements or recommendations. Prevalent AI Limited shall not be liable for
+      any loss, expense, damage or claim arising out of the advice given or not given or statements made
+      or omitted to be made in connection with this document.<br><br>
+      This document is issued directly to the recipient and contains commercially sensitive and confidential
+      information from Prevalent AI Limited which is released on a strictly private &amp; confidential basis
+      for the sole purpose of this document. Prevalent AI Limited retains ownership of its software,
+      technology, techniques, experience, knowledge and skills that are referred to in this document and
+      does not grant any licence other than for the purpose agreed. The contents of this document may not
+      be communicated outside of the designated parties without the prior written consent of Prevalent AI Limited.<br><br>
+      © Prevalent AI Limited 2019, all rights reserved.
+    </div>
+    <!-- Master logo bottom-left — circular P/I mark only -->
+    <div class="logo-bl" style="color:#372355;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <!-- Slide number -->
+    <div class="slide-num">&lt;&nbsp; 2</div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 3 — Section Divider (8_Custom Layout, Orange)
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 3 · 8_Custom Layout</div>
+  <div class="slide-label">Section divider — orange (#D25B30) background, callout Calibri Bold 32pt</div>
+  <div class="slide" style="background:var(--a6);">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="url(#grid-wh-minor)"/>
+      <rect width="100%" height="100%" fill="url(#grid-wh-major)"/>
+    </svg>
+    <!-- Callout text zone -->
+    <div class="callout-zone">
+      <div class="callout-text placeholder sz-32">This is a call out or section slide.<br>Calibri Bold, 32pt</div>
+    </div>
+    <!-- Logo bottom-left — circular P/I mark, white on colored bg -->
+    <div class="logo-bl" style="color:white;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <div class="slide-num" style="color:rgba(255,255,255,0.6);">&lt;&nbsp; 3</div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 4 — Blank with Title
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 4 · Blank with Title (1 line)</div>
+  <div class="slide-label">Content slide — title + freeform content area, white background</div>
+  <div class="slide">
+    <div class="title-zone">Slide Title</div>
+    <div class="separator-dashed"></div>
+    <!-- Freeform body area -->
+    <div style="position:absolute;left:44px;top:78px;right:44px;bottom:50px;
+         background:var(--lt2);border-radius:2px;display:flex;align-items:center;
+         justify-content:center;color:var(--a3);font-size:12px;font-style:italic;">
+      Freeform content area — add text boxes, charts, images, tables
+    </div>
+    <!-- Logo bottom-left — circular P/I mark, dark on white bg -->
+    <div class="logo-bl" style="color:#372355;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <div class="slide-num">&lt;&nbsp; 4</div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 5 — Section Divider (11_Custom Layout, Dark Purple)
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 5 · 11_Custom Layout</div>
+  <div class="slide-label">Section divider — dark purple (#372355 = tx1) background, callout Calibri Bold 38pt</div>
+  <div class="slide" style="background:var(--dk1);">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="url(#grid-wh-minor)"/>
+      <rect width="100%" height="100%" fill="url(#grid-wh-major)"/>
+    </svg>
+    <div class="callout-zone">
+      <div class="callout-text placeholder sz-38">This is a call out or section slide.<br>Calibri Bold, 38pt</div>
+    </div>
+    <div class="logo-bl" style="color:white;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <div class="slide-num" style="color:rgba(255,255,255,0.5);">&lt;&nbsp; 05</div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 6 — Section Divider (8_Custom Layout, Orange again)
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 6 · 8_Custom Layout</div>
+  <div class="slide-label">Section divider — orange (#D25B30) background</div>
+  <div class="slide" style="background:var(--a6);">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="url(#grid-wh-minor)"/>
+      <rect width="100%" height="100%" fill="url(#grid-wh-major)"/>
+    </svg>
+    <div class="callout-zone">
+      <div class="callout-text placeholder sz-32">This is a call out or section slide.<br>Calibri Bold, 32pt</div>
+    </div>
+    <div class="logo-bl" style="color:white;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <div class="slide-num" style="color:rgba(255,255,255,0.6);">&lt;&nbsp; 6</div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 7 — Section Divider (3_Custom Layout, Accent Purple)
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 7 · 3_Custom Layout</div>
+  <div class="slide-label">Section divider — purple (#4D2E58 = accent1) background, callout Calibri Bold 44pt</div>
+  <div class="slide" style="background:var(--a1);">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="url(#grid-wh-minor)"/>
+      <rect width="100%" height="100%" fill="url(#grid-wh-major)"/>
+    </svg>
+    <div class="logo-bl" style="color:white;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <!-- Callout zone - smaller (y=1.754", h=1.381") -->
+    <div style="position:absolute;left:62px;top:140px;width:673px;height:110px;display:flex;align-items:center;">
+      <div class="callout-text placeholder sz-44">This is a call out or section slide.<br>Calibri Bold, 44pt</div>
+    </div>
+    <!-- Sub-text placeholder at y=3.244" -->
+    <div style="position:absolute;left:63px;top:260px;width:445px;height:92px;
+         display:flex;align-items:center;color:rgba(255,255,255,0.2);font-size:11px;font-style:italic;">
+      Additional sub-text area (y=3.244")
+    </div>
+    <div class="slide-num" style="color:rgba(255,255,255,0.5);">&lt;&nbsp; 07</div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────────
+     SLIDE 8 — Back Cover (4_Custom Layout)
+────────────────────────────────────────────────────────────── -->
+<div class="slide-wrap">
+  <div class="slide-num-badge">Slide 8 · 4_Custom Layout (Back Cover)</div>
+  <div class="slide-label">Back cover — near-white background (#F2F2F2), contact info, circular P/I icon bottom-left, no slide number</div>
+  <div class="slide" style="background:var(--bg-off);">
+    <!-- Contact info at x=0.792", y=2.568" -->
+    <div class="back-contact">
+      prevalent.ai<br>
+      info@prevalent.ai<br>
+      +1 (888) 979-4737
+    </div>
+    <!-- Logo bottom-left — circular P/I mark, dark on light bg -->
+    <div class="logo-bl" style="color:#372355;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <!-- RULE NOTE -->
+    <div style="position:absolute;bottom:12px;right:16px;font-size:8px;color:var(--a3);font-style:italic;">
+      No slide number · Logo is baked-in WMF image
+    </div>
+  </div>
+</div>
+
+</div><!-- /slide-row -->
+
+
+<!-- ============================================================
+     SECTION 2: LAYOUT LIBRARY
+     All available slide layout types
+============================================================ -->
+<h2>Layout Library — All Available Layouts</h2>
+<p style="font-size:12px;color:var(--a3);margin-bottom:24px;">
+  Select the layout closest to your need. Use <code style="background:#2a2a2a;padding:2px 4px;border-radius:2px;">insert_slide_at()</code> for all interior slides.
+  Never use plain <code style="background:#2a2a2a;padding:2px 4px;border-radius:2px;">add_slide()</code>.
+</p>
+
+<div class="slide-row" style="flex-wrap:wrap;gap:24px;">
+
+<!-- ── Cover / Back Cover ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">4_Custom Layout (idx=1)</div>
+  <div class="slide-label">Cover / Back Cover</div>
+  <div class="slide" style="width:400px;height:250px;background:linear-gradient(135deg,#2B1A42,var(--dk1));">
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+      <div style="font-size:10px;color:rgba(255,255,255,0.4);font-style:italic;">Logo image baked into layout</div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);">No placeholders · No text</div>
+    </div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--a6),var(--a5));"></div>
+  </div>
+</div>
+
+<!-- ── 11_Custom Layout — Dark Purple 38pt ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">11_Custom Layout (idx=2)</div>
+  <div class="slide-label">Section Divider — Dark Purple, 38pt</div>
+  <div class="slide" style="width:400px;height:250px;background:var(--dk1);">
+    <div style="position:absolute;left:22px;top:8px;width:21px;height:21px;color:white;display:flex;align-items:center;">
+      <svg width="21" height="21"><use href="#pai-mark"/></svg>
+    </div>
+    <div style="position:absolute;left:22px;top:70px;right:22px;height:109px;display:flex;align-items:center;">
+      <div style="font-family:'Calibri',Arial;font-weight:700;font-size:16px;color:rgba(255,255,255,0.3);font-style:italic;">idx=10 · Callout text · ~38pt Bold</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:rgba(255,255,255,0.3);">&lt; ‹#›</div>
+  </div>
+</div>
+
+<!-- ── 3_Custom Layout — Accent Purple 44pt ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">3_Custom Layout (idx=3)</div>
+  <div class="slide-label">Section Divider — Accent Purple, 44pt</div>
+  <div class="slide" style="width:400px;height:250px;background:var(--a1);">
+    <div style="position:absolute;left:22px;top:70px;right:22px;height:109px;display:flex;align-items:center;">
+      <div style="font-family:'Calibri',Arial;font-weight:700;font-size:18px;color:rgba(255,255,255,0.3);font-style:italic;">idx=10 · Callout text · ~44pt Bold</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:rgba(255,255,255,0.3);">&lt; ‹#›</div>
+  </div>
+</div>
+
+<!-- ── 8_Custom Layout — Orange 32pt ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">8_Custom Layout (idx=7)</div>
+  <div class="slide-label">Section Divider — Orange, 32pt</div>
+  <div class="slide" style="width:400px;height:250px;background:var(--a6);">
+    <div style="position:absolute;left:22px;top:70px;right:22px;height:109px;display:flex;align-items:center;">
+      <div style="font-family:'Calibri',Arial;font-weight:700;font-size:14px;color:rgba(255,255,255,0.35);font-style:italic;">idx=10 · Callout text · ~32pt Bold</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:rgba(255,255,255,0.4);">&lt; ‹#›</div>
+  </div>
+</div>
+
+<!-- ── 7_Custom Layout — Slate 38pt ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">7_Custom Layout (idx=4)</div>
+  <div class="slide-label">Section Divider — Slate (#959AA8), 38pt</div>
+  <div class="slide" style="width:400px;height:250px;background:var(--a3);">
+    <div style="position:absolute;left:22px;top:70px;right:22px;height:109px;display:flex;align-items:center;">
+      <div style="font-family:'Calibri',Arial;font-weight:700;font-size:16px;color:rgba(255,255,255,0.35);font-style:italic;">idx=10 · Callout text · ~38pt Bold</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:rgba(255,255,255,0.4);">&lt; ‹#›</div>
+  </div>
+</div>
+
+
+<!-- ── Blank with Title ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">Blank with Title (1 line) (idx=9)</div>
+  <div class="slide-label">Title + freeform content</div>
+  <div class="slide" style="width:400px;height:250px;">
+    <div style="position:absolute;left:22px;top:13px;right:22px;height:14px;
+         font-family:'Calibri Light','Calibri',Arial;font-size:9px;color:var(--dk1);font-weight:300;display:flex;align-items:center;">
+      idx=0 · Title
+    </div>
+    <div style="position:absolute;left:0;top:29px;right:0;height:1px;border-top:1px dashed var(--lt2);"></div>
+    <div style="position:absolute;left:22px;top:39px;right:22px;bottom:25px;
+         background:var(--lt2);border-radius:2px;display:flex;align-items:center;justify-content:center;
+         font-size:9px;color:var(--a3);font-style:italic;">
+      Freeform — charts, images, text boxes, tables
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:var(--a3);">&lt; ‹#›</div>
+    <div style="position:absolute;left:12px;bottom:10px;width:21px;height:21px;color:#C4C6CE;display:flex;align-items:center;">
+      <svg width="21" height="21"><use href="#pai-mark"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── Title + Bullets 1 col ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">Title (1 line) + Bullets 1 col (idx=11)</div>
+  <div class="slide-label">Standard content slide</div>
+  <div class="slide" style="width:400px;height:250px;">
+    <div style="position:absolute;left:22px;top:13px;right:22px;height:14px;
+         font-family:'Calibri Light','Calibri',Arial;font-size:9px;color:var(--dk1);font-weight:300;display:flex;align-items:center;">
+      idx=0 · Slide Title
+    </div>
+    <div style="position:absolute;left:0;top:29px;right:0;height:1px;border-top:1px dashed var(--lt2);"></div>
+    <div style="position:absolute;left:22px;top:39px;right:22px;bottom:25px;">
+      <div style="font-size:8px;color:var(--a3);font-style:italic;margin-bottom:4px;">idx=12 · Bullets</div>
+      <div style="font-size:8px;color:var(--dk2);line-height:1.8;">
+        • First level bullet point here (max 10 words)<br>
+        • Second bullet point, keep it concise<br>
+        &nbsp;&nbsp;– Second level if needed<br>
+        • Third point (max 5 bullets per slide)<br>
+        • Fourth bullet point for the content<br>
+        • Fifth and final bullet point here
+      </div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:var(--a3);">&lt; ‹#›</div>
+    <div style="position:absolute;left:12px;bottom:10px;width:21px;height:21px;color:#C4C6CE;display:flex;align-items:center;">
+      <svg width="21" height="21"><use href="#pai-mark"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── Title + Bullets 2 col ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">Title (1 line) + Bullets 2 col (idx=15)</div>
+  <div class="slide-label">Two equal columns</div>
+  <div class="slide" style="width:400px;height:250px;">
+    <div style="position:absolute;left:22px;top:13px;right:22px;font-family:'Calibri Light','Calibri',Arial;font-size:9px;color:var(--dk1);">
+      idx=0 · Title
+    </div>
+    <div style="position:absolute;left:0;top:29px;right:0;height:1px;border-top:1px dashed var(--lt2);"></div>
+    <div style="position:absolute;left:22px;top:39px;right:22px;bottom:25px;display:flex;gap:8px;">
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:6px;font-size:8px;color:var(--a2);font-style:italic;">
+        idx=16<br>Column 1 bullets
+      </div>
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:6px;font-size:8px;color:var(--a2);font-style:italic;">
+        idx=17<br>Column 2 bullets
+      </div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:var(--a3);">&lt; ‹#›</div>
+  </div>
+</div>
+
+<!-- ── Title + Bullets 3 col ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">Title (1 line) + Bullets 3 col (idx=19)</div>
+  <div class="slide-label">Three equal columns</div>
+  <div class="slide" style="width:400px;height:250px;">
+    <div style="position:absolute;left:22px;top:13px;right:22px;font-family:'Calibri Light','Calibri',Arial;font-size:9px;color:var(--dk1);">
+      idx=0 · Title
+    </div>
+    <div style="position:absolute;left:0;top:29px;right:0;height:1px;border-top:1px dashed var(--lt2);"></div>
+    <div style="position:absolute;left:22px;top:39px;right:22px;bottom:25px;display:flex;gap:6px;">
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:5px;font-size:7px;color:var(--a2);font-style:italic;">idx=16<br>Col 1</div>
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:5px;font-size:7px;color:var(--a2);font-style:italic;">idx=20<br>Col 2</div>
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:5px;font-size:7px;color:var(--a2);font-style:italic;">idx=19<br>Col 3</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:var(--a3);">&lt; ‹#›</div>
+  </div>
+</div>
+
+<!-- ── Title + 2/3 split ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">Title + Bullets 2/3 col (idx=23)</div>
+  <div class="slide-label">Wide + narrow columns</div>
+  <div class="slide" style="width:400px;height:250px;">
+    <div style="position:absolute;left:22px;top:13px;right:22px;font-family:'Calibri Light','Calibri',Arial;font-size:9px;color:var(--dk1);">
+      idx=0 · Title
+    </div>
+    <div style="position:absolute;left:0;top:29px;right:0;height:1px;border-top:1px dashed var(--lt2);"></div>
+    <div style="position:absolute;left:22px;top:39px;right:22px;bottom:25px;display:flex;gap:6px;">
+      <div style="flex:2;background:var(--lt2);border-radius:2px;padding:5px;font-size:7px;color:var(--a2);font-style:italic;">idx=20<br>Wide col (2/3)</div>
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:5px;font-size:7px;color:var(--a2);font-style:italic;">idx=19<br>Narrow (1/3)</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:var(--a3);">&lt; ‹#›</div>
+  </div>
+</div>
+
+<!-- ── Title + 1/3 split ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">Title + Bullets 1/3 col (idx=27)</div>
+  <div class="slide-label">Narrow + wide columns</div>
+  <div class="slide" style="width:400px;height:250px;">
+    <div style="position:absolute;left:22px;top:13px;right:22px;font-family:'Calibri Light','Calibri',Arial;font-size:9px;color:var(--dk1);">
+      idx=0 · Title
+    </div>
+    <div style="position:absolute;left:0;top:29px;right:0;height:1px;border-top:1px dashed var(--lt2);"></div>
+    <div style="position:absolute;left:22px;top:39px;right:22px;bottom:25px;display:flex;gap:6px;">
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:5px;font-size:7px;color:var(--a2);font-style:italic;">idx=21<br>Narrow (1/3)</div>
+      <div style="flex:2;background:var(--lt2);border-radius:2px;padding:5px;font-size:7px;color:var(--a2);font-style:italic;">idx=20<br>Wide col (2/3)</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:var(--a3);">&lt; ‹#›</div>
+  </div>
+</div>
+
+<!-- ── Title + 4 col ── -->
+<div class="slide-wrap" style="--sw:400px;--sh:250px;">
+  <div class="slide-num-badge">Title + Bullets 4 col (idx=31)</div>
+  <div class="slide-label">Four equal columns</div>
+  <div class="slide" style="width:400px;height:250px;">
+    <div style="position:absolute;left:22px;top:13px;right:22px;font-family:'Calibri Light','Calibri',Arial;font-size:9px;color:var(--dk1);">
+      idx=0 · Title
+    </div>
+    <div style="position:absolute;left:0;top:29px;right:0;height:1px;border-top:1px dashed var(--lt2);"></div>
+    <div style="position:absolute;left:22px;top:39px;right:22px;bottom:25px;display:flex;gap:4px;">
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:4px;font-size:6px;color:var(--a2);font-style:italic;">idx=24</div>
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:4px;font-size:6px;color:var(--a2);font-style:italic;">idx=25</div>
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:4px;font-size:6px;color:var(--a2);font-style:italic;">idx=26</div>
+      <div style="flex:1;background:var(--lt2);border-radius:2px;padding:4px;font-size:6px;color:var(--a2);font-style:italic;">idx=27</div>
+    </div>
+    <div style="position:absolute;right:8px;bottom:8px;font-size:7px;color:var(--a3);">&lt; ‹#›</div>
+  </div>
+</div>
+
+</div><!-- /slide-row layout library -->
+
+
+<!-- ============================================================
+     SECTION 3: COMPONENT PATTERNS — TABLE
+============================================================ -->
+<h2>Component Patterns — Table</h2>
+<p style="font-size:12px;color:var(--a3);margin-bottom:24px;">
+  Use <code style="background:#2a2a2a;padding:2px 4px;border-radius:2px;">.pai-table</code> for all data tables.
+  Section group rows use <code style="background:#2a2a2a;padding:2px 4px;border-radius:2px;">.section-row</code>.
+  First column is always bold brand-dark. Rows alternate white / <code style="background:#2a2a2a;padding:2px 4px;border-radius:2px;">#F0EEF5</code>.
+</p>
+
+<!-- Demo slide with table -->
+<div class="slide-row" style="flex-direction:column;gap:40px;margin-bottom:48px;">
+<div class="slide-wrap">
+  <div class="slide-num-badge">Content Slide · Blank with Title (1 line) — Table example</div>
+  <div class="slide-label">PAI table style — header #372355, section rows #81718F, alternating white/#F0EEF5</div>
+  <div class="slide">
+    <div class="title-zone">Performance &amp; Remuneration Review Timeline</div>
+    <div class="separator-dashed"></div>
+    <!-- Table body -->
+    <div style="position:absolute;left:44px;top:72px;right:44px;bottom:50px;overflow:hidden;">
+      <table class="pai-table">
+        <thead>
+          <tr>
+            <th style="width:14%;">Date (w/c)</th>
+            <th style="width:13%;">Duration</th>
+            <th style="width:36%;">Action by</th>
+            <th>Outcome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="4">Performance review process</td></tr>
+          <tr><td>18 May</td><td>3 weeks</td><td>Lead and Team member</td><td>Complete Bamboo assessment</td></tr>
+          <tr><td>8 June</td><td>1 week</td><td>SLT and Snr Leads</td><td>Complete Capability Matrix</td></tr>
+          <tr><td>15 June</td><td>1 week</td><td>SLT &amp; People Team</td><td>Validate Capability Matrix</td></tr>
+          <tr><td>22 June</td><td>1 week</td><td>Leads &amp; SLT</td><td>Receive and finalise promotion recommendations</td></tr>
+          <tr class="section-row"><td colspan="4">Remuneration review process</td></tr>
+          <tr><td>29 June</td><td>2 weeks</td><td>SLT &amp; People Team</td><td>Produce and validate rem review</td></tr>
+          <tr><td>13 July</td><td>1 week</td><td>People Team</td><td>Payroll and letter preparation</td></tr>
+          <tr><td>20 July</td><td>1 week</td><td>SLT</td><td>Rem outcome letter distribution</td></tr>
+          <tr><td>20 / 31 July</td><td>—</td><td>Payroll (Uk/India)</td><td>Rem effective 1 July</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="logo-bl" style="color:#372355;">
+      <svg width="42" height="42"><use href="#pai-mark"/></svg>
+    </div>
+    <div class="slide-num">&lt;&nbsp; n</div>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================
+     SECTION 5: RULES SUMMARY
+============================================================ -->
+<h2>Hard Rules (SKILL.md Reference)</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:60px;">
+
+  <div style="background:#2A2A2A;border-radius:6px;padding:20px;border-left:3px solid var(--dk1);">
+    <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Mandatory Slide Rules</div>
+    <div style="font-size:11px;color:#ccc;line-height:1.8;">
+      ✓ Slide 1 = <strong>4_Custom Layout</strong>, NO text, NO shapes<br>
+      ✓ Slide 2 = <strong>11_ or 3_Custom Layout</strong> (dark purple bg MANDATORY)<br>
+      ✓ Last slide = <strong>4_Custom Layout</strong>, NO text, NO shapes<br>
+      ✓ Every interior slide MUST have <code style="background:#333;padding:1px 3px;">idx=4</code> slide number<br>
+      ✓ Slide number format: <strong>&lt;&nbsp; [n]</strong> at bottom-right corner<br>
+      ✓ Max 5 bullets · Max 10 words per bullet · Max 1 sub-level
+    </div>
+  </div>
+
+  <div style="background:#2A2A2A;border-radius:6px;padding:20px;border-left:3px solid var(--a6);">
+    <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Code Rules</div>
+    <div style="font-size:11px;color:#ccc;line-height:1.8;">
+      ✓ Always load <code style="background:#333;padding:1px 3px;">Template_PAI_Presentation (2).pptx</code><br>
+      ✓ Call <code style="background:#333;padding:1px 3px;">prepare_template(prs)</code> immediately after load<br>
+      ✓ Use <code style="background:#333;padding:1px 3px;">insert_slide_at(prs, i, layout)</code> for every interior slide<br>
+      ✓ Skip <code style="background:#333;padding:1px 3px;">idx=4</code> when setting text (auto field)<br>
+      ✓ Set text via <code style="background:#333;padding:1px 3px;">run.text = ...</code> not <code style="background:#333;padding:1px 3px;">placeholder.text = ...</code><br>
+      ✓ Font: Calibri / Calibri Light only · Never web DS colors
+    </div>
+  </div>
+
+  <div style="background:#2A2A2A;border-radius:6px;padding:20px;border-left:3px solid var(--a1);">
+    <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Placeholder Quick Reference</div>
+    <table style="font-size:11px;color:#ccc;border-collapse:collapse;width:100%;">
+      <tr style="color:var(--a3);font-size:10px;">
+        <th style="text-align:left;padding:4px 8px 4px 0;">idx</th>
+        <th style="text-align:left;padding:4px 8px;">Name</th>
+        <th style="text-align:left;padding:4px 0;">Use on</th>
+      </tr>
+      <tr><td style="padding:3px 8px 3px 0;font-family:monospace;color:var(--a6);">0</td><td style="padding:3px 8px;">Title 1</td><td style="padding:3px 0;color:#aaa;">Content slides</td></tr>
+      <tr><td style="padding:3px 8px 3px 0;font-family:monospace;color:var(--a6);">4</td><td style="padding:3px 8px;">Slide Number</td><td style="padding:3px 0;color:#aaa;">All interior slides (auto)</td></tr>
+      <tr><td style="padding:3px 8px 3px 0;font-family:monospace;color:var(--a6);">10</td><td style="padding:3px 8px;">Callout Text</td><td style="padding:3px 0;color:#aaa;">Custom Layout section slides</td></tr>
+      <tr><td style="padding:3px 8px 3px 0;font-family:monospace;color:var(--a6);">12</td><td style="padding:3px 8px;">Body Bullets</td><td style="padding:3px 0;color:#aaa;">Bullet/Content layouts</td></tr>
+    </table>
+  </div>
+
+  <div style="background:#2A2A2A;border-radius:6px;padding:20px;border-left:3px solid var(--a5);">
+    <div style="font-size:11px;font-weight:600;color:#fff;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;">Slide Build Order</div>
+    <div style="font-size:11px;color:#ccc;line-height:1.8;">
+      1. <strong>Cover</strong> — 4_Custom Layout (already in template, don't recreate)<br>
+      2. <strong>Title/Agenda heading</strong> — 11_ or 3_Custom Layout, dark purple<br>
+      3–N. <strong>Interior slides</strong> — any content layout<br>
+      N+1. <strong>Back Cover</strong> — 4_Custom Layout (already in template, don't recreate)<br><br>
+      <span style="color:var(--a3);">prepare_template() strips slides 2–7, keeps slide 1 (cover) and slide 8 (back cover). Insert all content between them using insert_slide_at(prs, i, layout) where i starts at 1.</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     SECTION 4: TYPOGRAPHY SPECIMENS
+============================================================ -->
+<h2>Typography</h2>
+<div style="display:flex;flex-direction:column;gap:16px;margin-bottom:60px;">
+  <div style="background:var(--bg-off);border-radius:4px;padding:24px 32px;">
+    <div style="font-family:'Calibri Light','Calibri',Arial;font-weight:300;font-size:36px;color:var(--dk1);line-height:1.1;margin-bottom:4px;">Calibri Light — Slide Title</div>
+    <div style="font-size:11px;color:var(--a3);">idx=0 · ~18–24pt · color #372355 (dk1) · used in title zone of all content slides</div>
+  </div>
+  <div style="background:var(--dk1);border-radius:4px;padding:24px 32px;">
+    <div style="font-family:'Calibri',Arial;font-weight:700;font-size:44px;color:var(--lt1);line-height:1.1;margin-bottom:4px;">Calibri Bold — Callout / Section</div>
+    <div style="font-size:11px;color:var(--a2);">idx=10 · 32–44pt · color white (#FFFFFF) · used in Custom Layout section slides</div>
+  </div>
+  <div style="background:white;border-radius:4px;padding:24px 32px;border:1px solid var(--lt2);">
+    <div style="font-family:'Calibri',Arial;font-size:14px;color:var(--dk2);line-height:1.6;margin-bottom:4px;">
+      Calibri Regular — Body Text / Bullets<br>
+      • First level bullet point — max 10 words per bullet<br>
+      &nbsp;&nbsp;– Second level sub-bullet — use sparingly<br>
+      • Second bullet point with content
+    </div>
+    <div style="font-size:11px;color:var(--a3);">idx=12 · ~11pt · color #000000 (dk2) · max 5 bullets</div>
+  </div>
+  <div style="background:white;border-radius:4px;padding:24px 32px;border:1px solid var(--lt2);">
+    <div style="font-family:'Calibri Light','Calibri',Arial;font-weight:300;font-size:12px;color:var(--dk1);line-height:1.7;margin-bottom:4px;">
+      Calibri Light — Back Cover Contact Info<br>
+      prevalent.ai &nbsp;|&nbsp; info@prevalent.ai &nbsp;|&nbsp; +1 (888) 979-4737
+    </div>
+    <div style="font-size:11px;color:var(--a3);">Textbox on back cover · ~12pt · Calibri Light · color dk1 (#372355)</div>
+  </div>
+</div>
+
+</body>
+</html>

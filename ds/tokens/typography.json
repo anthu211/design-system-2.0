@@ -23,6 +23,27 @@
     "lg":  { "size": "16px", "line-height": "22px" },
     "xl":  { "size": "18px", "line-height": "24px" }
   },
+  "uxp_namespace": {
+    "note": "INFRA-1 — typography token aliases. Add to :root after shell vars.",
+    "map": {
+      "--uxp-font-family":       "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+      "--uxp-font-family-mono":  "'SF Mono', 'Fira Code', monospace",
+      "--uxp-font-size-2xs":     "10px",
+      "--uxp-font-size-xs":      "11px",
+      "--uxp-font-size-sm":      "12px",
+      "--uxp-font-size-base":    "13px",
+      "--uxp-font-size-md":      "14px",
+      "--uxp-font-size-lg":      "16px",
+      "--uxp-font-size-xl":      "18px",
+      "--uxp-font-weight-regular": "400",
+      "--uxp-font-weight-medium":  "500",
+      "--uxp-font-weight-semibold":"600",
+      "--uxp-font-weight-bold":    "700",
+      "--uxp-line-height-tight":   "1.2",
+      "--uxp-line-height-normal":  "1.5",
+      "--uxp-line-height-relaxed": "1.6"
+    }
+  },
   "rules": [
     "Never use <h1> inside the content body — sub-header title is 12px/500 only.",
     "Never use 18px font size except in full-page error states.",

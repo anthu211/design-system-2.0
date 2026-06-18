@@ -19,8 +19,8 @@ export default {
         'accent-dark': '#504bb8',  // filter / active-filters CTA, hover
         topbar:        '#131313',  // always fixed — never theme-switched
         critical:      '#D12329',
-        high:          '#D98B1D',
-        medium:        '#6360D8',
+        high:          '#E15252',
+        medium:        '#D98B1D',
         low:           '#31A56D',
         success:       '#31A56D',
       },
@@ -121,8 +121,8 @@ type Status   = 'active' | 'resolved' | 'in_progress' | 'pending' | 'open' | 'in
 
 const severityStyles: Record<Severity, string> = {
   critical: 'bg-[#F9EEEE] text-[#D12329]',
-  high:     'bg-[#FEF3C7] text-[#D98B1D]',
-  medium:   'bg-[#f0f0fc] text-[#6360D8]',
+  high:     'bg-[#FFF0F0] text-[#E15252]',
+  medium:   'bg-[#FEF3C7] text-[#D98B1D]',
   low:      'bg-[#EFF7ED] text-[#31A56D]',
 }
 

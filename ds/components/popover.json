@@ -1,0 +1,65 @@
+{
+  "component": "popover",
+  "description": "Standard inline popover — a floating panel anchored to a trigger element. Distinct from the full-screen filter-popup (960×600). Use for contextual actions, quick-info panels, overflow menus.",
+  "structure": "ds-popover-wrap > ds-popover-trigger + ds-popover-content",
+  "tokens": {
+    "background":    "var(--card-bg)",
+    "border":        "1px solid var(--card-border)",
+    "border_radius": "8px",
+    "padding":       "12px",
+    "min_width":     "160px",
+    "max_width":     "320px",
+    "z_index":       150,
+    "shadow":        "0 4px 16px rgba(0,0,0,0.12)"
+  },
+  "subcomponents": {
+    "PopoverTrigger": {
+      "class": "ds-popover-trigger",
+      "description": "The element that opens the popover on click. Can be any button or ds-icon-btn.",
+      "example_html": "<button class=\"ds-icon-btn ds-popover-trigger\" aria-haspopup=\"true\" aria-expanded=\"false\"><!-- SVG --></button>"
+    },
+    "PopoverContent": {
+      "class": "ds-popover-content",
+      "description": "The floating panel. Hidden by default — add .open class to show. Position is calculated from trigger via JS or CSS anchor positioning.",
+      "open_state": "Add .open class to ds-popover-content",
+      "placement_variants": ["bottom-start", "bottom-end", "top-start", "top-end", "right", "left"],
+      "example_html": "<div class=\"ds-popover-content\" role=\"dialog\" aria-modal=\"false\"><!-- content --></div>"
+    },
+    "PopoverClose": {
+      "class": "ds-popover-close",
+      "description": "Close button inside the popover content. Optional — popovers can also close on outside click or Escape.",
+      "example_html": "<button class=\"ds-popover-close ds-icon-btn\" aria-label=\"Close\"><!-- × SVG --></button>"
+    },
+    "PopoverArrow": {
+      "class": "ds-popover-arrow",
+      "description": "Optional decorative arrow pointing from popover toward the trigger.",
+      "example_html": "<span class=\"ds-popover-arrow\"></span>"
+    }
+  },
+  "css": ".ds-popover-wrap { position:relative; display:inline-flex; } .ds-popover-content { position:absolute; top:calc(100% + 8px); left:0; background:var(--card-bg); border:1px solid var(--card-border); border-radius:8px; padding:12px; min-width:160px; max-width:320px; z-index:150; box-shadow:0 4px 16px rgba(0,0,0,0.12); display:none; } .ds-popover-content.open { display:block; } .ds-popover-content.placement-bottom-end { left:auto; right:0; } .ds-popover-content.placement-top-start { top:auto; bottom:calc(100% + 8px); } .ds-popover-content.placement-top-end { top:auto; bottom:calc(100% + 8px); left:auto; right:0; } .ds-popover-arrow { position:absolute; top:-5px; left:16px; width:10px; height:10px; background:var(--card-bg); border-top:1px solid var(--card-border); border-left:1px solid var(--card-border); transform:rotate(45deg); }",
+  "js_pattern": "// Open/close:\nfunction togglePopover(triggerId) {\n  var wrap = document.getElementById(triggerId).closest('.ds-popover-wrap');\n  var content = wrap.querySelector('.ds-popover-content');\n  var isOpen = content.classList.toggle('open');\n  var trigger = wrap.querySelector('.ds-popover-trigger');\n  trigger.setAttribute('aria-expanded', isOpen);\n}\n// Close on outside click:\ndocument.addEventListener('click', function(e) {\n  document.querySelectorAll('.ds-popover-content.open').forEach(function(p) {\n    if (!p.closest('.ds-popover-wrap').contains(e.target)) {\n      p.classList.remove('open');\n    }\n  });\n});\n// Close on Escape:\ndocument.addEventListener('keydown', function(e) {\n  if (e.key === 'Escape') document.querySelectorAll('.ds-popover-content.open').forEach(function(p) { p.classList.remove('open'); });\n});",
+  "example_html": "<div class=\"ds-popover-wrap\">\n  <button class=\"ds-icon-btn ds-popover-trigger\" aria-haspopup=\"true\" aria-expanded=\"false\" onclick=\"togglePopover('pop-1')\" id=\"pop-1\"><!-- SVG --></button>\n  <div class=\"ds-popover-content\" role=\"dialog\">\n    <div style=\"display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;\">\n      <span class=\"ds-text-heading\">Details</span>\n      <button class=\"ds-popover-close ds-icon-btn\" onclick=\"this.closest('.ds-popover-content').classList.remove('open')\" aria-label=\"Close\"><!-- × --></button>\n    </div>\n    <p class=\"ds-text-body\">Popover body content goes here.</p>\n  </div>\n</div>",
+  "use_cases": [
+    "Contextual info panel anchored to a table row icon",
+    "Overflow action menu (more options icon)",
+    "Quick-edit inline form (single field, save inline)",
+    "Tooltip-replacement when content needs interaction (links, buttons inside)"
+  ],
+  "do": [
+    "Always close on Escape and outside click.",
+    "Set aria-expanded on trigger — true when open, false when closed.",
+    "Use PopoverClose button when popover contains forms or actions — user needs explicit dismiss.",
+    "Keep popover content lightweight — no full forms, no tables inside."
+  ],
+  "dont": [
+    "Never use popover for severity/status — must be visible in table column.",
+    "Never nest a modal inside a popover.",
+    "Never use the 960×600 filter-popup component for a simple contextual popover.",
+    "Never leave a popover open when navigating away — always cleanup on route change."
+  ],
+  "react": {
+    "library": "Radix UI Popover",
+    "components": ["Popover.Root", "Popover.Trigger", "Popover.Portal", "Popover.Content", "Popover.Close", "Popover.Arrow"],
+    "example": "import * as Popover from '@radix-ui/react-popover';\n<Popover.Root>\n  <Popover.Trigger asChild>\n    <button className=\"ds-icon-btn\"><!-- SVG --></button>\n  </Popover.Trigger>\n  <Popover.Portal>\n    <Popover.Content className=\"ds-popover-content\" sideOffset={8}>\n      <Popover.Arrow className=\"ds-popover-arrow\" />\n      <p className=\"ds-text-body\">Content here.</p>\n      <Popover.Close asChild>\n        <button className=\"ds-popover-close ds-icon-btn\" aria-label=\"Close\">×</button>\n      </Popover.Close>\n    </Popover.Content>\n  </Popover.Portal>\n</Popover.Root>"
+  }
+}

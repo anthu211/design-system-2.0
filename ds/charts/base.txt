@@ -54,12 +54,12 @@ Use **only** for severity/risk data (Critical → High → Medium → Low). Neve
 | Severity | Hex | Token |
 |----------|-----|-------|
 | Critical | `#D12329` | `--status-danger` |
-| High | `#D98B1D` | `--status-warning` |
-| Medium | `#F5B700` | — |
+| High | `#E15252` | `--status-warning` |
+| Medium | `#D98B1D` | — |
 | Low | `#31A56D` | `--status-success` |
 
 ```js
-var CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
+var CHART_COLORS_RAG = ['#D12329', '#E15252', '#D98B1D', '#31A56D'];
 buildDonutChart('my-donut', data, 180, CHART_COLORS_RAG);
 ```
 
@@ -97,7 +97,7 @@ buildDonutChart('my-donut', data, 180, CHART_COLORS_NORMAL); // default
 | X-axis label | `text-anchor: middle` · 6px below bottom axis |
 | Y-tick count | 4–5 ticks — never more than 6 |
 | Chart padding | `top: 16` · `right: 16` · `bottom: 36` · `left: 44` |
-| Severity series | RAG scheme: Critical `#D12329` · High `#D98B1D` · Medium `#F5B700` · Low `#31A56D` |
+| Severity series | RAG scheme: Critical `#D12329` · High `#E15252` · Medium `#D98B1D` · Low `#31A56D` |
 | Single-series | Always use accent `#6760d8` for line/bars |
 
 **Init timing:** Always call chart functions inside `setTimeout(initCharts, 60)` so elements have rendered width before SVG is drawn.
@@ -173,10 +173,10 @@ Use alongside any chart to explain series colors:
     <span class="chart-legend-dot" style="background:#D12329;"></span>Critical
   </div>
   <div class="chart-legend-item">
-    <span class="chart-legend-dot" style="background:#D98B1D;"></span>High
+    <span class="chart-legend-dot" style="background:#E15252;"></span>High
   </div>
   <div class="chart-legend-item">
-    <span class="chart-legend-dot" style="background:#6760d8;"></span>Medium
+    <span class="chart-legend-dot" style="background:#D98B1D;"></span>Medium
   </div>
   <div class="chart-legend-item">
     <span class="chart-legend-dot" style="background:#31A56D;"></span>Low

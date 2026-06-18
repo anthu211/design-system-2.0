@@ -34,6 +34,38 @@
     "rule": "Keep <thead> and pagination visible. No Refresh button. Never use 🚧 here.",
     "example_html": "<tbody><tr><td colspan=\"100%\" style=\"text-align:center;padding:48px 24px;\"><div style=\"font-size:28px;margin-bottom:12px;\">🚦</div><div style=\"font-size:14px;font-weight:600;color:var(--shell-text);margin-bottom:8px;\">No Data… For Now!</div><div style=\"font-size:12px;color:#a3a5af;\">No records match your current filters.</div></td></tr></tbody>"
   },
+  "datatable": {
+    "description": "Extended table pattern for server-driven, paginated, and expandable data. Wraps ds-table with additional interaction layers. Use for PAITable, KPI/Insights tables, and any table with server-side data.",
+    "extends": "ds-table — all base table rules apply (column order, row-actions, badges, empty state)",
+    "features": {
+      "server_pagination": {
+        "description": "Pagination that fetches data from the server on page change. Never loads all rows upfront.",
+        "pattern": "fetchData(page, pageSize, filters) → { rows, total }",
+        "loading_state": "Show skeleton rows (5 rows × columns) while fetching. Keep thead + pagination visible.",
+        "example_js": "async function fetchData(page, pageSize) {\n  showTableSkeleton();\n  const res = await fetch(`/api/items?page=${page}&size=${pageSize}`);\n  const { rows, total } = await res.json();\n  renderRows(rows);\n  updatePagination(page, pageSize, total);\n}"
+      },
+      "expand_rows": {
+        "description": "Expandable row with a nested detail panel. Clicking the row or a chevron reveals sub-content inline.",
+        "trigger": "Chevron icon in leftmost column (after checkbox, before data columns). Toggles aria-expanded.",
+        "expanded_row_class": "ds-tr-expanded",
+        "detail_row_class": "ds-tr-detail",
+        "rule": "Detail row spans all columns via colspan. Animate open/close with max-height transition.",
+        "css": ".ds-tr-detail td { padding:0; } .ds-tr-detail-inner { padding:12px 16px 12px 48px; background:var(--shell-raised); border-bottom:1px solid var(--table-border); overflow:hidden; max-height:0; transition:max-height 200ms ease; } .ds-tr-expanded + .ds-tr-detail .ds-tr-detail-inner { max-height:400px; } .ds-expand-btn { width:20px; height:20px; border:none; background:transparent; color:var(--shell-text-muted); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform 150ms; } .ds-tr-expanded .ds-expand-btn { transform:rotate(90deg); }",
+        "example_html": "<!-- Expandable row -->\n<tr class=\"ds-tr-expanded\">\n  <td class=\"ds-td\" style=\"width:40px;\"><input type=\"checkbox\"></td>\n  <td class=\"ds-td\" style=\"width:32px;\">\n    <button class=\"ds-expand-btn\" aria-expanded=\"true\" aria-label=\"Collapse row\">\n      <svg width=\"12\" height=\"12\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"9 18 15 12 9 6\"/></svg>\n    </button>\n  </td>\n  <td class=\"ds-td\">Row content</td>\n  <td class=\"ds-td\"><span class=\"ds-badge danger\">Critical</span></td>\n  <td class=\"ds-td col-actions\"><div class=\"row-actions\"><!-- icons --></div></td>\n</tr>\n<!-- Detail row -->\n<tr class=\"ds-tr-detail\">\n  <td colspan=\"5\">\n    <div class=\"ds-tr-detail-inner\">\n      <!-- Sub-row content: related findings, nested table, extra fields -->\n    </div>\n  </td>\n</tr>"
+      },
+      "column_header_controls": {
+        "description": "Sortable column headers. Add sort indicator icons. Never build column resize or reorder in HTML — those are TanStack/React-table concerns.",
+        "sort_css": ".ds-th-sortable { cursor:pointer; user-select:none; } .ds-th-sortable:hover { background:var(--shell-hover); } .ds-sort-icon { margin-left:4px; opacity:0.4; transition:opacity 100ms; } .ds-th-sortable:hover .ds-sort-icon,.ds-th-asc .ds-sort-icon,.ds-th-desc .ds-sort-icon { opacity:1; }",
+        "example_html": "<th class=\"ds-th ds-th-sortable ds-th-asc\" onclick=\"sortBy('name')\">\n  Name\n  <svg class=\"ds-sort-icon\" width=\"10\" height=\"10\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polyline points=\"18 15 12 9 6 15\"/></svg>\n</th>"
+      }
+    },
+    "loading_skeleton_pattern": "<tbody id=\"table-skeleton\">\n  <!-- Repeat 5× -->\n  <tr>\n    <td class=\"ds-td\"><div class=\"ds-skeleton\" style=\"width:16px;height:16px;border-radius:4px;\"></div></td>\n    <td class=\"ds-td\"><div class=\"ds-skeleton\" style=\"width:80%;height:12px;\"></div></td>\n    <td class=\"ds-td\"><div class=\"ds-skeleton\" style=\"width:60px;height:20px;border-radius:4px;\"></div></td>\n    <td class=\"ds-td col-actions\"></td>\n  </tr>\n</tbody>",
+    "react": {
+      "library": "TanStack Table (React Table v8) — handles pagination, sorting, expanding, virtualization, column resize",
+      "ds_integration": "Use TanStack for data logic. Apply ds-table, ds-th, ds-td, ds-badge, row-actions CSS classes on TanStack-rendered elements.",
+      "note": "Virtualization and column resize/reorder stay in TanStack — do not replicate in the DS. DS provides the visual layer only."
+    }
+  },
   "bulk_toolbar": {
     "trigger": "Appears when ≥1 row checked",
     "position": "Above table, replaces or overlays filter bar",
