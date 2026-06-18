@@ -12,6 +12,18 @@
   },
   "structure": "ds-modal-overlay > ds-modal > ds-modal-header + ds-modal-body + ds-modal-footer",
   "footer_order": "Cancel (left, t-outline) → Confirm (right, t-primary or t-danger)",
+  "props": {
+    "hideClose": {
+      "description": "Suppress the × close button in the modal header. Use for non-dismissable dialogs (e.g. forced setup steps, session expired, licence walls) where the user must complete the flow.",
+      "rule": "Only omit the close button when there is genuinely no escape route. Must still provide a footer action (even if just 'Dismiss').",
+      "example_html": "<!-- No close button — footer action is the only exit -->\n<div class=\"ds-modal\">\n  <div class=\"ds-modal-header\">\n    <span class=\"ds-modal-title\">Session Expired</span>\n    <!-- no ds-modal-close here -->\n  </div>\n  <div class=\"ds-modal-body\">Your session has expired. Please log in again.</div>\n  <div class=\"ds-modal-footer\">\n    <button class=\"ds-btn sz-md t-primary\">Log In</button>\n  </div>\n</div>"
+    },
+    "hideOverlay": {
+      "description": "Render the modal without the backdrop overlay. Use for inline confirmations or dialogs that appear within a drawer or panel where a second overlay would stack incorrectly.",
+      "rule": "Never hide the overlay on page-level modals — only within already-overlaid surfaces (drawers, side panels).",
+      "example_html": "<!-- No overlay — used inside a drawer -->\n<div class=\"ds-modal-overlay\" style=\"background:transparent;backdrop-filter:none;\">\n  <div class=\"ds-modal\"><!-- content --></div>\n</div>"
+    }
+  },
   "variants_detail": {
     "confirmation": {
       "use": "Destructive actions — delete, remove, revoke. Required before any destructive operation.",

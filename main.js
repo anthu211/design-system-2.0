@@ -441,6 +441,18 @@ document.querySelectorAll('.ds-checkbox-item').forEach(function(item) {
   });
 });
 
+// ─── Asset table select-all ───
+function dsAssetTableCheckAll(label) {
+  var box = label.querySelector('.ds-checkbox-box');
+  var tbody = document.getElementById('asset-tbl-body');
+  if (!box || !tbody) return;
+  var doCheck = !box.classList.contains('checked');
+  tbody.querySelectorAll('.ds-asset-tbl-row-chk .ds-checkbox-box').forEach(function(cb) {
+    cb.classList.remove('checked', 'indeterminate');
+    if (doCheck) cb.classList.add('checked');
+  });
+}
+
 // ─── Input focus state ───
 document.querySelectorAll('.ds-input-field').forEach(function(field) {
   var input = field.querySelector('input');
@@ -480,7 +492,7 @@ document.querySelectorAll('.ds-textarea-field[data-max]').forEach(function(ta) {
 
 // ─── Charts ───
 // RAG scheme — severity/criticality only (Critical → High → Medium → Low)
-const CHART_COLORS_RAG = ['#D12329', '#D98B1D', '#F5B700', '#31A56D'];
+const CHART_COLORS_RAG = ['#D12329', '#E15252', '#D98B1D', '#31A56D'];
 // Normal scheme — non-RAG colours for category/entity breakdowns
 const CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
 // Default fallback (kept for backward compat)
@@ -1787,6 +1799,16 @@ function showDemoToast(type, message) {
 }
 
 // ─── Tabs ───
+function moveTabsIndicator(listEl) {
+  var indicator = listEl.querySelector('.ds-tabs-indicator');
+  if (!indicator) return;
+  var active = listEl.querySelector('.ds-tab.active');
+  if (!active) return;
+  var lr = listEl.getBoundingClientRect(), tr = active.getBoundingClientRect();
+  indicator.style.left = (tr.left - lr.left) + 'px';
+  indicator.style.width = tr.width + 'px';
+}
+
 document.querySelectorAll('.ds-tab').forEach(function(tab) {
   tab.addEventListener('click', function() {
     var tabsId = tab.dataset.tabs;
@@ -1798,8 +1820,14 @@ document.querySelectorAll('.ds-tab').forEach(function(tab) {
     tab.classList.add('active');
     var panel = document.getElementById(panelId);
     if (panel) panel.classList.add('active');
+    var list = tab.closest('.ds-tabs-list');
+    if (list) moveTabsIndicator(list);
   });
 });
+
+setTimeout(function() {
+  document.querySelectorAll('.ds-tabs-list').forEach(function(list) { moveTabsIndicator(list); });
+}, 50);
 
 // ─── Accordion ───
 function toggleAccordion(trigger) {
@@ -2014,6 +2042,15 @@ function changePage(id, page) {
   } else {
     buildPaginator(id);
   }
+}
+function changeTablePageSize(val, btn) {
+  TABLE_PAGE_SIZE = parseInt(val) || 10;
+  tablePage = 1;
+  if (btn) {
+    btn.closest('.ds-page-size-group').querySelectorAll('.ds-page-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+  renderTable(getFilteredSorted());
 }
 function initPaginators() {
   buildPaginator('pager-1');
@@ -2502,6 +2539,11 @@ var SEARCH_INDEX = [
   { t:'KPI Cards', p:'kpi', cat:'Component', d:'Key performance indicator cards with trend delta and direction', k:'kpi card metric value delta trend performance indicator dashboard' },
   { t:'Toggle & Select', p:'toggleselect', cat:'Component', d:'Toggle switches and dropdown select controls', k:'toggle switch select dropdown' },
   { t:'States', p:'states', cat:'Component', d:'Loading skeleton, empty, and error state patterns', k:'state loading skeleton empty error section table field validation spinner' },
+  { t:'Datepicker', p:'datepicker', cat:'Component', d:'Calendar date and date-range picker with day states', k:'datepicker calendar date range picker input schedule' },
+
+  { t:'Scroll Area', p:'scrollarea', cat:'Component', d:'Custom scrollbar styling — vertical, horizontal, native fallback', k:'scroll scrollbar area overflow custom native vertical horizontal' },
+  { t:'Anchor Link', p:'anchorlink', cat:'Component', d:'Inline navigational links — default, muted, danger, subtle variants', k:'anchor link href inline navigation text muted danger subtle' },
+  { t:'Link List', p:'linklist', cat:'Component', d:'Vertical list of navigational links with icons, active state, and dividers', k:'link list nav navigation menu vertical icon active divider' },
   { t:'Screen Shell', p:'screenshell', cat:'Template', d:'Mandatory full-page layout: topbar, left nav, sticky sub-header, content body', k:'screen shell layout template topbar nav breadcrumb structure page' },
   { t:'--shell-accent', p:'colors', cat:'Token', d:'#6360D8 · Primary CTA, buttons, focus rings', k:'accent purple cta primary button' },
   { t:'--shell-bg', p:'colors', cat:'Token', d:'App background color', k:'background bg surface' },
@@ -2510,7 +2552,7 @@ var SEARCH_INDEX = [
   { t:'--shell-text', p:'colors', cat:'Token', d:'Primary text color', k:'text color primary body' },
   { t:'--shell-text-muted', p:'colors', cat:'Token', d:'Secondary muted text', k:'text muted secondary label caption' },
   { t:'--status-critical', p:'badges', cat:'Token', d:'#D12329 · Critical severity', k:'critical error red danger high severity' },
-  { t:'--status-high', p:'badges', cat:'Token', d:'High severity indicator', k:'high severity warning' },
+  { t:'--status-high', p:'badges', cat:'Token', d:'#E15252 · High severity / Weak maturity', k:'high severity weak maturity red' },
   { t:'--status-medium', p:'badges', cat:'Token', d:'Medium severity indicator', k:'medium severity yellow caution' },
   { t:'--status-low', p:'badges', cat:'Token', d:'Low severity / success color', k:'low severity success green resolved' },
 ];
@@ -3108,7 +3150,7 @@ function initBadgePlayground() {
       { type: 'radio', id: 'variant', label: 'Variant', default: 'danger',
         options: [
           {value:'danger',  label:'Danger (Critical)'},
-          {value:'warning', label:'Warning (High)'},
+          {value:'high',    label:'High'},
           {value:'caution', label:'Caution (Medium-High)'},
           {value:'info',    label:'Info (Medium)'},
           {value:'success', label:'Success (Low/Active)'},
@@ -3543,8 +3585,8 @@ var _DS_TOKENS = {
     '--color-accent-light':    '#f0f0fc',
     '--color-accent-tint':     '#e0dff7',
     '--color-severity-critical': '#D12329',
-    '--color-severity-high':     '#D98B1D',
-    '--color-severity-medium':   '#6360D8',
+    '--color-severity-high':     '#E15252',
+    '--color-severity-medium':   '#D98B1D',
     '--color-severity-low':      '#31A56D',
     '--color-success-bg':        '#EFF7ED',
     '--color-warning-bg':        '#FEF3C7',
@@ -3673,10 +3715,10 @@ function initStatesPage() {
 
   // ── Severity helpers ──
   var SEV_BADGE = {
-    critical: 'danger', high: 'warning', medium: 'info', low: 'success'
+    critical: 'danger', high: 'high', medium: 'warning', low: 'success'
   };
   var SEV_COLOR = {
-    critical: '#D12329', high: '#D98B1D', medium: '#6360D8', low: '#31A56D'
+    critical: '#D12329', high: '#E15252', medium: '#D98B1D', low: '#31A56D'
   };
 
   // ── Open / Close ──
@@ -4365,6 +4407,7 @@ function initStatesPage() {
     host:          ['Asset Criticality','Business Unit','Compliance','Display Label','Infrastructure Type','Purpose','Score','Type'],
     application:   ['Application Name','Business Unit','Compliance','Environment','Framework','Owner','Risk Level','Status'],
     vulnerability: ['CVSSv3 Score','Category','Exploit Available','First Seen','Last Seen','Patch Available','Severity','State'],
+    cloud:         ['Account ID','Cloud Provider','Region','Resource Type','Service Name','Tags'],
     user:          ['Business Unit','Department','Last Login','Privilege Level','Role','Status'],
     cve:           ['CVE ID','CVSSv3 Score','Exploit Maturity','Published Date','Severity','Vendor']
   };
@@ -4383,71 +4426,125 @@ function initStatesPage() {
     'State':              ['Active','Fixed','Accepted Risk','In Progress'],
     'Exploit Available':  ['Yes','No'],
     'Patch Available':    ['Yes','No'],
-    'Exploit Maturity':   ['Functional','High','Proof of Concept','Unproven']
+    'Exploit Maturity':   ['Functional','High','Proof of Concept','Unproven'],
+    'Cloud Provider':     ['AWS','Azure','GCP','Oracle Cloud'],
+    'Region':             ['us-east-1','us-west-2','eu-west-1','ap-southeast-1'],
+    'Resource Type':      ['Compute','Storage','Database','Network','IAM'],
+    'Display Label':      ['NBAM11C-130','NBAM11C-049','NBAM11C-013.PREVALENT','NBAM11C-019.PREVALENT','NBAM11C-031.PREVALENT','NBAM11C-026.PREVALENT','NBAM11C-049.PREVALENT','NBAM11C-048.PREVALENT','NBAM11C-056.PREVALENT','NBAM11C-059.PREVALENT','NBAM11C-051.PREVALENT','NBAM11C-059.PREVALENT-2'],
+    'Score':              ['0-20','21-40','41-60','61-80','81-100'],
+    'VM Onboarding Status': ['True','False','Pending','Unknown']
   };
 
   // ── State ──
   var fp = {
-    entity: 'host',
-    attr:   null,
-    mode:   'include',
+    entity:  'host',
+    attr:    null,
+    mode:    'include',
     sortAsc: true,
-    checked: {},       // key = "entity::attr::val" → bool
-    applied: []        // [{entity,attr,values,mode}]
+    checked: {},
+    applied: [],
+    attrsCollapsed: false
   };
+
+  // ── Helpers ──
+  function $id(id) { return document.getElementById(id); }
+
+  function dsFpUpdateBottomBar() {
+    var hasApplied = fp.applied.length > 0;
+    var clearBtn = $id('ds-fp-clear-all');
+    var applyBtn = $id('ds-fp-apply-main');
+    if (clearBtn) { clearBtn.disabled = !hasApplied; }
+    if (applyBtn) {
+      applyBtn.disabled = !hasApplied;
+    }
+  }
+
+  function dsFpUpdateAppliedBar() {
+    var count = fp.applied.reduce(function(n, g) { return n + g.values.length; }, 0);
+    var el = $id('ds-fp-applied-count');
+    if (el) el.textContent = count;
+    var removeBtn = $id('ds-fp-remove-applied');
+    if (removeBtn) removeBtn.classList.toggle('disabled', count === 0);
+  }
 
   // ── Open / Close ──
   window.openDsFilterPopup = function() {
-    document.getElementById('ds-fp-overlay').classList.add('open');
+    $id('ds-fp-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
-    dsFpSelectEntity('host', true);
-    setTimeout(dsFpDrawLines, 60);
+    fp.entity = 'host'; fp.attr = null;
+    document.querySelectorAll('.ds-fp-node').forEach(function(n) {
+      n.classList.toggle('active', n.dataset.entity === 'host');
+    });
+    dsFpRenderAttrs(FP_ATTRS['host'] || []);
+    dsFpClearValGrid();
+    dsFpUpdateBottomBar();
+    dsFpUpdateAppliedBar();
+    setTimeout(dsFpDrawLines, 80);
   };
   window.closeDsFilterPopup = function() {
-    document.getElementById('ds-fp-overlay').classList.remove('open');
+    $id('ds-fp-overlay').classList.remove('open');
     document.body.style.overflow = '';
   };
   window.dsFpOverlayClick = function(e) {
-    if (e.target === document.getElementById('ds-fp-overlay')) closeDsFilterPopup();
+    if (e.target === $id('ds-fp-overlay')) closeDsFilterPopup();
   };
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && document.getElementById('ds-fp-overlay').classList.contains('open')) {
-      closeDsFilterPopup();
-    }
+    if (e.key === 'Escape' && $id('ds-fp-overlay').classList.contains('open')) closeDsFilterPopup();
   });
 
+  // ── Tab switching ──
+  window.dsFpSwitchTab = function(tab) {
+    document.querySelectorAll('.ds-fp-tab').forEach(function(t) {
+      t.classList.toggle('active', t.id === 'ds-fp-tab-' + tab);
+    });
+  };
+
   // ── Entity selection ──
-  window.dsFpSelectEntity = function(key, autoAttr) {
+  window.dsFpSelectEntity = function(key) {
     fp.entity = key;
+    fp.attr = null;
     document.querySelectorAll('.ds-fp-node').forEach(function(n) {
       n.classList.toggle('active', n.dataset.entity === key);
     });
-    var label = key.charAt(0).toUpperCase() + key.slice(1);
-    document.getElementById('ds-fp-entity-label').textContent = label;
-    document.getElementById('ds-fp-attr-search').value = '';
-    fp.attr = null;
+    var attrSearch = $id('ds-fp-attr-search');
+    if (attrSearch) attrSearch.value = '';
     dsFpRenderAttrs(FP_ATTRS[key] || []);
     dsFpClearValGrid();
-    if (autoAttr !== false && (FP_ATTRS[key] || []).length) {
-      dsFpSelectAttr((FP_ATTRS[key] || [])[0]);
+    // update entity preview chip
+    var ecChip = $id('ds-fp-ec-chip');
+    var ecEntity = $id('ds-fp-ec-entity');
+    if (ecChip && ecEntity) {
+      var label = key.charAt(0).toUpperCase() + key.slice(1);
+      ecEntity.textContent = label;
+      ecChip.style.display = 'inline-flex';
     }
+    dsFpDrawLines();
   };
 
   // ── Attribute list ──
   function dsFpRenderAttrs(list) {
-    var el = document.getElementById('ds-fp-attr-list');
+    var el = $id('ds-fp-attr-list');
+    if (!el) return;
     el.innerHTML = '';
     if (!list.length) {
       el.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--shell-text-muted);">No attributes found.</div>';
       return;
     }
+    var section = document.createElement('div');
+    section.className = 'ds-fp-attr-section';
+    section.textContent = 'Application';
+    el.appendChild(section);
     list.forEach(function(attr) {
       var row = document.createElement('label');
       row.className = 'ds-fp-attr-opt' + (attr === fp.attr ? ' active' : '');
       row.dataset.attr = attr;
-      row.innerHTML = '<input type="radio" name="ds-fp-attr"' + (attr === fp.attr ? ' checked' : '') + '> ' + attr +
-        (attr === fp.attr ? '<span class="ds-fp-attr-dot"></span>' : '');
-      row.addEventListener('click', function() { dsFpSelectAttr(attr); });
+      var checked = attr === fp.attr;
+      row.innerHTML = '<input type="checkbox"' + (checked ? ' checked' : '') + '> ' + attr +
+        (checked ? '<span class="ds-fp-attr-dot"></span>' : '');
+      row.addEventListener('click', function(e) {
+        e.preventDefault();
+        dsFpSelectAttr(attr);
+      });
       el.appendChild(row);
     });
   }
@@ -4462,15 +4559,40 @@ function initStatesPage() {
     document.querySelectorAll('.ds-fp-attr-opt').forEach(function(o) {
       var sel = o.dataset.attr === attr;
       o.classList.toggle('active', sel);
-      var r = o.querySelector('input[type="radio"]');
-      if (r) r.checked = sel;
+      var cb = o.querySelector('input[type="checkbox"]');
+      if (cb) cb.checked = sel;
       var dot = o.querySelector('.ds-fp-attr-dot');
       if (sel && !dot) { var d = document.createElement('span'); d.className = 'ds-fp-attr-dot'; o.appendChild(d); }
       else if (!sel && dot) dot.remove();
     });
-    document.getElementById('ds-fp-val-search').value = '';
-    document.getElementById('ds-fp-sel-all').checked = false;
+    var vs = $id('ds-fp-val-search');
+    if (vs) vs.value = '';
+    var sa = $id('ds-fp-sel-all');
+    if (sa) sa.checked = false;
+    var titleEl = $id('ds-fp-val-title');
+    if (titleEl) titleEl.textContent = attr;
     dsFpRenderVals(dsFpGetVals(attr));
+  };
+
+  // ── Collapse attrs panel ──
+  window.dsFpToggleAttrs = function() {
+    fp.attrsCollapsed = !fp.attrsCollapsed;
+    var panel = $id('ds-fp-attrs-panel');
+    if (panel) panel.classList.toggle('collapsed', fp.attrsCollapsed);
+  };
+
+  // ── Include / Exclude toggle ──
+  window.dsFpToggleIncExc = function() {
+    var sw = $id('ds-fp-switch');
+    if (!sw) return;
+    var isInclude = sw.getAttribute('aria-checked') === 'true';
+    isInclude = !isInclude;
+    fp.mode = isInclude ? 'include' : 'exclude';
+    sw.setAttribute('aria-checked', isInclude ? 'true' : 'false');
+    var incLbl = $id('ds-fp-inc-lbl');
+    var excLbl = $id('ds-fp-exc-lbl');
+    if (incLbl) incLbl.className = 'ds-fp-ie-label' + (isInclude ? ' ds-fp-ie-on' : ' ds-fp-ie-off');
+    if (excLbl) excLbl.className = 'ds-fp-ie-label' + (!isInclude ? ' ds-fp-ie-on' : ' ds-fp-ie-off');
   };
 
   // ── Values ──
@@ -4478,8 +4600,11 @@ function initStatesPage() {
     return FP_VALS[attr] || ['Value A','Value B','Value C','Value D','Value E','Value F'];
   }
 
+  var CHECK_SVG = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+
   function dsFpRenderVals(list) {
-    var grid = document.getElementById('ds-fp-val-grid');
+    var grid = $id('ds-fp-val-grid');
+    if (!grid) return;
     grid.innerHTML = '';
     var sorted = fp.sortAsc ? list.slice().sort() : list.slice().sort().reverse();
     sorted.forEach(function(val) {
@@ -4488,9 +4613,8 @@ function initStatesPage() {
       var item = document.createElement('div');
       item.className = 'ds-fp-val-opt' + (checked ? ' checked' : '');
       item.dataset.key = key;
-      item.innerHTML = '<div class="ds-fp-val-box">' +
-        (checked ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : '') +
-        '</div><span class="ds-fp-val-name">' + val + '</span>';
+      item.innerHTML = '<span class="ds-fp-val-name">' + val + '</span>' +
+        '<div class="ds-fp-val-check">' + (checked ? CHECK_SVG : '') + '</div>';
       item.addEventListener('click', function() { dsFpToggleVal(key, val, item); });
       grid.appendChild(item);
     });
@@ -4500,18 +4624,19 @@ function initStatesPage() {
     fp.checked[key] = !fp.checked[key];
     var c = fp.checked[key];
     item.classList.toggle('checked', c);
-    item.querySelector('.ds-fp-val-box').innerHTML = c
-      ? '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'
-      : '';
-    // sync select-all checkbox
+    var circle = item.querySelector('.ds-fp-val-check');
+    if (circle) circle.innerHTML = c ? CHECK_SVG : '';
     var all = dsFpGetVals(fp.attr);
     var allChecked = all.every(function(v) { return !!fp.checked[fp.entity + '::' + fp.attr + '::' + v]; });
-    document.getElementById('ds-fp-sel-all').checked = allChecked;
+    var sa = $id('ds-fp-sel-all');
+    if (sa) sa.checked = allChecked;
   }
 
   function dsFpClearValGrid() {
-    var g = document.getElementById('ds-fp-val-grid');
+    var g = $id('ds-fp-val-grid');
     if (g) g.innerHTML = '<div style="padding:24px 16px;font-size:12px;color:var(--shell-text-muted);">Select an attribute to view values.</div>';
+    var titleEl = $id('ds-fp-val-title');
+    if (titleEl) titleEl.textContent = 'Select an attribute';
   }
 
   window.dsFpFilterVals = function(q) {
@@ -4530,31 +4655,80 @@ function initStatesPage() {
 
   window.dsFpToggleSort = function() {
     fp.sortAsc = !fp.sortAsc;
-    document.getElementById('ds-fp-sort-lbl').textContent = fp.sortAsc ? 'A-Z' : 'Z-A';
+    var lbl = $id('ds-fp-sort-lbl');
+    if (lbl) lbl.textContent = fp.sortAsc ? 'A-Z' : 'Z-A';
     if (fp.attr) dsFpRenderVals(dsFpGetVals(fp.attr));
   };
 
-  window.dsFpSetMode = function(mode) {
-    fp.mode = mode;
-    document.getElementById('ds-fp-inc').classList.toggle('active', mode === 'include');
-    document.getElementById('ds-fp-exc').classList.toggle('active', mode === 'exclude');
+  // ── Remove applied values ──
+  window.dsFpRemoveApplied = function() {
+    fp.applied.forEach(function(g) {
+      g.values.forEach(function(v) { fp.checked[g.entity + '::' + g.attr + '::' + v] = false; });
+    });
+    fp.applied = [];
+    dsFpRenderChips();
+    dsFpUpdateAppliedBar();
+    dsFpUpdateBottomBar();
+    showToast('info', 'Applied values removed');
+  };
+
+  // ── Preview chip management ──
+  window.dsFpClearPreview = function() {
+    var chip = $id('ds-fp-ec-chip');
+    var pw = $id('ds-fp-pw');
+    var acChip = $id('ds-fp-ac-chip');
+    if (chip) chip.style.display = 'none';
+    if (pw) pw.style.display = 'none';
+    if (acChip) acChip.style.display = 'none';
+  };
+
+  window.dsFpClearAttrPreview = function() {
+    var pw = $id('ds-fp-pw');
+    var acChip = $id('ds-fp-ac-chip');
+    if (pw) pw.style.display = 'none';
+    if (acChip) acChip.style.display = 'none';
   };
 
   // ── Apply ──
-  window.dsFpApply = function() {
+  window.dsFpApply = function(mode) {
+    var applyMode = mode || fp.mode;
     var groups = {};
     Object.keys(fp.checked).forEach(function(key) {
       if (!fp.checked[key]) return;
       var parts = key.split('::');
       var gk = parts[0] + '::' + parts[1];
-      if (!groups[gk]) groups[gk] = { entity: parts[0], attr: parts[1], values: [], mode: fp.mode };
+      if (!groups[gk]) groups[gk] = { entity: parts[0], attr: parts[1], values: [], mode: applyMode };
       groups[gk].values.push(parts[2]);
     });
-    fp.applied = Object.values ? Object.values(groups) : Object.keys(groups).map(function(k) { return groups[k]; });
+    fp.applied = Object.keys(groups).map(function(k) { return groups[k]; });
     dsFpRenderChips();
+    dsFpUpdateAppliedBar();
+    dsFpUpdateBottomBar();
+
+    // update bottom bar preview chips
+    if (fp.applied.length) {
+      var first = fp.applied[0];
+      var ecChip = $id('ds-fp-ec-chip');
+      var ecEntity = $id('ds-fp-ec-entity');
+      var pw = $id('ds-fp-pw');
+      var acChip = $id('ds-fp-ac-chip');
+      var acAttr = $id('ds-fp-ac-attr');
+      var acVal = $id('ds-fp-ac-val');
+      if (ecChip && ecEntity) {
+        ecEntity.textContent = first.entity.charAt(0).toUpperCase() + first.entity.slice(1);
+        ecChip.style.display = 'inline-flex';
+      }
+      if (pw) pw.style.display = 'inline';
+      if (acChip && acAttr && acVal) {
+        acAttr.textContent = first.attr;
+        acVal.textContent = first.values.length === 1 ? first.values[0] : first.values.length + ' values';
+        acChip.style.display = 'inline-flex';
+      }
+    }
+
     closeDsFilterPopup();
     var total = fp.applied.reduce(function(n, g) { return n + g.values.length; }, 0);
-    if (total > 0) showToast('success', total + ' filter(s) applied');
+    if (total > 0) showToast('success', total + ' filter(s) applied (' + applyMode + ')');
   };
 
   function dsFpRenderChips() {
@@ -4587,29 +4761,37 @@ function initStatesPage() {
     g.values = g.values.filter(function(v) { return v !== val; });
     if (!g.values.length) fp.applied.splice(gi, 1);
     dsFpRenderChips();
+    dsFpUpdateAppliedBar();
+    dsFpUpdateBottomBar();
   }
 
   window.dsFpClearAll = function() {
     fp.checked = {};
     fp.applied = [];
     dsFpRenderChips();
+    dsFpUpdateAppliedBar();
+    dsFpUpdateBottomBar();
+    dsFpClearPreview();
+    if (fp.attr) dsFpRenderVals(dsFpGetVals(fp.attr));
+    var sa = $id('ds-fp-sel-all');
+    if (sa) sa.checked = false;
     showToast('info', 'All filters cleared');
   };
 
   // ── SVG connection lines ──
   function dsFpDrawLines() {
-    var canvas = document.getElementById('ds-fp-canvas');
-    var svg = document.getElementById('ds-fp-svg');
+    var canvas = $id('ds-fp-canvas');
+    var svg = $id('ds-fp-svg');
     if (!canvas || !svg) return;
     var cr = canvas.getBoundingClientRect();
     svg.setAttribute('viewBox', '0 0 ' + cr.width + ' ' + cr.height);
     svg.innerHTML = '';
-    var center = document.querySelector('.ds-fp-node[data-entity="host"]');
+    var center = canvas.querySelector('.ds-fp-node[data-entity="host"]');
     if (!center) return;
     var ccr = center.getBoundingClientRect();
     var cx = ccr.left - cr.left + ccr.width / 2;
     var cy = ccr.top  - cr.top  + ccr.height / 2;
-    document.querySelectorAll('.ds-fp-node:not([data-entity="host"])').forEach(function(node) {
+    canvas.querySelectorAll('.ds-fp-node:not([data-entity="host"])').forEach(function(node) {
       var nr = node.getBoundingClientRect();
       var nx = nr.left - cr.left + nr.width / 2;
       var ny = nr.top  - cr.top  + nr.height / 2;
@@ -4623,7 +4805,7 @@ function initStatesPage() {
     });
   }
   window.addEventListener('resize', function() {
-    if (document.getElementById('ds-fp-overlay').classList.contains('open')) dsFpDrawLines();
+    if ($id('ds-fp-overlay').classList.contains('open')) dsFpDrawLines();
   });
 })();
 

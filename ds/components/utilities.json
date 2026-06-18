@@ -4,7 +4,14 @@
     "tooltip": {
       "structure": "ds-tooltip-wrap > ds-icon-btn + ds-tooltip",
       "rule": "CSS-only — no JS. Never use tooltip-only for severity or status.",
-      "example_html": "<span class=\"ds-tooltip-wrap\">\n  <button class=\"ds-icon-btn\"><!-- SVG --></button>\n  <span class=\"ds-tooltip\">Tooltip text</span>\n</span>"
+      "arrow": {
+        "class": "ds-tooltip-arrow",
+        "description": "Optional decorative arrow pointing from tooltip toward the trigger. Place inside ds-tooltip as the first child.",
+        "position_variants": ["top", "bottom", "left", "right"],
+        "example_html": "<span class=\"ds-tooltip ds-tooltip--bottom\"><span class=\"ds-tooltip-arrow\"></span>Tooltip text</span>",
+        "css": ".ds-tooltip-arrow { position:absolute; width:8px; height:8px; background:inherit; border:inherit; transform:rotate(45deg); } .ds-tooltip--bottom .ds-tooltip-arrow { top:-4px; left:50%; margin-left:-4px; border-bottom:none; border-right:none; } .ds-tooltip--top .ds-tooltip-arrow { bottom:-4px; left:50%; margin-left:-4px; border-top:none; border-left:none; }"
+      },
+      "example_html": "<span class=\"ds-tooltip-wrap\">\n  <button class=\"ds-icon-btn\"><!-- SVG --></button>\n  <span class=\"ds-tooltip\">Tooltip text</span>\n</span>\n<!-- with arrow: -->\n<span class=\"ds-tooltip-wrap\">\n  <button class=\"ds-icon-btn\"><!-- SVG --></button>\n  <span class=\"ds-tooltip ds-tooltip--bottom\"><span class=\"ds-tooltip-arrow\"></span>Tooltip text</span>\n</span>"
     },
     "accordion": {
       "structure": "ds-accordion > ds-accordion-item > ds-accordion-trigger + ds-accordion-content",
@@ -15,7 +22,14 @@
       "bar_class": "ds-progress-bar",
       "modifiers": ["danger", "indeterminate"],
       "border_radius": "44px",
-      "example_html": "<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar\" style=\"width:60%\"></div>\n</div>\n<!-- danger: -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar danger\" style=\"width:80%\"></div>\n</div>\n<!-- indeterminate: -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar indeterminate\"></div>\n</div>"
+      "indicator_color": {
+        "prop": "indicatorColor",
+        "description": "Arbitrary CSS color value for data-driven scenarios (e.g. exposure scores, per-asset severity bars). Overrides the intent enum when set. Apply via CSS custom property --progress-color on the bar element.",
+        "rule": "Use intent modifiers (danger) for standard states. Use indicatorColor only when the color is dynamic data — e.g. a score that maps to a hex value calculated at runtime.",
+        "example_html": "<!-- data-driven color: -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar\" style=\"width:72%;--progress-color:#E57B1D;background:var(--progress-color)\"></div>\n</div>",
+        "css": ".ds-progress-bar { background: var(--progress-color, var(--shell-accent)); }"
+      },
+      "example_html": "<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar\" style=\"width:60%\"></div>\n</div>\n<!-- danger: -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar danger\" style=\"width:80%\"></div>\n</div>\n<!-- indeterminate: -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar indeterminate\"></div>\n</div>\n<!-- indicatorColor (data-driven): -->\n<div class=\"ds-progress\">\n  <div class=\"ds-progress-bar\" style=\"width:72%;background:#E57B1D\"></div>\n</div>"
     },
     "pagination": {
       "structure": "ds-pagination > ds-page-btn [active] [disabled]",
@@ -45,7 +59,12 @@
       "class": "ds-skeleton",
       "border_radius": "4px",
       "rule": "Always use for async loading states — never show blank space or 0-height containers.",
-      "example_html": "<div class=\"ds-skeleton\" style=\"width:100%;height:16px;border-radius:4px;\"></div>\n<div class=\"ds-skeleton\" style=\"width:60%;height:12px;border-radius:4px;margin-top:8px;\"></div>\n<!-- Card skeleton: -->\n<div class=\"ds-skeleton\" style=\"width:100%;height:80px;border-radius:4px;\"></div>"
+      "animation_delay": {
+        "description": "Stagger shimmer animation across multiple skeletons to create a wave effect. Not a DS prop — apply directly via style attribute.",
+        "how": "style=\"animation-delay: 0.15s\" on the element. Increment by 0.1–0.15s per item.",
+        "example_html": "<div class=\"ds-skeleton\" style=\"width:100%;height:16px;animation-delay:0s\"></div>\n<div class=\"ds-skeleton\" style=\"width:80%;height:12px;animation-delay:0.15s\"></div>\n<div class=\"ds-skeleton\" style=\"width:60%;height:12px;animation-delay:0.3s\"></div>"
+      },
+      "example_html": "<div class=\"ds-skeleton\" style=\"width:100%;height:16px;border-radius:4px;\"></div>\n<div class=\"ds-skeleton\" style=\"width:60%;height:12px;border-radius:4px;margin-top:8px;\"></div>\n<!-- Card skeleton: -->\n<div class=\"ds-skeleton\" style=\"width:100%;height:80px;border-radius:4px;\"></div>\n<!-- Staggered wave: -->\n<div class=\"ds-skeleton\" style=\"width:100%;height:16px;animation-delay:0s\"></div>\n<div class=\"ds-skeleton\" style=\"width:80%;height:12px;animation-delay:0.15s\"></div>"
     }
   },
   "do": [

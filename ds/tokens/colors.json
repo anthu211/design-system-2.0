@@ -23,7 +23,10 @@
     "gray-200":    "#E6E6E6",
     "gray-100":    "#F5F5F5",
     "white":       "#FFFFFF",
-    "bg-light":    "#F7F9FC"
+    "bg-light":    "#F7F9FC",
+    "green-700":   "#1A7D4D",
+    "yellow-50":   "#F2EDDB",
+    "orange-100":  "#F7F6EB"
   },
   "semantic": {
     "color-accent": {
@@ -74,9 +77,47 @@
     },
     "color-severity-low": {
       "raw": "#31A56D", "bg": "#EFF7ED",
-      "badge_class": "ds-badge neutral",
+      "badge_class": "ds-badge success",
       "tailwind": "text-[#31A56D] bg-[#EFF7ED]",
       "usage": ["severity-badge", "chart-series"]
+    },
+    "color-maturity-weak":     { "raw": "#E15252", "bg": "#FFF0F0", "badge_class": "ds-badge high",    "usage": ["maturity-badge", "chart-series-maturity"], "label": "Weak" },
+    "color-maturity-moderate": { "raw": "#D98B1D", "bg": "#FEF3C7", "badge_class": "ds-badge warning", "usage": ["maturity-badge", "chart-series-maturity"], "label": "Moderate" },
+    "color-maturity-strong":   { "raw": "#31A56D", "bg": "#EFF7ED", "badge_class": "ds-badge success", "usage": ["maturity-badge", "chart-series-maturity"], "label": "Strong" },
+    "color-maturity-full":     { "raw": "#1A7D4D", "bg": "#EFF7ED", "badge_class": "ds-badge full",    "usage": ["maturity-badge", "chart-series-maturity"], "label": "Full" },
+    "color-pill-green":  { "border": "#31A56D", "bg": "#EFF7ED", "badge_class": "ds-pill green",  "usage": ["status-pill"] },
+    "color-pill-yellow": { "border": "#D98B1D", "bg": "#F2EDDB", "badge_class": "ds-pill yellow", "usage": ["status-pill"] },
+    "color-pill-red":    { "border": "#D12329", "bg": "#F9EEEE", "badge_class": "ds-pill red",    "usage": ["status-pill"] },
+    "color-pill-orange": { "border": "#E57B1D", "bg": "#F7F6EB", "badge_class": "ds-pill orange", "usage": ["status-pill"] }
+  },
+  "uxp_namespace": {
+    "note": "INFRA-1 — alias layer. Define these in :root after the shell vars so --uxp-* resolves through the theme automatically.",
+    "css_block": ":root { --uxp-color-bg: var(--shell-bg); --uxp-color-surface: var(--card-bg); --uxp-color-border: var(--shell-border); --uxp-color-text: var(--shell-text); --uxp-color-text-secondary: var(--shell-text-2); --uxp-color-text-muted: var(--shell-text-muted); --uxp-color-accent: var(--shell-accent); --uxp-color-accent-subtle: var(--shell-active); --uxp-color-accent-filter: #504bb8; --uxp-color-hover: var(--shell-hover); --uxp-color-raised: var(--shell-raised); --uxp-color-ctrl-bg: var(--ctrl-bg); --uxp-color-ctrl-border: var(--ctrl-border); --uxp-color-ctrl-placeholder: var(--ctrl-placeholder); --uxp-color-severity-critical: #D12329; --uxp-color-severity-critical-bg: #F9EEEE; --uxp-color-severity-high: #E15252; --uxp-color-severity-high-bg: #FFF0F0; --uxp-color-severity-medium: #D98B1D; --uxp-color-severity-medium-bg: #FEF3C7; --uxp-color-severity-low: #31A56D; --uxp-color-severity-low-bg: #EFF7ED; --uxp-color-destructive: #dc2626; --uxp-color-topbar: #131313; }",
+    "map": {
+      "--uxp-color-bg":                    "var(--shell-bg)",
+      "--uxp-color-surface":               "var(--card-bg)",
+      "--uxp-color-border":                "var(--shell-border)",
+      "--uxp-color-text":                  "var(--shell-text)",
+      "--uxp-color-text-secondary":        "var(--shell-text-2)",
+      "--uxp-color-text-muted":            "var(--shell-text-muted)",
+      "--uxp-color-accent":                "var(--shell-accent)",
+      "--uxp-color-accent-subtle":         "var(--shell-active)",
+      "--uxp-color-accent-filter":         "#504bb8",
+      "--uxp-color-hover":                 "var(--shell-hover)",
+      "--uxp-color-raised":                "var(--shell-raised)",
+      "--uxp-color-ctrl-bg":               "var(--ctrl-bg)",
+      "--uxp-color-ctrl-border":           "var(--ctrl-border)",
+      "--uxp-color-ctrl-placeholder":      "var(--ctrl-placeholder)",
+      "--uxp-color-severity-critical":     "#D12329",
+      "--uxp-color-severity-critical-bg":  "#F9EEEE",
+      "--uxp-color-severity-high":         "#E15252",
+      "--uxp-color-severity-high-bg":      "#FFF0F0",
+      "--uxp-color-severity-medium":       "#D98B1D",
+      "--uxp-color-severity-medium-bg":    "#FEF3C7",
+      "--uxp-color-severity-low":          "#31A56D",
+      "--uxp-color-severity-low-bg":       "#EFF7ED",
+      "--uxp-color-destructive":           "#dc2626",
+      "--uxp-color-topbar":                "#131313"
     }
   },
   "themes": {

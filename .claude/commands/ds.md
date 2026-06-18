@@ -47,6 +47,30 @@ Detect task type from the first words of $ARGUMENTS:
 --table-th-bg:#131313   --table-border:#1F1F1F
 ```
 
+### --uxp-* Token Namespace (INFRA-1)
+Add these after the shell vars in `:root` to bridge `@uxp` components to the theme:
+```css
+:root {
+  --uxp-color-bg:var(--shell-bg); --uxp-color-surface:var(--card-bg);
+  --uxp-color-border:var(--shell-border); --uxp-color-text:var(--shell-text);
+  --uxp-color-text-secondary:var(--shell-text-2); --uxp-color-text-muted:var(--shell-text-muted);
+  --uxp-color-accent:var(--shell-accent); --uxp-color-accent-subtle:var(--shell-active);
+  --uxp-color-accent-filter:#504bb8; --uxp-color-hover:var(--shell-hover);
+  --uxp-color-ctrl-bg:var(--ctrl-bg); --uxp-color-ctrl-border:var(--ctrl-border);
+  --uxp-color-severity-critical:#D12329; --uxp-color-severity-critical-bg:#F9EEEE;
+  --uxp-color-severity-high:#E15252; --uxp-color-severity-high-bg:#FFF0F0;
+  --uxp-color-severity-medium:#D98B1D; --uxp-color-severity-medium-bg:#FEF3C7;
+  --uxp-color-severity-low:#31A56D; --uxp-color-severity-low-bg:#EFF7ED;
+  --uxp-color-destructive:#dc2626; --uxp-color-topbar:#131313;
+  --uxp-font-family:'Inter',sans-serif; --uxp-font-size-xs:11px; --uxp-font-size-sm:12px;
+  --uxp-font-size-md:14px; --uxp-font-size-lg:16px; --uxp-font-size-xl:18px;
+  --uxp-space-1:4px; --uxp-space-2:8px; --uxp-space-3:12px; --uxp-space-4:16px;
+  --uxp-space-5:20px; --uxp-space-6:24px; --uxp-space-8:32px; --uxp-space-12:48px;
+  --uxp-radius-button:44px; --uxp-radius-card:4px; --uxp-radius-input:8px;
+  --uxp-radius-modal:12px; --uxp-radius-badge:4px;
+}
+```
+
 ### Border Radius (non-negotiable)
 - Buttons (CTA/text): `44px` — NEVER 6, 8, 12px
 - Icon-only buttons: `50%`
@@ -68,16 +92,27 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
 - Badges: 11px uppercase, weight 600
 
 ### Color System
-**Severity badges:**
-- Critical: text `#D12329`, bg `#F9EEEE`
-- High: text `#D98B1D`, bg `#FEF3C7`
-- Medium-high (caution): text `#E57B1D`, bg `#FFF3E0`
-- Medium (info): text `#6360D8`, bg `#f0f0fc`
-- Low / Active: text `#31A56D`, bg `#EFF7ED`
-- Neutral: text `#64748b`, bg `#F1F5F9`
+**Severity badges (criticality — 4 levels):**
+- Critical: text `#D12329`, bg `#F9EEEE` — `ds-badge danger`
+- High:     text `#E15252`, bg `#FFF0F0` — `ds-badge high`
+- Medium:   text `#D98B1D`, bg `#FEF3C7` — `ds-badge warning`
+- Low:      text `#31A56D`, bg `#EFF7ED` — `ds-badge success`
 
-**Chart color schemes (never mix):**
-- RAG (severity/risk): `['#D12329','#D98B1D','#F5B700','#31A56D']`
+**Maturity / Strength rating (4 levels):**
+- Weak:     text `#E15252`, bg `#FFF0F0` — `ds-badge high`
+- Moderate: text `#D98B1D`, bg `#FEF3C7` — `ds-badge warning`
+- Strong:   text `#31A56D`, bg `#EFF7ED` — `ds-badge success`
+- Full:     text `#1A7D4D`, bg `#EFF7ED` — `ds-badge full`
+
+**Pill tags (pill-shaped, border = color, fill = light — for status tags, not severity):**
+- Green:  border+text `#31A56D`, bg `#EFF7ED` — `ds-pill green`
+- Yellow: border+text `#D98B1D`, bg `#F2EDDB` — `ds-pill yellow`
+- Red:    border+text `#D12329`, bg `#F9EEEE` — `ds-pill red`
+- Orange: border+text `#E57B1D`, bg `#F7F6EB` — `ds-pill orange`
+
+**Chart color schemes (never mix — pick the palette that matches the data scenario):**
+- Severity/Criticality RAG: `['#D12329','#E15252','#D98B1D','#31A56D']` (Critical → High → Medium → Low)
+- Maturity RAG: `['#E15252','#D98B1D','#31A56D','#1A7D4D']` (Weak → Moderate → Strong → Full)
 - Normal (entity/category — no red/amber/green): `['#6760d8','#47adcb','#2ea8a8','#5c6bc0','#8F8DDE','#3a7fcb','#7a9e7e','#b87fba','#c47e5a','#7b95b4']`
 - Single-series: accent `#6760d8`
 
@@ -171,8 +206,15 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
     .ds-badge.danger   { background:rgba(209,35,41,0.14);color:#D12329; }
     .ds-badge.info     { background:rgba(99,96,216,0.14);color:#8F8DDE; }
     .ds-badge.neutral  { background:rgba(255,255,255,0.07);color:var(--shell-text-muted); }
+    .ds-badge.high    { background:rgba(225,82,82,0.14);color:#E15252; }
+    .ds-badge.full    { background:rgba(26,125,77,0.14);color:#1A7D4D; }
     .ds-badge.caution  { background:rgba(205,185,0,0.14);color:#CDB900; }
     html.theme-light .ds-badge.neutral { background:#F0F0F0;color:#6E6E6E; }
+    .ds-pill { display:inline-flex;align-items:center;gap:4px;padding:2px 10px;border-radius:44px;font-size:11px;font-weight:600;border:1px solid currentColor; }
+    .ds-pill.green  { color:#31A56D;background:#EFF7ED; }
+    .ds-pill.yellow { color:#D98B1D;background:#F2EDDB; }
+    .ds-pill.red    { color:#D12329;background:#F9EEEE; }
+    .ds-pill.orange { color:#E57B1D;background:#F7F6EB; }
     .ds-badge.dot::before { content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0; }
     .ds-table-wrap { width:100%;overflow-x:auto; }
     .ds-table { width:100%;border-collapse:collapse;font-size:13px; }
@@ -208,10 +250,11 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
     .ds-chip-close:hover { color:var(--shell-text); }
     .ds-icon-btn { display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;transition:background .12s,color .12s;flex-shrink:0; }
     .ds-icon-btn:hover { background:var(--shell-hover);color:var(--shell-text); }
-    .ds-tabs-list { display:flex;border-bottom:1px solid var(--shell-border); }
-    .ds-tab { padding:8px 16px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);border-bottom:2px solid transparent;margin-bottom:-1px;font-family:inherit;transition:color 150ms,border-color 150ms;white-space:nowrap; }
+    .ds-tabs-list { display:flex;border-bottom:1px solid var(--shell-border);position:relative; }
+    .ds-tab { padding:8px 16px;font-size:13px;font-weight:500;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);font-family:inherit;transition:color 150ms;white-space:nowrap; }
     .ds-tab:hover { color:var(--shell-text); }
-    .ds-tab.active { color:var(--shell-accent);border-bottom-color:var(--shell-accent);font-weight:600; }
+    .ds-tab.active { color:var(--shell-accent);font-weight:600; }
+    .ds-tabs-indicator { position:absolute;bottom:0;height:2px;background:var(--shell-accent);border-radius:1px;transition:left 200ms cubic-bezier(.4,0,.2,1),width 200ms cubic-bezier(.4,0,.2,1);pointer-events:none; }
     .ds-tab-panel { display:none;padding:20px; }
     .ds-tab-panel.active { display:block; }
     .ds-panel-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:300; }
@@ -401,14 +444,25 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
 <button class="ds-btn sz-md t-primary">Save</button>
 <button class="ds-btn sz-md t-outline">Cancel</button>
 <button class="ds-btn sz-md t-danger">Delete</button>
+<button class="ds-btn sz-md t-neutral">More options</button>
 <button class="ds-btn sz-sm t-special"><span class="btn-text">Navigator</span></button>
 <button class="ds-icon-btn" title="Edit"><!-- 14×14 SVG --></button>
+<!-- AnchorLink — SPA-safe nav link -->
+<a href="/path" class="ds-btn sz-md t-outline">Go to page</a>
+<a href="/path" class="nav-sub" style="color:var(--shell-text-muted);"><!-- nav link --></a>
 ```
 - 3 classes minimum: `ds-btn` + size + variant
 - NEVER custom background/color on buttons — variant classes only
 - Disabled: `opacity:0.4; cursor:not-allowed` via class, never inline
 - 1 primary CTA per section max
 - `t-danger` only inside modal footers for destructive confirms
+- `t-neutral` — non-colored secondary action where accent would be distracting (toolbar items, overflow menus)
+- **AnchorLink:** Use `<a>` with ds-btn classes for page navigation. Never `window.location`. In React use router `<Link>`.
+Add to shell `<style>`:
+```css
+.ds-btn.t-neutral { background:var(--shell-raised);color:var(--shell-text-muted);border:1px solid var(--shell-border); }
+.ds-btn.t-neutral:hover { background:var(--shell-elevated);color:var(--shell-text); }
+```
 
 ### KPI Cards
 ```html
@@ -427,16 +481,28 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
 
 ### Badges
 ```html
+<!-- Severity (criticality) -->
 <span class="ds-badge danger">Critical</span>
-<span class="ds-badge warning">High</span>
-<span class="ds-badge caution">Medium-High</span>
-<span class="ds-badge info">Medium</span>
+<span class="ds-badge high">High</span>
+<span class="ds-badge warning">Medium</span>
 <span class="ds-badge success">Low</span>
+<!-- Maturity / Strength rating -->
+<span class="ds-badge high">Weak</span>
+<span class="ds-badge warning">Moderate</span>
+<span class="ds-badge success">Strong</span>
+<span class="ds-badge full">Full</span>
+<!-- Status / misc -->
 <span class="ds-badge neutral">Inactive</span>
 <span class="ds-badge success dot">Running</span>
+<!-- Pill tags -->
+<span class="ds-pill green">Compliant</span>
+<span class="ds-pill yellow">In Progress</span>
+<span class="ds-pill red">Non-Compliant</span>
+<span class="ds-pill orange">Partial</span>
 ```
 - NEVER inline background/color — use variant classes only
 - Severity always visible in table column — NEVER tooltip-only
+- Use `ds-badge` for compact inline labels; use `ds-pill` for status tags where border shape matters
 
 ### Tables
 Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 columns.
@@ -481,8 +547,54 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
 - Empty state: 🚦 emoji + "No Data… For Now!" — keep thead visible
 - Error state: 🚧 emoji
 
+### DataTable (server-driven + expandable rows)
+Extends `ds-table` — all base rules still apply.
+```html
+<!-- Expandable row -->
+<tr class="ds-tr-expanded">
+  <td class="ds-td" style="width:40px;"><input type="checkbox"></td>
+  <td class="ds-td" style="width:32px;">
+    <button class="ds-expand-btn" aria-expanded="true" aria-label="Collapse">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </td>
+  <td class="ds-td">Row content</td>
+  <td class="ds-td"><span class="ds-badge danger">Critical</span></td>
+  <td class="ds-td col-actions"><div class="row-actions"><!-- icons --></div></td>
+</tr>
+<!-- Detail row — spans all columns -->
+<tr class="ds-tr-detail">
+  <td colspan="5"><div class="ds-tr-detail-inner"><!-- sub-content --></div></td>
+</tr>
+<!-- Skeleton rows while server fetch is in-flight (keep thead visible) -->
+<tr><td class="ds-td"><div class="ds-skeleton" style="width:16px;height:16px;border-radius:4px;"></div></td>
+    <td class="ds-td"><div class="ds-skeleton" style="width:80%;height:12px;"></div></td>
+    <td class="ds-td"><div class="ds-skeleton" style="width:60px;height:20px;border-radius:4px;"></div></td>
+    <td class="ds-td col-actions"></td></tr>
+<!-- Sortable column header -->
+<th class="ds-th ds-th-sortable ds-th-asc" onclick="sortBy('name')">
+  Name <svg class="ds-sort-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+</th>
+```
+Add to shell `<style>`:
+```css
+.ds-tr-detail td{padding:0}
+.ds-tr-detail-inner{padding:12px 16px 12px 48px;background:var(--shell-raised);border-bottom:1px solid var(--table-border);overflow:hidden;max-height:0;transition:max-height 200ms ease}
+.ds-tr-expanded+.ds-tr-detail .ds-tr-detail-inner{max-height:400px}
+.ds-expand-btn{width:20px;height:20px;border:none;background:transparent;color:var(--shell-text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform 150ms}
+.ds-tr-expanded .ds-expand-btn{transform:rotate(90deg)}
+.ds-th-sortable{cursor:pointer;user-select:none}
+.ds-th-sortable:hover{background:var(--shell-hover)}
+.ds-sort-icon{margin-left:4px;opacity:.4;transition:opacity 100ms}
+.ds-th-sortable:hover .ds-sort-icon,.ds-th-asc .ds-sort-icon,.ds-th-desc .ds-sort-icon{opacity:1}
+```
+- Skeleton rows while fetching — never blank tbody. Keep thead + pagination always visible.
+- Column resize/reorder and virtualization → TanStack Table (app layer, not DS)
+- React: TanStack Table v8 for data logic, DS classes for visual layer
+
 ### Modals
 ```html
+<!-- Standard modal (with close button) -->
 <div class="ds-modal-overlay" id="delete-modal">
   <div class="ds-modal">
     <div class="ds-modal-header">
@@ -498,11 +610,146 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
     </div>
   </div>
 </div>
+<!-- hideClose — no × button (non-dismissable flows e.g. session expired) -->
+<div class="ds-modal-overlay open">
+  <div class="ds-modal">
+    <div class="ds-modal-header">
+      <span class="ds-modal-title">Session Expired</span>
+      <!-- no ds-modal-close -->
+    </div>
+    <div class="ds-modal-body">Your session has expired. Please log in again.</div>
+    <div class="ds-modal-footer">
+      <button class="ds-btn sz-md t-primary">Log In</button>
+    </div>
+  </div>
+</div>
+<!-- hideOverlay — no backdrop (use inside drawers/panels only) -->
+<div class="ds-modal-overlay open" style="background:transparent;backdrop-filter:none;">
+  <div class="ds-modal"><!-- content --></div>
+</div>
 ```
 - Cancel always LEFT · Confirm always RIGHT
 - Destructive: `t-danger` — NEVER `t-primary` (purple) for destructive confirms
 - Modal must name the item and state the consequence
 - Open: add `.open` class · Close: remove `.open` class
+- `hideClose`: omit `ds-modal-close` — only for genuinely non-dismissable flows
+- `hideOverlay`: `background:transparent;backdrop-filter:none` on overlay — only inside already-overlaid surfaces
+
+### Popover
+```html
+<div class="ds-popover-wrap">
+  <button class="ds-icon-btn ds-popover-trigger" aria-haspopup="true" aria-expanded="false"
+    onclick="this.setAttribute('aria-expanded','true');this.nextElementSibling.classList.add('open')">
+    <!-- SVG icon -->
+  </button>
+  <div class="ds-popover-content" role="dialog">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+      <span class="ds-text-heading">Details</span>
+      <button class="ds-popover-close ds-icon-btn"
+        onclick="this.closest('.ds-popover-content').classList.remove('open');this.closest('.ds-popover-wrap').querySelector('.ds-popover-trigger').setAttribute('aria-expanded','false')"
+        aria-label="Close">×</button>
+    </div>
+    <p class="ds-text-body">Popover content here.</p>
+  </div>
+</div>
+```
+Add to shell `<style>`:
+```css
+.ds-popover-wrap{position:relative;display:inline-flex}
+.ds-popover-content{position:absolute;top:calc(100% + 8px);left:0;background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:12px;min-width:160px;max-width:320px;z-index:150;box-shadow:0 4px 16px rgba(0,0,0,.12);display:none}
+.ds-popover-content.open{display:block}
+.ds-popover-content.placement-end{left:auto;right:0}
+```
+Add to `<script>`:
+```js
+document.addEventListener('click',function(e){
+  document.querySelectorAll('.ds-popover-content.open').forEach(function(p){
+    if(!p.closest('.ds-popover-wrap').contains(e.target)){p.classList.remove('open');}
+  });
+});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') document.querySelectorAll('.ds-popover-content.open').forEach(function(p){p.classList.remove('open');});
+});
+```
+- Close on outside click AND Escape
+- `aria-expanded` on trigger — true when open
+- Never nest a modal inside a popover
+- React: Radix UI `Popover.Root / Trigger / Portal / Content / Close / Arrow`
+
+### Typography
+```html
+<div class="ds-text-heading">Section Title</div>
+<p class="ds-text-body">Default body content.</p>
+<span class="ds-text-caption">Last updated 2h ago</span>
+<span class="ds-text-mono">CVE-2024-1234</span>
+<span class="ds-text-body ds-text--muted">Secondary description</span>
+<div class="ds-text-body ds-text--truncate" style="max-width:200px;">Long text truncated</div>
+```
+Add to shell `<style>`:
+```css
+.ds-text-title{font-size:18px;font-weight:700;line-height:1.2;color:var(--shell-text)}
+.ds-text-heading{font-size:14px;font-weight:600;line-height:1.3;color:var(--shell-text)}
+.ds-text-subheader{font-size:12px;font-weight:500;line-height:1.4;color:var(--shell-text)}
+.ds-text-body{font-size:12px;font-weight:400;line-height:1.5;color:var(--shell-text-2)}
+.ds-text-caption{font-size:11px;font-weight:400;line-height:1.5;color:var(--shell-text-muted)}
+.ds-text-mono{font-size:12px;font-weight:400;color:var(--shell-text-2);font-family:'SF Mono','Fira Code',monospace}
+.ds-text--muted{color:var(--shell-text-muted)} .ds-text--accent{color:var(--shell-accent)}
+.ds-text--danger{color:#D12329} .ds-text--success{color:#31A56D} .ds-text--warning{color:#D98B1D}
+.ds-text--truncate{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:100%}
+```
+- Never use inline `style="font-size:14px"` — use `ds-text-heading`
+- `ds-text-title` only in full-page error states
+- Never `<h1>` in body — use `ds-text-subheader` on a `<div>`
+
+### Datepicker
+```html
+<div class="ds-datepicker">
+  <button class="ds-datepicker-trigger" onclick="toggleDatepicker('dp1')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <span id="dp1-display">Select date</span>
+  </button>
+  <div class="ds-datepicker-panel" id="dp1">
+    <div class="ds-datepicker-nav">
+      <button class="ds-datepicker-nav-btn">‹</button>
+      <span class="ds-datepicker-month-label">June 2026</span>
+      <button class="ds-datepicker-nav-btn">›</button>
+    </div>
+    <div class="ds-datepicker-grid">
+      <div class="ds-datepicker-weekday">Su</div><!-- …Mo Tu We Th Fr Sa -->
+      <button class="ds-datepicker-day outside-month">31</button>
+      <button class="ds-datepicker-day today">17</button>
+      <button class="ds-datepicker-day selected">18</button>
+      <!-- range: range-start · in-range · range-end -->
+    </div>
+  </div>
+</div>
+```
+Add to shell `<style>`:
+```css
+.ds-datepicker{position:relative;display:inline-block}
+.ds-datepicker-trigger{display:flex;align-items:center;gap:8px;height:32px;padding:0 12px;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:8px;font-size:12px;color:var(--shell-text-2);cursor:pointer;white-space:nowrap;font-family:inherit;transition:border-color 150ms}
+.ds-datepicker-trigger:hover,.ds-datepicker-trigger.active{border-color:var(--shell-accent)}
+.ds-datepicker-panel{position:absolute;top:calc(100% + 4px);left:0;background:var(--card-bg);border:1px solid var(--card-border);border-radius:8px;padding:16px;min-width:280px;z-index:160;box-shadow:0 4px 16px rgba(0,0,0,.12);display:none}
+.ds-datepicker-panel.open{display:block}
+.ds-datepicker-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.ds-datepicker-nav-btn{width:28px;height:28px;border-radius:50%;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center}
+.ds-datepicker-nav-btn:hover{background:var(--shell-hover);color:var(--shell-text)}
+.ds-datepicker-month-label{font-size:12px;font-weight:600;color:var(--shell-text)}
+.ds-datepicker-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.ds-datepicker-weekday{text-align:center;font-size:10px;font-weight:600;color:var(--shell-text-muted);text-transform:uppercase;padding:4px 0 8px}
+.ds-datepicker-day{width:32px;height:32px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:12px;color:var(--shell-text-2);display:flex;align-items:center;justify-content:center;font-family:inherit;transition:background 100ms}
+.ds-datepicker-day:hover:not(.disabled):not(.outside-month){background:var(--shell-hover)}
+.ds-datepicker-day.today{border:1px solid var(--shell-accent)}
+.ds-datepicker-day.selected,.ds-datepicker-day.range-start,.ds-datepicker-day.range-end{background:var(--shell-accent);color:#fff;font-weight:600}
+.ds-datepicker-day.in-range{background:var(--shell-active);border-radius:0}
+.ds-datepicker-day.range-start{border-radius:50% 0 0 50%}
+.ds-datepicker-day.range-end{border-radius:0 50% 50% 0}
+.ds-datepicker-day.disabled{opacity:.35;cursor:not-allowed}
+.ds-datepicker-day.outside-month{opacity:.4}
+```
+- Never use native `<input type="date">` — off-brand rendering
+- Today = border only (not filled). Selected = filled accent.
+- Date range: `range-start` + `in-range` + `range-end` classes
 
 ### Form Inputs
 ```html
@@ -510,6 +757,12 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
   <label class="ds-input-label">Field Name <span style="color:#dc2626">*</span></label>
   <input type="text" class="ds-input-field" placeholder="Enter value">
 </div>
+<!-- Mixed checkbox (select-all) -->
+<label class="ds-checkbox-wrap">
+  <input type="checkbox" class="ds-checkbox-input" id="select-all">
+  <span class="ds-checkbox-box ds-checkbox-box--mixed"></span>
+  <span class="ds-checkbox-label">Select all</span>
+</label>
 <!-- Error state -->
 <div class="ds-input-wrap">
   <label class="ds-input-label">Email</label>
@@ -517,21 +770,41 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
   <span class="ds-field-error">Enter a valid email address</span>
 </div>
 ```
+```js
+// Mixed checkbox — JS only, not HTML attribute:
+document.getElementById('select-all').indeterminate = true;
+```
 - Validate on blur only — NEVER per keystroke
 - Error: red border `1.5px solid #dc2626` + message below + preserve user value
 - `border-radius:8px` on inputs
+- Mixed state on select-all header checkboxes only — set via `element.indeterminate = true`
 
 ### Tabs (only when explicitly requested)
 ```html
 <div class="ds-tabs-list">
   <button class="ds-tab active">Overview</button>
   <button class="ds-tab">Details</button>
+  <span class="ds-tabs-indicator"></span>
 </div>
 <div class="ds-tab-panel active"><!-- panel 1 --></div>
 <div class="ds-tab-panel"><!-- panel 2 --></div>
 ```
+Add to `<script>`:
+```js
+function moveTabsIndicator(listEl) {
+  var indicator = listEl.querySelector('.ds-tabs-indicator');
+  if (!indicator) return;
+  var a = listEl.querySelector('.ds-tab.active');
+  if (!a) return;
+  var lr=listEl.getBoundingClientRect(),tr=a.getBoundingClientRect();
+  indicator.style.left=(tr.left-lr.left)+'px'; indicator.style.width=tr.width+'px';
+}
+// call on tab click and on init (setTimeout 50ms for layout)
+```
 - NEVER add page-level tabs unless explicitly requested
-- Max 5 visible tabs · Active: `color:#6360D8; border-bottom:2px solid #6360D8`
+- Max 5 visible tabs · Active tab: `color:#6360D8`, sliding 2px indicator
+- Always include `<span class="ds-tabs-indicator"></span>` inside every `.ds-tabs-list`
+- Never add a per-tab `border-bottom` active style — the indicator handles it
 
 ### Filter Bar
 ```html
@@ -550,13 +823,27 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
 
 ### Toasts
 ```js
+// HTML pages — imperative API (shell provides showToast globally):
 showToast('success', 'Filters applied successfully');  // auto-dismiss 3s
 showToast('error', 'Failed to save changes');           // persists — user must dismiss
 showToast('warning', 'Session expiring in 5 minutes'); // persists
 showToast('info', 'Report generating…');               // auto-dismiss 3s
 ```
+```jsx
+// React — JSX / ToastProvider API:
+// 1. Wrap app root once:
+// <ToastProvider><App /><ToastViewport /></ToastProvider>
+// 2. Inside any component:
+// const { toast } = useToast();
+// toast({ type: 'success', message: 'Saved.' });
+// toast({ type: 'error', message: 'Failed.' });
+// Radix UI: use Toast.Provider + Toast.Root + Toast.Viewport
+// Map ds-toast class onto Toast.Root: <Toast.Root className="ds-toast success">
+```
 - Classes: `ds-toast success` (space-separated) — NEVER `ds-toast-success`
 - success + info: auto-dismiss 3s · error + warning: persist until dismissed
+- React: `ToastProvider` at app root only — never inside a component
+- Never mix imperative `showToast()` and `ToastProvider` in the same app
 
 ### Drawer (row-click detail panel)
 - 860px wide, right-sliding, `cubic-bezier(.4,0,.2,1) 0.28s`
@@ -577,10 +864,52 @@ showToast('info', 'Report generating…');               // auto-dismiss 3s
 Always use skeleton for async content — never show blank containers.
 ```html
 <div style="background:var(--shell-elevated);border-radius:4px;height:16px;width:60%;animation:ds-skeleton 1.4s ease infinite;"></div>
+<!-- Staggered wave (animation-delay staggers shimmer): -->
+<div class="ds-skeleton" style="width:100%;height:16px;animation-delay:0s"></div>
+<div class="ds-skeleton" style="width:80%;height:12px;animation-delay:0.15s"></div>
+<div class="ds-skeleton" style="width:60%;height:12px;animation-delay:0.3s"></div>
 <style>
   @keyframes ds-skeleton { 0%,100%{opacity:1} 50%{opacity:0.4} }
 </style>
 ```
+- `animation-delay` via inline `style` — increment 0.1–0.15s per item for wave effect
+- Match border-radius to the element being replaced (4px text, 44px badge, 50% avatar)
+
+### ScrollArea
+```html
+<div class="ds-scroll-area" style="height:300px;">
+  <div class="ds-scroll-viewport">
+    <!-- scrollable content -->
+  </div>
+  <div class="ds-scroll-bar ds-scroll-bar--vertical" aria-hidden="true">
+    <div class="ds-scroll-thumb"></div>
+  </div>
+</div>
+<!-- CSS-only fallback (no JS needed): -->
+<div class="ds-native-scroll" style="height:300px;overflow-y:auto;">
+  <!-- content -->
+</div>
+```
+Add to shell `<style>`:
+```css
+.ds-scroll-area{position:relative;overflow:hidden}
+.ds-scroll-viewport{width:100%;height:100%;overflow:scroll;scrollbar-width:none;-ms-overflow-style:none}
+.ds-scroll-viewport::-webkit-scrollbar{display:none}
+.ds-scroll-bar{position:absolute;display:flex;user-select:none;touch-action:none;padding:2px;border-radius:3px;transition:background 160ms}
+.ds-scroll-bar--vertical{top:0;right:0;width:10px;height:100%;flex-direction:column}
+.ds-scroll-bar--horizontal{bottom:0;left:0;height:10px;width:100%;flex-direction:row}
+.ds-scroll-bar:hover{background:var(--shell-hover)}
+.ds-scroll-thumb{flex:1;background:var(--shell-elevated);border-radius:3px;cursor:pointer;transition:background 160ms}
+.ds-scroll-thumb:hover,.ds-scroll-bar:hover .ds-scroll-thumb{background:var(--shell-text-muted)}
+.ds-native-scroll{scrollbar-width:thin;scrollbar-color:var(--shell-elevated) transparent}
+.ds-native-scroll::-webkit-scrollbar{width:6px}
+.ds-native-scroll::-webkit-scrollbar-track{background:transparent}
+.ds-native-scroll::-webkit-scrollbar-thumb{background:var(--shell-elevated);border-radius:3px}
+.ds-native-scroll::-webkit-scrollbar-thumb:hover{background:var(--shell-text-muted)}
+```
+- Always set explicit `height` on `ds-scroll-area` — it needs a constrained container
+- `aria-hidden="true"` on scrollbar elements
+- React: Radix UI `ScrollArea.Root / Viewport / Scrollbar / Thumb`
 
 ---
 
