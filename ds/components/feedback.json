@@ -10,10 +10,10 @@
       "max_stacked": 3,
       "dismiss_class": "ds-toast-dismiss",
       "behaviour": {
-        "success": "auto-dismiss after 3s",
-        "info":    "auto-dismiss after 3s",
-        "warning": "persist until manually dismissed",
-        "error":   "persist until manually dismissed"
+        "success": "auto-dismiss after 3.5s",
+        "info":    "auto-dismiss after 3.5s",
+        "warning": "auto-dismiss after 5s",
+        "error":   "auto-dismiss after 5s"
       },
       "imperative_api": {
         "function": "showToast(type, message, duration?)",
@@ -35,13 +35,13 @@
       },
       "do": [
         "Use for transient operation feedback (saved, deleted, failed).",
-        "Persist error and warning toasts — never auto-dismiss them.",
+        "Error and warning toasts auto-dismiss after 5s — success/info after 3.5s.",
         "For React: use ToastProvider at app root; call useToast() inside components.",
         "For HTML pages: use showToast() imperative function from the shell script."
       ],
       "dont": [
         "Never use toasts for decisions or destructive confirmations — use modals.",
-        "Never auto-dismiss error or warning toasts.",
+        "Never dismiss error or warning toasts in under 5s — users need time to read them.",
         "Never stack more than 3 toasts.",
         "Never place ToastProvider inside a component — always at app root.",
         "Never mix imperative showToast() and JSX ToastProvider in the same app."

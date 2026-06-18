@@ -8,9 +8,10 @@
 const fs   = require('fs');
 const path = require('path');
 
-const ROOT    = path.resolve(__dirname, '..');
-const DS_DIR  = path.join(ROOT, 'ds', 'tokens');
+const ROOT     = path.resolve(__dirname, '..');
+const DS_DIR   = path.join(ROOT, 'ds', 'tokens');
 const OUT_FILE = path.join(ROOT, 'frontend', 'src', 'tokens', 'design-tokens.js');
+const CSS_FILE = path.join(ROOT, 'styles.css');
 
 // ── Read sources ──────────────────────────────────────────────────────────────
 const colors  = JSON.parse(fs.readFileSync(path.join(DS_DIR, 'colors.json'),     'utf8'));
@@ -170,6 +171,25 @@ const body = Object.entries(tokens)
   .join('\n\n');
 
 fs.writeFileSync(OUT_FILE, banner + '\n' + body + '\n');
+
+// ── Generate CSS :root and html.theme-light blocks ───────────────────────────
+function toCSSBlock(selector, vars) {
+  const lines = Object.entries(vars)
+    .map(([name, val]) => `  ${name}: ${val};`)
+    .join('\n');
+  return `${selector} {\n${lines}\n}`;
+}
+
+const rootVars  = { ...typo.css_vars, ...spacing.css_vars, ...colors.css_vars.dark };
+const rootBlock = toCSSBlock(':root', rootVars);
+const lightBlock = toCSSBlock('html.theme-light', colors.css_vars.light);
+
+let css = fs.readFileSync(CSS_FILE, 'utf8');
+css = css.replace(/:root\s*\{[^}]*\}/, rootBlock);
+css = css.replace(/html\.theme-light\s*\{[^}]*\}/, lightBlock);
+fs.writeFileSync(CSS_FILE, css);
+
+console.log(`✓ styles.css     :root (${Object.keys(rootVars).length} tokens) + html.theme-light (${Object.keys(colors.css_vars.light).length} overrides)`);
 
 // ── Report ────────────────────────────────────────────────────────────────────
 console.log('✓ Generated:', path.relative(ROOT, OUT_FILE));

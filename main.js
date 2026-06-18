@@ -494,7 +494,7 @@ document.querySelectorAll('.ds-textarea-field[data-max]').forEach(function(ta) {
 // RAG scheme — severity/criticality only (Critical → High → Medium → Low)
 const CHART_COLORS_RAG = ['#D12329', '#E15252', '#D98B1D', '#31A56D'];
 // Normal scheme — non-RAG colours for category/entity breakdowns
-const CHART_COLORS_NORMAL = ['#6760d8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
+const CHART_COLORS_NORMAL = ['#6360D8', '#47adcb', '#2ea8a8', '#5c6bc0', '#8F8DDE', '#3a7fcb', '#7a9e7e', '#b87fba', '#c47e5a', '#7b95b4'];
 // Default fallback (kept for backward compat)
 const CHART_COLORS = CHART_COLORS_NORMAL;
 
@@ -716,7 +716,7 @@ function buildLineChart(containerId, data, labels) {
     return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat((pad.top + innerH - (v / yMax) * innerH).toFixed(1)) };
   });
   var visibleDots = pointCoords.map(function(p) {
-    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
+    return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6360D8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>';
   }).join('');
   // Invisible overlay circles — r=16 gives 32px hit area (Fitts's Law)
   var overlayDots = pointCoords.map(function(p, i) {
@@ -727,10 +727,10 @@ function buildLineChart(containerId, data, labels) {
     '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
 
   el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
-    '<defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6760d8" stop-opacity="0.25"/><stop offset="100%" stop-color="#6760d8" stop-opacity="0"/></linearGradient></defs>' +
+    '<defs><linearGradient id="lg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6360D8" stop-opacity="0.25"/><stop offset="100%" stop-color="#6360D8" stop-opacity="0"/></linearGradient></defs>' +
     gridLines + axes +
     '<polygon points="' + areaPts + '" fill="url(#lg1)"/>' +
-    '<polyline points="' + pts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<polyline points="' + pts + '" fill="none" stroke="#6360D8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
     visibleDots + xLabels + yLabels + overlayDots + '</svg>';
 
   // Overlay circles handle hover — snaps tooltip to exact dot position
@@ -743,8 +743,8 @@ function buildLineChart(containerId, data, labels) {
       var scaleX = rect.width / W;
       var syntheticE = { clientX: rect.left + pointCoords[i].x * scaleX, clientY: rect.top + pointCoords[i].y * (rect.height / H) };
       showChartTooltip(syntheticE, labels[i], [
-        { label: 'Total Findings', value: data[i].toLocaleString(), color: '#6760d8', active: true }
-      ], '#6760d8');
+        { label: 'Total Findings', value: data[i].toLocaleString(), color: '#6360D8', active: true }
+      ], '#6360D8');
     });
     circle.addEventListener('mousemove', positionChartTooltip);
     circle.addEventListener('mouseleave', hideChartTooltip);
@@ -962,7 +962,7 @@ function initCharts() {
   var _iconMobile = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>';
   var _iconOther = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>';
   var _legendData = [
-    { label: 'Workstation', value: 1730006, color: '#6760d8', icon: _iconLaptop },
+    { label: 'Workstation', value: 1730006, color: '#6360D8', icon: _iconLaptop },
     { label: 'Server',      value: 1425134, color: '#47adcb', icon: _iconServer },
     { label: 'Network',     value: 44564,   color: '#2ea8a8', icon: _iconNetwork },
     { label: 'Mobile',      value: 19264,   color: '#5c6bc0', icon: _iconMobile },
@@ -1614,16 +1614,18 @@ function closeModal(id) {
   var el = document.getElementById(id);
   if (el) el.classList.remove('open');
 }
-// Close modal on overlay click
+// Close modal on overlay click — skip destructive modals (data-no-dismiss)
 document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('ds-modal-overlay')) {
+  if (e.target.classList.contains('ds-modal-overlay') && !e.target.hasAttribute('data-no-dismiss')) {
     e.target.classList.remove('open');
   }
 });
-// Close on Escape
+// Close on Escape — skip destructive modals (data-no-dismiss)
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    document.querySelectorAll('.ds-modal-overlay.open').forEach(function(m) { m.classList.remove('open'); });
+    document.querySelectorAll('.ds-modal-overlay.open').forEach(function(m) {
+      if (!m.hasAttribute('data-no-dismiss')) m.classList.remove('open');
+    });
   }
 });
 
@@ -1770,12 +1772,13 @@ function showToast(type, message) {
   toast.className = 'ds-toast ' + type;
   toast.innerHTML = (icons[type] || '') + '<span>' + message + '</span><button class="ds-toast-dismiss" onclick="this.closest(\'.ds-toast\').remove()">×</button>';
   container.appendChild(toast);
+  var delay = (type === 'success' || type === 'info') ? 3500 : 5000;
   setTimeout(function() {
     toast.style.transition = 'opacity 300ms, transform 300ms';
     toast.style.opacity = '0';
     toast.style.transform = 'translateX(20px)';
     setTimeout(function() { if (toast.parentNode) toast.remove(); }, 320);
-  }, 3500);
+  }, delay);
 }
 
 // ─── Toast — demo (top-right, feels real) ───
@@ -3327,10 +3330,10 @@ function initAvatarPlayground() {
     render: function(v) {
       var sizeMap = { xs:'22px', sm:'28px', md:'36px', lg:'48px' };
       var fsMap   = { xs:'9px',  sm:'11px', md:'13px', lg:'16px' };
-      var colorMap = { purple:'#6760d8', teal:'#47adcb', green:'#31A56D', red:'#D12329', amber:'#D98B1D' };
+      var colorMap = { purple:'#6360D8', teal:'#47adcb', green:'#31A56D', red:'#D12329', amber:'#D98B1D' };
       var sz = sizeMap[v.size] || '36px';
       var fs = fsMap[v.size] || '13px';
-      var bg = colorMap[v.color] || '#6760d8';
+      var bg = colorMap[v.color] || '#6360D8';
       var text = (v.initials || 'JD').slice(0,2).toUpperCase();
       var html = '<div class="ds-avatar" style="width:' + sz + ';height:' + sz + ';font-size:' + fs + ';background:' + bg + ';">' + text + '</div>';
       return { html: html, snippet: '<div class="ds-avatar" style="width:' + sz + ';height:' + sz + ';font-size:' + fs + ';background:' + bg + ';">' + text + '</div>' };
