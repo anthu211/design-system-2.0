@@ -14,7 +14,9 @@
     "header_bg":    "var(--table-th-bg)",
     "border":       "1px solid var(--table-border)",
     "row_hover_bg": "var(--shell-hover)",
-    "font_size":    "12px"
+    "font_size":    "12px",
+    "th_padding":   "8px 16px",
+    "td_padding":   "12px 16px"
   },
   "row_actions": {
     "visibility": "visibility:hidden by default — visibility:visible on tr:hover. Space always reserved so row height never jumps.",

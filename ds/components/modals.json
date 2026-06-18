@@ -2,13 +2,16 @@
   "component": "modals",
   "variants": ["confirmation", "form", "side-panel"],
   "tokens": {
-    "overlay_bg":    "rgba(0,0,0,0.45)",
-    "card_bg":       "var(--card-bg)",
-    "card_border":   "var(--card-border)",
-    "border_radius": "12px",
-    "max_width":     "480px",
-    "padding_body":  "16px",
-    "z_index":       1000
+    "overlay_bg":      "rgba(0,0,0,0.7)",
+    "overlay_blur":    "blur(2px)",
+    "card_bg":         "var(--card-bg)",
+    "card_border":     "var(--card-border)",
+    "border_radius":   "12px",
+    "max_width":       "440px",
+    "padding_header":  "16px 20px",
+    "padding_body":    "20px",
+    "padding_footer":  "16px 20px",
+    "z_index":         1000
   },
   "structure": "ds-modal-overlay > ds-modal > ds-modal-header + ds-modal-body + ds-modal-footer",
   "footer_order": "Cancel (left, t-outline) → Confirm (right, t-primary or t-danger)",
@@ -61,7 +64,7 @@
     "Trap focus inside modal while open."
   ],
   "dont": [
-    "Never auto-close a destructive confirmation modal.",
+    "Never close a destructive confirmation modal on backdrop click or Escape — add data-no-dismiss attribute to the overlay.",
     "Never put two primary buttons in a modal footer.",
     "Never skip the confirmation modal for delete/remove/revoke actions.",
     "Never use t-primary for a destructive confirm — always t-danger.",

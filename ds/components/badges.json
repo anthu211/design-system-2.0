@@ -4,11 +4,12 @@
   "base_class": "ds-badge",
   "dot_modifier": "dot",
   "tokens": {
-    "border_radius": "44px",
-    "font_size":     "11px",
-    "font_weight":   600,
-    "padding":       "2px 6px",
-    "text_transform": "none"
+    "border_radius":  "44px",
+    "font_size":      "11px",
+    "font_weight":    600,
+    "padding":        "2px 8px",
+    "gap":            "4px",
+    "text_transform": "uppercase"
   },
   "severity_map": {
     "critical":    { "class": "ds-badge danger",  "bg": "#F9EEEE", "color": "#D12329", "tailwind": "bg-[#F9EEEE] text-[#D12329]" },

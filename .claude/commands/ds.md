@@ -67,7 +67,7 @@ Add these after the shell vars in `:root` to bridge `@uxp` components to the the
   --uxp-space-1:4px; --uxp-space-2:8px; --uxp-space-3:12px; --uxp-space-4:16px;
   --uxp-space-5:20px; --uxp-space-6:24px; --uxp-space-8:32px; --uxp-space-12:48px;
   --uxp-radius-button:44px; --uxp-radius-card:4px; --uxp-radius-input:8px;
-  --uxp-radius-modal:12px; --uxp-radius-badge:4px;
+  --uxp-radius-modal:12px; --uxp-radius-badge:44px;
 }
 ```
 
@@ -77,7 +77,7 @@ Add these after the shell vars in `:root` to bridge `@uxp` components to the the
 - Cards, table wrappers, chart wrappers, panels: `4px` ONLY
 - Inputs, dropdowns: `8px`
 - Modals, drawers: `12px`
-- Badges: `4px` · Nav active item: `6px` · Callouts: `4px`
+- Badges: `44px` (pill) · Nav active item: `6px` · Callouts: `4px`
 
 ### Spacing — 4pt grid only
 Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`.
@@ -113,8 +113,8 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
 **Chart color schemes (never mix — pick the palette that matches the data scenario):**
 - Severity/Criticality RAG: `['#D12329','#E15252','#D98B1D','#31A56D']` (Critical → High → Medium → Low)
 - Maturity RAG: `['#E15252','#D98B1D','#31A56D','#1A7D4D']` (Weak → Moderate → Strong → Full)
-- Normal (entity/category — no red/amber/green): `['#6760d8','#47adcb','#2ea8a8','#5c6bc0','#8F8DDE','#3a7fcb','#7a9e7e','#b87fba','#c47e5a','#7b95b4']`
-- Single-series: accent `#6760d8`
+- Normal (entity/category — no red/amber/green): `['#6360D8','#47adcb','#2ea8a8','#5c6bc0','#8F8DDE','#3a7fcb','#7a9e7e','#b87fba','#c47e5a','#7b95b4']`
+- Single-series: accent `#6360D8`
 
 ---
 
@@ -149,24 +149,24 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
       --shell-raised:#F5F5F5; --shell-elevated:#EBEBEB;
       --ctrl-bg:#FFFFFF; --ctrl-border:#cfcfcf; --ctrl-text:#282828; --ctrl-text-2:#282828;
       --ctrl-placeholder:#9f9f9f; --ctrl-panel-bg:#FFFFFF; --ctrl-hover:#f3f3f3;
-      --ctrl-focus:rgba(103,96,216,.15); --ctrl-selected-bg:#f0f0fc; --ctrl-selected-text:#6760d8;
+      --ctrl-focus:rgba(103,96,216,.15); --ctrl-selected-bg:#f0f0fc; --ctrl-selected-text:#6360D8;
       --card-bg:#FFFFFF; --card-border:#E6E6E6; --table-th-bg:#F5F5F5; --table-border:#E6E6E6;
     }
     body { font-family:'Inter',sans-serif; background:var(--shell-bg); color:var(--shell-text); display:flex; flex-direction:column; height:100vh; overflow:hidden; font-size:12px; line-height:1.5; }
     .ds-btn { display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;border-radius:44px;font-family:inherit;transition:background 150ms,color 150ms,border-color 150ms;white-space:nowrap;user-select:none;line-height:1;text-decoration:none; }
-    .ds-btn:focus-visible { outline:2px solid #6760d8;outline-offset:2px; }
+    .ds-btn:focus-visible { outline:2px solid #6360D8;outline-offset:2px; }
     .ds-btn[disabled] { cursor:not-allowed;pointer-events:none;opacity:0.4; }
     .ds-btn.sz-sm { height:24px;padding:0 12px;font-size:12px;font-weight:500; }
     .ds-btn.sz-md { height:32px;padding:0 12px;font-size:14px;font-weight:500; }
     .ds-btn.sz-lg { height:40px;padding:0 16px;font-size:16px;font-weight:600; }
-    .ds-btn.t-primary { background:#6760d8;color:#f0f0fc; }
+    .ds-btn.t-primary { background:#6360D8;color:#f0f0fc; }
     .ds-btn.t-primary:hover { background:#5754c2; }
     .ds-btn.t-special { background:transparent;border:1px solid #b1b8f5; }
     .ds-btn.t-special .btn-text { background:linear-gradient(to right,#467fcd,#47adcb);-webkit-background-clip:text;background-clip:text;color:transparent; }
     .ds-btn.t-special:hover { background:rgba(177,184,245,0.12); }
     .ds-btn.t-secondary { background:rgba(99,96,216,0.15);color:#8F8DDE; }
     .ds-btn.t-secondary:hover { background:rgba(99,96,216,0.22);color:#a8a6e8; }
-    html.theme-light .ds-btn.t-secondary { background:#f0f0fc;color:#6760d8; }
+    html.theme-light .ds-btn.t-secondary { background:#f0f0fc;color:#6360D8; }
     html.theme-light .ds-btn.t-secondary:hover { background:#e0dff7;color:#504bb8; }
     .ds-btn.t-outline { background:transparent;border:1px solid var(--shell-border);color:var(--shell-text-2); }
     .ds-btn.t-outline:hover { border-color:var(--shell-text-muted);background:var(--shell-hover); }
@@ -200,7 +200,7 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
     .ds-callout-success { background:#EFF7ED;color:#1A7D4D;border:1px solid rgba(49,165,109,0.2); }
     .ds-callout-warning { background:#F7F6EB;color:#D98B1D;border:1px solid rgba(217,139,29,0.2); }
     .ds-callout-info    { background:rgba(99,96,216,0.08);color:#8F8DDE;border:1px solid rgba(99,96,216,0.2); }
-    .ds-badge { display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;letter-spacing:0.03em; }
+    .ds-badge { display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.03em; }
     .ds-badge.success  { background:rgba(49,165,109,0.14);color:#31A56D; }
     .ds-badge.warning  { background:rgba(217,139,29,0.14);color:#D98B1D; }
     .ds-badge.danger   { background:rgba(209,35,41,0.14);color:#D12329; }
@@ -233,7 +233,7 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
     .ds-modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:200;backdrop-filter:blur(2px); }
     .ds-modal-overlay.open { display:flex; }
     .ds-modal { background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 48px rgba(0,0,0,.5); }
-    .ds-modal-header { display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--shell-border); }
+    .ds-modal-header { display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--shell-border); }
     .ds-modal-title { font-size:14px;font-weight:600;color:var(--shell-text); }
     .ds-modal-close { width:28px;height:28px;border-radius:6px;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center; }
     .ds-modal-close:hover { background:var(--shell-hover);color:var(--shell-text); }
@@ -841,7 +841,7 @@ showToast('info', 'Report generating…');               // auto-dismiss 3s
 // Map ds-toast class onto Toast.Root: <Toast.Root className="ds-toast success">
 ```
 - Classes: `ds-toast success` (space-separated) — NEVER `ds-toast-success`
-- success + info: auto-dismiss 3s · error + warning: persist until dismissed
+- success + info: auto-dismiss 3.5s · error + warning: auto-dismiss 5s
 - React: `ToastProvider` at app root only — never inside a component
 - Never mix imperative `showToast()` and `ToastProvider` in the same app
 
@@ -950,7 +950,7 @@ function showChartTooltip(e, title, rows, borderColor) {
       '<span style="font-size:12px;font-weight:600;color:' + (r.active ? r.color : 'var(--shell-text)') + ';">' + r.value + '</span></div>';
   });
   t.innerHTML = html;
-  t.style.borderLeft = '3px solid ' + (borderColor || '#6760d8');
+  t.style.borderLeft = '3px solid ' + (borderColor || '#6360D8');
   t.style.display = 'block';
   positionChartTooltip(e);
 }
@@ -994,7 +994,7 @@ function buildVerticalBarChart(containerId, series, groups, colors) {
     series.forEach(function(s, si) {
       var v = s.values[gi], bh = Math.max(2, (v / yMax) * innerH);
       var bx = startX + si * (barW + barGap), by = pad.top + innerH - bh;
-      bars += '<rect x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh + '" fill="' + (colors[si] || '#6760d8') + '" rx="2" class="chart-bar" data-gi="' + gi + '" data-si="' + si + '"></rect>';
+      bars += '<rect x="' + bx + '" y="' + by + '" width="' + barW + '" height="' + bh + '" fill="' + (colors[si] || '#6360D8') + '" rx="2" class="chart-bar" data-gi="' + gi + '" data-si="' + si + '"></rect>';
     });
     xLabels += '<text x="' + groupCX + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + grp + '</text>';
   });
@@ -1004,7 +1004,7 @@ function buildVerticalBarChart(containerId, series, groups, colors) {
   el.querySelectorAll('.chart-bar').forEach(function(bar) {
     bar.addEventListener('mouseover', function(e) {
       var gi = parseInt(this.dataset.gi), si = parseInt(this.dataset.si);
-      var color = colors[si] || '#6760d8';
+      var color = colors[si] || '#6360D8';
       showChartTooltip(e, groups[gi], [{ label: series[si].label, value: series[si].values[gi].toLocaleString(), color: color, active: true }], color);
     });
     bar.addEventListener('mousemove', positionChartTooltip);
@@ -1037,22 +1037,22 @@ function buildLineChart(containerId, data, labels) {
   var xLabels = labels.map(function(l, i) { return '<text x="' + (pad.left + i * step).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" class="chart-axis-label">' + l + '</text>'; }).join('');
   var dotStroke = document.documentElement.classList.contains('theme-light') ? '#FFFFFF' : '#0E0E0E';
   var pointCoords = data.map(function(v, i) { return { x: parseFloat((pad.left + i * step).toFixed(1)), y: parseFloat((pad.top + innerH - (v / yMax) * innerH).toFixed(1)) }; });
-  var visibleDots = pointCoords.map(function(p) { return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6760d8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>'; }).join('');
+  var visibleDots = pointCoords.map(function(p) { return '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#6360D8" stroke="' + dotStroke + '" stroke-width="1.5" pointer-events="none"></circle>'; }).join('');
   var overlayDots = pointCoords.map(function(p, i) { return '<circle cx="' + p.x + '" cy="' + p.y + '" r="16" fill="transparent" style="cursor:pointer;" data-li="' + i + '"></circle>'; }).join('');
   var axes = '<line x1="' + pad.left + '" y1="' + pad.top + '" x2="' + pad.left + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>' +
     '<line x1="' + pad.left + '" y1="' + (pad.top + innerH) + '" x2="' + (pad.left + innerW) + '" y2="' + (pad.top + innerH) + '" stroke="var(--shell-border)" stroke-width="1"/>';
   var uid = 'lg' + Date.now();
   el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' +
-    '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6760d8" stop-opacity="0.25"/><stop offset="100%" stop-color="#6760d8" stop-opacity="0"/></linearGradient></defs>' +
+    '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6360D8" stop-opacity="0.25"/><stop offset="100%" stop-color="#6360D8" stop-opacity="0"/></linearGradient></defs>' +
     gridLines + axes + '<polygon points="' + areaPts + '" fill="url(#' + uid + ')"/>' +
-    '<polyline points="' + pts + '" fill="none" stroke="#6760d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<polyline points="' + pts + '" fill="none" stroke="#6360D8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
     visibleDots + xLabels + yLabels + overlayDots + '</svg>';
   el.querySelectorAll('circle[data-li]').forEach(function(circle) {
     var i = parseInt(circle.dataset.li);
     circle.addEventListener('mouseover', function() {
       var svgEl = circle.closest('svg'), rect = svgEl.getBoundingClientRect();
       var syntheticE = { clientX: rect.left + pointCoords[i].x * (rect.width / W), clientY: rect.top + pointCoords[i].y * (rect.height / H) };
-      showChartTooltip(syntheticE, labels[i], [{ label:'Value', value:data[i].toLocaleString(), color:'#6760d8', active:true }], '#6760d8');
+      showChartTooltip(syntheticE, labels[i], [{ label:'Value', value:data[i].toLocaleString(), color:'#6360D8', active:true }], '#6360D8');
     });
     circle.addEventListener('mousemove', positionChartTooltip);
     circle.addEventListener('mouseleave', hideChartTooltip);
@@ -1100,7 +1100,7 @@ function buildMultiLineChart(containerId, series, labels) {
   defs += '</defs>';
   el.innerHTML = '<svg width="100%" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" style="overflow:visible;">' + defs + gridLines + axes + seriesSvg + yLabels + xLabels + '</svg>';
 }
-// Usage: buildMultiLineChart('chart', [{label:'Exposure',values:[62,63,65],color:'#6760d8'},{label:'Critical',values:[41,44,47],color:'#D12329'}], ['Jan','Feb','Mar']);
+// Usage: buildMultiLineChart('chart', [{label:'Exposure',values:[62,63,65],color:'#6360D8'},{label:'Critical',values:[41,44,47],color:'#D12329'}], ['Jan','Feb','Mar']);
 ```
 
 ### Donut Chart
@@ -1111,7 +1111,7 @@ function buildDonutChart(containerId, data, size) {
   size = size || 160; var cx = size / 2, cy = size / 2;
   var outerR = size / 2 - 2, strokeW = outerR * 0.12, r = outerR - strokeW / 2;
   var total = data.reduce(function(s, d) { return s + d.value; }, 0), startAngle = 0;
-  var COLORS = ['#D12329','#D98B1D','#6760d8','#31A56D'];
+  var COLORS = ['#D12329','#D98B1D','#6360D8','#31A56D'];
   var paths = data.map(function(d, i) {
     var sweep = (d.value / total) * 360, endAngle = startAngle + sweep - 8;
     var path = describeArc(cx, cy, r, startAngle, endAngle); startAngle += sweep;
@@ -1134,7 +1134,7 @@ function buildDonutChart(containerId, data, size) {
 <div class="css-hbar-chart">
   <div class="css-hbar-row">
     <span class="css-hbar-label">Injection</span>
-    <div class="css-hbar" style="width:78%;background:#6760d8;"></div>
+    <div class="css-hbar" style="width:78%;background:#6360D8;"></div>
     <span class="css-hbar-val">78</span>
   </div>
 </div>
@@ -1220,7 +1220,7 @@ Infer persona from request context if not stated. Apply layout accordingly.
 9. Navigation pattern is fixed — never modify without approval
 10. Use defined shells only — never invent new layouts
 11. No page-level tabs unless explicitly requested
-12. Toasts: error/warning persist; success/info auto-dismiss 3s
+12. Toasts: success/info auto-dismiss 3.5s · error/warning auto-dismiss 5s
 13. Empty states: 🚦 in tables, 🚧 for full-page errors — never hide thead
 14. KPI cards: max 5, value+label+delta only, no icons/shadows/borders
 15. Charts: always `setTimeout(initCharts, 60)` — always include tooltip
@@ -1265,7 +1265,7 @@ Only replace: page `<title>`, nav items, breadcrumb + sub-header text, page cont
 
 **[ ] 10. FILTER BAR** — Filter button: `background:#e0dff7; color:#504bb8; border-radius:44px`.
 
-**[ ] 11. TOASTS** — success/info auto-dismiss 3s. error/warning persist. Class: `ds-toast success` (space-separated).
+**[ ] 11. TOASTS** — success/info auto-dismiss 3.5s. error/warning auto-dismiss 5s. Class: `ds-toast success` (space-separated).
 
 **[ ] 12. ALL INTERACTIVE ELEMENTS** — every button, input, row, tab must have hover, active, focus, disabled states.
 
