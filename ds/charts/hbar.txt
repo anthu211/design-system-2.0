@@ -13,7 +13,7 @@ This chart uses CSS flex — no SVG. Width is set as a percentage of the contain
   </div>
   <div class="css-hbar-row">
     <span class="css-hbar-label">Auth</span>
-    <div class="css-hbar" style="width:62%;background:#D98B1D;"></div>
+    <div class="css-hbar" style="width:62%;background:#E15252;"></div>
     <span class="css-hbar-val">62</span>
   </div>
   <div class="css-hbar-row">
@@ -23,7 +23,7 @@ This chart uses CSS flex — no SVG. Width is set as a percentage of the contain
   </div>
   <div class="css-hbar-row">
     <span class="css-hbar-label">CSRF</span>
-    <div class="css-hbar" style="width:41%;background:#D98B1D;"></div>
+    <div class="css-hbar" style="width:41%;background:#E15252;"></div>
     <span class="css-hbar-val">41</span>
   </div>
 </div>

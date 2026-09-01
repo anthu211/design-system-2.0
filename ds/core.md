@@ -105,7 +105,7 @@ Delta classes: `up-good` · `down-good` · `up-bad` · `down-bad`.
 ```
 - NEVER inline `background`/`color` on badges — use variant classes only
 - Severity MUST be visible in table column — NEVER tooltip-only
-- React: critical=`bg-[#F9EEEE] text-[#D12329]` · high=`bg-[#FEF3C7] text-[#D98B1D]` · medium=`bg-[#f0f0fc] text-[#6360D8]` · low=`bg-[#EFF7ED] text-[#31A56D]`
+- React: critical=`bg-[#F9EEEE] text-[#D12329]` · high=`bg-[#FFF0F0] text-[#E15252]` · medium=`bg-[#FEF3C7] text-[#D98B1D]` · low=`bg-[#EFF7ED] text-[#31A56D]`
 
 ### Tables
 Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 columns.
@@ -281,7 +281,7 @@ Panel slides in from right. Open state: add `.open` class to overlay + panel.
 HTML: ALWAYS copy `buildLineChart`, `buildMultiLineChart`, `buildVerticalBarChart`, `buildDonutChart`, `buildStackedBarChart` from `charts.txt` **verbatim**. NEVER `<canvas>`, Chart.js, D3, ECharts.
 - ALWAYS include Chart Tooltip HTML + JS from `charts.txt` — hovers break without it
 - Every multi-series chart needs `<div class="chart-legend">` with `chart-legend-dot` (`border-radius:50%`) per series, centered below chart
-- Severity colors (RAG): critical=`#D12329` · high=`#D98B1D` · medium=`#F5B700` · low=`#31A56D`
+- Severity colors (RAG): critical=`#D12329` · high=`#E15252` · medium=`#D98B1D` · low=`#31A56D`
 - Normal colors (10, non-RAG): `#6760d8` `#47adcb` `#2ea8a8` `#5c6bc0` `#8F8DDE` `#3a7fcb` `#7a9e7e` `#b87fba` `#c47e5a` `#7b95b4` — NEVER use RAG colors for category/entity breakdowns
 - React: Recharts only — `AreaChart`, `BarChart`, `LineChart`
 
@@ -349,9 +349,9 @@ Success/Info auto-dismiss 3s. Error/Warning persist. Max 3 stacked. NEVER for de
 | Status | Badge class | Light bg | Light text |
 |--------|-------------|----------|------------|
 | Critical | `ds-badge danger` | #F9EEEE | #D12329 |
-| High | `ds-badge warning` | #FEF3C7 | #D98B1D |
+| High | `ds-badge high` | #FFF0F0 | #E15252 |
 | Medium-High | `ds-badge caution` | #FFF3E0 | #E57B1D |
-| Medium | `ds-badge info` | #f0f0fc | #6360D8 |
+| Medium | `ds-badge warning` | #FEF3C7 | #D98B1D |
 | Low | `ds-badge neutral` | #EFF7ED | #31A56D |
 | Active/Good | `ds-badge success` | #EFF7ED | #31A56D |
 

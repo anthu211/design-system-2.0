@@ -9,7 +9,7 @@ Grid lines:  horizontal only, solid stroke
 Hover:       opacity 0.7 via CSS class chart-bar:hover
 ```
 
-Series colors (in order): `#D12329` · `#D98B1D` · `#6760d8` · `#31A56D`
+Series colors (in order): `#D12329` · `#E15252` · `#D98B1D` · `#31A56D`
 
 ```html
 <div id="vbar-chart" style="width:100%;"></div>
@@ -89,7 +89,7 @@ buildVerticalBarChart('vbar-chart',
     { label: 'Low',      values: [8,  10, 12, 16, 18, 20] }
   ],
   ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-  ['#D12329', '#D98B1D', '#6760d8', '#31A56D']
+  ['#D12329', '#E15252', '#D98B1D', '#31A56D']
 );
 </script>
 ```

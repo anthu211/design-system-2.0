@@ -18,7 +18,7 @@ $ARGUMENTS
 
 1. Read `document-skills/pitch-deck-skill/SKILL.md`
 2. Plan the slides — layout name, placeholder idx, content for each
-3. Write the complete python-pptx script
+3. Write the complete python-pptx script — include `prepare_template()` and `insert_slide_at()` from SKILL.md. Call `prepare_template(prs)` immediately after `Presentation(TEMPLATE)`. Use `insert_slide_at()` for every interior slide — never plain `add_slide()`. Do NOT put cover or back cover in the slides data structure; they are already in the template with the PAI logo baked in as a slide-level shape that cannot be recreated with add_slide().
 4. Run it with Bash
 5. Confirm the output file path
 

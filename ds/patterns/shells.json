@@ -9,7 +9,7 @@
         "topbar": {
           "role": "Global chrome — logo, user, nav actions",
           "position": "fixed top, full width",
-          "height": "48px",
+          "height": "52px",
           "z_index": 50,
           "css_vars": {
             "background": "#131313",

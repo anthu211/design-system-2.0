@@ -1,0 +1,59 @@
+{
+  "component": "typography",
+  "description": "Typography component — enforces the DS type ramp via CSS classes. Replaces @ui/typography. Use instead of bare HTML tags with inline font-size/weight.",
+  "classes": {
+    "ds-text-title":     { "size": "18px", "weight": 700, "line_height": "1.2", "usage": "Full-page error states ONLY — never in sub-header or body content" },
+    "ds-text-heading":   { "size": "14px", "weight": 600, "line_height": "1.3", "usage": "Section headings, modal titles, card headers" },
+    "ds-text-subheader": { "size": "12px", "weight": 500, "line_height": "1.4", "usage": "Sub-header page title (line 1). Never use <h1>." },
+    "ds-text-body":      { "size": "12px", "weight": 400, "line_height": "1.5", "usage": "Default body text, table cells, form labels, descriptions" },
+    "ds-text-caption":   { "size": "11px", "weight": 400, "line_height": "1.5", "usage": "Breadcrumbs, meta info, secondary labels, table header text" },
+    "ds-text-mono":      { "size": "12px", "weight": 400, "line_height": "1.5", "usage": "Code values, IDs, CVE numbers, hash strings" }
+  },
+  "css": ".ds-text-title     { font-size:18px; font-weight:700; line-height:1.2; color:var(--shell-text); font-family:inherit; } .ds-text-heading   { font-size:14px; font-weight:600; line-height:1.3; color:var(--shell-text); font-family:inherit; } .ds-text-subheader { font-size:12px; font-weight:500; line-height:1.4; color:var(--shell-text); font-family:inherit; } .ds-text-body      { font-size:12px; font-weight:400; line-height:1.5; color:var(--shell-text-2); font-family:inherit; } .ds-text-caption   { font-size:11px; font-weight:400; line-height:1.5; color:var(--shell-text-muted); font-family:inherit; } .ds-text-mono      { font-size:12px; font-weight:400; line-height:1.5; color:var(--shell-text-2); font-family:'SF Mono','Fira Code',monospace; }",
+  "color_modifiers": {
+    "ds-text--muted":   "color:var(--shell-text-muted) — secondary information",
+    "ds-text--accent":  "color:var(--shell-accent) — links, active states",
+    "ds-text--danger":  "color:#D12329 — error text, critical labels",
+    "ds-text--success": "color:#31A56D — success text, low severity",
+    "ds-text--warning": "color:#D98B1D — warning text, medium severity"
+  },
+  "truncation": {
+    "single_line": "Add class ds-text--truncate: overflow:hidden; white-space:nowrap; text-overflow:ellipsis; max-width:100%;",
+    "multi_line":  "Use style=\"display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;\" inline for 2-line clamp"
+  },
+  "element_mapping": {
+    "ds-text-title":     "Use on <h1> — only in full-page error states",
+    "ds-text-heading":   "Use on <h2>, <h3>, or <div> — never skip heading levels",
+    "ds-text-subheader": "Use on <div> — NEVER <h1>",
+    "ds-text-body":      "Use on <p>, <span>, <div>",
+    "ds-text-caption":   "Use on <span>, <small>, <div>",
+    "ds-text-mono":      "Use on <code>, <span>, <td> for identifier values"
+  },
+  "example_html": {
+    "heading":   "<div class=\"ds-text-heading\">Section Title</div>",
+    "body":      "<p class=\"ds-text-body\">Default body content text.</p>",
+    "caption":   "<span class=\"ds-text-caption\">Last updated 2h ago</span>",
+    "mono":      "<span class=\"ds-text-mono\">CVE-2024-1234</span>",
+    "muted":     "<span class=\"ds-text-body ds-text--muted\">Secondary description</span>",
+    "truncate":  "<div class=\"ds-text-body ds-text--truncate\" style=\"max-width:200px;\">Long text that gets truncated</div>"
+  },
+  "react": {
+    "variants":   ["title", "heading", "subheader", "body", "caption", "mono"],
+    "props":      { "variant": "string (required)", "color": "muted | accent | danger | success | warning (optional)", "truncate": "boolean (optional)", "as": "HTML element override — e.g. as='span'" },
+    "example":    "<Typography variant=\"heading\">Section Title</Typography>\n<Typography variant=\"body\" color=\"muted\">Secondary text</Typography>\n<Typography variant=\"mono\">CVE-2024-1234</Typography>\n<Typography variant=\"caption\" truncate>Long label</Typography>"
+  },
+  "do": [
+    "Always use ds-text-* classes instead of inline font-size/font-weight.",
+    "Use ds-text-heading for section titles and modal titles.",
+    "Use ds-text-caption for table header labels (pair with text-transform:uppercase).",
+    "Use ds-text-mono for IDs, CVEs, hashes, and code values.",
+    "Apply color modifiers (ds-text--muted, ds-text--accent) instead of hardcoding hex."
+  ],
+  "dont": [
+    "Never use inline style=\"font-size:14px\" — use ds-text-heading instead.",
+    "Never use ds-text-title outside a full-page error state.",
+    "Never use <h1> in body content — sub-header title uses ds-text-subheader on a <div>.",
+    "Never mix raw <b>/<strong> tags — use font-weight via the class instead.",
+    "Never skip heading levels (e.g. heading immediately followed by caption with no body)."
+  ]
+}

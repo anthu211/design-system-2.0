@@ -63,7 +63,7 @@ document-skills/document-skill/templates/Prevalent AI - Word Template with Cover
 | Role | Hex | Usage |
 |---|---|---|
 | Primary dark (dk1) | `#372355` | Cover title, primary headings |
-| Dark purple (accent1) | `#4D2E58` | H1–H4 headings, subtitles, table headings bg |
+| Dark purple (accent1) | `#4D2E58` | H1–H4 headings, subtitles |
 | Medium purple (accent2) | `#81718F` | Supporting text on dark backgrounds |
 | Slate (accent3) | `#959AA8` | H3 headings, captions, TOC heading |
 | Light slate (accent4) | `#C4C6CE` | Subtle fills, borders |
@@ -143,8 +143,10 @@ Use these exact style names when applying or matching styles in python-docx.
 
 | Style name | Size | Color | Usage |
 |---|---|---|---|
-| `Table Heading - 10pt` | 10pt (Calibri Light) | `#FFFFFF` | Table column headers (white text on dark header row) |
-| `Table Heading - 8 pt` | 8pt | — | Dense table headers |
+| `Table Heading - 10pt` | 10pt (Calibri Light) | `#FFFFFF` white text | Table column headers — white text, `#372355` background fill |
+| `Table Heading - 8 pt` | 8pt | `#FFFFFF` white text | Dense table headers — white text, `#372355` background fill |
+
+**Table header fill: `#372355` — this is the ONLY correct color for table header row backgrounds.** Do not use `#4D2E58` or any other purple variant for table headers.
 
 ### Utility styles
 
@@ -196,6 +198,39 @@ from docx.oxml.ns import qn
 
 TEMPLATE = "document-skills/document-skill/templates/Prevalent AI - Word Template with Cover Page - 01.08.17.dotx"
 
+def clear_showcase_section(doc):
+    """
+    Remove the template's style-showcase body content.
+
+    Template layout: Cover (sectPr) → TOC (sectPr) → Showcase → [final sectPr]
+    We locate the two section-break paragraphs, then delete every body child
+    that follows the second one — except the final standalone <w:sectPr> element,
+    which carries the document page-layout properties and must be kept.
+
+    This MUST be called before adding any new content, otherwise generated
+    paragraphs are appended after the showcase and the output reads:
+    showcase page → generated content (wrong order + inflated page count).
+    """
+    body = doc.element.body
+    children = list(body)
+
+    # Collect indices of paragraphs that contain a <w:sectPr> (section breaks)
+    sectPr_para_indices = []
+    for i, child in enumerate(children):
+        if child.tag == qn('w:p'):
+            pPr = child.find(qn('w:pPr'))
+            if pPr is not None and pPr.find(qn('w:sectPr')) is not None:
+                sectPr_para_indices.append(i)
+
+    if len(sectPr_para_indices) >= 2:
+        # Everything after the second section-break paragraph is the showcase
+        toc_end_idx = sectPr_para_indices[1]
+        final_sectPr = children[-1]  # standalone <w:sectPr> — must be preserved
+        for child in children[toc_end_idx + 1:]:
+            if child is not final_sectPr:
+                body.remove(child)
+
+
 def generate_document(output_path, doc_data):
     # dotx cannot be opened directly — copy to temp .docx first
     tmp = output_path.replace('.docx', '_tmp.docx')
@@ -217,14 +252,20 @@ def generate_document(output_path, doc_data):
                     run.text = run.text.replace(old, new)
 
     # Update running header — find "Document Title" in header paragraphs
+    # The PAGE field is a <w:fldChar> element, not a text run — iterating
+    # para.runs will not touch it, so page numbering is preserved automatically.
     for section in doc.sections:
         for para in section.header.paragraphs:
             for run in para.runs:
                 if "Document Title" in run.text:
                     run.text = run.text.replace("Document Title", doc_data.get("title", ""))
 
-    # Add body content after the showcase section
-    # Use add_paragraph with the named style:
+    # REQUIRED: remove the template showcase section BEFORE adding any content.
+    # Skipping this causes the showcase to appear before generated content and
+    # inflates page numbers throughout the document.
+    clear_showcase_section(doc)
+
+    # Now add body content — paragraphs are appended to the clean body:
     # doc.add_paragraph("Section heading text", style="Heading 1 - 14pt")
     # doc.add_paragraph("Body text here.", style="Body Copy - 10pt")
 
@@ -235,9 +276,34 @@ def generate_document(output_path, doc_data):
 **Rules:**
 - Always copy the `.dotx` to a `.docx` before opening — never open the template directly.
 - Replace text by iterating `para.runs` — never set `para.text` directly.
+- **Always call `clear_showcase_section(doc)` before any `doc.add_paragraph()` calls.** Failure to do this leaves the template showcase pages in the output and pushes all generated content to the wrong pages.
 - Add new paragraphs with `doc.add_paragraph(text, style="<style name>")` using the style names from this file.
-- For table header rows, apply `#4D2E58` background fill with white (`#FFFFFF`) text using `Table Heading - 10pt` style.
-- Delete the style-showcase section from the template before saving if it is not needed in the output.
+- Page numbering: the header `PAGE` field is an XML field element, not a text run. Iterating `para.runs` will not corrupt it — page numbers update automatically when Word opens the file.
+- For tables, always set the table style to `Prevalent AI Table Style` — this applies the `#372355` header fill automatically to the first row.
+- For table header cells, apply paragraph style `Table Heading - 10pt` (white text). The cell background fill MUST be `#372355`. Set it explicitly on each header cell using the XML snippet below — do not rely on theme colors, do not use `#4D2E58`.
+
+```python
+from docx.oxml.ns import qn
+from lxml import etree
+
+def set_cell_bg(cell, hex_color):
+    """Set table cell background fill to a solid RGB hex color."""
+    tc = cell._tc
+    tcPr = tc.find(qn('w:tcPr'))
+    if tcPr is None:
+        tcPr = etree.SubElement(tc, qn('w:tcPr'))
+    shd = tcPr.find(qn('w:shd'))
+    if shd is None:
+        shd = etree.SubElement(tcPr, qn('w:shd'))
+    shd.set(qn('w:val'), 'clear')
+    shd.set(qn('w:color'), 'auto')
+    shd.set(qn('w:fill'), hex_color)  # e.g. '372355'
+
+# Usage: apply to every cell in the header row
+for cell in table.rows[0].cells:
+    set_cell_bg(cell, '372355')
+    cell.paragraphs[0].style = doc.styles['Table Heading - 10pt']
+```
 - Never modify the cover page image or logo shapes.
 
 ---

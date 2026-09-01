@@ -20,7 +20,7 @@ $ARGUMENTS
 
 1. Read `document-skills/document-skill/SKILL.md`
 2. Plan the document structure — sections, styles, content
-3. Write the complete python-docx script
+3. Write the complete python-docx script — include the `clear_showcase_section()` helper from SKILL.md and call it before ANY `doc.add_paragraph()` call. This is mandatory: skipping it causes the template showcase pages to appear before the generated content and produces wrong page numbers throughout.
 4. Run it with Bash
 5. Confirm the output file path
 

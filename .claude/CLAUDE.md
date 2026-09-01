@@ -31,7 +31,7 @@ Context: https://anthu211.github.io/design-system-2.0/ds/context.json
 All DS context (tokens, shell template, component patterns, chart functions) is embedded in `.claude/commands/ds.md`. Update that file when the DS updates.
 
 ## Slash commands — Document Generation (Word / PowerPoint)
-- `/generate-deck [description]` — generate branded .pptx using the PAI pitch deck template
+- `/generate-deck [description]` — generate branded .pptx; auto-selects Pitch Deck (sales/executive) or Proposal Deck (client proposal/engagement) based on description
 - `/generate-doc [description]` — generate branded .docx using the PAI Word template
 
 Rules for document commands:

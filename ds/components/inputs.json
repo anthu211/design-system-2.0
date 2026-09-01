@@ -36,6 +36,14 @@
       "input_class": "ds-checkbox-input",
       "box_class": "ds-checkbox-box",
       "label_class": "ds-checkbox-label",
+      "mixed_state": {
+        "description": "Indeterminate / mixed state — used in select-all controls when some (not all) rows are checked.",
+        "html": "Set indeterminate via JS: element.indeterminate = true. Cannot be set via HTML attribute.",
+        "css_modifier": "ds-checkbox-box--mixed",
+        "rule": "Only on select-all header checkboxes. Never on individual row checkboxes.",
+        "example_html": "<label class=\"ds-checkbox-wrap\">\n  <input type=\"checkbox\" class=\"ds-checkbox-input\" id=\"select-all\">\n  <span class=\"ds-checkbox-box ds-checkbox-box--mixed\"></span>\n  <span class=\"ds-checkbox-label\">Select all</span>\n</label>",
+        "example_js": "document.getElementById('select-all').indeterminate = true;"
+      },
       "example_html": "<label class=\"ds-checkbox-wrap\">\n  <input type=\"checkbox\" class=\"ds-checkbox-input\">\n  <span class=\"ds-checkbox-box\"></span>\n  <span class=\"ds-checkbox-label\">Enable notifications</span>\n</label>"
     },
     "radio": {
@@ -56,7 +64,29 @@
       "option_class": "ds-dropdown-option",
       "selected_class": "ds-dropdown-option selected",
       "search_threshold": "Add search input inside panel when 10+ options (Hick's Law)",
-      "example_html": "<div class=\"ds-dropdown\">\n  <button class=\"ds-dropdown-trigger ds-btn sz-md t-outline\">\n    <span>Select option</span><svg><!-- chevron --></svg>\n  </button>\n  <div class=\"ds-dropdown-panel\" style=\"display:none;\">\n    <div class=\"ds-dropdown-option selected\">Option A</div>\n    <div class=\"ds-dropdown-option\">Option B</div>\n  </div>\n</div>"
+      "subcomponents": {
+        "DropdownIcon": {
+          "class": "ds-dropdown-icon",
+          "description": "Icon placed inside a dropdown option row — left of label. Use for type/category indicators inside option lists.",
+          "example_html": "<div class=\"ds-dropdown-option\">\n  <span class=\"ds-dropdown-icon\"><!-- 14×14 SVG --></span>\n  <span>Option with icon</span>\n</div>"
+        },
+        "DropdownSeparator": {
+          "class": "ds-dropdown-sep",
+          "description": "Horizontal divider between option groups inside a panel.",
+          "example_html": "<hr class=\"ds-dropdown-sep\">"
+        },
+        "DropdownPortal": {
+          "description": "Render the dropdown panel outside the normal DOM flow to avoid overflow/clip issues from parent containers with overflow:hidden. In HTML: use position:fixed on the panel. In React: use Radix DropdownMenu.Portal.",
+          "html_note": "Set panel to position:fixed + JS-calculated top/left from trigger getBoundingClientRect().",
+          "react_note": "Wrap <DropdownMenu.Content> in <DropdownMenu.Portal> — Radix handles placement automatically."
+        }
+      },
+      "mixed_option": {
+        "description": "Checkbox option with indeterminate/mixed state inside a dropdown. Use for multi-select dropdowns with a select-all row.",
+        "class": "ds-dropdown-option ds-dropdown-option--mixed",
+        "example_html": "<div class=\"ds-dropdown-option ds-dropdown-option--mixed\">\n  <input type=\"checkbox\" class=\"ds-checkbox-input\" id=\"dd-all\">\n  <span class=\"ds-checkbox-box ds-checkbox-box--mixed\"></span>\n  <span>Select all</span>\n</div>"
+      },
+      "example_html": "<div class=\"ds-dropdown\">\n  <button class=\"ds-dropdown-trigger ds-btn sz-md t-outline\">\n    <span>Select option</span><svg><!-- chevron --></svg>\n  </button>\n  <div class=\"ds-dropdown-panel\" style=\"display:none;\">\n    <div class=\"ds-dropdown-option selected\">Option A</div>\n    <div class=\"ds-dropdown-option\">\n      <span class=\"ds-dropdown-icon\"><!-- SVG --></span>Option B\n    </div>\n    <hr class=\"ds-dropdown-sep\">\n    <div class=\"ds-dropdown-option\">Option C</div>\n  </div>\n</div>"
     },
     "filter-bar": {
       "bar_class": "ds-filter-bar",

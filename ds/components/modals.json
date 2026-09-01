@@ -2,16 +2,31 @@
   "component": "modals",
   "variants": ["confirmation", "form", "side-panel"],
   "tokens": {
-    "overlay_bg":    "rgba(0,0,0,0.45)",
-    "card_bg":       "var(--card-bg)",
-    "card_border":   "var(--card-border)",
-    "border_radius": "12px",
-    "max_width":     "480px",
-    "padding_body":  "16px",
-    "z_index":       1000
+    "overlay_bg":      "rgba(0,0,0,0.7)",
+    "overlay_blur":    "blur(2px)",
+    "card_bg":         "var(--card-bg)",
+    "card_border":     "var(--card-border)",
+    "border_radius":   "12px",
+    "max_width":       "440px",
+    "padding_header":  "16px 20px",
+    "padding_body":    "20px",
+    "padding_footer":  "16px 20px",
+    "z_index":         1000
   },
   "structure": "ds-modal-overlay > ds-modal > ds-modal-header + ds-modal-body + ds-modal-footer",
   "footer_order": "Cancel (left, t-outline) → Confirm (right, t-primary or t-danger)",
+  "props": {
+    "hideClose": {
+      "description": "Suppress the × close button in the modal header. Use for non-dismissable dialogs (e.g. forced setup steps, session expired, licence walls) where the user must complete the flow.",
+      "rule": "Only omit the close button when there is genuinely no escape route. Must still provide a footer action (even if just 'Dismiss').",
+      "example_html": "<!-- No close button — footer action is the only exit -->\n<div class=\"ds-modal\">\n  <div class=\"ds-modal-header\">\n    <span class=\"ds-modal-title\">Session Expired</span>\n    <!-- no ds-modal-close here -->\n  </div>\n  <div class=\"ds-modal-body\">Your session has expired. Please log in again.</div>\n  <div class=\"ds-modal-footer\">\n    <button class=\"ds-btn sz-md t-primary\">Log In</button>\n  </div>\n</div>"
+    },
+    "hideOverlay": {
+      "description": "Render the modal without the backdrop overlay. Use for inline confirmations or dialogs that appear within a drawer or panel where a second overlay would stack incorrectly.",
+      "rule": "Never hide the overlay on page-level modals — only within already-overlaid surfaces (drawers, side panels).",
+      "example_html": "<!-- No overlay — used inside a drawer -->\n<div class=\"ds-modal-overlay\" style=\"background:transparent;backdrop-filter:none;\">\n  <div class=\"ds-modal\"><!-- content --></div>\n</div>"
+    }
+  },
   "variants_detail": {
     "confirmation": {
       "use": "Destructive actions — delete, remove, revoke. Required before any destructive operation.",
@@ -49,7 +64,7 @@
     "Trap focus inside modal while open."
   ],
   "dont": [
-    "Never auto-close a destructive confirmation modal.",
+    "Never close a destructive confirmation modal on backdrop click or Escape — add data-no-dismiss attribute to the overlay.",
     "Never put two primary buttons in a modal footer.",
     "Never skip the confirmation modal for delete/remove/revoke actions.",
     "Never use t-primary for a destructive confirm — always t-danger.",
