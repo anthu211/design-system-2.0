@@ -193,6 +193,9 @@ Allowed: `4, 8, 12, 16, 20, 24, 32, 48px`. NEVER: `3, 5, 6, 7, 10, 11, 13, 15px`
     .ds-modal { background:var(--card-bg);border:1px solid var(--card-border);border-radius:12px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 48px rgba(0,0,0,.5); }
     .ds-modal-header { display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--shell-border); }
     .ds-modal-title { font-size:14px;font-weight:600;color:var(--shell-text); }
+    .ds-modal-title.negative { color:#D12329; }
+    .ds-modal-title.success { color:#31A56D; }
+    .ds-modal-title.warning { color:#D98B1D; }
     .ds-modal-close { width:28px;height:28px;border-radius:6px;border:none;background:transparent;cursor:pointer;color:var(--shell-text-muted);display:flex;align-items:center;justify-content:center; }
     .ds-modal-close:hover { background:var(--shell-hover);color:var(--shell-text); }
     .ds-modal-body { padding:20px; }
@@ -483,10 +486,11 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
 
 ### Modals
 ```html
+<!-- Destructive/delete confirm — heading red, button red (t-danger) -->
 <div class="ds-modal-overlay" id="delete-modal">
   <div class="ds-modal">
     <div class="ds-modal-header">
-      <span class="ds-modal-title">Delete "CVE-2024-1234"?</span>
+      <span class="ds-modal-title negative">Delete "CVE-2024-1234"?</span>
       <button class="ds-modal-close" onclick="document.getElementById('delete-modal').classList.remove('open')">×</button>
     </div>
     <div class="ds-modal-body">
@@ -497,6 +501,50 @@ Column order: `[checkbox] → [data columns] → [status] → [actions]`. Max 7 
       <button class="ds-btn sz-md t-danger">Delete Finding</button>
     </div>
   </div>
+</div>
+<!-- Success confirm — heading green, button stays t-primary (not green/red) -->
+<div class="ds-modal-overlay open" id="success-modal">
+  <div class="ds-modal">
+    <div class="ds-modal-header">
+      <span class="ds-modal-title success">Scan Complete</span>
+      <button class="ds-modal-close" onclick="document.getElementById('success-modal').classList.remove('open')">×</button>
+    </div>
+    <div class="ds-modal-body">42 assets scanned, 3 new findings identified.</div>
+    <div class="ds-modal-footer">
+      <button class="ds-btn sz-md t-primary">View Findings</button>
+    </div>
+  </div>
+</div>
+<!-- Warning confirm — heading amber, button stays t-primary -->
+<div class="ds-modal-overlay open" id="warning-modal">
+  <div class="ds-modal">
+    <div class="ds-modal-header">
+      <span class="ds-modal-title warning">Unsaved Changes</span>
+      <button class="ds-modal-close" onclick="document.getElementById('warning-modal').classList.remove('open')">×</button>
+    </div>
+    <div class="ds-modal-body">You have unsaved changes that will be lost if you leave this page.</div>
+    <div class="ds-modal-footer">
+      <button class="ds-btn sz-md t-outline">Discard</button>
+      <button class="ds-btn sz-md t-primary">Save Changes</button>
+    </div>
+  </div>
+</div>
+<!-- hideClose — no × button (non-dismissable flows e.g. session expired) -->
+<div class="ds-modal-overlay open">
+  <div class="ds-modal">
+    <div class="ds-modal-header">
+      <span class="ds-modal-title">Session Expired</span>
+      <!-- no ds-modal-close -->
+    </div>
+    <div class="ds-modal-body">Your session has expired. Please log in again.</div>
+    <div class="ds-modal-footer">
+      <button class="ds-btn sz-md t-primary">Log In</button>
+    </div>
+  </div>
+</div>
+<!-- hideOverlay — no backdrop (use inside drawers/panels only) -->
+<div class="ds-modal-overlay open" style="background:transparent;backdrop-filter:none;">
+  <div class="ds-modal"><!-- content --></div>
 </div>
 ```
 - Cancel always LEFT · Confirm always RIGHT
