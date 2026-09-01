@@ -15,15 +15,27 @@ Context: https://anthu211.github.io/design-system-2.0/ds/context.json
 - No page-level tabs unless explicitly requested.
 
 ## On every task
-1. If using a slash command (`/new-page`, `/new-component`, `/new-react-component`, `/ux-review`, `/persona-check`, `/audit-page`) — the command handles its own fetching. Do NOT also fetch context.json.
-2. For ad-hoc tasks (no slash command): fetch context.json first, then only the modules your task type needs (keep total JSON under 15KB).
+1. Use `/ds [task]` for all design and build tasks — the command has the full DS embedded, no fetching needed.
+2. For ad-hoc tasks (no slash command): the full DS context is in `.claude/commands/ds.md` — read it if needed.
 3. Update ALL affected files — not just the main one.
 4. Confirm filename · persona applied · key decisions when done.
 
-## Slash commands
-- `/new-page [description]` — full HTML page
-- `/new-component [description]` — add to existing page
-- `/new-react-component [description]` — React/TS component
-- `/ux-review [description]` — audit against design system
-- `/persona-check [feature]` — identify persona, flag conflicts
-- `/audit-page [page id or file]` — code-level DS audit: finds hardcoded values, token drift, state violations, component misuse
+## Slash commands — Design System (UX / web)
+- `/ds new page [description]` — full HTML page
+- `/ds new component [description]` — add component to existing page
+- `/ds new react component [description]` — React/TS component
+- `/ds ux review [description]` — audit against design system
+- `/ds persona check [feature]` — identify persona, flag conflicts
+- `/ds audit [file]` — code-level DS audit: hardcoded values, token drift, state violations, component misuse
+
+All DS context (tokens, shell template, component patterns, chart functions) is embedded in `.claude/commands/ds.md`. Update that file when the DS updates.
+
+## Slash commands — Document Generation (Word / PowerPoint)
+- `/generate-deck [description]` — generate branded .pptx using the PAI pitch deck template
+- `/generate-doc [description]` — generate branded .docx using the PAI Word template
+
+Rules for document commands:
+- Always read the relevant SKILL.md before generating (`document-skills/pitch-deck-skill/SKILL.md` or `document-skills/document-skill/SKILL.md`)
+- Use the real template files — never generate from scratch
+- Save output to `document-skills/downloads/output/`
+- See `document-skills/downloads/README.md` for setup instructions
