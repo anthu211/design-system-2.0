@@ -19,6 +19,7 @@
   --uxp-radius-full: 44px;
   --shell-bg: #0E0E0E;
   --shell-sidebar: #131313;
+  --shell-topbar: #131313; /* fixed — topbar never changes with theme */
   --shell-border: #272727;
   --shell-text: #F9F9F9;
   --shell-text-2: #D1D1D1;
@@ -274,7 +275,7 @@ body {
 /* Topbar — solid dark, nav absolutely centered */
 .ds-topbar {
   height: var(--header-height);
-  background: var(--shell-sidebar);
+  background: var(--shell-topbar);
   border-bottom: 1px solid rgba(255,255,255,0.07);
   display: flex;
   align-items: center;
